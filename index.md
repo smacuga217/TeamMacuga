@@ -5,7 +5,7 @@ nav: story
 ---
 
 <header class="hero" id="hero">
-  <h1><span style="background:linear-gradient(90deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent;">Team Macuga</span></h1>
+  <h1 class="sr-only">Team Macuga</h1>
   <picture>
     <source srcset="{{ '/assets/img/logo-full-white.png' | relative_url }}" media="(prefers-color-scheme: dark)">
     <source srcset="{{ '/assets/img/logo-full-black.png' | relative_url }}" media="(prefers-color-scheme: light)">
@@ -13,6 +13,12 @@ nav: story
   </picture>
   <p>Three sisters, one brother, two legendary parents — one dream: Milano–Cortina 2026 and beyond. Follow the journey and rep the team. <strong>#TeamMacuga</strong></p>
 </header>
+
+<section id="story">
+  <h2 class="section-title">Our Story</h2>
+  <p>Team Macuga is a family-powered ski crew from Park City: three sisters (alpine, moguls, ski jumping), one younger brother in training, and two all-star parents keeping the show on the road. We compete, learn, laugh, and bring the stoke to every mountain—aiming for Milano–Cortina 2026 and beyond.</p>
+</section>
+
 
 <section>
   <h2 class="section-title">Family</h2>
@@ -28,3 +34,5 @@ nav: story
 
 {% include featured-collab.html %}
 {% include merch-carousel.html %}
+
+{ 0nclude athlete-cards.html 

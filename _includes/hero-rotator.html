@@ -1,0 +1,36 @@
+<section class="hero-rotator">
+  <div class="rotator" data-idx="0">
+    {% for p in site.data.gallery %}
+    <figure class="slide">
+      <img src="{{ p.img | relative_url }}" alt="{{ p.caption | escape }}">
+      <figcaption>{{ p.caption }}</figcaption>
+    </figure>
+    {% endfor %}
+    <div class="rotator-dots">
+      {% for p in site.data.gallery %}
+        <button aria-label="Go to slide {{ forloop.index }}"></button>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  const root = document.querySelector('.hero-rotator .rotator');
+  if(!root) return;
+  const slides = Array.from(root.querySelectorAll('.slide'));
+  const dots = Array.from(root.querySelectorAll('button'));
+  let i = 0, t;
+  function go(n){
+    i = (n + slides.length) % slides.length;
+    slides.forEach((s,k)=>s.classList.toggle('active', k===i));
+    dots.forEach((d,k)=>d.classList.toggle('active', k===i));
+  }
+  function play(){ t = setInterval(()=>go(i+1), 4000); }
+  function pause(){ clearInterval(t); }
+  dots.forEach((d,k)=>d.addEventListener('click', ()=>{ pause(); go(k); play(); }));
+  root.addEventListener('mouseenter', pause);
+  root.addEventListener('mouseleave', play);
+  go(0); play();
+})();
+</script>

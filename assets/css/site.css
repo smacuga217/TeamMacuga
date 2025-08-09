@@ -74,3 +74,12 @@
 .tm-dots{ display:flex; gap:8px; justify-content:center; margin-top:12px; }
 .tm-dots button{ width:8px; height:8px; border-radius:999px; border:0; background:#3a3d44; cursor:pointer; }
 .tm-dots button.active{ background: var(--brand); }
+/* fix: hide the mobile drawer on desktop */
+.mobile-drawer { display: none; }
+.mobile-drawer.open { display: block; }
+/* drawer styling for small screens */
+@media (max-width: 720px){
+  .mobile-drawer { position:absolute; top:64px; left:0; right:0; background: var(--card);
+    border-bottom:1px solid rgba(255,255,255,.06); }
+  .mobile-drawer a { display:block; padding:14px 20px; border-top:1px solid rgba(255,255,255,.06); }
+}

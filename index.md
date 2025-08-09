@@ -26,5 +26,5 @@ nav: story
   </div>
 </section>
 
-{ 0nclude featured-collab.html 
-{ 0nclude merch-carousel.html 
+{% include featured-collab.html %}
+{% include merch-carousel.html %}

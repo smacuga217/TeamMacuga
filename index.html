@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Team Macuga — Official Site</title>
+  <meta name="description" content="Team Macuga website — info, news, and merch." />
+  <style>
+    :root {
+      --bg: #0e0f12;
+      --card: #16181d;
+      --text: #e7e9ea;
+      --muted: #9aa1a9;
+      --brand: #7dd3fc; /* sky-300 */
+      --brand-2: #c084fc; /* violet-400 */
+      --ring: #334155;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(125,211,252,.15), transparent 60%),
+                  radial-gradient(800px 600px at 10% 10%, rgba(192,132,252,.12), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    /* Navbar */
+    .nav {
+      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px);
+      background: rgba(14,15,18, .6); border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand { font-weight: 700; letter-spacing: 0.3px; }
+    .pill { padding: 6px 12px; border: 1px solid rgba(255,255,255,.08); border-radius: 999px; }
+    .links { display: flex; gap: 16px; align-items: center; }
+    .menu-btn { display: none; background: none; color: var(--text); border: 1px solid rgba(255,255,255,.08); padding: 8px 10px; border-radius: 8px; }
+    @media (max-width: 720px) {
+      .links { display: none; }
+      .menu-btn { display: inline-flex; }
+      .mobile-drawer { display: none; position: absolute; top: 64px; left: 0; right: 0; background: var(--card); border-bottom: 1px solid rgba(255,255,255,.06); }
+      .mobile-drawer a { display: block; padding: 14px 20px; border-top: 1px solid rgba(255,255,255,.06); }
+      .mobile-drawer.open { display: block; }
+    }
+    /* Hero */
+    .hero { padding: 80px 0 40px; }
+    .hero h1 { font-size: clamp(32px, 6vw, 56px); margin: 0 0 12px; line-height: 1.05; }
+    .hero p { font-size: clamp(16px, 2.2vw, 20px); color: var(--muted); max-width: 720px; }
+    .badges { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+    .badge { padding: 8px 12px; border-radius: 999px; background: linear-gradient(90deg, rgba(125,211,252,.15), rgba(192,132,252,.15)); border: 1px solid rgba(255,255,255,.06); font-size: 14px; color: #cde8ff; }
+    .cta-row { display: flex; gap: 12px; margin-top: 26px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,.1); background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));}
+    .btn.primary { border-color: transparent; background: linear-gradient(90deg, var(--brand), var(--brand-2)); color: #0b1020; font-weight: 700; }
+    /* Section */
+    section { padding: 56px 0; }
+    .section-title { font-size: 24px; margin: 0 0 20px; }
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(12, 1fr); }
+    .card { grid-column: span 4; background: var(--card); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; padding: 18px; }
+    .card h3 { margin: 0 0 8px; font-size: 18px; }
+    .card p { margin: 0; color: var(--muted); font-size: 14px; }
+    @media (max-width: 900px) { .card { grid-column: span 6; } }
+    @media (max-width: 640px) { .card { grid-column: span 12; } }
+    /* Footer */
+    footer { padding: 40px 0 80px; color: var(--muted); text-align: center; border-top: 1px solid rgba(255,255,255,.06); }
+    .tiny { font-size: 12px; color: var(--muted); }
+    /* Utilities */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">TM</a>
+      <div class="links" aria-label="primary">
+        <a href="#about">About</a>
+        <a href="#projects">News</a>
+        <a href="#shop">Shop</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <button class="menu-btn" aria-expanded="false" aria-controls="mobileNav" id="menuBtn">Menu</button>
+    </div>
+    <div id="mobileNav" class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Menu">
+      <a href="#about">About</a>
+      <a href="#projects">News</a>
+      <a href="#shop">Shop</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <main id="top" class="container">
+    <header class="hero" id="hero">
+      <h1>Welcome to <span style="background:linear-gradient(90deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent;">Team Macuga</span>.</h1>
+      <p>
+        Your one-stop hub for Team Macuga: news, projects, and the merch shop.
+      </p>
+      <div class="badges">
+        <span class="badge">Built on GitHub Pages</span>
+        <span class="badge">No frameworks needed</span>
+        <span class="badge">Responsive • Accessible</span>
+      </div>
+      <div class="cta-row">
+        <a class="btn primary" href="#projects">See Projects</a>
+        <a class="btn" href="#contact">Contact Me</a>
+      </div>
+    </header>
+
+    <section id="about">
+      <h2 class="section-title">About</h2>
+      <p>
+        Write a short bio here. Consider 3–5 sentences on who you are, what you’re into, and what you’re doing now.
+      </p>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">News</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Launch</h3>
+          <p>We just launched the new Team Macuga site on GitHub Pages.</p>
+        </article>
+        <article class="card">
+          <h3>Summer Drop</h3>
+          <p>Tees and hoodies restocked. See the Shop section.</p>
+        </article>
+        <article class="card">
+          <h3>On Tour</h3>
+          <p>Catch the crew at upcoming events—details soon.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="shop">
+      <h2 class="section-title">Shop</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Classic Tee</h3>
+          <p>Soft cotton, front logo. <a href="#" class="pill">Buy</a></p>
+        </article>
+        <article class="card">
+          <h3>Hoodie</h3>
+          <p>Midweight fleece. <a href="#" class="pill">Buy</a></p>
+        </article>
+        <article class="card">
+          <h3>Sticker Pack</h3>
+          <p>3 vinyl stickers. <a href="#" class="pill">Buy</a></p>
+        </article>
+      </div>
+      <p class="tiny">Using an external checkout? Point these buttons to Shopify, Payhip, or Gumroad links.</p>
+    </section>
+
+    <section id="contact">
+      <h2 class="section-title">Contact</h2>
+      <p>
+        The simplest option is a mailto link. You can later add a contact form service.
+      </p>
+      <p>
+        <a class="pill" href="mailto:team@teammacuga.com">Email Team Macuga</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p class="tiny">© <span id="y"></span> Team Macuga. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const btn = document.getElementById('menuBtn');
+    const drawer = document.getElementById('mobileNav');
+    btn?.addEventListener('click', () => {
+      const open = drawer.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

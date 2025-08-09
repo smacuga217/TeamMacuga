@@ -1,0 +1,25 @@
+<nav class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="{{ '/' | relative_url }}">
+      <img src="{{ '/assets/img/logo-mark-white.png' | relative_url }}" alt="Team Macuga logo" style="height:28px;vertical-align:middle">
+      <span class="sr-only">Team Macuga</span>
+    </a>
+    <div class="links" aria-label="primary">
+      <a class="{% if page.nav == 'story' %}active{% endif %}"    href="{{ '/' | relative_url }}">Our Story</a>
+      <a class="{% if page.nav == 'results' %}active{% endif %}"  href="{{ '/latest-results/' | relative_url }}">Latest Results</a>
+      <a class="{% if page.nav == 'news' %}active{% endif %}"     href="{{ '/news/' | relative_url }}">News</a>
+      <a class="{% if page.nav == 'shop' %}active{% endif %}"     href="{{ '/shop/' | relative_url }}">Shop</a>
+      <a class="{% if page.nav == 'partners' %}active{% endif %}" href="{{ '/partners/' | relative_url }}">Our Partners</a>
+      <a class="{% if page.nav == 'contact' %}active{% endif %}"  href="{{ '/contact/' | relative_url }}">Contact Us</a>
+    </div>
+    <button class="menu-btn" aria-expanded="false" aria-controls="mobileNav" id="menuBtn">Menu</button>
+  </div>
+  <div id="mobileNav" class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Menu">
+    <a href="{{ '/' | relative_url }}">Our Story</a>
+    <a href="{{ '/latest-results/' | relative_url }}">Latest Results</a>
+    <a href="{{ '/news/' | relative_url }}">News</a>
+    <a href="{{ '/shop/' | relative_url }}">Shop</a>
+    <a href="{{ '/partners/' | relative_url }}">Our Partners</a>
+    <a href="{{ '/contact/' | relative_url }}">Contact Us</a>
+  </div>
+</nav>

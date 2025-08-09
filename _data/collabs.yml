@@ -1,0 +1,10 @@
+- name: Pit Viper
+  person: Lauren Macuga
+  role: Design collab
+  product: Signature Pit Viper shades
+  description: Bold speed-inspired shades designed by Lauren.
+  logo: /assets/img/logo-mark-color.png   # swap to /assets/img/partners/pit-viper.png when you add it
+  link: https://pitviper.com/
+  cta: Shop the collab
+  status: announced
+  hashtag: "#TeamMacuga"

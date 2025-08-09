@@ -1,0 +1,53 @@
+<section id="carousel" style="padding:8px 0 40px;">
+  <h2 class="section-title">Featured Merch</h2>
+
+  <div class="tm-carousel" data-idx="0">
+    <div class="tm-track">
+      {% for m in site.data.merch %}
+      <a class="tm-slide" href="{{ m.link }}" target="_blank" rel="noopener">
+        <div class="tm-card">
+          <div class="tm-imgwrap">
+            <img src="{{ m.img | relative_url }}" alt="{{ m.name }}">
+            {% if m.badge %}<span class="tm-badge">{{ m.badge }}</span>{% endif %}
+          </div>
+          <div class="tm-meta">
+            <div class="tm-name">{{ m.name }}</div>
+            <div class="tm-price">{{ m.price }}</div>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+
+    <div class="tm-dots">
+      {% for m in site.data.merch %}
+        <button aria-label="Go to slide {{ forloop.index0 }}" data-dot="{{ forloop.index0 }}"></button>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  const root = document.querySelector('.tm-carousel');
+  if(!root) return;
+  const track = root.querySelector('.tm-track');
+  const slides = Array.from(root.querySelectorAll('.tm-slide'));
+  const dots = Array.from(root.querySelectorAll('[data-dot]'));
+  let idx = 0, timer;
+
+  function go(i){
+    idx = (i + slides.length) % slides.length;
+    track.style.transform = `translateX(calc(-${idx} * (100% + var(--gap))))`;
+    dots.forEach((d,k)=>d.classList.toggle('active', k===idx));
+  }
+  function play(){ timer = setInterval(()=>go(idx+1), 3500); }
+  function pause(){ clearInterval(timer); }
+
+  dots.forEach(d => d.addEventListener('click', () => { pause(); go(+d.dataset.dot); play(); }));
+  root.addEventListener('mouseenter', pause);
+  root.addEventListener('mouseleave', play);
+
+  go(0); play();
+})();
+</script>

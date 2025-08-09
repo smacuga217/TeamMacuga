@@ -25,3 +25,6 @@ nav: story
     <article class="card"><h3>Dan</h3><p>Dad, gear and wax room wisdom. Lifelong supporter and sideline strategist.</p><p><a class="pill" href="https://instagram.com/dan.macuga" target="_blank">Instagram</a></p></article>
   </div>
 </section>
+
+{ 0nclude featured-collab.html 
+{ 0nclude merch-carousel.html 

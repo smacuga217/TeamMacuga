@@ -53,3 +53,24 @@
     .social-links a { margin-right: 8px; }
 .links a.active { border-bottom: 2px solid var(--brand); padding-bottom: 2px; }
 .social-links a { margin-right: 8px; }
+
+/* ===== Merch carousel ===== */
+.tm-carousel { --gap: 12px; position: relative; overflow: hidden; }
+.tm-track   { display:flex; gap: var(--gap); transition: transform .5s ease; }
+.tm-slide   { min-width: 100%; text-decoration:none; color: inherit; }
+@media (min-width: 640px){ .tm-slide { min-width: calc(50% - var(--gap)/2); } }
+@media (min-width: 960px){ .tm-slide { min-width: calc(33.333% - var(--gap)*2/3); } }
+
+.tm-card{ background: var(--card); border:1px solid rgba(255,255,255,.06);
+  border-radius:16px; overflow:hidden; display:flex; flex-direction:column; }
+.tm-imgwrap{ position:relative; aspect-ratio: 16/9; background:#0b0c10; display:grid; place-items:center; }
+.tm-imgwrap img{ max-width:90%; max-height:90%; object-fit:contain; }
+.tm-badge{ position:absolute; left:10px; top:10px; font-size:12px; padding:4px 8px; border-radius:999px;
+  background: linear-gradient(90deg, var(--brand), var(--brand-2)); color:#0b1020; font-weight:700; }
+.tm-meta{ display:flex; justify-content:space-between; align-items:center; padding:12px 14px; }
+.tm-name{ font-weight:600; }
+.tm-price{ color:var(--muted); }
+
+.tm-dots{ display:flex; gap:8px; justify-content:center; margin-top:12px; }
+.tm-dots button{ width:8px; height:8px; border-radius:999px; border:0; background:#3a3d44; cursor:pointer; }
+.tm-dots button.active{ background: var(--brand); }

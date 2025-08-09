@@ -1,0 +1,16 @@
+{% assign featured = site.data.collabs | where: "featured", true | first %}
+{% if featured %}
+<section style="padding:32px 0">
+  <div class="card" style="display:flex;align-items:center;gap:16px;">
+    <img src="{{ featured.logo | relative_url }}" alt="{{ featured.name }} logo"
+         style="height:56px; width:auto; background:#fff; padding:8px; border-radius:12px;">
+    <div style="flex:1">
+      <h3 style="margin:0 0 4px;">Featured Collaboration: {{ featured.person }} × {{ featured.name }}</h3>
+      <p style="margin:0; color:var(--muted)">{{ featured.description }}</p>
+    </div>
+    <a class="btn primary" href="{{ featured.link }}" target="_blank" rel="noopener">
+      {{ featured.cta | default: "Learn more" }}
+    </a>
+  </div>
+</section>
+{% endif %}

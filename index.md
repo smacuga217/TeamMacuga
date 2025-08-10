@@ -28,68 +28,13 @@ layout: default
   </div>
 </section>
 
-<section class="container">
-  <div class="hero-rotator">
-    <div class="rotator">
-      {% for p in site.data.gallery %}
-      <figure class="slide">
-        <img src="{{ p.img | relative_url }}" alt="{{ p.caption | escape }}" loading="eager">
-        <figcaption class="sr-only">{{ p.caption }}</figcaption>
-      </figure>
-      {% endfor %}
 
-      <!-- arrows -->
-      <button class="tm-arrow prev" aria-label="Previous">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-      </button>
-      <button class="tm-arrow next" aria-label="Next">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-      </button>
-
-      <!-- dots -->
-      <div class="rotator-dots">
-        {% for p in site.data.gallery %}
-        <button aria-label="Slide {{ forloop.index }}"></button>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-</section>
 
 
 <section class="container">
   <h2 class="section-title">Family</h2>
   {% include athlete-grid.html %}
 </section>
-
-<script>
-(function(){
-  const r = document.querySelector('.hero-rotator .rotator');
-  if (!r) return;
-  const slides = [...r.querySelectorAll('.slide')];
-  const dots   = [...r.querySelectorAll('.rotator-dots button')];
-  const prev   = r.querySelector('.tm-arrow.prev');
-  const next   = r.querySelector('.tm-arrow.next');
-
-  let i = 0, t;
-  function go(n){
-    i = (n + slides.length) % slides.length;
-    slides.forEach((s,k)=>s.classList.toggle('active', k===i));
-    dots.forEach((d,k)=> d.toggleAttribute('aria-current', k===i));
-  }
-  const play  = () => (t = setInterval(()=>go(i+1), 4000));
-  const pause = () => clearInterval(t);
-
-  dots.forEach((d,k)=> d.addEventListener('click', ()=>{ pause(); go(k); play(); }));
-  prev?.addEventListener('click', ()=>{ pause(); go(i-1); play(); });
-  next?.addEventListener('click', ()=>{ pause(); go(i+1); play(); });
-
-  r.addEventListener('mouseenter', pause);
-  r.addEventListener('mouseleave', play);
-
-  go(0); play();
-})();
-</script>
 
 
 <div class="section-gap"></div>  <!-- ← added spacer -->
@@ -112,4 +57,6 @@ layout: default
     <a class="btn primary" href="#">Shop the collab</a>
   </div>
 </section>
+
+<div class="section-gap"></div>  <!-- ← added spacer -->
 

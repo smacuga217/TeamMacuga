@@ -1,6 +1,6 @@
 title: Team Macuga
-tagline: Three sisters, one brother, two legendary parents — one dream.
-url: "https://smacuga217.github.io"   # no trailing slash
-baseurl: "/TeamMacuga"                 # repo name with a leading slash
-permalink: pretty
-theme: null
+url: https://smacuga217.github.io
+baseurl: /TeamMacuga
+markdown: kramdown
+theme:
+plugins:

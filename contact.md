@@ -1,10 +1,10 @@
 ---
 layout: default
 title: Contact Us
-nav: contact
+permalink: /contact/
 ---
-<section id="contact">
-  <h2 class="section-title">Contact Us</h2>
-  <p><a class="pill" href="mailto:team@teammacuga.com">Email Team Macuga</a></p>
-  <p class="tiny">Follow <strong>#TeamMacuga</strong> on Instagram.</p>
+<section class="container">
+  <h1>Contact Us</h1>
+  <p>For media, sponsorships, or general inquiries:</p>
+  <p><a class="pill" href="mailto:teammacuga@gmail.com">teammacuga@gmail.com</a></p>
 </section>

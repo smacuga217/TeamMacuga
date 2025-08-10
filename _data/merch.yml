@@ -1,15 +1,14 @@
-- name: Classic Tee
-  price: $28
-  img: /assets/img/merch/tee.png
-  link: "#"
-  badge: Best seller
-- name: Hoodie
-  price: $55
-  img: /assets/img/merch/hoodie.png
-  link: "#"
-  badge: New
-- name: Bucket Hat
-  price: $32
-  img: /assets/img/merch/bucket-hat.png
-  link: "#"
-  badge: Signature
+- title: Classic Tee
+  price: 28
+  tag: Best seller
+  image: /assets/img/logo-full-color.png
+  url: "#"
+- title: Hoodie
+  price: 55
+  tag: New
+  image: /assets/img/logo-full-color.png
+  url: "#"
+- title: Bucket Hat
+  price: 32
+  image: /assets/img/logo-full-color.png
+  url: "#"

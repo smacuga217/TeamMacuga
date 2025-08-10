@@ -286,3 +286,35 @@ main > *:not(.strip):not(footer) {
 .family-card h3{ margin: 10px 0 6px; font-size: 18px; }
 .family-card p{ margin: 0 0 10px; color: var(--muted); }
 .family-card .actions{ display:flex; gap:8px; flex-wrap:wrap; }
+
+/* === BIO CAROUSEL FIX === */
+.carousel{
+  position: relative !important;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  min-height: 220px;       /* or set a fixed height you like */
+  background: #eef3ff;
+}
+.carousel .slide{
+  position: absolute !important;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0; 
+  transition: opacity .45s ease;
+  pointer-events: none;
+}
+.carousel .slide.active{
+  opacity: 1;
+  pointer-events: auto;
+}
+.carousel .dots{
+  position: absolute; left: 0; right: 0; bottom: 8px;
+  display: flex; justify-content: center; gap: 8px;
+}
+.carousel .dots button{
+  width: 8px; height: 8px; border-radius: 999px; border: 0; cursor: pointer;
+  background: #9aa7bd;
+}
+.carousel .dots button.active{ background: var(--brand); }

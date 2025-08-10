@@ -11,7 +11,6 @@ layout: default
 </div>
 
 <div class="container">
-  <img class="hero-logo" src="{{ '/assets/img/logo-full-color.png' | relative_url }}" alt="Team Macuga">
 
   <div class="hero-cta-row">
     <a class="btn primary" href="{{ '/shop/' | relative_url }}">Shop Merch</a>
@@ -24,18 +23,8 @@ layout: default
 <section class="hero">
   <div class="container hero-grid">
     <div>
-      <img class="hero-logo" src="{{ '/assets/img/logo-full-color.png' | relative_url }}" alt="Team Macuga">
       <p class="tagline">Three sisters, one brother, two legendary parents — one dream: Milano–Cortina 2026 and beyond. Follow the journey and rep the team. <strong>#TeamMacuga</strong></p>
     </div>
-
-    <figure class="hero-rotator">
-      <div class="frame" id="hero-rotator">
-        <img class="slide active" src="{{ '/assets/img/placeholders/product.png' | relative_url }}" alt="Hero slide 1">
-        <img class="slide" src="{{ '/assets/img/placeholders/product.png' | relative_url }}" alt="Hero slide 2">
-        <img class="slide" src="{{ '/assets/img/placeholders/product.png' | relative_url }}" alt="Hero slide 3">
-        <div class="dots"></div>
-      </div>
-    </figure>
   </div>
 </section>
 

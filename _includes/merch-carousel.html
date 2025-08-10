@@ -1,40 +1,30 @@
-{% assign items = site.data.merch | default: empty %}
-{% if items and items.size > 0 %}
-<div class="tm-carousel" data-carousel>
-  <!-- prev -->
-  <button class="tm-arrow prev" aria-label="Previous">
-    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+<div class="tm-carousel" id="merch-carousel">
+  <button class="tm-arrow prev" aria-label="Previous" disabled>
+    <svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
   </button>
 
-  <!-- track -->
   <div class="tm-track">
-    {% for m in items %}
+    {% for m in site.data.merch %}
     <a class="tm-slide" href="{{ m.url | default: '#' }}">
       <article class="m-card">
         <div class="m-img">
           {% if m.badge %}<span class="m-badge">{{ m.badge }}</span>{% endif %}
           <img
             src="{{ m.image | default: '/assets/img/placeholders/product.png' | relative_url }}"
-            alt="{{ m.name | default: 'Product' }}"
-            onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22180%22><rect width=%22320%22 height=%22180%22 fill=%22%23f3f6ff%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%2390a3bf%22 font-size=%2216%22>Product</text></svg>';">
+            alt="{{ m.name }}">
         </div>
         <div class="m-meta">
-          <div class="m-name">{{ m.name | default: 'Product' }}</div>
-          <div class="m-price">{% if m.price %}${{ m.price }}{% else %}—{% endif %}</div>
+          <div class="m-name">{{ m.name }}</div>
+          <div class="m-price">${{ m.price }}</div>
         </div>
       </article>
     </a>
     {% endfor %}
   </div>
 
-  <!-- next -->
   <button class="tm-arrow next" aria-label="Next">
-    <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+    <svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
   </button>
 
-  <!-- dots -->
   <div class="tm-dots" aria-label="Carousel pagination"></div>
 </div>
-{% else %}
-<p class="muted">Merch coming soon.</p>
-{% endif %}

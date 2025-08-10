@@ -1,73 +1,60 @@
-// assets/js/carousel.js
-(function(){
-  function initCarousel(root){
+(function () {
+  function initCarousel(root) {
     const track = root.querySelector('.tm-track');
     const slides = Array.from(root.querySelectorAll('.tm-slide'));
-    const prev   = root.querySelector('.tm-arrow.prev');
-    const next   = root.querySelector('.tm-arrow.next');
-    const dotsEl = root.querySelector('.tm-dots');
+    const prev = root.querySelector('.tm-arrow.prev');
+    const next = root.querySelector('.tm-arrow.next');
+    const dotsWrap = root.querySelector('.tm-dots');
+
     if (!track || slides.length === 0) return;
 
-    // build dots if empty
-    let dots = [];
-    if (dotsEl && dotsEl.children.length === 0){
-      const totalPages = slides.length; // one-index per “step”
-      for (let i=0;i<totalPages;i++){
+    let index = 0;
+    let pageWidth = 0;
+    let pages = 1;
+
+    function compute() {
+      // width of one “page” (the visible area of the carousel)
+      pageWidth = root.clientWidth;
+      // total pages based on total scrollable width:
+      pages = Math.max(1, Math.ceil(track.scrollWidth / pageWidth));
+      renderDots();
+      go(Math.min(index, pages - 1), false);
+    }
+
+    function renderDots() {
+      dotsWrap.innerHTML = '';
+      for (let i = 0; i < pages; i++) {
         const b = document.createElement('button');
         b.type = 'button';
-        b.setAttribute('aria-label', `Go to slide ${i+1}`);
-        dotsEl.appendChild(b);
-      }
-    }
-    dots = dotsEl ? Array.from(dotsEl.querySelectorAll('button')) : [];
-
-    let index = 0;
-
-    function perView(){
-      const w = root.clientWidth;
-      if (w >= 960) return 3;
-      if (w >= 640) return 2;
-      return 1;
-    }
-
-    function clamp(i){
-      const max = Math.max(0, slides.length - perView());
-      return Math.min(Math.max(0, i), max);
-    }
-
-    function update(){
-      const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0);
-      const v = perView();
-      const slideWidth = (track.clientWidth - gap * (v-1)) / v;
-      const x = -(slideWidth + gap) * index;
-      track.style.transform = `translate3d(${x}px,0,0)`;
-      if (prev) prev.disabled = index <= 0;
-      if (next) next.disabled = index >= slides.length - v;
-      if (dots.length){
-        dots.forEach((b,i)=> b.setAttribute('aria-current', i===index ? 'true' : 'false'));
+        b.setAttribute('aria-label', `Go to slide ${i + 1}`);
+        if (i === index) b.setAttribute('aria-current', 'true');
+        b.addEventListener('click', () => go(i, true));
+        dotsWrap.appendChild(b);
       }
     }
 
-    prev && prev.addEventListener('click', ()=>{ index = clamp(index - 1); update(); });
-    next && next.addEventListener('click', ()=>{ index = clamp(index + 1); update(); });
-    dots.forEach((b,i)=> b.addEventListener('click', ()=>{ index = clamp(i); update(); }));
+    function go(i, animate = true) {
+      index = Math.max(0, Math.min(i, pages - 1));
+      const x = -index * pageWidth;
+      track.style.transition = animate ? 'transform .45s ease' : 'none';
+      track.style.transform = `translateX(${x}px)`;
+      // update dots + arrows
+      dotsWrap.querySelectorAll('button').forEach((d, k) => {
+        d.toggleAttribute('aria-current', k === index);
+      });
+      prev.disabled = index === 0;
+      next.disabled = index >= pages - 1;
+    }
 
-    // basic swipe
-    let sx=null, pid=null;
-    root.addEventListener('pointerdown', e=>{ sx=e.clientX; pid=e.pointerId; root.setPointerCapture(pid); });
-    root.addEventListener('pointerup',   e=>{
-      if (sx==null) return;
-      const dx = e.clientX - sx;
-      if (dx > 40) index = clamp(index - 1);
-      if (dx < -40) index = clamp(index + 1);
-      sx=null; pid=null; update();
-    });
+    prev && prev.addEventListener('click', () => go(index - 1, true));
+    next && next.addEventListener('click', () => go(index + 1, true));
+    window.addEventListener('resize', () => compute(), { passive: true });
 
-    window.addEventListener('resize', update);
-    update();
+    // first layout
+    compute();
   }
 
-  document.addEventListener('DOMContentLoaded', ()=> {
-    document.querySelectorAll('[data-carousel]').forEach(initCarousel);
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.tm-carousel').forEach(initCarousel);
   });
 })();

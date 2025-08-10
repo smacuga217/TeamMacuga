@@ -1,35 +1,22 @@
-<nav class="nav">
+<nav class="nav nav-solid">
   <div class="container nav-inner">
-    <!-- Logo links to homepage -->
+    <!-- Logo links to Home -->
     <a class="brand" href="{{ '/' | relative_url }}">
-      <img src="{{ '/assets/img/logo-full-color.png' | relative_url }}" alt="Team Macuga" style="height:40px;vertical-align:middle">
+      <img src="{{ '/assets/img/logo-full-color.png' | relative_url }}" alt="Team Macuga" style="height:38px;vertical-align:middle">
     </a>
 
     <div class="links" aria-label="primary">
       <a href="{{ '/story/'   | relative_url }}">Our Story</a>
       <a href="{{ '/updates/' | relative_url }}">Updates</a>
       <a href="{{ '/shop/'    | relative_url }}">Shop</a>
-      <a href="{{ '/contact/' | relative_url }}">Contact Us</a>
     </div>
 
     <button class="menu-btn" aria-expanded="false" aria-controls="mobileNav" id="menuBtn">Menu</button>
   </div>
 
-  <!-- Mobile drawer -->
   <div id="mobileNav" class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Menu">
     <a href="{{ '/story/'   | relative_url }}">Our Story</a>
     <a href="{{ '/updates/' | relative_url }}">Updates</a>
     <a href="{{ '/shop/'    | relative_url }}">Shop</a>
-    <a href="{{ '/contact/' | relative_url }}">Contact Us</a>
   </div>
 </nav>
-
-<script>
-  // Mobile nav toggle (keep)
-  const btn = document.getElementById('menuBtn');
-  const drawer = document.getElementById('mobileNav');
-  btn?.addEventListener('click', () => {
-    const open = drawer.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-</script>

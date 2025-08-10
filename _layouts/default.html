@@ -3,37 +3,39 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{{ page.title }} — {{ site.title }}</title>
-  <meta name="description" content="{{ page.description | default: site.tagline }}">
-  <link rel="icon" href="{{ '/assets/img/logo-mark-color.png' | relative_url }}" type="image/png">
-  <meta property="og:title" content="{{ page.title }} — {{ site.title }}">
-  <meta property="og:description" content="{{ page.description | default: site.tagline }}">
-  <meta property="og:image" content="{{ '/assets/img/logo-full-color.png' | relative_url }}">
-  <meta name="twitter:card" content="summary_large_image">
+  <title>{{ page.title | escape }}{% unless page.title contains "Team Macuga" %} — Team Macuga{% endunless %}</title>
+  <meta name="description" content="Team Macuga website — info, updates, and merch." />
+  <link rel="icon" type="image/png" href="{{ '/assets/img/logo-mark-color.png' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
 </head>
 <body>
-{% include nav.html %}
-
-<div class="snow" aria-hidden="true"></div>
+  {% comment %} Include NAV **exactly once** here {% endcomment %}
   {% include nav.html %}
-  <main id="top" class="container">
+
+  <main class="container">
     {{ content }}
-  {% include global-footer-cta.html %}
+  </main>
+
+  {% comment %} Contact strip + Sponsors grid on every page {% endcomment %}
   {% include contact-strip.html %}
   {% include sponsors-grid.html %}
 
-</main>
   <footer>
     <div class="container">
       <p class="tiny">© <span id="y"></span> Team Macuga. All rights reserved.</p>
     </div>
   </footer>
+
   <script>
-    const btn=document.getElementById('menuBtn');const drawer=document.getElementById('mobileNav');
-    btn?.addEventListener('click',()=>{const open=drawer.classList.toggle('open');btn.setAttribute('aria-expanded',open?'true':'false');});
-    document.getElementById('y').textContent=new Date().getFullYear();
+    // Year
+    document.getElementById('y')?.append(new Date().getFullYear());
+    // Mobile menu toggle (in case it isn't already in nav.html)
+    const btn = document.getElementById('menuBtn');
+    const drawer = document.getElementById('mobileNav');
+    btn?.addEventListener('click', () => {
+      const open = drawer.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
   </script>
 </body>
-<script>(function(){const n=document.querySelector('.nav'); if(!n) return; const on=()=>n.classList.toggle('scrolled', window.scrollY>8); on(); window.addEventListener("scroll",on);})();</script>
 </html>

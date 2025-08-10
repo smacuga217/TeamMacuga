@@ -1,25 +1,26 @@
-<!-- _includes/contact-strip.html -->
-<section class="contact-strip">
+<div class="strip">
   <div class="container">
-    <div class="contact-row">
-      <h3>Get in touch</h3>
+    <div class="row">
+      <h3 style="margin:0">Get in touch</h3>
       <p>Have a question or want to partner? We’d love to hear from you.</p>
       <a class="btn primary" href="mailto:teammacuga@gmail.com">Email — teammacuga@gmail.com</a>
     </div>
-
-    <h2 class="section-title">Thank you to our sponsors</h2>
-    <ul class="sponsors-grid">
-      {% assign sponsors = "Stifel,Pit Viper,Rossignol,Giro,Swix,TaraShakti,Level" | split: "," %}
-      {% for s in sponsors %}
-      <li class="sponsor">
-        <a href="#" aria-label="{{ s }}">
-          <div class="logo-wrap">
-            <img src="{{ '/assets/img/sponsors/' | append: s | downcase | replace: ' ', '-' | append: '.png' | relative_url }}" alt="{{ s }} logo" onerror="this.classList.add('logo-fallback')">
-          </div>
-          <div class="s-name">{{ s }}</div>
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
   </div>
-</section>
+</div>
+
+<div class="container sponsors">
+  <h2 class="section-title">Thank you to our sponsors</h2>
+  <p>Their support keeps the dream racing.</p>
+  <ul class="s-grid">
+    {% for s in site.data.sponsors %}
+    <li class="s-item">
+      <a href="{{ s.url | default: '#' }}" target="_blank" rel="noopener">
+        <span class="logo-box">
+          <img src="{{ s.logo | default: '/assets/img/placeholders/product.png' | relative_url }}" alt="{{ s.name }} logo">
+        </span>
+        <span class="s-name">{{ s.name }}</span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>

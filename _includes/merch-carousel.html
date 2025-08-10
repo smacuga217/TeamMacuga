@@ -1,52 +1,59 @@
-<section class="container" aria-labelledby="merch-title">
-  <h2 id="merch-title" class="section-title">Featured Merch</h2>
-
-  <div class="tm-carousel" id="merch">
-    <div class="tm-track">
-      {% for item in site.data.merch %}
-        <a class="tm-slide" href="{{ item.url | default:'#' }}">
-          <article class="tm-card">
-            <div class="tm-imgwrap">
-              <img src="{{ item.image | default:'/assets/img/placeholders/product.png' | relative_url }}" alt="{{ item.name }}">
-              {% if item.badge %}<span class="tm-badge">{{ item.badge }}</span>{% endif %}
-            </div>
-            <div class="tm-meta">
-              <span class="tm-name">{{ item.name }}</span>
-              <span class="tm-price">{{ item.price | prepend:'$' }}</span>
-            </div>
-          </article>
-        </a>
-      {% endfor %}
-    </div>
-    <div class="tm-dots" aria-label="carousel navigation"></div>
+{% assign items = site.data.merch | default: empty %}
+{% if items and items.size > 0 %}
+<div class="tm-carousel" id="merch-carousel">
+  <div class="tm-track">
+    {% for m in items %}
+    <a class="tm-slide" href="{{ m.url | default: '#' }}">
+      <article class="m-card">
+        <div class="m-img">
+          {% if m.badge %}<span class="m-badge">{{ m.badge }}</span>{% endif %}
+          <img
+            src="{{ m.image | default: '/assets/img/placeholders/product.png' | relative_url }}"
+            alt="{{ m.name }}"
+            onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22180%22><rect width=%22320%22 height=%22180%22 fill=%22%23f3f6ff%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%2390a3bf%22 font-size=%2216%22>Product</text></svg>';">
+        </div>
+        <div class="m-meta">
+          <div class="m-name">{{ m.name }}</div>
+          <div class="m-price">${{ m.price }}</div>
+        </div>
+      </article>
+    </a>
+    {% endfor %}
   </div>
+  <div class="tm-dots"></div>
+</div>
 
-  <script>
-  (function(){
-    const root = document.getElementById('merch');
-    if(!root) return;
-    const track = root.querySelector('.tm-track');
-    const slides = Array.from(root.querySelectorAll('.tm-slide'));
-    const dots = root.querySelector('.tm-dots');
-    let i = 0;
+<script>
+(function(){
+  const root = document.getElementById('merch-carousel');
+  if(!root) return;
+  const track = root.querySelector('.tm-track');
+  const slides = Array.from(root.querySelectorAll('.tm-slide'));
+  const dots = root.querySelector('.tm-dots');
+  let idx = 0;
 
-    function renderDots(){
-      dots.innerHTML = '';
-      slides.forEach((_,idx)=>{
-        const b = document.createElement('button');
-        if(idx===i) b.classList.add('active');
-        b.addEventListener('click',()=>go(idx));
-        dots.appendChild(b);
-      });
+  function renderDots(){
+    dots.innerHTML = '';
+    const pages = Math.max(1, Math.ceil(track.scrollWidth / root.clientWidth));
+    for(let i=0;i<pages;i++){
+      const b = document.createElement('button');
+      if(i===0) b.classList.add('active');
+      b.addEventListener('click', ()=>go(i));
+      dots.appendChild(b);
     }
-    function go(idx){
-      i = Math.max(0, Math.min(idx, slides.length-1));
-      const width = slides[0].getBoundingClientRect().width + 12; // gap
-      track.style.transform = `translateX(${-i * width}px)`;
-      renderDots();
-    }
-    renderDots();
-    window.addEventListener('resize', ()=>go(i));
-  })();
-  </script>
-</section>
+  }
+  function go(i){
+    idx = i;
+    const pageWidth = root.clientWidth;
+    track.style.transform = `translateX(${-i*pageWidth}px)`;
+    dots.querySelectorAll('button').forEach((d,k)=>d.classList.toggle('active', k===i));
+  }
+  function onResize(){ renderDots(); go(0); }
+
+  window.addEventListener('resize', onResize, {passive:true});
+  onResize();
+})();
+</script>
+{% else %}
+<p class="muted">Merch coming soon.</p>
+{% endif %}

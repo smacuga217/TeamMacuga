@@ -1,0 +1,45 @@
+- slug: lauren
+  name: Lauren Macuga
+  teaser: "Alpine — Downhill & Super-G. World Cup winner."
+  photo: /assets/img/placeholders/person.png
+  fis: https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=228398
+  instagram: https://instagram.com/lauren_macuga
+  results: /updates/#lauren
+
+- slug: alli
+  name: Alli Macuga
+  teaser: "Moguls — U.S. Ski Team; 2023 FIS Rookie of the Year."
+  photo: /assets/img/placeholders/person.png
+  fis: https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=FS&competitorid=220306
+  instagram: https://instagram.com/alli_macuga
+  results: /updates/#alli
+
+- slug: sam
+  name: Sam Macuga
+  teaser: "Ski Jumping — U.S. Team. National team since 2019."
+  photo: /assets/img/placeholders/person.png
+  fis: https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=JP&competitorid=211435
+  instagram: https://instagram.com/sammacuga
+  results: /updates/#sam
+
+- slug: daniel
+  name: Daniel Macuga
+  teaser: "Alpine — developing athlete; future star in the making."
+  photo: /assets/img/placeholders/person.png
+  fis: https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=260517
+  instagram: https://instagram.com/daniel_macugas
+  results: /updates/#daniel
+
+- slug: amy
+  name: Amy Macuga
+  teaser: "Team Operations — logistics, travel, keeping the team grounded."
+  photo: /assets/img/placeholders/person.png
+  instagram: https://instagram.com/amy.macuga
+  facebook: "#"
+
+- slug: dan
+  name: Dan Macuga
+  teaser: "Gear & wax room wisdom — lifelong supporter and strategist."
+  photo: /assets/img/placeholders/person.png
+  instagram: https://instagram.com/dan.macuga
+  facebook: "#"

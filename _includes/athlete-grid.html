@@ -1,14 +1,19 @@
-<section class="container" aria-labelledby="family-title">
-  <h2 id="family-title" class="section-title">Family</h2>
-  <div class="people-grid">
-    {% for a in site.data.athletes %}
-      <a class="person-card" href="{{ '/story/#' | append:a.slug | relative_url }}">
-        <img class="person-img" src="{{ a.photo | default:'/assets/img/placeholders/person.png' | relative_url }}" alt="{{ a.name }}">
-        <div class="person-body">
-          <h3 class="person-name">{{ a.name }}</h3>
-          {% if a.teaser %}<p class="person-teaser">{{ a.teaser }}</p>{% endif %}
-        </div>
-      </a>
-    {% endfor %}
-  </div>
-</section>
+<div class="grid cols-3">
+  {% for a in site.data.family %}
+  <article class="card family-card" id="{{ a.slug }}">
+    <img src="{{ a.photo | default: '/assets/img/placeholders/person.png' | relative_url }}"
+         alt="{{ a.name }}"
+         onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22112%22 height=%22112%22><rect width=%22112%22 height=%22112%22 rx=%2214%22 fill=%22%23eef3ff%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%238aa1c5%22 font-size=%2212%22>Photo</text></svg>';">
+    <div>
+      <h3 style="margin:0 0 4px"><a href="{{ '/story/#' | append: a.slug | relative_url }}">{{ a.name }}</a></h3>
+      <p>{{ a.teaser }}</p>
+      <div style="margin-top:8px;display:flex;gap:10px;flex-wrap:wrap">
+        {% if a.results %}<a class="btn" href="{{ a.results | relative_url }}">Results page</a>{% endif %}
+        {% if a.fis %}<a class="btn" target="_blank" rel="noopener" href="{{ a.fis }}">See on FIS</a>{% endif %}
+        {% if a.instagram %}<a class="btn" target="_blank" rel="noopener" href="{{ a.instagram }}">Instagram</a>{% endif %}
+        {% if a.facebook %}<a class="btn" target="_blank" rel="noopener" href="{{ a.facebook }}">Facebook</a>{% endif %}
+      </div>
+    </div>
+  </article>
+  {% endfor %}
+</div>

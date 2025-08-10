@@ -1,16 +1,18 @@
 - name: Classic Tee
   price: 28
-  tag: Best seller
-  image: /assets/img/placeholders/1x1.svg
+  image: /assets/img/placeholders/product.png
   url: "#"
-
+  badge: Best seller
 - name: Hoodie
   price: 55
-  tag: New
-  image: /assets/img/placeholders/1x1.svg
+  image: /assets/img/placeholders/product.png
   url: "#"
-
-- name: Signature Beanie
-  price: 22
-  image: /assets/img/placeholders/1x1.svg
+  badge: New
+- name: Beanie
+  price: 24
+  image: /assets/img/placeholders/product.png
+  url: "#"
+- name: Sticker Pack
+  price: 8
+  image: /assets/img/placeholders/product.png
   url: "#"

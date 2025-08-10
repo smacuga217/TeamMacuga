@@ -1,27 +1,18 @@
-<!-- _layouts/default.html -->
 <!doctype html>
 <html lang="en">
-<head>
-  {% include head.html %}
-</head>
+<head>{% include head.html %}</head>
 <body>
   {% include nav.html %}
 
-  <!-- main content area with comfortable spacing -->
-  <main class="site-main">
-    <div class="container">
-      {{ content }}
-    </div>
+  <main id="content">
+    {{ content }}
   </main>
 
+  <div class="sep"></div>
   {% include contact-strip.html %}
 
-  <footer class="site-footer">
-    <div class="container">
-      <p class="tiny">© <span id="y"></span> Team Macuga. All rights reserved.</p>
-    </div>
+  <footer class="container">
+    © {{ "now" | date: "%Y" }} Team Macuga. All rights reserved.
   </footer>
-
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 </body>
 </html>

@@ -1,12 +1,14 @@
 title: Team Macuga
-tagline: Four siblings — one dream.
 url: "https://smacuga217.github.io"
-baseurl: "/TeamMacuga"
-
-# Use our own layout/includes instead of Primer’s
+baseurl: "/TeamMacuga"   # <- important for GitHub Pages
 theme: null
+markdown: kramdown
+permalink: pretty
 
 plugins:
   - jekyll-seo-tag
-  - jekyll-relative-links
-  - jekyll-paginate
+
+defaults:
+  - scope: { path: "" }
+    values:
+      layout: default

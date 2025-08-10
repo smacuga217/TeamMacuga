@@ -1,14 +1,29 @@
-<section class="container" id="latest-results">
-  <h2 class="section-title">Latest Results</h2>
-  <div class="grid">
-    {% assign items = site.data.results | slice: 0, 3 %}
-    {% for r in items %}
-    <article class="card">
-      <h3 style="margin:0 0 4px">{{ r.athlete }} — {{ r.event }}</h3>
-      <p class="tiny" style="margin:0 0 8px; color:var(--muted)">{{ r.location }} • {{ r.date }}</p>
-      <p style="margin:0 0 8px;">Place: <strong>{{ r.place }}</strong>{% if r.points %} • Points: {{ r.points }}{% endif %}</p>
-      <a class="pill" href="{{ r.source }}" target="_blank" rel="noopener">See on FIS</a>
-    </article>
+<section class="container" aria-labelledby="latest-results-title">
+  <h2 id="latest-results-title" class="section-title">Latest Results</h2>
+  <div class="results-grid">
+    {% assign racers = site.data.athletes | where_exp:'a','a.discipline != nil' %}
+    {% for a in racers %}
+      <article class="result-card">
+        <img class="result-avatar" src="{{ a.photo | default:'/assets/img/placeholders/person.png' | relative_url }}" alt="{{ a.name }}">
+        <div class="result-main">
+          <h3 class="result-name">{{ a.name }}</h3>
+          <p class="result-line">
+            <span class="muted">{{ a.discipline }}</span>
+            {% if a.latest_result %}
+              · <strong>{{ a.latest_result.event }}</strong>
+              <span class="muted">— {{ a.latest_result.place }}</span>
+            {% else %}
+              · <span class="muted">Result coming soon</span>
+            {% endif %}
+          </p>
+          <div class="result-actions">
+            {% if a.fis %}
+              <a class="pill" href="{{ a.fis }}" target="_blank" rel="noopener">See on FIS</a>
+            {% endif %}
+            <a class="pill" href="{{ '/story/#' | append:a.slug | relative_url }}">Read bio</a>
+          </div>
+        </div>
+      </article>
     {% endfor %}
   </div>
 </section>

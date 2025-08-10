@@ -1,0 +1,14 @@
+<section class="container" aria-labelledby="family-title">
+  <h2 id="family-title" class="section-title">Family</h2>
+  <div class="people-grid">
+    {% for a in site.data.athletes %}
+      <a class="person-card" href="{{ '/story/#' | append:a.slug | relative_url }}">
+        <img class="person-img" src="{{ a.photo | default:'/assets/img/placeholders/person.png' | relative_url }}" alt="{{ a.name }}">
+        <div class="person-body">
+          <h3 class="person-name">{{ a.name }}</h3>
+          {% if a.teaser %}<p class="person-teaser">{{ a.teaser }}</p>{% endif %}
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</section>

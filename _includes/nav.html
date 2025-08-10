@@ -1,27 +1,26 @@
-<!-- _includes/nav.html -->
 <nav class="nav nav-solid">
   <div class="container nav-inner">
     <a class="brand" href="{{ '/' | relative_url }}">
-      <img src="{{ '/assets/img/logo-full-color.png' | relative_url }}" alt="Team Macuga" style="height:36px">
+      <img src="{{ '/assets/img/logo-full-color.png' | relative_url }}" alt="Team Macuga" style="height:36px;vertical-align:middle">
     </a>
-    <div class="links" aria-label="primary">
+
+    <button class="menu-btn" aria-label="Menu" onclick="
+      const d=document.getElementById('mobile-drawer'); 
+      d.classList.toggle('open');
+    ">Menu</button>
+
+    <div class="links">
+      <a href="{{ '/' | relative_url }}">Home</a>
       <a href="{{ '/story/' | relative_url }}">Our Story</a>
       <a href="{{ '/updates/' | relative_url }}">Updates</a>
       <a href="{{ '/shop/' | relative_url }}">Shop</a>
     </div>
-    <button class="menu-btn" aria-expanded="false" aria-controls="mobileNav" id="menuBtn">Menu</button>
   </div>
-  <div id="mobileNav" class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Menu">
+
+  <div id="mobile-drawer" class="mobile-drawer">
+    <a href="{{ '/' | relative_url }}">Home</a>
     <a href="{{ '/story/' | relative_url }}">Our Story</a>
     <a href="{{ '/updates/' | relative_url }}">Updates</a>
     <a href="{{ '/shop/' | relative_url }}">Shop</a>
   </div>
 </nav>
-<script>
-  const btn = document.getElementById('menuBtn');
-  const drawer = document.getElementById('mobileNav');
-  btn?.addEventListener('click', () => {
-    const open = drawer.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-</script>

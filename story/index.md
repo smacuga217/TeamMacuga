@@ -71,15 +71,9 @@ layout: default
 })();
 </script>
 
-<section class="container">
-  <h2 class="section-title">The Family</h2>
-  <!-- Grid cards; each name links to an anchor below -->
-  {% include athlete-grid.html %}
-</section>
-
 <section id="bios">
   <div class="container">
-    <h2 class="section-title">In-depth Bios</h2>
+    <h2 class="section-title">Individual Bios</h2>
 
     <!-- Lauren -->
     <article id="bio-lauren" class="bio-block card">
@@ -198,5 +192,27 @@ document.querySelectorAll('[class^="rotator-"]').forEach((wrap)=>{
   function go(n){ i=n; slides.forEach((s,k)=>s.classList.toggle('active',k===i));
     dots.querySelectorAll('button').forEach((d,k)=>d.classList.toggle('active',k===i)); }
   setInterval(()=>go((i+1)%slides.length), 5000);
+});
+</script>
+
+<button id="back-to-top" aria-label="Scroll to top">
+  ↑ Top
+</button>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  const btn = document.getElementById("back-to-top");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      btn.classList.add("show");
+    } else {
+      btn.classList.remove("show");
+    }
+  });
+
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 });
 </script>

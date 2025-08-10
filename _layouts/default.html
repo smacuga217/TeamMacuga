@@ -3,6 +3,43 @@
 <head>
   {% include head.html %}
 </head>
+
+<!-- in _layouts/default.html just before </body> -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Tiny rotator for .carousel (bios)
+  document.querySelectorAll('.carousel').forEach(car=>{
+    const slides=[...car.querySelectorAll('.slide')];
+    const dots=[...car.querySelectorAll('.dots button')];
+    let i=0; const show=n=>{slides.forEach((s,k)=>s.classList.toggle('active',k===n));
+                            dots.forEach((d,k)=>d.classList.toggle('active',k===n)); i=n;};
+    dots.forEach((d,idx)=>d.addEventListener('click',()=>show(idx)));
+    if(slides.length>1) setInterval(()=>show((i+1)%slides.length), 4500);
+  });
+
+  // Shop filters/sort (if present)
+  const grid = document.getElementById('products');
+  if(grid){
+    const chips = document.querySelectorAll('.shop-controls .chip');
+    const sortSel = document.getElementById('sortPrice');
+    const filter = cat => document.querySelectorAll('.product-card')
+      .forEach(c => c.classList.toggle('hide', !(cat==='all'||(c.dataset.cat||'').includes(cat))));
+    chips.forEach(ch => ch.addEventListener('click', ()=>{
+      chips.forEach(c=>c.classList.remove('active')); ch.classList.add('active'); filter(ch.dataset.filter);
+    }));
+    sortSel?.addEventListener('change', ()=>{
+      const cards=[...document.querySelectorAll('.product-card')];
+      if(sortSel.value!=='default'){
+        const dir = sortSel.value==='asc'?1:-1;
+        cards.sort((a,b)=> (parseFloat(a.dataset.price)-parseFloat(b.dataset.price))*dir);
+      }
+      cards.forEach(c=>grid.appendChild(c));
+    });
+  }
+});
+</script>
+
+
 <body>
   {% include nav.html %}
 

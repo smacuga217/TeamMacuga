@@ -8,6 +8,8 @@ permalink: /updates/
   <h1>Updates</h1>
   <p class="muted">Latest results (auto from FIS) and team news.</p>
 
+  {% include latest-results.html %}
+
   <h2 class="section-title">Results</h2>
   <ul class="listy">
     {% assign rows = site.data.results_auto | default: empty %}

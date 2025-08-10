@@ -14,5 +14,42 @@
   <footer class="container">
     © {{ "now" | date: "%Y" }} Team Macuga. All rights reserved.
   </footer>
+
+    <script>
+      
+  (function(){
+    const blocks = document.querySelectorAll('.mini-rotator');
+    blocks.forEach(block => {
+      const slides = Array.from(block.querySelectorAll('.slide'));
+      if (slides.length < 2) return;
+
+      // dots
+      const dotsWrap = block.querySelector('.dots');
+      slides.forEach((_, i) => {
+        const b = document.createElement('button');
+        b.addEventListener('click', () => go(i));
+        dotsWrap.appendChild(b);
+      });
+
+      let idx = 0, timer;
+      const dots = dotsWrap.querySelectorAll('button');
+
+      function go(n){
+        slides[idx].classList.remove('active');
+        dots[idx].classList.remove('active');
+        idx = (n + slides.length) % slides.length;
+        slides[idx].classList.add('active');
+        dots[idx].classList.add('active');
+      }
+      function start(){ timer = setInterval(() => go(idx+1), 3500); }
+      function stop(){ clearInterval(timer); }
+
+      go(0); start();
+      block.addEventListener('mouseenter', stop);
+      block.addEventListener('mouseleave', start);
+    });
+  })();
+  </script>
+
 </body>
 </html>

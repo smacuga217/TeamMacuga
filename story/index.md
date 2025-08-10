@@ -20,39 +20,118 @@ layout: default
   {% include athlete-grid.html %}
 </section>
 
-<section class="container">
-  <!-- In-depth bios with mini image rotators; the anchors match the grid links -->
-  {% for a in site.data.family %}
-  <article id="{{ a.slug }}-bio" class="card" style="margin-bottom:16px">
-    <div style="display:grid;gap:16px;grid-template-columns:1.2fr .8fr;align-items:center">
-      <div>
-        <h3 style="margin-top:0">{{ a.name }}</h3>
-        <p>
-          {% if a.bio %}
-            {{ a.bio }}
-          {% else %}
-            {{ a.name }}’s full bio is coming soon. For now, follow along on social and check competition results.
-          {% endif %}
-        </p>
-        <div style="margin-top:8px;display:flex;gap:10px;flex-wrap:wrap">
-          {% if a.fis %}<a class="btn" target="_blank" rel="noopener" href="{{ a.fis }}">See on FIS</a>{% endif %}
-          {% if a.instagram %}<a class="btn" target="_blank" rel="noopener" href="{{ a.instagram }}">Instagram</a>{% endif %}
-          {% if a.facebook %}<a class="btn" target="_blank" rel="noopener" href="{{ a.facebook }}">Facebook</a>{% endif %}
+<section id="bios">
+  <div class="container">
+    <h2 class="section-title">In-depth Bios</h2>
+
+    <!-- Lauren -->
+    <article id="bio-lauren" class="bio-block card">
+      <div class="bio-grid">
+        <div class="bio-text">
+          <h3>Lauren Macuga</h3>
+          <p>Alpine speed specialist (downhill &amp; super-G). A force of nature with calm precision, Lauren has stacked World Cup results and continues to push speed lines every season. Park City roots, world stage pace.</p>
+          <p class="muted">Highlights: World Cup SG winner; Worlds SG bronze; fan of scary-fast turns and good coffee.</p>
+          <p><a class="pill" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=228398" target="_blank" rel="noopener">See on FIS</a></p>
         </div>
+        <figure class="mini-rotator">
+          <img class="slide active" src="{{ '/assets/img/placeholders/ath-lauren-1.jpg' | relative_url }}" alt="Lauren 1">
+          <img class="slide"        src="{{ '/assets/img/placeholders/ath-lauren-2.jpg' | relative_url }}" alt="Lauren 2">
+          <img class="slide"        src="{{ '/assets/img/placeholders/ath-lauren-3.jpg' | relative_url }}" alt="Lauren 3">
+          <div class="dots" aria-hidden="true"></div>
+        </figure>
       </div>
-      <figure class="hero-rotator">
-        <div class="frame rotator-{{ a.slug }}">
-          <!-- three placeholder slides per person for now -->
-          <img class="slide active" src="{{ '/assets/img/placeholders/person.png' | relative_url }}" alt="{{ a.name }} photo 1">
-          <img class="slide" src="{{ '/assets/img/placeholders/person.png' | relative_url }}" alt="{{ a.name }} photo 2">
-          <img class="slide" src="{{ '/assets/img/placeholders/person.png' | relative_url }}" alt="{{ a.name }} photo 3">
-          <div class="dots"></div>
+    </article>
+
+    <!-- Alli -->
+    <article id="bio-alli" class="bio-block card">
+      <div class="bio-grid">
+        <div class="bio-text">
+          <h3>Alli Macuga</h3>
+          <p>Moguls with style. Alli blends power and play—clean lines, sharp airs, fast feet. Multiple World Cup podiums and 2023 FIS Rookie of the Year underline the trajectory.</p>
+          <p class="muted">Highlights: World Cup podiums; progressive airs; contagious stoke.</p>
+          <p><a class="pill" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=FS&competitorid=220306" target="_blank" rel="noopener">See on FIS</a></p>
         </div>
-      </figure>
-    </div>
-  </article>
-  {% endfor %}
+        <figure class="mini-rotator">
+          <img class="slide active" src="{{ '/assets/img/placeholders/ath-alli-1.jpg' | relative_url }}" alt="Alli 1">
+          <img class="slide"        src="{{ '/assets/img/placeholders/ath-alli-2.jpg' | relative_url }}" alt="Alli 2">
+          <img class="slide"        src="{{ '/assets/img/placeholders/ath-alli-3.jpg' | relative_url }}" alt="Alli 3">
+          <div class="dots" aria-hidden="true"></div>
+        </figure>
+      </div>
+    </article>
+
+    <!-- Sam -->
+    <article id="bio-sam" class="bio-block card">
+      <div class="bio-grid">
+        <div class="bio-text">
+          <h3>Sam Macuga</h3>
+          <p>U.S. Ski Jumping Team. Big-air confidence, quiet focus, and leadership vibes. Sam’s been on the national team since 2019 and is building height, distance, and consistency.</p>
+          <p class="muted">Highlights: Continental Cup starts; relentless work ethic; team glue.</p>
+          <p><a class="pill" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=JP&competitorid=211435" target="_blank" rel="noopener">See on FIS</a></p>
+        </div>
+        <figure class="mini-rotator">
+          <img class="slide active" src="{{ '/assets/img/placeholders/ath-sam-1.jpg' | relative_url }}" alt="Sam 1">
+          <img class="slide"        src="{{ '/assets/img/placeholders/ath-sam-2.jpg' | relative_url }}" alt="Sam 2">
+          <img class="slide"        src="{{ '/assets/img/placeholders/ath-sam-3.jpg' | relative_url }}" alt="Sam 3">
+          <div class="dots" aria-hidden="true"></div>
+        </figure>
+      </div>
+    </article>
+
+    <!-- Daniel -->
+    <article id="bio-daniel" class="bio-block card">
+      <div class="bio-grid">
+        <div class="bio-text">
+          <h3>Daniel Macuga</h3>
+          <p>Developing alpine racer—learning fast, loving the grind, and bringing energy to every session. Eyes on speed and technical excellence.</p>
+          <p class="muted">Highlights: future speedster; pro at wax room banter.</p>
+          <p><a class="pill" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=260517" target="_blank" rel="noopener">See on FIS</a></p>
+        </div>
+        <figure class="mini-rotator">
+          <img class="slide active" src="{{ '/assets/img/placeholders/ath-daniel-1.jpg' | relative_url }}" alt="Daniel 1">
+          <img class="slide"        src="{{ '/assets/img/placeholders/ath-daniel-2.jpg' | relative_url }}" alt="Daniel 2">
+          <img class="slide"        src="{{ '/assets/img/placeholders/ath-daniel-3.jpg' | relative_url }}" alt="Daniel 3">
+          <div class="dots" aria-hidden="true"></div>
+        </figure>
+      </div>
+    </article>
+
+    <!-- Amy -->
+    <article id="bio-amy" class="bio-block card">
+      <div class="bio-grid">
+        <div class="bio-text">
+          <h3>Amy Macuga</h3>
+          <p>Operations lead—logistics, travel, and keeping the crew grounded and grateful. The unsung hero behind smooth seasons.</p>
+          <p class="muted">Highlights: solves problems before they exist; A-level road trip DJ.</p>
+        </div>
+        <figure class="mini-rotator">
+          <img class="slide active" src="{{ '/assets/img/placeholders/ath-amy-1.jpg' | relative_url }}" alt="Amy 1">
+          <img class="slide"        src="{{ '/assets/img/placeholders/ath-amy-2.jpg' | relative_url }}" alt="Amy 2">
+          <img class="slide"        src="{{ '/assets/img/placeholders/ath-amy-3.jpg' | relative_url }}" alt="Amy 3">
+          <div class="dots" aria-hidden="true"></div>
+        </figure>
+      </div>
+    </article>
+
+    <!-- Dan -->
+    <article id="bio-dan" class="bio-block card">
+      <div class="bio-grid">
+        <div class="bio-text">
+          <h3>Dan Macuga</h3>
+          <p>Gear &amp; wax room sage. Lifelong supporter and sideline strategist. Keeps the edges sharp and the vibes sharper.</p>
+          <p class="muted">Highlights: wax whisperer; chairlift wisdom specialist.</p>
+        </div>
+        <figure class="mini-rotator">
+          <img class="slide active" src="{{ '/assets/img/placeholders/ath-dan-1.jpg' | relative_url }}" alt="Dan 1">
+          <img class="slide"        src="{{ '/assets/img/placeholders/ath-dan-2.jpg' | relative_url }}" alt="Dan 2">
+          <img class="slide"        src="{{ '/assets/img/placeholders/ath-dan-3.jpg' | relative_url }}" alt="Dan 3">
+          <div class="dots" aria-hidden="true"></div>
+        </figure>
+      </div>
+    </article>
+  </div>
 </section>
+
 
 <script>
 /* tiny per-person rotator (re-uses the hero rotator behavior) */

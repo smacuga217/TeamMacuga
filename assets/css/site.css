@@ -520,6 +520,7 @@ footer{ padding:40px 0 80px; color:#64748b; text-align:center; border-top:1px so
   max-width: min(92vw, 860px);             /* keep it from getting too wide */
 }
 
+
 /* readable labels on light buttons inside the dark overlay */
 .hero-actions .btn       { color: var(--ink); }
 .hero-actions .btn:hover { text-decoration: none; }
@@ -560,3 +561,10 @@ footer{ padding:40px 0 80px; color:#64748b; text-align:center; border-top:1px so
 
 /* a touch less space above the Family section */
 section.container .section-title{ margin-bottom: 8px; }
+
+.hero-video { margin-bottom: 6px; }
+.hero-overlay { padding: min(3vw, 16px); }
+.hero-box { padding: 10px 12px; border-radius: 10px; }
+.hero-box .tagline { margin: 0 0 6px; font-size: clamp(.94rem, 1vw, 1.02rem); }
+.hero-actions .btn { padding: 7px 10px; border-radius: 10px; }
+section.container .section-title { margin-bottom: 8px; }  /* less space before "Family" */

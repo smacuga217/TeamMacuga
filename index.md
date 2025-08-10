@@ -2,33 +2,31 @@
 title: Home
 layout: default
 ---
-<!-- ================= Hero: full-bleed video ================= -->
+<!-- ================= Hero: full-bleed video with overlay ================= -->
 <div class="full-bleed hero-video">
   <video autoplay muted loop playsinline
          poster="{{ '/assets/img/hero/poster.jpg' | relative_url }}">
     <source src="{{ '/assets/video/hero.mp4' | relative_url }}" type="video/mp4">
   </video>
-</div>
 
-<div class="container">
-
-  <div class="hero-cta-row">
-    <a class="btn primary" href="{{ '/shop/' | relative_url }}">Shop Merch</a>
-    <a class="btn"          href="{{ '/updates/#results' | relative_url }}">Latest Results</a>
-    <a class="btn"          href="{{ '/story/' | relative_url }}">Our Story</a>
-  </div>
-</div>
-<!-- ========================================================== -->
-
-<section class="hero">
-  <div class="container hero-grid">
-    <div>
-      <p class="tagline">Three sisters, one brother, two legendary parents — one dream: Milano–Cortina 2026 and beyond. Follow the journey and rep the team. <strong>#TeamMacuga</strong></p>
+  <!-- Overlay (tagline + buttons) -->
+  <div class="hero-overlay">
+    <div class="hero-content">
+      <div class="hero-box">
+        <p class="tagline">
+          Three sisters, one brother, two legendary parents — one dream: Milano–Cortina 2026 and beyond.
+          Follow the journey and rep the team. <strong>#TeamMacuga</strong>
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="{{ '/shop/' | relative_url }}">Shop Merch</a>
+          <a class="btn"          href="{{ '/updates/#results' | relative_url }}">Latest Results</a>
+          <a class="btn"          href="{{ '/story/' | relative_url }}">Our Story</a>
+        </div>
+      </div>
     </div>
   </div>
-</section>
-
-
+</div>
+<!-- ===================================================================== -->
 
 
 <section class="container">

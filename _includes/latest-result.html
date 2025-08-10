@@ -1,0 +1,11 @@
+{% assign r = site.data.results | first %}
+{% if r %}
+<div class="latest-result">
+  <span class="tag">Latest result</span>
+  <div class="lr-text">
+    <strong>{{ r.athlete }}</strong> — {{ r.discipline }} — <em>{{ r.event }}</em>:
+    <span class="lr-result">{{ r.result }}</span>
+  </div>
+  {% if r.link %}<a class="pill" href="{{ r.link }}" target="_blank" rel="noopener">Details</a>{% endif %}
+</div>
+{% endif %}

@@ -1,21 +1,19 @@
-- athlete: Lauren Macuga
-  event: Super-G
-  location: St. Anton
-  date: 2025-01-12
-  place: 1
-  points: 100
-  source: https://www.fis-ski.com/
-- athlete: Alli Macuga
-  event: Moguls
-  location: Deer Valley
-  date: 2025-01-18
-  place: 3
-  points: 60
-  source: https://www.fis-ski.com/
-- athlete: Sam Macuga
-  event: Ski Jumping HS140
-  location: Willingen
-  date: 2025-01-25
-  place: 18
-  points: 13
-  source: https://www.fis-ski.com/
+# Edit/append newest results at top
+- date: 2025-02-08
+  athlete: Lauren Macuga
+  discipline: Super-G
+  event: St. Anton World Cup
+  result: 1st
+  link: https://www.fis-ski.com/
+- date: 2025-01-26
+  athlete: Alli Macuga
+  discipline: Moguls
+  event: World Cup — Deer Valley
+  result: 2nd
+  link: https://www.fis-ski.com/
+- date: 2025-01-12
+  athlete: Sam Macuga
+  discipline: Ski Jumping
+  event: Continental Cup
+  result: Top-15
+  link: https://www.fis-ski.com/

@@ -4,17 +4,39 @@ title: Shop
 nav: shop
 ---
 
-# Shop
+<section class="container">
+  <h1>Shop</h1>
+  <div class="tabs" role="tablist" aria-label="Shop tabs">
+    <button class="tab active" data-tab="merch" aria-selected="true">Team Macuga Merch</button>
+    <button class="tab" data-tab="collabs" aria-selected="false">Collabs</button>
+  </div>
 
-## Team Macuga Merch
-<div class="grid">
-  <article class="card"><h3>Classic Tee</h3><p>$28</p><a class="pill" href="#">Buy</a></article>
-  <article class="card"><h3>Hoodie</h3><p>$55</p><a class="pill" href="#">Buy</a></article>
-  <article class="card"><h3>Beanie</h3><p>$22</p><a class="pill" href="#">Buy</a></article>
-</div>
+  <div id="tab-merch" class="tabpanel show" role="tabpanel">
+    <div class="grid cards-2">
+      <article class="card product"><img alt="Classic Tee" src="/assets/img/placeholders/1x1.svg"><h3>Classic Tee</h3><p>$28</p><a class="pill" href="#">Buy</a></article>
+      <article class="card product"><img alt="Hoodie" src="/assets/img/placeholders/1x1.svg"><h3>Hoodie</h3><p>$55</p><a class="pill" href="#">Buy</a></article>
+    </div>
+  </div>
 
-## Team Macuga Collabs
-<div class="grid">
-  <article class="card"><h3>L. Macuga × Pit Viper</h3><p>Speed-inspired shades.</p><a class="pill" href="#">Shop collab</a></article>
-  <article class="card"><h3>Future Collab</h3><p>Coming soon.</p><a class="pill" href="#">Notify me</a></article>
-</div>
+  <div id="tab-collabs" class="tabpanel" role="tabpanel" hidden>
+    <div class="grid cards-2">
+      <article class="card product"><img alt="Pit Viper x Lauren" src="/assets/img/placeholders/1x1.svg"><h3>Pit Viper × Lauren</h3><p>Dropping soon</p><a class="pill" href="#">Details</a></article>
+      <article class="card product"><img alt="Another collab" src="/assets/img/placeholders/1x1.svg"><h3>Collab 2</h3><p>Soon</p><a class="pill" href="#">Details</a></article>
+    </div>
+  </div>
+</section>
+
+<script>
+document.querySelectorAll('.tabs .tab').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tabs .tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const id = btn.dataset.tab;
+    document.querySelectorAll('.tabpanel').forEach(p=>{
+      const show = p.id === 'tab-'+id;
+      p.toggleAttribute('hidden', !show);
+      p.classList.toggle('show', show);
+    });
+  });
+});
+</script>

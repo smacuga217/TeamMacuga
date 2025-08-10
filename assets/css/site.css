@@ -387,3 +387,40 @@ footer{ padding:40px 0 80px; color:#64748b; text-align:center; border-top:1px so
   transform: translateY(-2px);
   background: var(--primary-dark, #364bcc);
 }
+
+/* === HERO SPACING === */
+.hero-video {
+  margin-bottom: 0; /* remove extra space below video */
+}
+
+.hero-cta-row {
+  margin-top: -20px; /* pull buttons up closer to video */
+  margin-bottom: 12px; /* tighten space before tagline */
+}
+
+.hero-grid .tagline {
+  margin-top: 0;
+  font-size: 1.1rem; /* slightly smaller text */
+  max-width: 700px;
+}
+
+/* === FAMILY GRID SIZE === */
+.athlete-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* smaller cards */
+  gap: 16px;
+}
+
+.athlete-card {
+  padding: 12px;
+  font-size: 0.9rem;
+}
+
+.athlete-card img {
+  max-width: 100%;
+  height: auto;
+}
+
+.athlete-card h3 {
+  font-size: 1rem;
+  margin: 6px 0;
+}

@@ -287,3 +287,32 @@ footer{ padding:40px 0 80px; color:#64748b; text-align:center; border-top:1px so
   background:linear-gradient(90deg,#9F1D2D,#3B3C78);
   pointer-events:none; user-select:none;
 }
+
+/* === Hero rotator (stack + fade) === */
+.hero-rotator { position: relative; }
+.hero-rotator .rotator { position: relative; overflow: hidden; border-radius: 14px; }
+
+.hero-rotator .slide {
+  position: absolute; inset: 0;
+  opacity: 0; transition: opacity .5s ease;
+}
+.hero-rotator .slide.active { opacity: 1; }
+
+.hero-rotator .slide img {
+  width: 100%;
+  height: clamp(300px, 52vh, 620px);
+  object-fit: cover; display: block;
+}
+
+/* dots */
+.hero-rotator .rotator-dots {
+  position: absolute;
+  left: 0; right: 0; bottom: 10px;
+  display: flex; justify-content: center; gap: 8px;
+  pointer-events: auto;
+}
+.hero-rotator .rotator-dots button {
+  width: 8px; height: 8px; border: 0; border-radius: 999px;
+  background: #c3c9db; cursor: pointer;
+}
+.hero-rotator .rotator-dots button.active { background: #9F1D2D; }

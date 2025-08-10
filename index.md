@@ -28,6 +28,11 @@ layout: default
   </div>
 </section>
 
+<section class="container">
+  <h2 class="section-title">Family</h2>
+  {% include athlete-grid.html %}
+</section>
+
 <script>
 (function(){
   const wrap=document.getElementById('hero-rotator'); if(!wrap) return;
@@ -37,6 +42,15 @@ layout: default
   setInterval(()=>go((i+1)%slides.length),5000);
 })();
 </script>
+
+<div class="section-gap"></div>  <!-- ← added spacer -->
+
+<section class="container">
+  <h2 class="section-title">Featured Merch</h2>
+  {% include merch-carousel.html %}
+</section>
+
+<div class="section-gap"></div>  <!-- ← added spacer -->
 
 <section class="container">
   <h2 class="section-title">Featured Collab</h2>
@@ -50,14 +64,3 @@ layout: default
   </div>
 </section>
 
-<div class="section-gap"></div>  <!-- ← added spacer -->
-
-<section class="container">
-  <h2 class="section-title">Featured Merch</h2>
-  {% include merch-carousel.html %}
-</section>
-
-<section class="container">
-  <h2 class="section-title">Family</h2>
-  {% include athlete-grid.html %}
-</section>

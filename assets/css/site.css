@@ -338,3 +338,18 @@ footer{ padding:40px 0 80px; color:#64748b; text-align:center; border-top:1px so
     padding: 15px;
   }
 }
+
+/* Hide mobile menu button on desktop */
+.menu-btn {
+  display: none;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .links {
+    display: none;
+  }
+  .menu-btn {
+    display: block;
+  }
+}

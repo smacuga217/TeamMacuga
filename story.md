@@ -15,6 +15,28 @@ permalink: /story/
       <h2>Park City roots</h2>
       <p>From early-morning chairlifts to late-night wax rooms, the Macuga routine has always been about showing up together and getting better together.</p>
 
+      <div class="story-grid">
+  <div>
+    <p class="lead">
+      From Park City to World Cup venues around the globe—three sisters, one brother, two legendary parents, one big dream.
+    </p>
+    <ul class="listy">
+      <li><span class="meta">Roots</span> Park City, Utah</li>
+      <li><span class="meta">Disciplines</span> Alpine • Moguls • Ski Jumping</li>
+      <li><span class="meta">Goal</span> Milano–Cortina 2026 and beyond</li>
+    </ul>
+  </div>
+  <div class="story-photos">
+    <img src="{{ '/assets/img/placeholders/story-1.jpg' | relative_url }}" alt="">
+    <img src="{{ '/assets/img/placeholders/story-2.jpg' | relative_url }}" alt="">
+    <img src="{{ '/assets/img/placeholders/story-3.jpg' | relative_url }}" alt="">
+    <img src="{{ '/assets/img/placeholders/story-4.jpg' | relative_url }}" alt="">
+    <img src="{{ '/assets/img/placeholders/story-5.jpg' | relative_url }}" alt="">
+    <img src="{{ '/assets/img/placeholders/story-6.jpg' | relative_url }}" alt="">
+  </div>
+</div>
+
+
       <h2>Four kids, three disciplines</h2>
       <p>Alpine speed, moguls, and ski jumping—each path different, same stoke. Lauren, Alli, Sam, and Daniel push one another on and off snow.</p>
 

@@ -1,41 +1,17 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{{ page.title | escape }}{% unless page.title contains "Team Macuga" %} — Team Macuga{% endunless %}</title>
-  <meta name="description" content="Team Macuga website — info, updates, and merch." />
-  <link rel="icon" type="image/png" href="{{ '/assets/img/logo-mark-color.png' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
+  {% include head.html %}
 </head>
 <body>
-  {% comment %} Include NAV **exactly once** here {% endcomment %}
-  {% include nav.html %}
-
-  <main class="container">
+  {% include nav.html %}   <!-- nav appears only once -->
+  <main class="site-main container">
     {{ content }}
   </main>
 
-  {% comment %} Contact strip + Sponsors grid on every page {% endcomment %}
   {% include contact-strip.html %}
-  {% include sponsors-grid.html %}
+  {% include footer.html %}
 
-  <footer>
-    <div class="container">
-      <p class="tiny">© <span id="y"></span> Team Macuga. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script>
-    // Year
-    document.getElementById('y')?.append(new Date().getFullYear());
-    // Mobile menu toggle (in case it isn't already in nav.html)
-    const btn = document.getElementById('menuBtn');
-    const drawer = document.getElementById('mobileNav');
-    btn?.addEventListener('click', () => {
-      const open = drawer.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-  </script>
+  <script src="{{ '/assets/js/site.js' | relative_url }}"></script>
 </body>
 </html>

@@ -1,22 +1,18 @@
-<nav class="nav nav-solid">
+<nav class="nav nav-solid" aria-label="Primary">
   <div class="container nav-inner">
-    <!-- Logo links to Home -->
     <a class="brand" href="{{ '/' | relative_url }}">
-      <img src="{{ '/assets/img/logo-full-color.png' | relative_url }}" alt="Team Macuga" style="height:38px;vertical-align:middle">
+      <img src="{{ '/assets/img/logo-full-color.png' | relative_url }}" alt="Team Macuga" style="height:34px">
     </a>
-
-    <div class="links" aria-label="primary">
-      <a href="{{ '/story/'   | relative_url }}">Our Story</a>
-      <a href="{{ '/updates/' | relative_url }}">Updates</a>
-      <a href="{{ '/shop/'    | relative_url }}">Shop</a>
+    <div class="links">
+      <a href="{{ '/story'   | relative_url }}" {% if page.nav == 'story'   %}class="active"{% endif %}>Our Story</a>
+      <a href="{{ '/updates' | relative_url }}" {% if page.nav == 'updates' %}class="active"{% endif %}>Updates</a>
+      <a href="{{ '/shop'    | relative_url }}" {% if page.nav == 'shop'    %}class="active"{% endif %}>Shop</a>
     </div>
-
-    <button class="menu-btn" aria-expanded="false" aria-controls="mobileNav" id="menuBtn">Menu</button>
+    <button class="menu-btn" id="menuBtn" aria-controls="mobileNav" aria-expanded="false">Menu</button>
   </div>
-
   <div id="mobileNav" class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Menu">
-    <a href="{{ '/story/'   | relative_url }}">Our Story</a>
-    <a href="{{ '/updates/' | relative_url }}">Updates</a>
-    <a href="{{ '/shop/'    | relative_url }}">Shop</a>
+    <a href="{{ '/story'   | relative_url }}">Our Story</a>
+    <a href="{{ '/updates' | relative_url }}">Updates</a>
+    <a href="{{ '/shop'    | relative_url }}">Shop</a>
   </div>
 </nav>

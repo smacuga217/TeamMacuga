@@ -299,3 +299,46 @@ body{
 
 /* Rotator on light bg */
 .hero-rotator figcaption{ background:rgba(0,0,0,.35); }
+
+/* --- Sponsors block --- */
+.sponsors-block { padding: 48px 0 64px; }
+.sponsors-block .section-sub { color:#64748b; margin-top:-6px; margin-bottom:18px; }
+.sponsors-grid {
+  list-style:none; padding:0; margin:0;
+  display:grid; gap:14px;
+  grid-template-columns: repeat(6, minmax(0,1fr));
+}
+@media (max-width: 1100px){ .sponsors-grid{ grid-template-columns: repeat(4,1fr);} }
+@media (max-width: 720px){ .sponsors-grid{ grid-template-columns: repeat(2,1fr);} }
+
+.sponsor a{
+  display:flex; flex-direction:column; gap:8px;
+  align-items:center; justify-content:center;
+  background:#e8ecf6; border:1px solid #dbe3f3;
+  border-radius:14px; padding:16px 12px; height:100%;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.sponsor a:hover{ transform:translateY(-2px); box-shadow:0 6px 24px rgba(34,48,94,.12); }
+.logo-wrap{ width:120px; height:52px; display:flex; align-items:center; justify-content:center; }
+.logo-wrap img{ max-width:100%; max-height:100%; }
+.logo-fallback{ opacity:.3; }
+.s-name{ font-weight:600; color:#1f2937; font-size:14px; text-align:center; }
+
+/* --- Contact strip --- */
+.contact-strip{ background:linear-gradient(180deg,#edf2fb, #eef2ff); border-top:1px solid #e5eaf6; padding:40px 0; }
+.contact-row{ display:flex; flex-wrap:wrap; align-items:center; gap:14px; }
+.contact-row h3{ margin:0 12px 0 0; font-size:18px; }
+.contact-row p{ margin:0; color:#475569; }
+.contact-row .btn{ margin-left:auto; }
+
+/* --- Navbar spacing tweak --- */
+.nav .links a{ padding:0 14px; }
+
+/* --- Snow visibility on light sections --- */
+/* make flakes slightly darker and a touch larger globally */
+:root{ --snow-alpha: .45; --snow-size: 2.2px; }
+/* but lighten/dim inside very light blocks so it doesn’t look noisy */
+.sponsors-block .snow, .contact-strip .snow, .hero-light .snow { opacity:.25; }
+
+/* Optional: soften the card lavender background used on some blocks */
+.card-light{ background:#eef3ff; border-color:#e3eaf9; }

@@ -1,0 +1,18 @@
+<section class="sponsors-block">
+  <div class="container">
+    <h2 class="section-title">Thank you to our sponsors</h2>
+    <p class="section-sub">Their support keeps the dream racing.</p>
+    <ul class="sponsors-grid">
+      {% for s in site.data.sponsors %}
+      <li class="sponsor">
+        <a href="{{ s.url }}" target="_blank" rel="noopener">
+          <div class="logo-wrap">
+            <img src="{{ s.logo | relative_url }}" alt="{{ s.name }} logo" loading="lazy" onerror="this.classList.add('logo-fallback')">
+          </div>
+          <span class="s-name">{{ s.name }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>

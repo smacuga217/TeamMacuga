@@ -1,14 +1,21 @@
 - name: Stifel
+  url: https://www.stifel.com/
   logo: /assets/img/sponsors/stifel.png
 - name: Pit Viper
-  logo: /assets/img/sponsors/pitviper.png
+  url: https://www.pitviper.com/
+  logo: /assets/img/sponsors/pit-viper.png
 - name: Rossignol
+  url: https://www.rossignol.com/
   logo: /assets/img/sponsors/rossignol.png
 - name: Giro
+  url: https://www.giro.com/
   logo: /assets/img/sponsors/giro.png
 - name: Swix
+  url: https://www.swixsport.com/
   logo: /assets/img/sponsors/swix.png
 - name: TaraShakti
+  url: https://tarashakti.com/
   logo: /assets/img/sponsors/tarashakti.png
 - name: Level
+  url: https://www.levelgloves.com/
   logo: /assets/img/sponsors/level.png

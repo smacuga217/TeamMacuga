@@ -418,3 +418,57 @@ main > *:not(.strip):not(footer) {
 .tm-dots{ display:flex; gap:8px; justify-content:center; margin-top:12px; }
 .tm-dots button{ width:8px; height:8px; border-radius:999px; border:0; background:#c3c9db; cursor:pointer; }
 .tm-dots button[aria-current="true"]{ background:#9F1D2D; }
+
+/* Full-bleed hero video */
+.hero-video{
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;   /* break out of .container for true full width */
+  margin-right: -50vw;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;          /* keeps height sensible while loading */
+  max-height: 84vh;              /* don’t cover the whole screen */
+  background: #000;              /* safe background while video loads */
+}
+
+.hero-video__media{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;             /* fills edge-to-edge without distorting */
+}
+
+/* Optional overlay */
+.hero-video__overlay{
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  gap: 14px;
+  color: #fff;
+  text-align: left;
+  pointer-events: none;          /* overlay is decorative except buttons */
+  padding-top: min(14vh, 120px);
+}
+.hero-video__overlay::before{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.15) 40%, transparent 70%);
+  pointer-events:none;
+}
+.hero-video__logo{ width: clamp(180px, 22vw, 360px); filter: drop-shadow(0 6px 24px rgba(0,0,0,.35)); }
+.hero-video__tag{ margin: 6px 0 0; font-size: clamp(1rem, 2vw, 1.25rem); text-shadow: 0 2px 10px rgba(0,0,0,.35); }
+.hero-video__cta{ display:flex; gap:10px; margin-top: 8px; pointer-events:auto; }
+
+@media (max-width: 720px){
+  .hero-video{ aspect-ratio: 9 / 16; max-height: 78vh; }
+  .hero-video__overlay{ padding-top: 14vh; }
+  .hero-video__logo{ width: clamp(160px, 42vw, 260px); }
+}
+
+/* Give the next section breathing room since hero is full-bleed */
+.hero-video + .container,
+.hero-video + section { margin-top: 24px; }

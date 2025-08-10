@@ -3,6 +3,34 @@ title: Home
 layout: default
 ---
 
+<!-- Full-bleed hero video -->
+<section class="hero-video" aria-label="Team Macuga highlight reel">
+  <video
+    class="hero-video__media"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+    poster="{{ '/assets/img/hero-poster.jpg' | relative_url }}">
+    <source src="{{ '/assets/video/hero.webm' | relative_url }}" type="video/webm">
+    <source src="{{ '/assets/video/hero.mp4'  | relative_url }}" type="video/mp4">
+    <!-- Fallback image if video can't play -->
+    <img src="{{ '/assets/img/hero-poster.jpg' | relative_url }}" alt="Team Macuga">
+  </video>
+
+  <!-- Optional overlay text/button; delete if you want pure video -->
+  <div class="hero-video__overlay container">
+    <img class="hero-video__logo" src="{{ '/assets/img/logo-full-color.png' | relative_url }}" alt="Team Macuga">
+    <p class="hero-video__tag">Three sisters, one brother — one dream.</p>
+    <div class="hero-video__cta">
+      <a class="btn primary" href="{{ '/shop/' | relative_url }}">Shop Merch</a>
+      <a class="btn" href="{{ '/updates/' | relative_url }}">Latest Results</a>
+    </div>
+  </div>
+</section>
+
+
 <section class="hero">
   <div class="container hero-grid">
     <div>

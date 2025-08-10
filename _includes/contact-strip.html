@@ -8,19 +8,46 @@
   </div>
 </div>
 
-<div class="container sponsors">
-  <h2 class="section-title">Thank you to our sponsors</h2>
-  <p>Their support keeps the dream racing.</p>
-  <ul class="s-grid">
-    {% for s in site.data.sponsors %}
-    <li class="s-item">
-      <a href="{{ s.url | default: '#' }}" target="_blank" rel="noopener">
-        <span class="logo-box">
-          <img src="{{ s.logo | default: '/assets/img/placeholders/product.png' | relative_url }}" alt="{{ s.name }} logo">
-        </span>
-        <span class="s-name">{{ s.name }}</span>
-      </a>
-    </li>
-    {% endfor %}
-  </ul>
-</div>
+<section class="sponsors">
+  <div class="container">
+    <h2 class="section-title">Thank you to our sponsors</h2>
+
+    <ul class="sponsors-grid">
+      <li class="sponsor">
+        <a href="#" aria-label="Stifel" target="_blank" rel="noopener">
+          <img src="{{ '/assets/img/sponsors/stifel.png' | relative_url }}" alt="Stifel">
+        </a>
+      </li>
+      <li class="sponsor">
+        <a href="#" aria-label="Pit Viper" target="_blank" rel="noopener">
+          <img src="{{ '/assets/img/sponsors/pit-viper.png' | relative_url }}" alt="Pit Viper">
+        </a>
+      </li>
+      <li class="sponsor">
+        <a href="#" aria-label="Rossignol" target="_blank" rel="noopener">
+          <img src="{{ '/assets/img/sponsors/rossignol.png' | relative_url }}" alt="Rossignol">
+        </a>
+      </li>
+      <li class="sponsor">
+        <a href="#" aria-label="Giro" target="_blank" rel="noopener">
+          <img src="{{ '/assets/img/sponsors/giro.png' | relative_url }}" alt="Giro">
+        </a>
+      </li>
+      <li class="sponsor">
+        <a href="#" aria-label="Swix" target="_blank" rel="noopener">
+          <img src="{{ '/assets/img/sponsors/swix.png' | relative_url }}" alt="Swix">
+        </a>
+      </li>
+      <li class="sponsor">
+        <a href="#" aria-label="TaraShakti" target="_blank" rel="noopener">
+          <img src="{{ '/assets/img/sponsors/tarashakti.png' | relative_url }}" alt="TaraShakti">
+        </a>
+      </li>
+      <li class="sponsor">
+        <a href="#" aria-label="Level" target="_blank" rel="noopener">
+          <img src="{{ '/assets/img/sponsors/level.png' | relative_url }}" alt="Level">
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>

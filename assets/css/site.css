@@ -318,3 +318,45 @@ main > *:not(.strip):not(footer) {
   background: #9aa7bd;
 }
 .carousel .dots button.active{ background: var(--brand); }
+
+/* Sponsors: compact logo grid */
+.sponsors { padding: 28px 0 56px; }
+.sponsors .section-title { margin-bottom: 14px; }
+
+.sponsors-grid {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 14px;
+}
+
+.sponsor {
+  background: #f5f7ff;
+  border: 1px solid #e6ecf8;
+  border-radius: 12px;
+
+  height: 72px;                 /* consistent tile height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.sponsor img {
+  max-height: 40px;             /* normalizes logo size */
+  width: auto;
+  object-fit: contain;
+  filter: saturate(0) opacity(.75);
+  transition: filter .2s ease, transform .2s ease;
+}
+
+.sponsor:hover img {
+  filter: none;
+  transform: translateY(-1px);
+}
+
+/* If any old name element is still in markup, hide it */
+.sponsor .s-name { display: none !important; }

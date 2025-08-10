@@ -4,15 +4,7 @@ title: Our Story
 nav: story
 ---
 
-<header class="hero" id="hero">
-  <h1 class="sr-only">Team Macuga</h1>
-  <picture>
-    <source srcset="{{ '/assets/img/logo-full-white.png' | relative_url }}" media="(prefers-color-scheme: dark)">
-    <source srcset="{{ '/assets/img/logo-full-black.png' | relative_url }}" media="(prefers-color-scheme: light)">
-    <img src="{{ '/assets/img/logo-full-color.png' | relative_url }}" alt="Team Macuga logo" style="max-width:320px;margin:8px 0 4px;">
-  </picture>
-  <p>Three sisters, one brother, two legendary parents — one dream: Milano–Cortina 2026 and beyond. Follow the journey and rep the team. <strong>#TeamMacuga</strong></p>
-</header>
+{% include hero-two-col.html %}
 
 <section id="story">
   <h2 class="section-title">Our Story</h2>

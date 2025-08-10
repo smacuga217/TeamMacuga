@@ -497,3 +497,66 @@ footer{ padding:40px 0 80px; color:#64748b; text-align:center; border-top:1px so
 .family-card .media{ height: 150px; }
 .family-card h3{ font-size: .98rem; margin: 6px 0 4px; }
 .family-card p{ font-size: .86rem; }
+
+/* --- HERO OVERLAY POLISH -------------------------------------------- */
+
+/* smaller gap below the hero */
+.hero-video { margin-bottom: 8px; }
+
+/* keep the overlay tasteful + tighter */
+.hero-overlay{
+  align-items: flex-end;
+  padding: min(4vw, 18px);
+}
+.hero-content{
+  display:flex;
+  justify-content:center; /* left-align the box */
+}
+.hero-box{
+  background: rgba(11,18,32,.30);         /* a little lighter than before */
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 12px;
+  padding: 12px 14px;                      /* tighter */
+  max-width: min(92vw, 860px);             /* keep it from getting too wide */
+}
+
+/* readable labels on light buttons inside the dark overlay */
+.hero-actions .btn       { color: var(--ink); }
+.hero-actions .btn:hover { text-decoration: none; }
+.hero-actions .btn.primary { color:#fff; }  /* keep primary white */
+
+/* slightly smaller tagline */
+.hero-box .tagline{
+  margin: 0 0 8px 0;
+  font-size: clamp(.95rem, 1.05vw, 1.05rem);
+  line-height: 1.35;
+}
+
+/* smaller buttons for a tighter hero */
+.hero-actions .btn{ padding: 8px 12px; border-radius: 10px; }
+
+/* --- FAMILY GRID – make cards smaller -------------------------------- */
+
+.family-grid{
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)) !important;
+  gap: 12px !important;
+}
+.family-card{
+  padding: 12px !important;
+  border-radius: 12px;
+}
+.family-card .media{
+  height: 140px !important;               /* was 180px */
+  border-radius: 10px;
+}
+.family-card h3{
+  font-size: .95rem !important;
+  margin: 6px 0 4px;
+}
+.family-card p{
+  font-size: .86rem !important;
+  margin: 0 0 8px;
+}
+
+/* a touch less space above the Family section */
+section.container .section-title{ margin-bottom: 8px; }

@@ -558,3 +558,40 @@ main > *:not(.strip):not(footer) {
 
 /* If an old hero overlay/grid was present, neutralize it */
 .hero-bleed, .hero-grid { all: unset; }
+
+/* ===================== HERO FULL-BLEED HOTFIX (put at END) ===================== */
+
+/* 1) Don't constrain the full-bleed hero */
+main > .full-bleed {
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 2) One definitive full-bleed implementation (avoid duplicates above) */
+.full-bleed {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  overflow: hidden;
+  background: #000;
+}
+
+/* 3) Video fills the viewport width and crops vertically */
+.hero-video video {
+  display: block;
+  width: 100vw;
+  height: min(80vh, 720px);   /* adjust to taste */
+  object-fit: cover;
+}
+
+/* 4) Optional: smaller hero on small screens */
+@media (max-width: 720px) {
+  .hero-video video { height: 52vh; }
+}
+
+/* 5) If any earlier rules tried to center with transform, neutralize them */
+.full-bleed { transform: none !important; margin-left: -50vw !important; }

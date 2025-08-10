@@ -260,3 +260,22 @@ footer{ padding:40px 0 80px; color:#64748b; text-align:center; border-top:1px so
   .bio-grid{ grid-template-columns: 1fr; }
   .mini-rotator{ height: 280px; }
 }
+
+/* Navbar logo */
+.navbar-logo img {
+  max-height: 50px;  /* small and neat */
+  width: auto;
+  display: block;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.navbar a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}

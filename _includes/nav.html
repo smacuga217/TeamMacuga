@@ -1,11 +1,11 @@
 <nav class="nav">
   <div class="container nav-inner">
-    <a class="brand-wrap" href="{{ '/' | relative_url }}">
-      <img src="{{ '/assets/img/logo-full-color.png' | relative_url }}" alt="Team Macuga">
+    <!-- Small logo in nav bar -->
+    <a class="brand-logo" href="{{ '/' | relative_url }}">
+      <img src="{{ '/assets/img/logo-full-color.png' | relative_url }}" alt="Team Macuga" />
     </a>
 
-    <img class="brand-logo" src="{{ '/assets/img/logo-full-color.png' | relative_url }}" alt="Team Macuga logo">
-
+    <!-- Navigation links -->
     <div class="links">
       <a href="{{ '/' | relative_url }}">Home</a>
       <a href="{{ '/story/' | relative_url }}">Our Story</a>
@@ -13,9 +13,11 @@
       <a href="{{ '/shop/' | relative_url }}">Shop</a>
     </div>
 
+    <!-- Mobile menu button -->
     <button class="menu-btn" onclick="document.querySelector('.mobile-drawer').classList.toggle('open')">Menu</button>
   </div>
 
+  <!-- Mobile drawer menu -->
   <div class="mobile-drawer">
     <a href="{{ '/' | relative_url }}">Home</a>
     <a href="{{ '/story/' | relative_url }}">Our Story</a>

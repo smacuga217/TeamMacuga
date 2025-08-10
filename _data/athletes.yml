@@ -2,34 +2,52 @@
   name: Lauren Macuga
   role: Alpine — Downhill & Super-G
   bio: 2025 St. Anton super-G World Cup winner; Worlds bronze in super-G.
-  img: /assets/img/merch/tee.png   # TEMP placeholder — drop a real Lauren photo and update path
+  img: /assets/img/people/lauren.jpg
   page: /lauren/
-  fis: https://www.fis-ski.com/athletes/lauren-macuga   # placeholder URL
+  fis: https://www.fis-ski.com/athletes/lauren-macuga
   instagram: https://instagram.com/lauren_macuga
 
 - id: alli
   name: Alli Macuga
   role: Moguls — U.S. Ski Team
   bio: Multiple World Cup podiums; 2023 FIS Rookie of the Year.
-  img: /assets/img/merch/hoodie.png   # TEMP placeholder
+  img: /assets/img/people/alli.jpg
   page: /alli/
-  fis: https://www.fis-ski.com/athletes/alli-macuga      # placeholder
+  fis: https://www.fis-ski.com/athletes/alli-macuga
   instagram: https://instagram.com/alli_macuga
 
 - id: sam
   name: Sam Macuga
   role: Ski Jumping — U.S. Team
   bio: Big-air confidence, national team since 2019.
-  img: /assets/img/gallery/sam-helmet-closeup.jpg
+  img: /assets/img/people/sam.jpg   # swap to a real Sam portrait when ready
   page: /sam/
-  fis: https://www.fis-ski.com/athletes/sam-macuga       # placeholder
+  fis: https://www.fis-ski.com/athletes/sam-macuga
   instagram: https://instagram.com/sammacuga
 
 - id: daniel
   name: Daniel Macuga
   role: Developing Athlete
   bio: The youngest Macuga—future star in the making.
-  img: /assets/img/merch/bucket-hat.png   # TEMP placeholder
+  img: /assets/img/people/daniel.jpg
   page: /daniel/
-  fis: https://www.fis-ski.com/athletes/daniel-macuga    # placeholder
+  fis: https://www.fis-ski.com/athletes/daniel-macuga
   instagram: https://instagram.com/daniel_macugas
+
+- id: amy
+  name: Amy Macuga
+  role: Team Operations
+  bio: Mom & operations lead—logistics, travel, and keeping the team grounded.
+  img: /assets/img/people/amy.jpg
+  page: /our-story/
+  fis: https://www.fis-ski.com/athletes/amy-macuga
+  instagram: https://instagram.com/amy.macuga
+
+- id: dan
+  name: Dan Macuga
+  role: Gear & Wax Room Sage
+  bio: Dad—lifelong supporter, sideline strategist, and shop wisdom.
+  img: /assets/img/people/dan.jpg
+  page: /our-story/
+  fis: https://www.fis-ski.com/athletes/dan-macuga
+  instagram: https://instagram.com/dan.macuga

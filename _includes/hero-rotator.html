@@ -1,8 +1,8 @@
-<section class="hero-rotator">
+<div class="hero-rotator">
   <div class="rotator" data-idx="0">
     {% for p in site.data.gallery %}
     <figure class="slide">
-      <img src="{{ p.img | relative_url }}" alt="{{ p.caption | escape }}">
+      <img src="{{ p.img | relative_url }}" alt="{{ p.caption | escape }}" loading="eager">
       <figcaption>{{ p.caption }}</figcaption>
     </figure>
     {% endfor %}
@@ -12,14 +12,14 @@
       {% endfor %}
     </div>
   </div>
-</section>
+</div>
 
 <script>
 (function(){
   const root = document.querySelector('.hero-rotator .rotator');
   if(!root) return;
   const slides = Array.from(root.querySelectorAll('.slide'));
-  const dots = Array.from(root.querySelectorAll('button'));
+  const dots = Array.from(root.querySelectorAll('.rotator-dots button'));
   let i = 0, t;
   function go(n){
     i = (n + slides.length) % slides.length;

@@ -5,7 +5,7 @@
          alt="{{ a.name }}"
          onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22112%22 height=%22112%22><rect width=%22112%22 height=%22112%22 rx=%2214%22 fill=%22%23eef3ff%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%238aa1c5%22 font-size=%2212%22>Photo</text></svg>';">
     <div>
-      <h3 style="margin:0 0 4px"><a href="{{ '/story/#' | append: a.slug | relative_url }}">{{ a.name }}</a></h3>
+      <h3 style="margin:0 0 4px"><a href="{{ '/story/#' | append: a.slug | append: '-bio' | relative_url }}">{{ a.name }}</a></h3>
       <p>{{ a.teaser }}</p>
       <div style="margin-top:8px;display:flex;gap:10px;flex-wrap:wrap">
         {% if a.results %}<a class="btn" href="{{ a.results | relative_url }}">Results page</a>{% endif %}

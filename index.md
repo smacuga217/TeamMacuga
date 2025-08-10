@@ -43,6 +43,8 @@ layout: default
   </div>
 </section>
 
+<div class="section-gap"></div>  <!-- ← added spacer -->
+
 <section class="container">
   <h2 class="section-title">Featured Merch</h2>
   {% include merch-carousel.html %}

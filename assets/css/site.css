@@ -1,16 +1,17 @@
 /* =========================================================================
-   Team Macuga — site.css (light theme, CLEAN)
+   Team Macuga — light theme (CLEAN)
    ======================================================================= */
 
-/* ---- Design tokens ---------------------------------------------------- */
+/* --------------------------- Tokens ----------------------------------- */
 :root{
   --bg:#f7fbff; --bg-2:#eef4ff;
   --ink:#0b1220; --muted:#475569; --border:#e6ecf8;
   --card:#ffffff; --shadow:0 8px 24px rgba(20,37,94,.08);
+
   --brand:#9F1D2D;   /* team red */
   --navy:#3B3C78;    /* team navy */
 
-  --nav-ink:#3B3C78; --nav-bg:#ffffff; --nav-border:#e5e7eb;
+  --nav-bg:#fff; --nav-ink:#3B3C78; --nav-border:#e5e7eb;
 
   --r-s:10px; --r:14px; --r-l:18px;
   --container:1100px;
@@ -18,7 +19,7 @@
   --snow-a:.35;
 }
 
-/* ---- Base ------------------------------------------------------------- */
+/* --------------------------- Base ------------------------------------- */
 *{ box-sizing:border-box; }
 html{ scroll-behavior:smooth; }
 body{
@@ -34,16 +35,17 @@ section{ padding:56px 0; }
 .lead{ font-size:clamp(1.02rem,1.2vw,1.25rem); color:var(--muted); }
 .muted{ color:var(--muted); }
 
-/* ---- Utilities -------------------------------------------------------- */
+/* --------------------------- Utilities -------------------------------- */
 .pill{ padding:6px 12px; border:1px solid var(--border); border-radius:999px; background:#fff; }
-.btn{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px;
-  border:1px solid var(--border); background:#fff; box-shadow:var(--shadow); }
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 14px; border-radius:12px;
+  border:1px solid var(--border); background:#fff; box-shadow:var(--shadow);
+}
 .btn.primary{ border-color:transparent; background:linear-gradient(90deg,var(--brand),var(--navy)); color:#fff; font-weight:700; }
 
-/* ---- Headings underline ----------------------------------------------- */
-.section-title{
-  font-size:clamp(1.35rem,2vw,1.75rem); margin:0 0 10px; position:relative;
-}
+/* Headings with gradient underline */
+.section-title{ font-size:clamp(1.35rem,2vw,1.75rem); margin:0 0 10px; position:relative; }
 .section-title::after{
   content:""; display:block; height:3px; width:80px; margin-top:8px;
   background:linear-gradient(90deg,var(--brand),var(--navy)); border-radius:999px;
@@ -58,21 +60,15 @@ section{ padding:56px 0; }
   border-bottom:1px solid var(--nav-border);
   box-shadow:0 6px 18px rgba(15,23,42,.06);
 }
-.nav-inner{ height:72px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
-
-/* Logo left */
+.nav-inner{ height:72px; display:flex; align-items:center; gap:16px; }
 .brand-logo img{ height:40px; width:auto; display:block; }
-
-/* Links right (desktop) */
 .links{ display:flex; align-items:center; gap:25px; margin-left:auto; }
 .links a{ color:var(--nav-ink); font-weight:600; }
 .links a:hover{ text-decoration:underline; }
 
-/* Mobile toggle hidden on desktop */
+/* Mobile menu (hidden on desktop) */
 .menu-btn{ display:none; background:transparent; border:1px solid var(--nav-border); padding:8px 12px; border-radius:10px; color:#111827; }
 .mobile-drawer{ display:none; }
-
-/* Mobile behavior */
 @media (max-width:768px){
   .links{ display:none; }
   .menu-btn{ display:inline-flex; }
@@ -81,14 +77,45 @@ section{ padding:56px 0; }
     display:none; flex-direction:column;
   }
   .mobile-drawer.open{ display:flex; }
-  .mobile-drawer a{ padding:14px 20px; border-top:1px solid var(--nav-border); color:#111827; text-decoration:none; }
+  .mobile-drawer a{ padding:14px 20px; border-top:1px solid var(--nav-border); color:#111827; }
 }
 
-/* Kill any accidental theme navs from the default Jekyll theme */
+/* Kill any accidental theme navs */
 .site-header, .secondary-nav, header[role="banner"]{ display:none !important; }
 
 /* ======================================================================
-   CARDS & GRIDS
+   HERO — TRUE FULL-BLEED VIDEO
+   =================================================================== */
+.full-bleed{
+  position:relative;
+  left:50%;
+  margin-left:-50vw;
+  width:100vw;
+  overflow:hidden;
+  background:#000;
+}
+.hero-video{ height: clamp(320px, 62vh, 740px); }
+.hero-video > video{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  display:block;
+}
+@media (max-width:720px){ .hero-video{ height:52vh; } }
+
+/* Spacing after full-bleed hero */
+.hero-video + .container,
+.hero-video + section{ margin-top:24px; }
+
+/* CTA row under logo (home) */
+.hero-cta-row{
+  display:flex; gap:10px; flex-wrap:wrap;
+  justify-content:center; margin:8px 0 18px;
+}
+.home .hero-logo{ max-width:420px; width:90%; margin:18px auto 8px; display:block; }
+
+/* ======================================================================
+   CARDS & GRIDS (generic)
    =================================================================== */
 .card{ background:var(--card); border:1px solid var(--border); border-radius:var(--r); box-shadow:var(--shadow); padding:16px; }
 .grid{ display:grid; gap:16px; }
@@ -99,49 +126,31 @@ section{ padding:56px 0; }
 @media (max-width:720px){ .grid.cols-2, .grid.cols-3, .grid.cols-4{ grid-template-columns:1fr; } }
 
 /* ======================================================================
-   HERO (logo left, rotator right optional)
-   =================================================================== */
-header.hero{ padding-top:32px; }
-.hero-grid{ display:grid; gap:20px; }
-.hero-left{ text-align:center; }
-.hero-logo{ max-width:360px; width:80vw; margin:12px auto 8px; }
-.hero-tagline{ font-size:clamp(1rem,1.8vw,1.15rem); color:var(--muted); max-width:720px; margin:0 auto; }
-@media (min-width:900px){
-  .hero-grid{ grid-template-columns:1.1fr 1fr; align-items:center; }
-  .hero-left{ text-align:left; }
-  .hero-logo{ margin:0 0 8px 0; }
-}
-
-/* Hero / generic rotator */
-.hero-rotator .frame{ position:relative; overflow:hidden; border-radius:var(--r); }
-.hero-rotator .slide{ position:absolute; inset:0; opacity:0; transition:opacity .6s ease;
-  width:100%; height:52vh; min-height:320px; max-height:640px; object-fit:cover; }
-.hero-rotator .slide.active{ opacity:1; }
-.hero-rotator .dots{ position:absolute; left:0; right:0; bottom:10px; display:flex; justify-content:center; gap:8px; }
-.hero-rotator .dots button{ width:8px; height:8px; border-radius:999px; border:0; background:#c3c9db; cursor:pointer; }
-.hero-rotator .dots button.active{ background:var(--brand); }
-
-/* ======================================================================
    FAMILY GRID (overview)
    =================================================================== */
-.family-grid{ display:grid; gap:16px; grid-template-columns:repeat(12,1fr); }
-.family-card{ grid-column:span 4; }
-.family-card .media{
-  width:100%; height:160px; border-radius:12px; background:#eef3ff; border:1px solid var(--border);
-  margin-bottom:12px; display:grid; place-items:center;
+.family-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  gap:16px;
 }
-.family-card .media img{ width:100%; height:100%; object-fit:cover; border-radius:12px; }
-.family-card h3{ margin:0 0 6px; font-size:20px; }
+.family-card{
+  background:var(--card); border:1px solid var(--border); border-radius:var(--r);
+  box-shadow:var(--shadow); padding:16px;
+}
+.family-card .media{
+  width:100%; height:180px; border-radius:12px;
+  background:#eef3ff; border:1px solid var(--border); overflow:hidden;
+}
+.family-card .media img{ width:100%; height:100%; object-fit:cover; }
+.family-card h3{ margin:10px 0 6px; font-size:18px; }
 .family-card p{ margin:0 0 10px; color:var(--muted); }
 .family-card .actions{ display:flex; gap:8px; flex-wrap:wrap; }
-@media (max-width:900px){ .family-card{ grid-column:span 6; } }
-@media (max-width:640px){ .family-card{ grid-column:span 12; } }
 
-/* Space between family grid and bios */
+/* Space before bios */
 .bio-sections{ margin-top:28px; }
 
 /* ======================================================================
-   BIO BLOCKS (text-forward + slim carousel)
+   BIO BLOCKS + MINI CAROUSEL
    =================================================================== */
 .bio-block{
   display:grid; grid-template-columns:1.1fr .9fr; gap:18px; align-items:start;
@@ -152,9 +161,8 @@ header.hero{ padding-top:32px; }
 .bio-block p{ color:var(--muted); margin:0 0 10px; }
 @media (max-width:900px){ .bio-block{ grid-template-columns:1fr; } }
 
-/* Small rotator */
-.carousel{ position:relative; border-radius:12px; overflow:hidden; min-height:220px; background:#eef3ff; border:1px solid var(--border); }
-.carousel .slide{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .5s ease; }
+.carousel{ position:relative; border:1px solid var(--border); border-radius:12px; overflow:hidden; min-height:220px; background:#eef3ff; }
+.carousel .slide{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .45s ease; }
 .carousel .slide.active{ opacity:1; }
 .carousel .dots{ position:absolute; left:0; right:0; bottom:10px; display:flex; justify-content:center; gap:8px; }
 .carousel .dots button{ width:8px; height:8px; border-radius:999px; border:0; background:#9aa7bd; cursor:pointer; }
@@ -171,11 +179,14 @@ header.hero{ padding-top:32px; }
 .result-actions{ display:flex; gap:8px; flex-wrap:wrap; }
 
 /* ======================================================================
-   SHOP (grid + filters + sort placeholders)
+   SHOP (grid; filters you wire up in HTML/JS)
    =================================================================== */
 .shop-controls{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin:12px 0 16px; }
 .products{ display:grid; gap:16px; grid-template-columns:repeat(12,1fr); }
-.product-card{ grid-column:span 4; background:#fff; border:1px solid var(--border); border-radius:var(--r); overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column; }
+.product-card{
+  grid-column:span 4; background:#fff; border:1px solid var(--border); border-radius:var(--r);
+  overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column;
+}
 .product-card .media{ background:#eef3ff; border-bottom:1px solid var(--border); }
 .product-card .media img{ width:100%; height:240px; object-fit:cover; }
 .product-card .body{ padding:14px; display:grid; gap:6px; }
@@ -187,21 +198,51 @@ header.hero{ padding-top:32px; }
 @media (max-width:640px){ .product-card{ grid-column:span 12; } }
 
 /* ======================================================================
-   SPONSORS
+   MERCH / GENERIC CAROUSEL (horizontal, responsive)
    =================================================================== */
-.sponsors-block{ padding:48px 0 64px; }
-.sponsors-grid{ list-style:none; margin:0; padding:0; display:grid; gap:14px; grid-template-columns:repeat(6,minmax(0,1fr)); }
-@media (max-width:1100px){ .sponsors-grid{ grid-template-columns:repeat(4,1fr); } }
-@media (max-width:720px){ .sponsors-grid{ grid-template-columns:repeat(2,1fr); } }
-.sponsor{
-  background:#eef2ff; border:1px solid #dfe6fa; border-radius:14px; padding:16px 12px;
-  display:flex; flex-direction:column; gap:8px; align-items:center; justify-content:center; min-height:110px;
-  transition:transform .15s ease, box-shadow .15s ease;
+.tm-carousel{ --gap:14px; position:relative; overflow:hidden; }
+.tm-track{ display:flex; gap:var(--gap); transition:transform .45s ease; will-change:transform; }
+.tm-slide{ flex:0 0 100%; }                               /* 1-up mobile */
+@media (min-width:640px){ .tm-slide{ flex:0 0 calc(50% - var(--gap)/2); } }   /* 2-up */
+@media (min-width:960px){ .tm-slide{ flex:0 0 calc(33.333% - var(--gap)*2/3); } } /* 3-up */
+
+.tm-card{ background:#fff; border:1px solid #e7ecf8; border-radius:14px; overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column; }
+.tm-imgwrap{ position:relative; aspect-ratio:16/9; background:#f3f6ff; }
+.tm-imgwrap img{ width:100%; height:100%; object-fit:cover; }
+.tm-meta{ display:flex; justify-content:space-between; align-items:center; padding:12px 14px; }
+.tm-name{ font-weight:700; }
+.tm-price{ color:#64748b; }
+
+.tm-dots{ display:flex; gap:8px; justify-content:center; margin-top:12px; }
+.tm-dots button{ width:8px; height:8px; border-radius:999px; border:0; background:#c3c9db; cursor:pointer; }
+.tm-dots button[aria-current="true"]{ background:var(--brand); }
+
+.tm-arrow{
+  position:absolute; top:50%; transform:translateY(-50%);
+  border:0; width:38px; height:38px; border-radius:999px;
+  background:#ffffffcc; box-shadow:0 4px 14px rgba(0,0,0,.12); cursor:pointer; display:grid; place-items:center;
 }
-.sponsor:hover{ transform:translateY(-2px); box-shadow:var(--shadow); }
-.sponsor .logo{ width:120px; height:52px; display:flex; align-items:center; justify-content:center; }
-.sponsor .logo img{ max-width:100%; max-height:100%; object-fit:contain; }
-.sponsor .name{ font-weight:600; color:#1f2937; font-size:14px; text-align:center; }
+.tm-arrow.prev{ left:6px; } .tm-arrow.next{ right:6px; }
+.tm-arrow:disabled{ opacity:.35; cursor:default; }
+
+/* ======================================================================
+   SPONSORS (compact logo grid)
+   =================================================================== */
+.sponsors{ padding:28px 0 56px; }
+.sponsors .section-title{ margin-bottom:14px; }
+.sponsors-grid{
+  list-style:none; margin:0; padding:0;
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:14px;
+}
+.sponsor{
+  background:#f5f7ff; border:1px solid #e6ecf8; border-radius:12px;
+  height:72px; display:flex; align-items:center; justify-content:center; padding:10px;
+}
+.sponsor img{
+  max-height:40px; width:auto; object-fit:contain;
+  filter:saturate(0) opacity(.75); transition:filter .2s ease, transform .2s ease;
+}
+.sponsor:hover img{ filter:none; transform:translateY(-1px); }
 
 /* ======================================================================
    CONTACT STRIP & FOOTER
@@ -214,7 +255,7 @@ header.hero{ padding-top:32px; }
 footer{ padding:40px 0 80px; color:#64748b; text-align:center; border-top:1px solid var(--border); }
 
 /* ======================================================================
-   SNOW (subtle on light bg)
+   SNOW (subtle)
    =================================================================== */
 .snow{
   position:fixed; inset:0; pointer-events:none; z-index:200; opacity:var(--snow-a);
@@ -230,405 +271,3 @@ footer{ padding:40px 0 80px; color:#64748b; text-align:center; border-top:1px so
   from{ background-position:0 0,0 0,0 0,0 0; }
   to  { background-position:0 1000px,0 800px,0 1200px,0 900px; }
 }
-
-/* --- NAV DESKTOP/MOBILE SAFETY NET (keep at very end) --- */
-.menu-btn { display: none; }          /* hide on desktop by default */
-.links { display: flex; gap: 25px; }  /* show links on desktop */
-
-@media (max-width: 768px){
-  .links { display: none; }           /* hide on mobile */
-  .menu-btn { display: inline-flex; } /* show button on mobile */
-}
-
-/* small nav logo cap */
-.brand-logo img { height: 40px; width: auto; display: block; }
-
-/* keep content constrained even if a section forgot .container */
-main > section:not(.container):not(.strip) { padding: 0; }
-main > *:not(.strip):not(footer) {
-  max-width: 1100px; margin-inline: auto; padding-inline: 20px;
-}
-
-/* ===== Force the Family grid to be a real grid ===== */
-.family-grid{
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* 3–4 across on desktop */
-  gap: 16px;
-}
-
-/* Keep each card from stretching weirdly */
-.family-card{
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  box-shadow: var(--shadow);
-  padding: 16px;
-  /* remove any previous grid-column spans */
-  grid-column: auto !important;
-}
-
-/* Image area is a fixed height so rows align nicely */
-.family-card .media{
-  width: 100%;
-  height: 180px;                 /* tweak to taste (160–220px) */
-  border-radius: 12px;
-  background: #eef3ff;
-  border: 1px solid var(--border);
-  overflow: hidden;
-}
-.family-card .media img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Title/body polish */
-.family-card h3{ margin: 10px 0 6px; font-size: 18px; }
-.family-card p{ margin: 0 0 10px; color: var(--muted); }
-.family-card .actions{ display:flex; gap:8px; flex-wrap:wrap; }
-
-/* === BIO CAROUSEL FIX === */
-.carousel{
-  position: relative !important;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  min-height: 220px;       /* or set a fixed height you like */
-  background: #eef3ff;
-}
-.carousel .slide{
-  position: absolute !important;
-  inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  opacity: 0; 
-  transition: opacity .45s ease;
-  pointer-events: none;
-}
-.carousel .slide.active{
-  opacity: 1;
-  pointer-events: auto;
-}
-.carousel .dots{
-  position: absolute; left: 0; right: 0; bottom: 8px;
-  display: flex; justify-content: center; gap: 8px;
-}
-.carousel .dots button{
-  width: 8px; height: 8px; border-radius: 999px; border: 0; cursor: pointer;
-  background: #9aa7bd;
-}
-.carousel .dots button.active{ background: var(--brand); }
-
-/* Sponsors: compact logo grid */
-.sponsors { padding: 28px 0 56px; }
-.sponsors .section-title { margin-bottom: 14px; }
-
-.sponsors-grid {
-  list-style: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-  gap: 14px;
-}
-
-.sponsor {
-  background: #f5f7ff;
-  border: 1px solid #e6ecf8;
-  border-radius: 12px;
-
-  height: 72px;                 /* consistent tile height */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-}
-
-.sponsor img {
-  max-height: 40px;             /* normalizes logo size */
-  width: auto;
-  object-fit: contain;
-  filter: saturate(0) opacity(.75);
-  transition: filter .2s ease, transform .2s ease;
-}
-
-.sponsor:hover img {
-  filter: none;
-  transform: translateY(-1px);
-}
-
-/* If any old name element is still in markup, hide it */
-.sponsor .s-name { display: none !important; }
-
-/* === Generic carousel layout === */
-.tm-carousel{ --gap:14px; position:relative; overflow:hidden; }
-.tm-track{ display:flex; gap:var(--gap); transition: transform .45s ease; will-change: transform; }
-.tm-slide{ flex:0 0 100%; }             /* 1-up on mobile */
-@media (min-width:640px){ .tm-slide{ flex:0 0 calc(50% - var(--gap)/2);} }   /* 2-up */
-@media (min-width:960px){ .tm-slide{ flex:0 0 calc(33.333% - var(--gap)*2/3);} } /* 3-up */
-
-/* Card shell (used by merch) */
-.tm-card{ background:#fff; border:1px solid #e7ecf8; border-radius:14px; overflow:hidden; box-shadow:0 8px 24px rgba(20,37,94,.08); display:flex; flex-direction:column; }
-.tm-imgwrap{ position:relative; aspect-ratio: 16/9; background:#f3f6ff; display:grid; place-items:center; }
-.tm-imgwrap img{ width:100%; height:100%; object-fit:cover; }
-.tm-meta{ display:flex; justify-content:space-between; align-items:center; padding:12px 14px; }
-.tm-name{ font-weight:700; }
-.tm-price{ color:#64748b; }
-
-/* Dots + arrows */
-.tm-dots{ display:flex; gap:8px; justify-content:center; margin-top:12px; }
-.tm-dots button{ width:8px; height:8px; border-radius:999px; border:0; background:#c3c9db; cursor:pointer; }
-.tm-dots button[aria-current="true"]{ background:#9F1D2D; }
-
-.tm-arrow{ position:absolute; top:50%; transform:translateY(-50%); border:0; width:38px; height:38px; border-radius:999px; background:#ffffffcc; box-shadow:0 4px 14px rgba(0,0,0,.12); cursor:pointer; display:grid; place-items:center; }
-.tm-arrow svg{ width:18px; height:18px; }
-.tm-arrow.prev{ left:6px; }
-.tm-arrow.next{ right:6px; }
-.tm-arrow:disabled{ opacity:.35; cursor:default; }
-
-/* Mini/bio rotator (single-image) – uses same JS */
-.mini-rotator{ position:relative; overflow:hidden; border-radius:14px; }
-.mini-rotator .tm-track{ gap:0; }
-.mini-rotator .tm-slide{ flex:0 0 100%; }
-.mini-rotator img{ width:100%; height:100%; object-fit:cover; display:block; }
-.mini-rotator .tm-dots{ position:absolute; left:0; right:0; bottom:10px; }
-.mini-rotator .tm-arrow{ background:#ffffffb0; }
-
-/* === Merch carousel layout === */
-.tm-carousel{ --gap:14px; position:relative; overflow:hidden; }
-.tm-track{ display:flex; gap:var(--gap); transition: transform .45s ease; will-change: transform; }
-.tm-slide{ flex:0 0 100%; } /* 1-up on mobile */
-@media (min-width:640px){ .tm-slide{ flex:0 0 calc(50% - var(--gap)/2);} }   /* 2-up */
-@media (min-width:960px){ .tm-slide{ flex:0 0 calc(33.333% - var(--gap)*2/3);} } /* 3-up */
-
-/* Use your existing card styles, but here’s a sane fallback */
-.m-card{ background:#fff; border:1px solid #e7ecf8; border-radius:14px; overflow:hidden; box-shadow:0 8px 24px rgba(20,37,94,.08); display:flex; flex-direction:column; }
-.m-img{ position:relative; aspect-ratio:16/9; background:#f3f6ff; }
-.m-img img{ width:100%; height:100%; object-fit:cover; }
-.m-badge{ position:absolute; left:10px; top:10px; font-size:12px; padding:4px 8px; border-radius:999px; background:linear-gradient(90deg,#9F1D2D,#3B3C78); color:#fff; font-weight:700; }
-.m-meta{ display:flex; justify-content:space-between; align-items:center; padding:12px 14px; }
-.m-name{ font-weight:700; }
-.m-price{ color:#64748b; }
-
-/* arrows + dots */
-.tm-arrow{ position:absolute; top:50%; transform:translateY(-50%); border:0; width:38px; height:38px; border-radius:999px; background:#ffffffcc; box-shadow:0 4px 14px rgba(0,0,0,.12); cursor:pointer; display:grid; place-items:center; }
-.tm-arrow.prev{ left:6px; } .tm-arrow.next{ right:6px; }
-.tm-arrow:disabled{ opacity:.35; cursor:default; }
-.tm-dots{ display:flex; gap:8px; justify-content:center; margin-top:12px; }
-.tm-dots button{ width:8px; height:8px; border-radius:999px; border:0; background:#c3c9db; cursor:pointer; }
-.tm-dots button[aria-current="true"]{ background:#9F1D2D; }
-
-/* Full-bleed hero video */
-.hero-video{
-  position: relative;
-  width: 100vw;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;   /* break out of .container for true full width */
-  margin-right: -50vw;
-  overflow: hidden;
-  aspect-ratio: 16 / 9;          /* keeps height sensible while loading */
-  max-height: 84vh;              /* don’t cover the whole screen */
-  background: #000;              /* safe background while video loads */
-}
-
-.hero-video__media{
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;             /* fills edge-to-edge without distorting */
-}
-
-/* Optional overlay */
-.hero-video__overlay{
-  position: absolute;
-  inset: 0;
-  display: grid;
-  align-content: center;
-  gap: 14px;
-  color: #fff;
-  text-align: left;
-  pointer-events: none;          /* overlay is decorative except buttons */
-  padding-top: min(14vh, 120px);
-}
-.hero-video__overlay::before{
-  content:"";
-  position:absolute; inset:0;
-  background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.15) 40%, transparent 70%);
-  pointer-events:none;
-}
-.hero-video__logo{ width: clamp(180px, 22vw, 360px); filter: drop-shadow(0 6px 24px rgba(0,0,0,.35)); }
-.hero-video__tag{ margin: 6px 0 0; font-size: clamp(1rem, 2vw, 1.25rem); text-shadow: 0 2px 10px rgba(0,0,0,.35); }
-.hero-video__cta{ display:flex; gap:10px; margin-top: 8px; pointer-events:auto; }
-
-@media (max-width: 720px){
-  .hero-video{ aspect-ratio: 9 / 16; max-height: 78vh; }
-  .hero-video__overlay{ padding-top: 14vh; }
-  .hero-video__logo{ width: clamp(160px, 42vw, 260px); }
-}
-
-/* Give the next section breathing room since hero is full-bleed */
-.hero-video + .container,
-.hero-video + section { margin-top: 24px; }
-
-/* Full-bleed wrapper pulls content outside the .container width */
-.full-bleed{
-  width:100vw;
-  margin-left:50%;
-  transform:translateX(-50%);
-}
-
-/* Hero video */
-.hero-video{ position:relative; }
-.hero-video video{
-  width:100%;
-  height: min(78vh, 720px);     /* big on desktop */
-  object-fit: cover;            /* fill width, crop overflow */
-  display:block;
-  background:#000;
-}
-@media (max-width: 720px){
-  .hero-video video{ height: 52vh; }  /* comfortable mobile height */
-}
-
-/* Logo under the video */
-.home .hero-logo{
-  max-width: 420px;             /* keep it tidy */
-  width: 90%;
-  margin: 18px auto 8px;
-  display: block;
-}
-
-/* CTA row under the logo */
-.hero-cta-row{
-  display:flex; gap:10px; flex-wrap:wrap;
-  justify-content:center; margin: 8px 0 18px;
-}
-.hero-cta-row .btn{ padding:10px 14px; }
-.hero-cta-row .btn.primary{ font-weight:700; }
-
-/* Respect reduce-motion */
-@media (prefers-reduced-motion: reduce){
-  .hero-video video{ animation: none !important; }
-}
-
-/* Full-bleed wrapper pulls element to page edges */
-.full-bleed{
-  width:100vw;
-  margin-left:50%;
-  transform:translateX(-50%);
-}
-
-/* Video fills width and crops like a banner */
-.hero-video{ position:relative; }
-.hero-video video{
-  display:block;
-  width:100%;
-  height:min(78vh, 720px);
-  object-fit:cover;
-  background:#000;
-}
-
-/* Smaller but prominent logo under the video */
-.home .hero-logo,
-.hero-logo{
-  max-width:420px;
-  width:90%;
-  margin:18px auto 8px;
-  display:block;
-}
-
-/* CTA buttons row */
-.hero-cta-row{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  justify-content:center;
-  margin:8px 0 18px;
-}
-.hero-cta-row .btn{ padding:10px 14px; }
-.hero-cta-row .btn.primary{ font-weight:700; }
-
-/* Mobile height */
-@media (max-width:720px){
-  .hero-video video{ height:52vh; }
-}
-
-/* If an old hero overlay/grid was present, neutralize it */
-.hero-bleed, .hero-grid { all: unset; }
-
-/* ===================== HERO FULL-BLEED HOTFIX (put at END) ===================== */
-
-/* 1) Don't constrain the full-bleed hero */
-main > .full-bleed {
-  max-width: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-/* 2) One definitive full-bleed implementation (avoid duplicates above) */
-.full-bleed {
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  width: 100vw;
-  overflow: hidden;
-  background: #000;
-}
-
-/* 3) Video fills the viewport width and crops vertically */
-.hero-video video {
-  display: block;
-  width: 100vw;
-  height: min(80vh, 720px);   /* adjust to taste */
-  object-fit: cover;
-}
-
-/* 4) Optional: smaller hero on small screens */
-@media (max-width: 720px) {
-  .hero-video video { height: 52vh; }
-}
-
-/* 5) If any earlier rules tried to center with transform, neutralize them */
-.full-bleed { transform: none !important; margin-left: -50vw !important; }
-
-/* ===== HERO FULL-BLEED FIX (put at end of site.css) ===== */
-
-/* 1) Stop the layout from constraining the full-bleed hero */
-main > .full-bleed,
-main .full-bleed {
-  max-width: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-/* 2) One definitive full-bleed wrapper */
-.full-bleed {
-  position: relative;
-  left: 50%;
-  margin-left: -50vw;
-  width: 100vw;
-  overflow: hidden;
-  background: #000;
-}
-
-/* 3) Give the hero a predictable height; video fills and crops */
-.hero-video { height: clamp(320px, 62vh, 740px); }      /* adjust if you want */
-.hero-video > video {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* 4) Mobile tweak */
-@media (max-width: 720px){
-  .hero-video { height: 52vh; }
-}
-
-/* 5) Neutralize any older full-bleed variants that used transforms */
-.full-bleed { transform: none !important; margin-right: 0 !important; }

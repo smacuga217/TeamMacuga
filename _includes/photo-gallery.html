@@ -1,0 +1,11 @@
+<section id="photos">
+  <h2 class="section-title">Photo Highlights</h2>
+  <div class="grid" style="margin-top:8px">
+    {% for p in site.data.gallery %}
+    <figure class="card" style="padding:0; overflow:hidden">
+      <img src="{{ p.img | relative_url }}" alt="{{ p.caption | escape }}" style="width:100%;display:block;aspect-ratio:16/9;object-fit:cover;">
+      <figcaption style="padding:12px 14px;color:var(--muted)">{{ p.caption }}</figcaption>
+    </figure>
+    {% endfor %}
+  </div>
+</section>

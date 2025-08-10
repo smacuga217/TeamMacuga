@@ -1,4 +1,11 @@
-{% assign r = site.data.results | first %}
+{% assign auto = site.data.results_auto | default: empty %}
+{% assign manual = site.data.results | default: empty %}
+{% if auto and auto.size > 0 %}
+  {% assign r = auto | first %}
+{% elsif manual and manual.size > 0 %}
+  {% assign r = manual | first %}
+{% endif %}
+
 {% if r %}
 <div class="latest-result">
   <span class="tag">Latest result</span>

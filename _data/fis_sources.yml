@@ -1,0 +1,13 @@
+athletes:
+  - name: Sam Macuga
+    url: https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=JP&competitorid=211435
+    discipline: Ski Jumping
+  - name: Lauren Macuga
+    url: https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=228398
+    discipline: Alpine
+  - name: Alli Macuga
+    url: https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=FS&competitorid=220306
+    discipline: Moguls
+  - name: Daniel Macuga
+    url: https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=260517
+    discipline: Alpine

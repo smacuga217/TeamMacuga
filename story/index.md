@@ -1,54 +1,57 @@
 ---
 layout: default
 title: Our Story
-permalink: /story/
 ---
 
-<section class="container">
-  <h1>Our Story</h1>
-  <p class="lead">We’re a family from Park City who turned weekend laps into a full-fuel chase of world stages—three sisters, one brother, two legendary parents.</p>
+# Our Story
 
-  <figure class="hero-photo"><img src="{{ '/assets/img/placeholders/16x9.svg' | relative_url }}" alt=""></figure>
+Team Macuga is more than just a team — it’s a family.  
+From the snowy slopes of our first ski runs to competing at the highest levels, we’ve grown together, pushed each other, and learned what it means to chase a dream side by side. Each of us brings a unique personality, style, and discipline to the team — but we share one goal: to ski our hearts out and inspire the next generation.
 
-  <div class="story-grid">
-    <div class="story-copy">
-      <h2>Park City roots</h2>
-      <p>From early-morning chairlifts to late-night wax rooms, the Macuga routine has always been about showing up together and getting better together.</p>
+---
 
-      <div class="story-grid">
-  <div>
-    <p class="lead">
-      From Park City to World Cup venues around the globe—three sisters, one brother, two legendary parents, one big dream.
-    </p>
-    <ul class="listy">
-      <li><span class="meta">Roots</span> Park City, Utah</li>
-      <li><span class="meta">Disciplines</span> Alpine • Moguls • Ski Jumping</li>
-      <li><span class="meta">Goal</span> Milano–Cortina 2026 and beyond</li>
-    </ul>
-  </div>
-  <div class="story-photos">
-    <img src="{{ '/assets/img/placeholders/story-1.jpg' | relative_url }}" alt="">
-    <img src="{{ '/assets/img/placeholders/story-2.jpg' | relative_url }}" alt="">
-    <img src="{{ '/assets/img/placeholders/story-3.jpg' | relative_url }}" alt="">
-    <img src="{{ '/assets/img/placeholders/story-4.jpg' | relative_url }}" alt="">
-    <img src="{{ '/assets/img/placeholders/story-5.jpg' | relative_url }}" alt="">
-    <img src="{{ '/assets/img/placeholders/story-6.jpg' | relative_url }}" alt="">
-  </div>
+## Roots in the Mountains
+
+Raised with skis practically strapped to our feet, the mountains have always been our home. What started as weekends at the local hill became year-round training, travel, and competition. Along the way, we’ve discovered not only how far hard work can take us, but also how important it is to have family at your side for every win, loss, and adventure.
+
+---
+
+## The Macuga Athletes
+
+### Sam Macuga — Ski Jumping
+Flying through the air is a feeling like no other. Sam’s fearless approach to ski jumping has taken her to international competitions and inspired young athletes around the world.
+
+### Lauren Macuga — Alpine Ski Racing
+Known for her speed, precision, and fierce competitive edge, Lauren continues to make her mark on the Alpine racing circuit.
+
+### Alli Macuga — Freestyle
+From spins to flips, Alli thrives in the creative, high-energy world of freestyle skiing, always pushing the limits of style and skill.
+
+### Daniel Macuga — Alpine Ski Racing
+Daniel’s focus and determination keep him charging down the course, carving clean lines and representing the team with pride.
+
+---
+
+## Life on the Road
+
+Between training camps, competitions, and travel days, we’ve learned to adapt to life on the move. The road has become our classroom, our workplace, and our playground. We’ve shared unforgettable moments, from podium finishes to long drives singing along to our favorite playlists.
+
+---
+
+## Gallery
+
+<div class="story-photos">
+  <img src="{{ '/assets/img/gallery/placeholder1.jpg' | relative_url }}" alt="Team Macuga on the slopes">
+  <img src="{{ '/assets/img/gallery/placeholder2.jpg' | relative_url }}" alt="Training day in the mountains">
+  <img src="{{ '/assets/img/gallery/placeholder3.jpg' | relative_url }}" alt="Competition photo">
+  <img src="{{ '/assets/img/gallery/placeholder4.jpg' | relative_url }}" alt="Podium celebration">
+  <img src="{{ '/assets/img/gallery/placeholder5.jpg' | relative_url }}" alt="Travel day adventures">
+  <img src="{{ '/assets/img/gallery/placeholder6.jpg' | relative_url }}" alt="Behind the scenes">
 </div>
 
+---
 
-      <h2>Four kids, three disciplines</h2>
-      <p>Alpine speed, moguls, and ski jumping—each path different, same stoke. Lauren, Alli, Sam, and Daniel push one another on and off snow.</p>
+## What’s Next
 
-      <h2>Milano–Cortina 2026 and beyond</h2>
-      <p>The dream is simple: keep progressing, keep showing up, and make people smile along the way.</p>
-    </div>
+We’re continuing to train, compete, and represent our sponsors on the world stage. Every turn, jump, and run brings us closer to our goals — and we’re grateful to have the support of friends, family, and fans along the way.
 
-    <div class="story-photos">
-      <img src="{{ '/assets/img/placeholders/1x1.svg' | relative_url }}" alt="">
-      <img src="{{ '/assets/img/placeholders/1x1.svg' | relative_url }}" alt="">
-      <img src="{{ '/assets/img/placeholders/1x1.svg' | relative_url }}" alt="">
-      <img src="{{ '/assets/img/placeholders/1x1.svg' | relative_url }}" alt="">
-    </div>
-  </div>
-</section>

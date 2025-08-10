@@ -1,4 +1,12 @@
 title: Team Macuga
-url: https://smacuga217.github.io
-baseurl: /TeamMacuga
-markdown: kramdown
+tagline: Four siblings — one dream.
+url: "https://smacuga217.github.io"
+baseurl: "/TeamMacuga"
+
+# Use our own layout/includes instead of Primer’s
+theme: null
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-relative-links
+  - jekyll-paginate

@@ -1,27 +1,22 @@
-<section class="contact-strip" aria-labelledby="contact-heading">
-  <div class="divider-top" aria-hidden="true"></div>
+<!-- _includes/contact-strip.html -->
+<section class="contact-strip">
   <div class="container">
     <div class="contact-row">
-      <h3 id="contact-heading">Get in touch</h3>
+      <h3>Get in touch</h3>
       <p>Have a question or want to partner? We’d love to hear from you.</p>
       <a class="btn primary" href="mailto:teammacuga@gmail.com">Email — teammacuga@gmail.com</a>
     </div>
 
     <h2 class="section-title">Thank you to our sponsors</h2>
-    <p class="section-sub">Their support keeps the dream racing.</p>
-
     <ul class="sponsors-grid">
-      {% for s in site.data.sponsors %}
+      {% assign sponsors = "Stifel,Pit Viper,Rossignol,Giro,Swix,TaraShakti,Level" | split: "," %}
+      {% for s in sponsors %}
       <li class="sponsor">
-        <a href="{{ s.url | default: '#' }}" target="_blank" rel="noopener">
-          <span class="logo-wrap">
-            {% if s.logo %}
-              <img src="{{ s.logo | relative_url }}" alt="{{ s.name }} logo">
-            {% else %}
-              <img src="{{ '/assets/img/placeholders/sponsor.png' | relative_url }}" class="logo-fallback" alt="">
-            {% endif %}
-          </span>
-          <span class="s-name">{{ s.name }}</span>
+        <a href="#" aria-label="{{ s }}">
+          <div class="logo-wrap">
+            <img src="{{ '/assets/img/sponsors/' | append: s | downcase | replace: ' ', '-' | append: '.png' | relative_url }}" alt="{{ s }} logo" onerror="this.classList.add('logo-fallback')">
+          </div>
+          <div class="s-name">{{ s }}</div>
         </a>
       </li>
       {% endfor %}

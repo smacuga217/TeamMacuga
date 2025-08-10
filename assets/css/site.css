@@ -472,3 +472,44 @@ main > *:not(.strip):not(footer) {
 /* Give the next section breathing room since hero is full-bleed */
 .hero-video + .container,
 .hero-video + section { margin-top: 24px; }
+
+/* Full-bleed wrapper pulls content outside the .container width */
+.full-bleed{
+  width:100vw;
+  margin-left:50%;
+  transform:translateX(-50%);
+}
+
+/* Hero video */
+.hero-video{ position:relative; }
+.hero-video video{
+  width:100%;
+  height: min(78vh, 720px);     /* big on desktop */
+  object-fit: cover;            /* fill width, crop overflow */
+  display:block;
+  background:#000;
+}
+@media (max-width: 720px){
+  .hero-video video{ height: 52vh; }  /* comfortable mobile height */
+}
+
+/* Logo under the video */
+.home .hero-logo{
+  max-width: 420px;             /* keep it tidy */
+  width: 90%;
+  margin: 18px auto 8px;
+  display: block;
+}
+
+/* CTA row under the logo */
+.hero-cta-row{
+  display:flex; gap:10px; flex-wrap:wrap;
+  justify-content:center; margin: 8px 0 18px;
+}
+.hero-cta-row .btn{ padding:10px 14px; }
+.hero-cta-row .btn.primary{ font-weight:700; }
+
+/* Respect reduce-motion */
+@media (prefers-reduced-motion: reduce){
+  .hero-video video{ animation: none !important; }
+}

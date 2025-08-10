@@ -2,8 +2,7 @@
 title: Home
 layout: default
 ---
-
-<!-- Full-bleed hero video -->
+<!-- ================= Hero: full-bleed video ================= -->
 <div class="full-bleed hero-video">
   <video autoplay muted loop playsinline
          poster="{{ '/assets/img/hero/poster.jpg' | relative_url }}">
@@ -11,29 +10,16 @@ layout: default
   </video>
 </div>
 
-<!-- Logo + CTAs under the video -->
 <div class="container">
   <img class="hero-logo" src="{{ '/assets/img/logo-full-color.png' | relative_url }}" alt="Team Macuga">
 
   <div class="hero-cta-row">
-    <a class="btn primary" href="{{ '/shop/'    | relative_url }}">Shop Merch</a>
+    <a class="btn primary" href="{{ '/shop/' | relative_url }}">Shop Merch</a>
     <a class="btn"          href="{{ '/updates/#results' | relative_url }}">Latest Results</a>
-    <a class="btn"          href="{{ '/story/'  | relative_url }}">Our Story</a>
+    <a class="btn"          href="{{ '/story/' | relative_url }}">Our Story</a>
   </div>
 </div>
-
-
-  <!-- Optional overlay text/button; delete if you want pure video -->
-  <div class="hero-video__overlay container">
-    <p class="hero-video__tag">TEAM MACUGA</p>
-    <div class="hero-video__cta">
-      <a class="btn primary" href="{{ '/shop/' | relative_url }}">Shop Merch</a>
-      <a class="btn" href="{{ '/our story/' | relative_url }}">Our Story</a>
-      <a class="btn" href="{{ '/updates/' | relative_url }}">Latest Results</a>
-    </div>
-  </div>
-</section>
-
+<!-- ========================================================== -->
 
 <section class="hero">
   <div class="container hero-grid">

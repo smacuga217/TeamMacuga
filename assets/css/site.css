@@ -513,3 +513,48 @@ main > *:not(.strip):not(footer) {
 @media (prefers-reduced-motion: reduce){
   .hero-video video{ animation: none !important; }
 }
+
+/* Full-bleed wrapper pulls element to page edges */
+.full-bleed{
+  width:100vw;
+  margin-left:50%;
+  transform:translateX(-50%);
+}
+
+/* Video fills width and crops like a banner */
+.hero-video{ position:relative; }
+.hero-video video{
+  display:block;
+  width:100%;
+  height:min(78vh, 720px);
+  object-fit:cover;
+  background:#000;
+}
+
+/* Smaller but prominent logo under the video */
+.home .hero-logo,
+.hero-logo{
+  max-width:420px;
+  width:90%;
+  margin:18px auto 8px;
+  display:block;
+}
+
+/* CTA buttons row */
+.hero-cta-row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin:8px 0 18px;
+}
+.hero-cta-row .btn{ padding:10px 14px; }
+.hero-cta-row .btn.primary{ font-weight:700; }
+
+/* Mobile height */
+@media (max-width:720px){
+  .hero-video video{ height:52vh; }
+}
+
+/* If an old hero overlay/grid was present, neutralize it */
+.hero-bleed, .hero-grid { all: unset; }

@@ -1,0 +1,14 @@
+<section class="container" id="latest-results">
+  <h2 class="section-title">Latest Results</h2>
+  <div class="grid">
+    {% assign items = site.data.results | slice: 0, 3 %}
+    {% for r in items %}
+    <article class="card">
+      <h3 style="margin:0 0 4px">{{ r.athlete }} — {{ r.event }}</h3>
+      <p class="tiny" style="margin:0 0 8px; color:var(--muted)">{{ r.location }} • {{ r.date }}</p>
+      <p style="margin:0 0 8px;">Place: <strong>{{ r.place }}</strong>{% if r.points %} • Points: {{ r.points }}{% endif %}</p>
+      <a class="pill" href="{{ r.source }}" target="_blank" rel="noopener">See on FIS</a>
+    </article>
+    {% endfor %}
+  </div>
+</section>

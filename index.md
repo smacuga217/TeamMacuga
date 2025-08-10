@@ -1,4 +1,6 @@
 ---
+{% include latest-results.html %}
+
 layout: default
 title: Our Story
 nav: story

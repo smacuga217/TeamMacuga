@@ -246,7 +246,7 @@ header.hero{ padding-top:32px; }
 .links a{ font-weight: 600; }
 :root{
   --bg:#f7fbff;
-  --card:#ffffff;
+  --card:rgba(59,60,120,0.25);
   --text:#0b1220;
   --muted:#4b5563;
   --brand:#9F1D2D;   /* team red */
@@ -273,7 +273,7 @@ body{
 
 /* Nav: transparent over hero, solid on scroll */
 .nav{ position:sticky; top:0; z-index:300; transition:background .25s, box-shadow .25s; background:transparent; }
-.nav.scrolled{ background:#ffffff; box-shadow:0 6px 18px rgba(15,23,42,.06); border-bottom:1px solid #eef2f7; }
+.nav.scrolled{ background:rgba(59,60,120,0.25); box-shadow:0 6px 18px rgba(15,23,42,.06); border-bottom:1px solid #eef2f7; }
 .nav .links a{ color:var(--brand-2); font-weight:600; }
 .links{ gap:36px; }
 

@@ -66,14 +66,12 @@ layout: default
 (function(){
   const r = document.querySelector('.hero-rotator .rotator');
   if (!r) return;
-
   const slides = [...r.querySelectorAll('.slide')];
   const dots   = [...r.querySelectorAll('.rotator-dots button')];
   const prev   = r.querySelector('.tm-arrow.prev');
   const next   = r.querySelector('.tm-arrow.next');
 
   let i = 0, t;
-
   function go(n){
     i = (n + slides.length) % slides.length;
     slides.forEach((s,k)=>s.classList.toggle('active', k===i));
@@ -83,10 +81,8 @@ layout: default
   const pause = () => clearInterval(t);
 
   dots.forEach((d,k)=> d.addEventListener('click', ()=>{ pause(); go(k); play(); }));
-  if (prev && next){
-    prev.addEventListener('click', ()=>{ pause(); go(i-1); play(); });
-    next.addEventListener('click', ()=>{ pause(); go(i+1); play(); });
-  }
+  prev?.addEventListener('click', ()=>{ pause(); go(i-1); play(); });
+  next?.addEventListener('click', ()=>{ pause(); go(i+1); play(); });
 
   r.addEventListener('mouseenter', pause);
   r.addEventListener('mouseleave', play);

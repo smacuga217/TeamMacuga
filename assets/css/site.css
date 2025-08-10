@@ -316,3 +316,45 @@ footer{ padding:40px 0 80px; color:#64748b; text-align:center; border-top:1px so
   background: #c3c9db; cursor: pointer;
 }
 .hero-rotator .rotator-dots button.active { background: #9F1D2D; }
+
+/* === HERO IMAGE ROTATOR (fix container height + visibility) === */
+.hero-rotator { margin-top: 16px; }
+.hero-rotator .rotator{
+  position: relative;
+  height: clamp(320px, 52vh, 640px); /* gives the stack a real height */
+  overflow: hidden;
+  border-radius: 14px;
+}
+.hero-rotator .slide{
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .45s ease;
+}
+.hero-rotator .slide.active{ opacity: 1; }
+
+.hero-rotator .slide img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* fills edge-to-edge */
+}
+
+/* dots + arrows polish (optional) */
+.hero-rotator .rotator-dots{
+  position: absolute; left: 0; right: 0; bottom: 10px;
+  display: flex; justify-content: center; gap: 8px;
+}
+.hero-rotator .rotator-dots button{
+  width: 8px; height: 8px; border-radius: 999px; border: 0;
+  background: #c3c9db; cursor: pointer;
+}
+.hero-rotator .rotator-dots button[aria-current="true"]{ background: var(--brand); }
+
+.tm-arrow{
+  position:absolute; top:50%; transform:translateY(-50%);
+  border:0; width:38px; height:38px; border-radius:999px;
+  background:#ffffffcc; box-shadow:0 4px 14px rgba(0,0,0,.12);
+  cursor:pointer; display:grid; place-items:center;
+}
+.tm-arrow.prev{ left:8px; } .tm-arrow.next{ right:8px; }
+.tm-arrow:disabled{ opacity:.35; cursor:default; }

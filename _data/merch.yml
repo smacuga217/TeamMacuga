@@ -1,14 +1,16 @@
-- title: Classic Tee
+- name: Classic Tee
   price: 28
   tag: Best seller
-  image: /assets/img/logo-full-color.png
+  image: /assets/img/placeholders/1x1.svg
   url: "#"
-- title: Hoodie
+
+- name: Hoodie
   price: 55
   tag: New
-  image: /assets/img/logo-full-color.png
+  image: /assets/img/placeholders/1x1.svg
   url: "#"
-- title: Bucket Hat
-  price: 32
-  image: /assets/img/logo-full-color.png
+
+- name: Signature Beanie
+  price: 22
+  image: /assets/img/placeholders/1x1.svg
   url: "#"

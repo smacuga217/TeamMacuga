@@ -1,0 +1,23 @@
+<section id="latest-results" class="container">
+  <h2 class="section-title">Latest Results</h2>
+  <div class="grid">
+    {% assign rows = site.data.results_auto | default: site.data.results | default: empty %}
+
+    {% assign want = "Sam Macuga|Lauren Macuga|Alli Macuga|Daniel Macuga" | split: "|" %}
+    {% for who in want %}
+      {% assign r = rows | where: "athlete", who | first %}
+      <article class="card" style="grid-column: span 3;">
+        <h3 style="margin:0 0 4px">{{ who }}</h3>
+        {% if r %}
+          <p class="tiny" style="margin:0 0 8px;color:var(--muted)">{{ r.date }} • {{ r.event }}</p>
+          <p style="margin:0 0 8px;">Result: <strong>{{ r.result }}</strong>{% if r.discipline %} • {{ r.discipline }}{% endif %}</p>
+          {% if r.link %}<a class="pill" href="{{ r.link }}" target="_blank" rel="noopener">See on FIS</a>{% endif %}
+        {% else %}
+          <p class="tiny" style="margin:0 0 8px;color:var(--muted)">No recent result yet.</p>
+          {% assign a = site.data.athletes | where: "name", who | first %}
+          {% if a and a.fis %}<a class="pill" href="{{ a.fis }}" target="_blank" rel="noopener">FIS profile</a>{% endif %}
+        {% endif %}
+      </article>
+    {% endfor %}
+  </div>
+</section>

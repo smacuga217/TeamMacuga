@@ -1,53 +1,40 @@
-<section id="carousel" style="padding:8px 0 40px;">
-  <h2 class="section-title">Featured Merch</h2>
-
-  <div class="tm-carousel" data-idx="0">
-    <div class="tm-track">
-      {% for m in site.data.merch %}
-      <a class="tm-slide" href="{{ m.link }}" target="_blank" rel="noopener">
-        <div class="tm-card">
-          <div class="tm-imgwrap">
-            <img src="{{ m.img | relative_url }}" alt="{{ m.name }}">
-            {% if m.badge %}<span class="tm-badge">{{ m.badge }}</span>{% endif %}
-          </div>
-          <div class="tm-meta">
-            <div class="tm-name">{{ m.name }}</div>
-            <div class="tm-price">{{ m.price }}</div>
-          </div>
+<div class="tm-carousel container">
+  <div class="tm-track" id="tmTrack">
+    {% for item in site.data.merch %}
+    <a class="tm-slide" href="{{ item.url | default: '#' }}">
+      <div class="tm-card">
+        <div class="tm-imgwrap">
+          <img src="{{ item.image | default: '/assets/img/placeholders/1x1.svg' | relative_url }}" alt="{{ item.name | escape }}">
+          {% if item.tag %}<span class="tm-badge">{{ item.tag }}</span>{% endif %}
         </div>
-      </a>
-      {% endfor %}
-    </div>
-
-    <div class="tm-dots">
-      {% for m in site.data.merch %}
-        <button aria-label="Go to slide {{ forloop.index0 }}" data-dot="{{ forloop.index0 }}"></button>
-      {% endfor %}
-    </div>
+        <div class="tm-meta">
+          <span class="tm-name">{{ item.name }}</span>
+          <span class="tm-price">${{ item.price }}</span>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
   </div>
-</section>
+  <div class="tm-dots" id="tmDots">
+    {% for item in site.data.merch %}<button aria-label="Slide {{ forloop.index }}"></button>{% endfor %}
+  </div>
+</div>
 
 <script>
 (function(){
-  const root = document.querySelector('.tm-carousel');
-  if(!root) return;
-  const track = root.querySelector('.tm-track');
-  const slides = Array.from(root.querySelectorAll('.tm-slide'));
-  const dots = Array.from(root.querySelectorAll('[data-dot]'));
-  let idx = 0, timer;
-
-  function go(i){
-    idx = (i + slides.length) % slides.length;
-    track.style.transform = `translateX(calc(-${idx} * (100% + var(--gap))))`;
-    dots.forEach((d,k)=>d.classList.toggle('active', k===idx));
-  }
-  function play(){ timer = setInterval(()=>go(idx+1), 3500); }
-  function pause(){ clearInterval(timer); }
-
-  dots.forEach(d => d.addEventListener('click', () => { pause(); go(+d.dataset.dot); play(); }));
-  root.addEventListener('mouseenter', pause);
-  root.addEventListener('mouseleave', play);
-
-  go(0); play();
+  const track = document.getElementById('tmTrack');
+  const dots = Array.from(document.querySelectorAll('#tmDots button'));
+  if(!track || dots.length===0) return;
+  const slides = Array.from(track.children);
+  let i = 0, w = slides[0].getBoundingClientRect().width;
+  const go = n => {
+    i = (n + slides.length) % slides.length;
+    track.style.transform = `translateX(${-i * (w + 12)}px)`;
+    dots.forEach((d,k)=>d.classList.toggle('active', k===i));
+  };
+  const onResize = () => { w = slides[0].getBoundingClientRect().width; go(i); };
+  window.addEventListener('resize', onResize);
+  dots.forEach((d,k)=>d.addEventListener('click', ()=>go(k)));
+  go(0);
 })();
 </script>

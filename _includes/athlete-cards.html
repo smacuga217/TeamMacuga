@@ -2,16 +2,17 @@
   <h2 class="section-title">Family</h2>
   <div class="grid">
     {% for a in site.data.athletes %}
-    <article class="card" style="display:flex;gap:14px;align-items:flex-start">
-      <img src="{{ a.img | relative_url }}" alt="{{ a.name }}" style="width:92px;height:92px;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,.06)">
+    <article class="card" style="display:flex;gap:16px;align-items:flex-start">
+      <img class="person" src="{{ a.img | relative_url }}" alt="{{ a.name }}">
       <div style="flex:1">
         <h3 style="margin:0 0 6px">{{ a.name }}</h3>
-        <p class="tiny" style="margin:0 0 4px;color:var(--muted)">{{ a.role }}</p>
-        <p style="margin:0 0 8px">{{ a.bio }}</p>
+        {% if a.role %}<p class="tiny" style="margin:0 0 6px;color:var(--muted)">{{ a.role }}</p>{% endif %}
+        {% if a.bio %}<p style="margin:0 0 10px">{{ a.bio }}</p>{% endif %}
         <div class="social-links">
-          <a class="pill" href="{{ a.page | relative_url }}">Results page</a>
-          <a class="pill" href="{{ a.fis }}" target="_blank" rel="noopener">FIS profile</a>
-          <a class="pill" href="{{ a.instagram }}" target="_blank" rel="noopener">Instagram</a>
+          {% if a.page %}<a class="pill" href="{{ a.page | relative_url }}">Results page</a>{% endif %}
+          {% if a.fis %}<a class="pill" href="{{ a.fis }}" target="_blank" rel="noopener">FIS profile</a>{% endif %}
+          {% if a.instagram %}<a class="pill" href="{{ a.instagram }}" target="_blank" rel="noopener">Instagram</a>{% endif %}
+          {% if a.facebook %}<a class="pill" href="{{ a.facebook }}" target="_blank" rel="noopener">Facebook</a>{% endif %}
         </div>
       </div>
     </article>

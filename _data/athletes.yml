@@ -4,7 +4,7 @@
   bio: 2025 St. Anton super-G World Cup winner; Worlds bronze in super-G.
   img: /assets/img/people/lauren.jpg
   page: /lauren/
-  fis: https://www.fis-ski.com/athletes/lauren-macuga
+  fis: https://example.com/lauren
   instagram: https://instagram.com/lauren_macuga
 
 - id: alli
@@ -13,16 +13,16 @@
   bio: Multiple World Cup podiums; 2023 FIS Rookie of the Year.
   img: /assets/img/people/alli.jpg
   page: /alli/
-  fis: https://www.fis-ski.com/athletes/alli-macuga
+  fis: https://example.com/alli
   instagram: https://instagram.com/alli_macuga
 
 - id: sam
   name: Sam Macuga
   role: Ski Jumping — U.S. Team
   bio: Big-air confidence, national team since 2019.
-  img: /assets/img/people/sam.jpg   # swap to a real Sam portrait when ready
+  img: /assets/img/people/sam.jpg
   page: /sam/
-  fis: https://www.fis-ski.com/athletes/sam-macuga
+  fis: https://example.com/sam
   instagram: https://instagram.com/sammacuga
 
 - id: daniel
@@ -30,8 +30,8 @@
   role: Developing Athlete
   bio: The youngest Macuga—future star in the making.
   img: /assets/img/people/daniel.jpg
-  page: /daniel/
-  fis: https://www.fis-ski.com/athletes/daniel-macuga
+  page:
+  fis:
   instagram: https://instagram.com/daniel_macugas
 
 - id: amy
@@ -39,15 +39,13 @@
   role: Team Operations
   bio: Mom & operations lead—logistics, travel, and keeping the team grounded.
   img: /assets/img/people/amy.jpg
-  page: /our-story/
-  fis: https://www.fis-ski.com/athletes/amy-macuga
   instagram: https://instagram.com/amy.macuga
+  facebook: https://facebook.com/
 
 - id: dan
   name: Dan Macuga
   role: Gear & Wax Room Sage
   bio: Dad—lifelong supporter, sideline strategist, and shop wisdom.
   img: /assets/img/people/dan.jpg
-  page: /our-story/
-  fis: https://www.fis-ski.com/athletes/dan-macuga
   instagram: https://instagram.com/dan.macuga
+  facebook: https://facebook.com/

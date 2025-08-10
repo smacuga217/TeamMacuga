@@ -4,7 +4,7 @@ title: Our Story
 nav: story
 ---
 
-{% include hero-two-col.html %}
+{% include hero-bleed.html %}
 
 <section id="story">
   <h2 class="section-title">Our Story</h2>

@@ -244,3 +244,58 @@ header.hero{ padding-top:32px; }
 .nav{ box-shadow: 0 2px 12px rgba(0,0,0,.06); }
 .links{ gap: 36px; } /* more space between items */
 .links a{ font-weight: 600; }
+:root{
+  --bg:#f7fbff;
+  --card:#ffffff;
+  --text:#0b1220;
+  --muted:#4b5563;
+  --brand:#9F1D2D;   /* team red */
+  --brand-2:#3B3C78; /* team navy */
+  --ring:#cbd5e1;
+}
+
+/* Page background: airy */
+body{
+  background: linear-gradient(180deg,#f7fbff 0%,#f4f9ff 60%,#f7fbff 100%);
+  color:var(--text);
+}
+
+/* White cards, soft shadow */
+.card{
+  background:var(--card);
+  border:1px solid #e6edf5;
+  box-shadow:0 8px 24px rgba(3,24,57,.06);
+  border-radius:16px;
+}
+
+/* Light headings */
+.section-title{ color:#0b1220; }
+
+/* Nav: transparent over hero, solid on scroll */
+.nav{ position:sticky; top:0; z-index:300; transition:background .25s, box-shadow .25s; background:transparent; }
+.nav.scrolled{ background:#ffffff; box-shadow:0 6px 18px rgba(15,23,42,.06); border-bottom:1px solid #eef2f7; }
+.nav .links a{ color:var(--brand-2); font-weight:600; }
+.links{ gap:36px; }
+
+/* Hero bleed */
+.hero-bleed{
+  position:relative; padding:80px 0 64px; overflow:hidden;
+  background:#eaf3ff;
+}
+.hero-bleed .hero-img{ width:100%; height:min(60vh,700px); object-fit:cover; border-radius:22px; }
+.hero-bleed .overlay{
+  position:absolute; inset:auto 0 24px 0; display:flex; justify-content:center;
+}
+.hero-bleed .title{
+  position:absolute; left:40px; top:40px; font-size:clamp(32px,6vw,64px);
+  font-weight:800; color:#0b1220; letter-spacing:.4px;
+}
+
+/* Family card images */
+.card img.person{
+  width:112px; height:112px; object-fit:cover; border-radius:14px;
+  border:1px solid #e7eef7; background:#f2f7ff; flex:0 0 auto;
+}
+
+/* Rotator on light bg */
+.hero-rotator figcaption{ background:rgba(0,0,0,.35); }

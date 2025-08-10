@@ -7,20 +7,18 @@
     </figure>
     {% endfor %}
     <div class="rotator-dots">
-      {% for p in site.data.gallery %}<button aria-label="Go to slide {{ forloop.index }}"></button>{% endfor %}
+      {% for p in site.data.gallery %}<button aria-label="Slide {{ forloop.index }}"></button>{% endfor %}
     </div>
   </div>
 </div>
 <script>
 (function(){
-  const root = document.querySelector('.hero-rotator .rotator'); if(!root) return;
-  const slides=[...root.querySelectorAll('.slide')], dots=[...root.querySelectorAll('.rotator-dots button')];
-  let i=0, t; const go=n=>{ i=(n+slides.length)%slides.length;
-    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
-    dots.forEach((d,k)=>d.classList.toggle('active',k===i)); };
+  const r=document.querySelector('.hero-rotator .rotator'); if(!r) return;
+  const s=[...r.querySelectorAll('.slide')], d=[...r.querySelectorAll('.rotator-dots button')];
+  let i=0,t; const go=n=>{ i=(n+s.length)%s.length; s.forEach((x,k)=>x.classList.toggle('active',k===i)); d.forEach((x,k)=>x.classList.toggle('active',k===i)); };
   const play=()=>t=setInterval(()=>go(i+1),4000), pause=()=>clearInterval(t);
-  dots.forEach((d,k)=>d.addEventListener('click',()=>{pause();go(k);play();}));
-  root.addEventListener('mouseenter',pause); root.addEventListener('mouseleave',play);
+  d.forEach((x,k)=>x.addEventListener('click',()=>{pause();go(k);play();}));
+  r.addEventListener('mouseenter',pause); r.addEventListener('mouseleave',play);
   go(0); play();
 })();
 </script>

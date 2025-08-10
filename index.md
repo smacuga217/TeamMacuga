@@ -27,4 +27,4 @@ nav: story
 {% include featured-collab.html %}
 {% include merch-carousel.html %}
 
-{ 0nclude athlete-cards.html 
+{% include athlete-cards.html %} 

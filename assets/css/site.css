@@ -193,3 +193,29 @@ header.hero{ padding-top:56px; }
   radial-gradient(1.6px 1.6px at 50px 80px, var(--b) 50%, transparent 51%),
   radial-gradient(2.4px 2.4px at 150px 120px, var(--c) 50%, transparent 51%),
   radial-gradient(2px 2px at 250px 10px, var(--b) 50%, transparent 51%); }
+/* White nav with navy links */
+.nav{ position:sticky; top:0; z-index:300; backdrop-filter:none; background:#fff; border-bottom:1px solid #e5e7eb; }
+.nav-inner{ height:70px; }
+.links a{ color: var(--brand-2); }
+.links{ display:flex; gap:28px; align-items:center; } /* more space */
+.menu-btn{ border-color:#e5e7eb; color:#0f172a; }
+@media (max-width:720px){
+  .mobile-drawer{ background:#fff; border-bottom:1px solid #e5e7eb; }
+  .mobile-drawer a{ color:#0f172a; }
+}
+/* Hero: 2-col layout */
+header.hero{ padding-top:32px; }
+.hero-grid{ display:grid; gap:20px; }
+.hero-left{ text-align:center; }
+.hero-logo{ max-width:360px; width:80vw; margin:12px auto 8px; display:block; }
+.hero-tagline{ font-size:clamp(1rem,2vw,1.1rem); max-width:720px; margin:0 auto; }
+@media (min-width:900px){ .hero-grid{ grid-template-columns: 1.1fr 1fr; align-items:center; } .hero-left{text-align:left;} .hero-logo{ margin:0 0 8px 0; } }
+.hero-right .hero-rotator{ margin:0; }
+.hero-rotator .rotator{ position:relative; overflow:hidden; border-radius:16px; }
+.hero-rotator .slide{ position:absolute; inset:0; opacity:0; transition:opacity .6s ease; }
+.hero-rotator .slide.active{ opacity:1; }
+.hero-rotator img{ width:100%; height:52vh; min-height:320px; max-height:640px; object-fit:cover; display:block; }
+.hero-rotator figcaption{ position:absolute; left:16px; bottom:16px; padding:8px 12px; border-radius:10px; background:rgba(0,0,0,.45); color:#fff; font-size:14px; backdrop-filter: blur(6px); }
+.rotator-dots{ position:absolute; left:0; right:0; bottom:10px; display:flex; justify-content:center; gap:8px; }
+.rotator-dots button{ width:8px; height:8px; border-radius:999px; border:0; background:#3a3d44; cursor:pointer; }
+.rotator-dots button.active{ background: var(--brand); }

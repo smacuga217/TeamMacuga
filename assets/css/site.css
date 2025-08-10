@@ -360,3 +360,61 @@ main > *:not(.strip):not(footer) {
 
 /* If any old name element is still in markup, hide it */
 .sponsor .s-name { display: none !important; }
+
+/* === Generic carousel layout === */
+.tm-carousel{ --gap:14px; position:relative; overflow:hidden; }
+.tm-track{ display:flex; gap:var(--gap); transition: transform .45s ease; will-change: transform; }
+.tm-slide{ flex:0 0 100%; }             /* 1-up on mobile */
+@media (min-width:640px){ .tm-slide{ flex:0 0 calc(50% - var(--gap)/2);} }   /* 2-up */
+@media (min-width:960px){ .tm-slide{ flex:0 0 calc(33.333% - var(--gap)*2/3);} } /* 3-up */
+
+/* Card shell (used by merch) */
+.tm-card{ background:#fff; border:1px solid #e7ecf8; border-radius:14px; overflow:hidden; box-shadow:0 8px 24px rgba(20,37,94,.08); display:flex; flex-direction:column; }
+.tm-imgwrap{ position:relative; aspect-ratio: 16/9; background:#f3f6ff; display:grid; place-items:center; }
+.tm-imgwrap img{ width:100%; height:100%; object-fit:cover; }
+.tm-meta{ display:flex; justify-content:space-between; align-items:center; padding:12px 14px; }
+.tm-name{ font-weight:700; }
+.tm-price{ color:#64748b; }
+
+/* Dots + arrows */
+.tm-dots{ display:flex; gap:8px; justify-content:center; margin-top:12px; }
+.tm-dots button{ width:8px; height:8px; border-radius:999px; border:0; background:#c3c9db; cursor:pointer; }
+.tm-dots button[aria-current="true"]{ background:#9F1D2D; }
+
+.tm-arrow{ position:absolute; top:50%; transform:translateY(-50%); border:0; width:38px; height:38px; border-radius:999px; background:#ffffffcc; box-shadow:0 4px 14px rgba(0,0,0,.12); cursor:pointer; display:grid; place-items:center; }
+.tm-arrow svg{ width:18px; height:18px; }
+.tm-arrow.prev{ left:6px; }
+.tm-arrow.next{ right:6px; }
+.tm-arrow:disabled{ opacity:.35; cursor:default; }
+
+/* Mini/bio rotator (single-image) – uses same JS */
+.mini-rotator{ position:relative; overflow:hidden; border-radius:14px; }
+.mini-rotator .tm-track{ gap:0; }
+.mini-rotator .tm-slide{ flex:0 0 100%; }
+.mini-rotator img{ width:100%; height:100%; object-fit:cover; display:block; }
+.mini-rotator .tm-dots{ position:absolute; left:0; right:0; bottom:10px; }
+.mini-rotator .tm-arrow{ background:#ffffffb0; }
+
+/* === Merch carousel layout === */
+.tm-carousel{ --gap:14px; position:relative; overflow:hidden; }
+.tm-track{ display:flex; gap:var(--gap); transition: transform .45s ease; will-change: transform; }
+.tm-slide{ flex:0 0 100%; } /* 1-up on mobile */
+@media (min-width:640px){ .tm-slide{ flex:0 0 calc(50% - var(--gap)/2);} }   /* 2-up */
+@media (min-width:960px){ .tm-slide{ flex:0 0 calc(33.333% - var(--gap)*2/3);} } /* 3-up */
+
+/* Use your existing card styles, but here’s a sane fallback */
+.m-card{ background:#fff; border:1px solid #e7ecf8; border-radius:14px; overflow:hidden; box-shadow:0 8px 24px rgba(20,37,94,.08); display:flex; flex-direction:column; }
+.m-img{ position:relative; aspect-ratio:16/9; background:#f3f6ff; }
+.m-img img{ width:100%; height:100%; object-fit:cover; }
+.m-badge{ position:absolute; left:10px; top:10px; font-size:12px; padding:4px 8px; border-radius:999px; background:linear-gradient(90deg,#9F1D2D,#3B3C78); color:#fff; font-weight:700; }
+.m-meta{ display:flex; justify-content:space-between; align-items:center; padding:12px 14px; }
+.m-name{ font-weight:700; }
+.m-price{ color:#64748b; }
+
+/* arrows + dots */
+.tm-arrow{ position:absolute; top:50%; transform:translateY(-50%); border:0; width:38px; height:38px; border-radius:999px; background:#ffffffcc; box-shadow:0 4px 14px rgba(0,0,0,.12); cursor:pointer; display:grid; place-items:center; }
+.tm-arrow.prev{ left:6px; } .tm-arrow.next{ right:6px; }
+.tm-arrow:disabled{ opacity:.35; cursor:default; }
+.tm-dots{ display:flex; gap:8px; justify-content:center; margin-top:12px; }
+.tm-dots button{ width:8px; height:8px; border-radius:999px; border:0; background:#c3c9db; cursor:pointer; }
+.tm-dots button[aria-current="true"]{ background:#9F1D2D; }

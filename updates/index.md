@@ -16,11 +16,12 @@ permalink: /updates/
   <!-- Results -->
   <div id="tab-results" class="tabpanel show" role="tabpanel">
     {% assign athletes_src = site.data.athletes.athletes | default: site.data.athletes %}
-    {% assign results_src   = site.data.results.athletes | default: site.data.results %}
+    {% assign results_src   = site.data.results.athletes  | default: site.data.results  %}
 
     {% for a in athletes_src %}
       {% assign name = a.name %}
       {% assign res_obj = results_src | where: "name", name | first %}
+
       {% if res_obj == nil %}
         {% assign nslug = name | slugify %}
         {% for r in results_src %}
@@ -30,8 +31,11 @@ permalink: /updates/
         {% endfor %}
       {% endif %}
 
-      {% assign rows = res_obj.results | sort: "date" | reverse %}
-      {% assign top3 = rows | slice: 0, 3 %}
+      {% assign top3 = nil %}
+      {% if res_obj and res_obj.results %}
+        {% assign rows = res_obj.results | sort: "date" | reverse %}
+        {% assign top3 = rows | slice: 0, 3 %}
+      {% endif %}
 
       <article class="card res-card">
         <header class="res-head">
@@ -73,16 +77,13 @@ permalink: /updates/
     {% endfor %}
   </div>
 
-
-
   <!-- News -->
   <div id="tab-news" class="tabpanel" role="tabpanel" hidden>
-    {% assign news = site.data.news | sort: 'date' | reverse %}  {# newest first #}
-    {% if news and news.size > 0 %}
+    {% assign news_all = site.data.news | where_exp: "n","n.date" | sort: "date" | reverse %}
+    {% if news_all and news_all.size > 0 %}
       {% assign current_year = "" %}
-      {% for n in news %}
+      {% for n in news_all %}
         {% assign y = n.date | date: "%Y" %}
-
         {% if y != current_year %}
           {% unless forloop.first %}</div>{% endunless %}
           <h3 class="news-year">{{ y }}</h3>
@@ -95,9 +96,7 @@ permalink: /updates/
             <span class="source-pill">{{ n.source }}</span>
             <time class="news-date" datetime="{{ n.date }}">{{ n.date | date: "%b %-d, %Y" }}</time>
           </div>
-
           <h4 class="news-title">{{ n.title }}</h4>
-
           {% if n.image %}
             <div class="news-thumb" style="background-image:url('{{ n.image }}')"></div>
           {% endif %}
@@ -109,118 +108,35 @@ permalink: /updates/
     {% endif %}
   </div>
 
-
-
-
-
   <!-- Social -->
   <div id="tab-social" class="tabpanel" role="tabpanel" hidden>
     <div class="card">
       <p class="muted">Live social wall goes here.</p>
-      <!-- Replace the snippet below with your widget provider’s embed -->
-      <!-- Example: Walls.io, Curator, Elfsight, Juicer, etc. -->
-      <!--
-      <script src="https://your-widget.js" async></script>
-      <div data-your-widget="feed-id"></div>
-      -->
+      {% comment %}
+      Embed your social wall widget here (Walls.io / Curator / Elfsight / Juicer).
+      {% endcomment %}
     </div>
   </div>
 </section>
 
 <style>
+/* Tabs */
 .tabs{ display:flex; gap:.5rem; margin:10px 0 16px; flex-wrap:wrap; }
 .tab{ border:1px solid var(--border); border-radius:999px; padding:.4rem .9rem; background:#fff; cursor:pointer; }
 .tab.active{ background:linear-gradient(90deg,var(--brand),var(--navy)); color:#fff; border-color:transparent; }
 .tabpanel{ margin-top:10px; }
 .tabpanel.show{ display:block; }
 
+/* Results table */
 .res-card .res-head{ display:flex; align-items:baseline; gap:.75rem; }
 .res{ width:100%; border-collapse:collapse; }
-.res th, .res td{ padding:.5rem .6rem; border-top:1px solid var(--border); vertical-align:top; }
-.news-img{ width:100%; height:160px; object-fit:cover; border-radius:10px; }
-.news-title{ display:block; margin:.4rem 0 .2rem; }
-</style>
+.res th, .res td{ padding:.55rem .65rem; border-top:1px solid var(--border); vertical-align:top; }
+.res-wrap .btn{ margin-top:10px; }
 
-<style>
-/* News grid + cards */
-.news-grid{
-  display:grid; gap:16px;
-  grid-template-columns: repeat(12, 1fr);
-}
-.news-card{
-  grid-column: span 4;
-  display:flex; flex-direction:column; overflow:hidden;
-  background:#fff; border:1px solid var(--border);
-  border-radius:14px; box-shadow: var(--shadow);
-  transition: transform .12s ease, box-shadow .12s ease;
-}
-.news-card:hover{ transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,.14); }
-
-.news-media{ position:relative; aspect-ratio: 16/9; background:#f3f6ff; }
-.news-media img{ width:100%; height:100%; object-fit:cover; display:block; }
-.news-ph{ width:100%; height:100%;
-  background: repeating-linear-gradient(45deg,#f5f7fb 0 12px,#eef2f9 12px 24px);
-}
-
-.news-body{ padding:12px 14px; display:grid; gap:6px; }
-.news-title{ font-size:1.02rem; line-height:1.35; }
-.news-meta{ color:#64748b; font-size:.92rem; }
-
-/* responsive columns */
-@media (max-width: 1100px){ .news-card{ grid-column: span 6; } }
-@media (max-width: 640px){ .news-card{ grid-column: span 12; } }
-
-/* News layout */
-.news-year{ margin: 18px 0 8px; font-size: 1.1rem; opacity:.9; }
-.news-grid{ grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
-
-/* Press card */
-.news-card{
-  position: relative;
-  display: block;
-  padding: 14px 16px;
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  transition: transform .12s ease, box-shadow .12s ease;
-}
-.news-card::before{
-  content:"";
-  position:absolute; left:0; top:0; bottom:0; width:6px;
-  background: linear-gradient(180deg, var(--brand), var(--navy));
-  border-top-left-radius:14px; border-bottom-left-radius:14px;
-}
-.news-card:hover{ transform: translateY(-1px); box-shadow: 0 12px 30px rgba(0,0,0,.12); }
-
-.news-eyebrow{
-  display:flex; align-items:center; gap:.5rem;
-  color: var(--muted); font-size: .92rem;
-}
-.news-ico{ width:16px; height:16px; border-radius:4px; }
-
-.news-title{
-  margin:.35rem 0 0;
-  line-height:1.3;
-  display:-webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow:hidden;
-}
-
-/* Optional tiny thumb (shows only if n.image exists) */
-.news-thumb{
-  margin-top:10px;
-  width:100%; height:140px;
-  background-size: cover; background-position: center;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-}
-
-
-/* News layout */
+/* News */
 .news-year{ margin:18px 0 8px; font-size:1.1rem; opacity:.9; }
 .news-grid{ grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; }
 
-/* Press card */
 .news-card{
   position:relative; display:block; padding:14px 16px;
   background:#fff; border:1px solid var(--border);
@@ -234,7 +150,6 @@ permalink: /updates/
 }
 .news-card:hover{ transform:translateY(-1px); box-shadow:0 12px 30px rgba(0,0,0,.12); }
 
-/* Eyebrow (no favicon, clean pill + date) */
 .news-eyebrow{ display:flex; align-items:center; gap:.5rem; margin-bottom:.25rem; }
 .source-pill{
   padding:.2rem .5rem; border-radius:999px;
@@ -243,33 +158,30 @@ permalink: /updates/
 }
 .news-date{ color:var(--muted); font-size:.9rem; }
 
-/* Title clamp */
 .news-title{
   margin:.35rem 0 0; line-height:1.3;
   display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
 }
 
-/* Optional thumbnail (only shows if n.image exists) */
 .news-thumb{
   margin-top:10px; width:100%; height:140px;
   background-size:cover; background-position:center;
   border-radius:10px; border:1px solid var(--border);
 }
-
-
 </style>
 
-
 <script>
-document.querySelectorAll('.tabs .tab').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.tabs .tab').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    const id = btn.dataset.tab;
-    document.querySelectorAll('.tabpanel').forEach(p=>{
-      const show = p.id === 'tab-'+id;
-      p.toggleAttribute('hidden', !show);
-      p.classList.toggle('show', show);
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.tabs .tab').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.tabs .tab').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const id = btn.dataset.tab;
+      document.querySelectorAll('.tabpanel').forEach(p=>{
+        const show = p.id === 'tab-'+id;
+        p.toggleAttribute('hidden', !show);
+        p.classList.toggle('show', show);
+      });
     });
   });
 });

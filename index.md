@@ -29,10 +29,11 @@ layout: default
 <!-- ===================================================================== -->
 
 
-<section class="container">
-  <h2 class="section-title">Team Macuga Members</h2>
+<section id="family" class="container">
+  <h2 class="section-title">Family</h2>
   {% include athlete-grid.html %}
 </section>
+
 
 
 <div class="section-gap"></div>  <!-- ← added spacer -->

@@ -17,3 +17,6 @@ collections:
   products:
     output: true
     permalink: /shop/:slug/
+
+shopify:
+  domain: yourshop.myshopify.com

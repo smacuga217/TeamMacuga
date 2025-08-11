@@ -32,10 +32,35 @@ layout: default
         {% endfor %}
       </div>
       {% endif %}
+      <!-- inside the details column -->
+     <button class="btn buy-btn" id="add-to-cart"
+            data-variants='{{ page.variant_ids | jsonify }}'>
+      Add to cart
+     </button>
 
-      <!-- Replace this with your checkout later -->
-      <a class="btn buy-btn" href="/merch/#buy-{{ page.sku }}">Add to cart</a>
-      <p class="sku">SKU: {{ page.sku }}</p>
+     <script>
+    (function(){
+    const btn = document.getElementById('add-to-cart');
+    if(!btn) return;
+    const variants = JSON.parse(btn.dataset.variants || '{}');
+
+    btn.addEventListener('click', ()=>{
+        // read selected size (from your existing radios)
+        const sel = document.querySelector('input[name="size"]:checked');
+        const size = sel ? sel.value : null;
+        const variantId = size ? variants[size] : null;
+
+        if(!variantId){
+        alert('Please pick a size.');
+        return;
+        }
+        window.dispatchEvent(new CustomEvent('tm:add', { detail:{ id:String(variantId), qty:1 } }));
+    });
+    })();
+    </script>
+
+
+    
     </div>
   </div>
 </article>

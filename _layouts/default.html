@@ -26,6 +26,84 @@
   </style>
 </head>
 
+<script>
+(function(){
+  const SHOP = '{{ site.shopify.domain | default: "yourshop.myshopify.com" }}';
+  const KEY = 'tm_cart';
+
+  const get = () => JSON.parse(localStorage.getItem(KEY) || '[]');
+  const set = (c) => localStorage.setItem(KEY, JSON.stringify(c));
+  const count = () => get().reduce((n,i)=>n+i.qty,0);
+
+  function add(id, qty){
+    const cart = get();
+    const item = cart.find(i=>i.id===id);
+    item ? item.qty += qty : cart.push({ id, qty, title: document.querySelector('h1')?.textContent || 'Item', img: document.querySelector('#hero')?.src });
+    set(cart); updateUI();
+  }
+
+  function remove(id){
+    set(get().filter(i=>i.id!==id)); updateUI();
+  }
+
+  function updateUI(){
+    // Update badge
+    document.querySelectorAll('[data-cart-count]').forEach(el=> el.textContent = count());
+    // Update drawer list
+    const itemsWrap = document.querySelector('.cart-items');
+    const totalEl = document.querySelector('[data-cart-total]');
+    if(!itemsWrap) return;
+
+    const cart = get();
+    itemsWrap.innerHTML = '';
+    let total = 0;
+    cart.forEach(item=>{
+      total += (item.price || 0) * item.qty;
+
+      const row = document.createElement('div');
+      row.className = 'cart-item';
+      row.innerHTML = `
+        <img src="${item.img || ''}" alt="">
+        <div class="cart-item-details">
+          <div class="cart-item-title">${item.title || 'Item'}</div>
+          <div class="cart-item-qty">
+            <button data-dec="${item.id}">-</button>
+            <span>${item.qty}</span>
+            <button data-inc="${item.id}">+</button>
+            <button data-remove="${item.id}">Remove</button>
+          </div>
+        </div>
+      `;
+      itemsWrap.appendChild(row);
+    });
+    totalEl.textContent = `$${total.toFixed(2)}`;
+  }
+
+  function checkout(){
+    const cart = get();
+    if(!cart.length) return;
+    const parts = cart.map(i=>`${i.id}:${i.qty}`).join(',');
+    window.location.href = `https://${SHOP}/cart/${parts}`;
+  }
+
+  // Event wiring
+  window.addEventListener('tm:add', (e)=> add(e.detail.id, e.detail.qty||1));
+  window.addEventListener('tm:remove', (e)=> remove(e.detail.id));
+  document.addEventListener('click', (e)=>{
+    if(e.target.matches('[data-checkout]')){ e.preventDefault(); checkout(); }
+    if(e.target.matches('#open-cart')){ document.getElementById('mini-cart').classList.add('open'); document.getElementById('cart-overlay').classList.add('show'); }
+    if(e.target.matches('#close-cart') || e.target.matches('#cart-overlay')){ document.getElementById('mini-cart').classList.remove('open'); document.getElementById('cart-overlay').classList.remove('show'); }
+    if(e.target.dataset.inc){ const id = e.target.dataset.inc; const cart = get(); const it = cart.find(x=>x.id===id); if(it){it.qty++; set(cart); updateUI();} }
+    if(e.target.dataset.dec){ const id = e.target.dataset.dec; const cart = get(); const it = cart.find(x=>x.id===id); if(it && it.qty>1){it.qty--; set(cart); updateUI();} }
+    if(e.target.dataset.remove){ remove(e.target.dataset.remove); }
+  });
+
+  // Init
+  updateUI();
+})();
+</script>
+
+
 <body>
   <div class="site-wrapper">
     {% include nav.html %}
@@ -119,4 +197,22 @@
   })();
   </script>
 </body>
+
+<!-- Mini Cart Drawer -->
+<div id="mini-cart" class="mini-cart">
+  <div class="cart-header">
+    <h2>Your Cart</h2>
+    <button id="close-cart">&times;</button>
+  </div>
+  <div class="cart-items"></div>
+  <div class="cart-footer">
+    <span class="cart-total-label">Total:</span>
+    <span class="cart-total-price" data-cart-total>$0.00</span>
+    <button class="btn" data-checkout>Checkout</button>
+  </div>
+</div>
+
+<!-- Overlay -->
+<div id="cart-overlay" class="cart-overlay"></div>
+
 </html>

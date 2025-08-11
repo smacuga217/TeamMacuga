@@ -28,6 +28,8 @@ layout: default
 </div>
 <!-- ===================================================================== -->
 
+<div class="section-gap"></div>  <!-- ← added spacer -->
+<div class="section-gap"></div>  <!-- ← added spacer -->
 
 <section id="family" class="container">
   <h2 class="section-title">Family</h2>

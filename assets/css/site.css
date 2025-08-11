@@ -568,3 +568,29 @@ section.container .section-title{ margin-bottom: 8px; }
 .hero-box .tagline { margin: 0 0 6px; font-size: clamp(.94rem, 1vw, 1.02rem); }
 .hero-actions .btn { padding: 7px 10px; border-radius: 10px; }
 section.container .section-title { margin-bottom: 8px; }  /* less space before "Family" */
+
+/* Force smaller Family cards on Home even when using .grid.cols-3 */
+section#family .grid.cols-3 {
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+}
+
+section#family .family-card {
+  padding: 12px;
+  border-radius: 12px;
+}
+
+section#family .family-card .media {
+  height: 140px;      /* was 180px */
+  border-radius: 10px;
+}
+
+section#family .family-card h3 {
+  font-size: .95rem;
+  margin: 6px 0 4px;
+}
+
+section#family .family-card p {
+  font-size: .86rem;
+  margin: 0 0 8px;
+}

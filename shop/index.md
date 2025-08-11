@@ -39,48 +39,50 @@ redirect_from:
       data-price="{{ product.price | default: 0 }}">
 
       {% if product.external_url %}
-        <!-- Collab: image + details -->
+        <!-- Collab card -->
         <a class="card-link" href="{{ product.external_url }}" target="_blank" rel="noopener">
           <div class="media">
             <span class="img-badge collab">Collab</span>
             <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
           </div>
-        </a>
-        <div class="body">
-          <div class="name">{{ product.title }}</div>
-          {% if product.price %}<div class="price">${{ product.price }}</div>{% endif %}
-        </div>
-        <!-- Gradient CTA that makes it clear you leave the site -->
-        <div class="actions collab-actions">
-          <a class="btn primary external-btn" href="{{ product.external_url }}" target="_blank" rel="noopener">
-            Shop collab&nbsp;↗
-          </a>
-        </div>
-
-      {% else %}
-        <!-- Normal product: image links to product page -->
-        <a class="card-link" href="{{ product.url | relative_url }}">
-          <div class="media">
-            {% if product.badge %}<span class="img-badge">{{ product.badge }}</span>{% endif %}
-            <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
+          <div class="body">
+            <div class="name">{{ product.title }}</div>
+            {% if product.price %}<div class="price">${{ product.price }}</div>{% endif %}
           </div>
         </a>
-        <div class="body">
-          <div class="name">{{ product.title }}</div>
-          {% if product.price %}<div class="price">${{ product.price }}</div>{% endif %}
-        </div>
 
-        {% assign has_sizes = product.sizes and product.sizes.size > 1 %}
+      {% else %}
+        <!-- Normal product -->
+        <a class="card-link" href="{{ product.url | relative_url }}">
+          <div class="media">
+            {% if product.badge %}
+              <span class="img-badge">{{ product.badge }}</span>
+            {% endif %}
+            <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
+          </div>
+          <div class="body">
+            <div class="name">{{ product.title }}</div>
+            {% if product.price %}<div class="price">${{ product.price }}</div>{% endif %}
+          </div>
+        </a>
+
         {% if product.variant_ids or product.variant_id %}
-          <div class="actions {% unless has_sizes %}no-size{% endunless %}">
-            {% if has_sizes %}
-              <select class="size-select" aria-label="Size">
+        <!-- Actions: Size (top row), then Qty + Add (bottom row) -->
+        <div class="actions">
+          <div class="top">
+            <label class="sr-only" for="size-{{ forloop.index }}">Size</label>
+            <select id="size-{{ forloop.index }}" class="size-select" aria-label="Size">
+              {% if product.sizes %}
                 {% for s in product.sizes %}
                   <option value="{{ s }}">{{ s }}</option>
                 {% endfor %}
-              </select>
-            {% endif %}
+              {% else %}
+                <option value="One Size">One Size</option>
+              {% endif %}
+            </select>
+          </div>
 
+          <div class="bottom">
             <div class="qty-control" data-qty aria-label="Quantity selector">
               <button type="button" class="qty-btn" data-qty-dec aria-label="Decrease quantity">−</button>
               <span class="qty-val" aria-live="polite">1</span>
@@ -88,13 +90,14 @@ redirect_from:
             </div>
 
             <button class="btn primary quick-add-btn"
-              data-variants='{% if product.variant_ids %}{{ product.variant_ids | jsonify }}{% else %}{"default": {{ product.variant_id }} }{% endif %}'
+              data-variants='{% if product.variant_ids %}{{ product.variant_ids | jsonify }}{% else %}{"One Size": {{ product.variant_id }} }{% endif %}'
               data-title="{{ product.title }}"
               data-price="{{ product.price }}"
               data-img="{{ product.featured_image | relative_url }}">
               Add to cart
             </button>
           </div>
+        </div>
         {% endif %}
       {% endif %}
     </article>
@@ -107,74 +110,87 @@ redirect_from:
   .chip{ border:1px solid var(--border); padding:.35rem .75rem; border-radius:999px; background:#fff; cursor:pointer; }
   .chip.active{ background:var(--navy); color:#fff; }
 
-  /* card skeleton + smaller media */
-  .product-card{
-    display:flex; flex-direction:column; background:#fff; border:1px solid var(--border);
-    border-radius:var(--r); box-shadow:var(--shadow); overflow:hidden;
-  }
-  .product-card .media{ position:relative; background:#eef3ff; }
-  .product-card .media img{ width:100%; height:200px; object-fit:cover; } /* smaller image height */
-  .product-card .body{ padding:12px 14px; display:grid; gap:6px; }
-  .product-card .name{ font-weight:700; font-size:1rem; }
-  .product-card .price{ color:var(--muted); }
-
-  /* overlay badge on image */
+  /* overlay badge pinned on image */
+  .product-card .media{ position:relative; }
   .img-badge{
     position:absolute; left:10px; top:10px;
     padding:4px 10px; font-size:.75rem; font-weight:700; line-height:1;
     border-radius:999px; color:#fff; background: var(--brand);
-    box-shadow:0 6px 16px rgba(0,0,0,.1); pointer-events:none;
+    box-shadow:0 6px 16px rgba(0,0,0,.10); pointer-events:none; user-select:none;
   }
   .img-badge.collab{ background: linear-gradient(90deg, var(--brand), var(--navy)); }
 
-  /* Uniform action row: 3 fixed columns on desktop */
+  /* actions layout: size row, then qty + button row */
   .actions{
-    display:grid;
-    align-items:center;
-    gap:.6rem;
-    grid-template-columns: 160px 1fr 180px;   /* size | qty | button */
-    padding:12px 14px 14px;
-    margin-top:auto;
+    display:grid; grid-template-columns: 1fr; gap:.6rem;
+    padding:12px 14px 14px; margin-top:auto;
+  }
+  .actions .top{ width:100%; }
+  .actions .bottom{
+    display:grid; grid-template-columns: auto 1fr; gap:.6rem; align-items:center;
   }
 
-  /* Hide the size dropdown when there’s only one size,
-     but keep the 1st column reserved so qty & button align */
-  .actions.no-size .size-select{ display:none; }
-  .actions.no-size::before{
-    content:"";
-    grid-column:1;                 /* occupies the Size column invisibly */
-  }
-
-  /* Compact qty and full-width button inside their columns */
-  .qty-control{ justify-self:start; }
-  .quick-add-btn{ width:100%; justify-content:center; }
-
-  /* Select width matches the Size column */
   .size-select{
-    width:100%; min-width:160px;   /* fills that first column cleanly */
+    width:100%;
+    min-height:40px;
     padding:.45rem .6rem;
     border:1px solid var(--border);
     border-radius:10px; background:#fff;
   }
 
-  /* Collab CTA still fills its row */
-  .collab-actions{ grid-template-columns: 1fr; }
-  .external-btn{ width:100%; }
+  .qty-control{
+    display:inline-flex; align-items:center; gap:.5rem;
+    background:#fff; border:1px solid var(--border);
+    border-radius:12px; padding:.25rem .25rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  }
+  .qty-btn{
+    width:34px; height:34px; border:0; background:#f6f6f6;
+    border-radius:10px; font-size:1.15rem; line-height:1; cursor:pointer;
+  }
+  .qty-val{ min-width:2ch; text-align:center; font-variant-numeric: tabular-nums; }
 
-  /* Mobile: stack nicely */
-  @media (max-width: 560px){
-    .actions, .actions.no-size{
-      grid-template-columns: 1fr 1fr;
-    }
-    .size-select{ grid-column: 1 / -1; }
-    .quick-add-btn{ grid-column: 1 / -1; }
+  .quick-add-btn{
+    width:100%; justify-content:center; white-space:nowrap;
+    border:0; border-radius:12px;
   }
 
+  /* a11y helper for the hidden label */
+  .sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+    clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // qty stepper
+  // Filter
+  const chips = document.querySelectorAll('.chip');
+  const grid = document.getElementById('products');
+  const filter = cat => {
+    document.querySelectorAll('.product-card').forEach(c => {
+      const cats = (c.dataset.cat || '').toLowerCase();
+      c.style.display = (cat === 'all' || cats.includes(cat)) ? '' : 'none';
+    });
+  };
+  chips.forEach(ch => ch.addEventListener('click', () => {
+    chips.forEach(c => c.classList.remove('active'));
+    ch.classList.add('active');
+    filter(ch.dataset.filter);
+  }));
+
+  // Sort
+  const sortSel = document.getElementById('sortPrice');
+  sortSel.addEventListener('change', () => {
+    const cards = [...document.querySelectorAll('.product-card')].filter(c => c.style.display !== 'none');
+    if (sortSel.value !== 'default') {
+      const dir = sortSel.value === 'asc' ? 1 : -1;
+      cards.sort((a,b) => ((parseFloat(a.dataset.price)||0) - (parseFloat(b.dataset.price)||0)) * dir);
+    }
+    cards.forEach(c => grid.appendChild(c));
+  });
+
+  // Qty steppers
   document.addEventListener('click', (e)=>{
     const dec = e.target.closest('[data-qty-dec]');
     const inc = e.target.closest('[data-qty-inc]');
@@ -188,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // quick add
+  // Quick add
   document.addEventListener('click', (e)=>{
     const btn = e.target.closest('.quick-add-btn');
     if(!btn) return;
@@ -198,7 +214,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const sel = card.querySelector('.size-select');
     const size = sel ? sel.value : Object.keys(variants)[0];
-    const variantId = size && variants[size];
+    let variantId = variants[size];
+
+    // Fallback for one-size objects if key mismatch
+    if(!variantId){
+      const vals = Object.values(variants);
+      if(vals.length) variantId = vals[0];
+    }
 
     const qty = Math.max(1, parseInt(card.querySelector('.qty-val')?.textContent || '1', 10));
 
@@ -209,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: btn.dataset.title, price: btn.dataset.price, img: btn.dataset.img
     }}));
 
+    // open mini-cart for feedback
     document.getElementById('mini-cart')?.classList.add('open');
     document.getElementById('cart-overlay')?.classList.add('show');
   });

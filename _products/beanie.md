@@ -11,4 +11,6 @@ description: "Rib-knit beanie that actually keeps you warm at the hill."
 category: hats   # or hats, misc, collab
 
 shopify_handle: beanie
+variant_ids:
+  One Size: 12345678900001
 ---

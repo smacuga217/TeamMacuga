@@ -30,49 +30,55 @@ permalink: /shop/
   <div class="grid" id="products">
     {% for product in site.products %}
     {% assign cats = product.category %}
+    {% assign cats_json = cats | jsonify %}
     <article class="product-card"
-             data-cat="{% if cats %}{% if cats.first %}{{ cats | join: ' ' }}{% else %}{{ cats }}{% endif %}{% endif %}"
+             data-cat="{% if cats %}{% if cats_json contains '[' %}{{ cats | join: ' ' }}{% else %}{{ cats }}{% endif %}{% endif %}"
              data-price="{{ product.price }}">
-      
-        {% if product.external_url %}
-          <!-- Collab: link out, no quick-add -->
-          <a class="card-link" href="{{ product.external_url }}" target="_blank" rel="noopener">
-            <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
-            <span class="pill collab-badge">{{ product.badge | default: 'Collab' }}</span>
-            <h3>{{ product.title }}</h3>
-            {% if product.price %}<p class="price">${{ product.price }}</p>{% endif %}
-          </a>
-        {% else %}
-          <!-- Normal product: link to product page -->
-          <a class="card-link" href="{{ product.url | relative_url }}">
-            <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
-            {% if product.badge %}<span class="pill">{{ product.badge }}</span>{% endif %}
-            <h3>{{ product.title }}</h3>
-            {% if product.price %}<p class="price">${{ product.price }}</p>{% endif %}
-          </a>
 
-          {% if product.variant_ids %}
-            <!-- Quick add -->
-            <div class="quick-add">
-              {% if product.sizes %}
-                <select class="size-select">
-                  {% for s in product.sizes %}
-                    <option value="{{ s }}">{{ s }}</option>
-                  {% endfor %}
-                </select>
-              {% endif %}
-              <input type="number" class="qty-input" min="1" value="1" inputmode="numeric" aria-label="Quantity">
-              <button class="btn quick-add-btn"
-                      data-variants='{{ product.variant_ids | jsonify }}'
-                      data-title="{{ product.title }}"
-                      data-price="{{ product.price }}"
-                      data-img="{{ product.featured_image | relative_url }}">
-                Add to cart
-              </button>
+      {% if product.external_url %}
+        <!-- Collab: link out, no quick-add -->
+        <a class="card-link" href="{{ product.external_url }}" target="_blank" rel="noopener">
+          <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
+          <span class="pill collab-badge">{{ product.badge | default: 'Collab' }}</span>
+          <h3>{{ product.title }}</h3>
+          {% if product.price %}<p class="price">${{ product.price }}</p>{% endif %}
+        </a>
+      {% else %}
+        <!-- Normal product: link to product page -->
+        <a class="card-link" href="{{ product.url | relative_url }}">
+          <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
+          {% if product.badge %}<span class="pill">{{ product.badge }}</span>{% endif %}
+          <h3>{{ product.title }}</h3>
+          {% if product.price %}<p class="price">${{ product.price }}</p>{% endif %}
+        </a>
+
+        {% if product.variant_ids %}
+          <!-- Quick add with size + stepper -->
+          <div class="quick-add">
+            {% if product.sizes %}
+              <select class="size-select" aria-label="Size">
+                {% for s in product.sizes %}
+                  <option value="{{ s }}">{{ s }}</option>
+                {% endfor %}
+              </select>
+            {% endif %}
+
+            <div class="qty-control" data-qty>
+              <button type="button" class="qty-btn" data-qty-dec aria-label="Decrease quantity">−</button>
+              <span class="qty-val" aria-live="polite">1</span>
+              <button type="button" class="qty-btn" data-qty-inc aria-label="Increase quantity">+</button>
             </div>
 
-          {% endif %}
+            <button class="btn quick-add-btn"
+                    data-variants='{{ product.variant_ids | jsonify }}'
+                    data-title="{{ product.title }}"
+                    data-price="{{ product.price }}"
+                    data-img="{{ product.featured_image | relative_url }}">
+              Add to cart
+            </button>
+          </div>
         {% endif %}
+      {% endif %}
     </article>
     {% endfor %}
   </div>
@@ -86,14 +92,22 @@ permalink: /shop/
   .shop-controls{ display:flex; justify-content:space-between; align-items:center; gap:.75rem; margin-bottom:1rem; flex-wrap:wrap; }
   .chip{ border:1px solid var(--border); padding:.3rem .75rem; border-radius:999px; background:#fff; cursor:pointer; }
   .chip.active{ background:var(--navy); color:#fff; }
-  .pill{ position:absolute; top:.5rem; left:.5rem; background:var(--brand); color:#fff; padding:.2rem .6rem; border-radius:999px; font-size:.75rem; font-weight:600; }
-  .collab-badge{ background:#ff6600; }
 
   .product-card{ position:relative; background:#fff; border-radius:12px; box-shadow:var(--shadow); overflow:hidden; }
   .product-card img{ width:100%; height:260px; object-fit:cover; display:block; }
   .product-card h3, .product-card p{ margin:.5rem .75rem; }
+
+  .pill{ position:absolute; top:.5rem; left:.5rem; background:var(--brand); color:#fff; padding:.2rem .6rem; border-radius:999px; font-size:.75rem; font-weight:600; }
+  .collab-badge{ background:#ff6600; }
+
   .quick-add{ display:flex; gap:.5rem; align-items:center; padding:.5rem .75rem .75rem; }
-  .size-select{ flex:1; padding:.4rem; border:1px solid var(--border); border-radius:6px; }
+  .size-select{ flex:1; min-width:110px; padding:.4rem; border:1px solid var(--border); border-radius:6px; }
+
+  /* Qty stepper */
+  .qty-control{ display:inline-flex; align-items:center; gap:.5rem; border:1px solid var(--border); border-radius:10px; padding:.25rem; }
+  .qty-btn{ width:32px; height:32px; border:0; background:#f6f6f6; border-radius:8px; font-size:1.1rem; line-height:1; cursor:pointer; }
+  .qty-val{ min-width:2ch; text-align:center; font-variant-numeric: tabular-nums; }
+
   .quick-add-btn{ flex-shrink:0; padding:.5rem .75rem; border:0; border-radius:8px; background:var(--navy); color:#fff; cursor:pointer; }
 </style>
 
@@ -121,31 +135,46 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sortSel.value !== 'default') {
       const dir = sortSel.value === 'asc' ? 1 : -1;
       cards.sort((a,b) => ((parseFloat(a.dataset.price)||0) - (parseFloat(b.dataset.price)||0)) * dir);
-    } else {
-      // no-op: keeps current order
     }
     cards.forEach(c => grid.appendChild(c));
   });
 
-  // Quick add (only for non-collab cards that rendered a .quick-add-btn)
+  // Qty steppers in grid
+  document.addEventListener('click', (e)=>{
+    const dec = e.target.closest('[data-qty-dec]');
+    const inc = e.target.closest('[data-qty-inc]');
+    if(dec || inc){
+      const wrap = (dec||inc).closest('[data-qty]');
+      const valEl = wrap.querySelector('.qty-val');
+      let n = parseInt(valEl.textContent || '1', 10) || 1;
+      n += inc ? 1 : -1;
+      n = Math.max(1, Math.min(99, n));
+      valEl.textContent = n;
+    }
+  });
+
+  // Quick add (reads size + qty)
   document.addEventListener('click', (e)=>{
     const btn = e.target.closest('.quick-add-btn');
     if(!btn) return;
 
-    const variants = JSON.parse(btn.dataset.variants || '{}');
     const card = btn.closest('.product-card');
+    const variants = JSON.parse(btn.dataset.variants || '{}');
+
     const sel = card.querySelector('.size-select');
     const size = sel ? sel.value : Object.keys(variants)[0];
     const variantId = size && variants[size];
 
+    const qty = Math.max(1, parseInt(card.querySelector('.qty-val')?.textContent || '1', 10));
+
     if(!variantId){ alert('Please select a size.'); return; }
 
     window.dispatchEvent(new CustomEvent('tm:add', { detail:{
-      id:String(variantId), qty:1,
+      id:String(variantId), qty,
       title: btn.dataset.title, price: btn.dataset.price, img: btn.dataset.img
     }}));
 
-    // open mini-cart for feedback (if present)
+    // open mini-cart for feedback
     document.getElementById('mini-cart')?.classList.add('open');
     document.getElementById('cart-overlay')?.classList.add('show');
   });

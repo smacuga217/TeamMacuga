@@ -32,9 +32,12 @@ layout: default
         {% endfor %}
       </div>
       {% endif %}
-      <div class="qty-row">
-        <label for="qty">Quantity</label>
-        <input id="qty" type="number" min="1" value="1" inputmode="numeric">
+
+      <!-- Quantity stepper -->
+      <div class="qty-control" data-qty>
+        <button type="button" class="qty-btn" data-qty-dec aria-label="Decrease quantity">−</button>
+        <span class="qty-val" aria-live="polite">1</span>
+        <button type="button" class="qty-btn" data-qty-inc aria-label="Increase quantity">+</button>
       </div>
 
       {% if page.variant_ids %}
@@ -46,6 +49,7 @@ layout: default
         Add to cart
       </button>
       {% endif %}
+
       {% if page.sku %}<p class="sku">SKU: {{ page.sku }}</p>{% endif %}
     </div>
   </div>
@@ -61,24 +65,38 @@ layout: default
   });
 })();
 
-/* Single add-to-cart handler (no duplicates) */
+/* Quantity stepper + Add-to-cart */
 (function(){
+  // stepper (– 1 +)
+  document.addEventListener('click', (e)=>{
+    const dec = e.target.closest('[data-qty-dec]');
+    const inc = e.target.closest('[data-qty-inc]');
+    if(!dec && !inc) return;
+    const wrap = (dec||inc).closest('[data-qty]');
+    const valEl = wrap.querySelector('.qty-val');
+    let n = parseInt(valEl.textContent || '1', 10) || 1;
+    n += inc ? 1 : -1;
+    n = Math.max(1, Math.min(99, n));
+    valEl.textContent = n;
+  });
+
   const btn = document.getElementById('add-to-cart');
   if(!btn) return;
   const variants = JSON.parse(btn.dataset.variants || '{}');
 
   btn.addEventListener('click', ()=>{
+    // size (fallback to first variant for one-size items)
     const sel = document.querySelector('input[name="size"]:checked');
-    const size = sel && sel.value;
+    const size = sel ? sel.value : Object.keys(variants)[0];
     const variantId = size && variants[size];
 
-    if(!variantId){
-      alert('Please pick a size.');
-      return;
-    }
+    // quantity from stepper
+    const qty = Math.max(1, parseInt(document.querySelector('.qty-val')?.textContent || '1', 10));
+
+    if(!variantId){ alert('Please pick a size.'); return; }
 
     window.dispatchEvent(new CustomEvent('tm:add', { detail:{
-      id:String(variantId), qty:1,
+      id:String(variantId), qty,
       title: btn.dataset.title, price: btn.dataset.price, img: btn.dataset.img
     }}));
 
@@ -102,6 +120,12 @@ layout: default
   .sizes{ display:flex; gap:.5rem; margin:.5rem 0 1rem; flex-wrap:wrap; }
   .size{ border:1px solid var(--border); border-radius:10px; padding:.4rem .6rem; cursor:pointer; }
   .size input{ margin-right:.35rem; }
+
+  /* Qty stepper */
+  .qty-control{ display:inline-flex; align-items:center; gap:.5rem; margin:.5rem 0 1rem; border:1px solid var(--border); border-radius:10px; padding:.25rem; }
+  .qty-btn{ width:32px; height:32px; border:0; background:#f6f6f6; border-radius:8px; font-size:1.1rem; line-height:1; cursor:pointer; }
+  .qty-val{ min-width:2ch; text-align:center; font-variant-numeric: tabular-nums; }
+
   .btn.buy-btn{ display:inline-block; padding:.75rem 1rem; border-radius:12px; background:var(--navy); color:#fff; text-decoration:none; }
   .sku{ margin-top:.5rem; color:var(--muted); font-size:.9rem; }
   @media (max-width:960px){ .product-grid{ grid-template-columns:1fr; } }

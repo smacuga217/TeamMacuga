@@ -1,56 +1,108 @@
-# scripts/fetch_news.py
-import json, html, pathlib, time
-import requests, feedparser
-from bs4 import BeautifulSoup as BS
+#!/usr/bin/env python3
+import json, time, re, urllib.parse, requests
+from pathlib import Path
+import feedparser
 
-ROOT = pathlib.Path(__file__).resolve().parents[1]
-DATA = ROOT / "_data"
-DATA.mkdir(exist_ok=True)
-
-QUERIES = [
-  'https://news.google.com/rss/search?q=Macuga&hl=en-US&gl=US&ceid=US:en',
-  'https://news.google.com/rss/search?q="Team+Macuga"&hl=en-US&gl=US&ceid=US:en',
-  'https://news.google.com/rss/search?q="Lauren+Macuga"&hl=en-US&gl=US&ceid=US:en',
-  'https://news.google.com/rss/search?q="Sam+Macuga"&hl=en-US&gl=US&ceid=US:en',
-  'https://news.google.com/rss/search?q="Alli+Macuga"&hl=en-US&gl=US&ceid=US:en',
-  'https://news.google.com/rss/search?q="Daniel+Macuga"&hl=en-US&gl=US&ceid=US:en',
+# -------- settings ----------
+TERMS = [
+  "Macuga", "Team Macuga", "Lauren Macuga", "Sam Macuga", "Alli Macuga", "Daniel Macuga"
 ]
+# Require 'ski' context (common variations)
+SKI_RE = re.compile(r"\bski(?:ing|er|-?jump|)\b|mogul|alpine|slalom|downhill|super[- ]?g", re.I)
+MAX_ITEMS = 40   # keep the data file lean
+USER_AGENT = "TeamMacugaBot/1.0 (+https://teammacuga.com)"
+OUT = Path("_data/news.json")
+# ----------------------------
 
-UA = {"User-Agent": "TeamMacugaBot/1.0 (+github actions)"}
+session = requests.Session()
+session.headers.update({"User-Agent": USER_AGENT, "Accept": "*/*"})
 
-def og_image(url):
+def google_news_feed(term: str) -> str:
+    q = f'{term} AND (ski OR skiing OR skier OR moguls OR alpine OR slalom OR downhill OR "super g" OR "ski jumping")'
+    # you can add recency hint: when:365d if you want fresher bias
+    qs = urllib.parse.urlencode({"q": q, "hl":"en-US", "gl":"US", "ceid":"US:en"})
+    return f"https://news.google.com/rss/search?{qs}"
+
+def pick_image(entry, fallback_url: str | None):
+    # 1) media:content on the feed
+    media = getattr(entry, "media_content", None)
+    if media and isinstance(media, list):
+        url = media[0].get("url")
+        if url: return url
+
+    # 2) Try og:image from the article page
+    if not fallback_url: return None
     try:
-        h = requests.get(url, headers=UA, timeout=12).text
-        s = BS(h, "lxml")
-        for sel in ['meta[property="og:image"]', 'meta[name="twitter:image"]']:
-            m = s.select_one(sel)
-            if m and m.get("content"):
-                return m["content"]
-    except:
-        return None
+        r = session.get(fallback_url, timeout=8)
+        if r.ok:
+            html = r.text
+            # prefer og:image
+            m = re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)["\']', html, re.I)
+            if m: return m.group(1)
+            # or twitter:image
+            m = re.search(r'<meta[^>]+name=["\']twitter:image["\'][^>]+content=["\']([^"\']+)["\']', html, re.I)
+            if m: return m.group(1)
+    except requests.RequestException:
+        pass
+    return None
+
+def normalize_link(link: str):
+    # Some Google News links wrap publisher URLs. Try to unwrap ?url= param if present.
+    try:
+        u = urllib.parse.urlparse(link)
+        qs = urllib.parse.parse_qs(u.query)
+        if "url" in qs and qs["url"]:
+            return qs["url"][0]
+    except Exception:
+        pass
+    return link
 
 seen = set()
 items = []
-for q in QUERIES:
-    feed = feedparser.parse(q)
-    for e in feed.entries[:12]:
-        link = e.link
-        if link in seen: 
+
+for term in TERMS:
+    feed_url = google_news_feed(term)
+    feed = feedparser.parse(feed_url)
+
+    for e in feed.entries:
+        title = e.title.strip()
+        if not SKI_RE.search(title + " " + getattr(e, "summary", "")):
             continue
-        seen.add(link)
-        itm = {
-            "title": html.unescape(e.title),
+
+        link = normalize_link(e.link)
+        key = (title.lower(), link)
+        if key in seen: 
+            continue
+        seen.add(key)
+
+        # date → ISO string
+        # feedparser gives e.published_parsed sometimes
+        ts = None
+        if getattr(e, "published_parsed", None):
+            ts = int(time.mktime(e.published_parsed))
+        elif getattr(e, "updated_parsed", None):
+            ts = int(time.mktime(e.updated_parsed))
+        if not ts:
+            # if missing, skip (keeps sorting reliable)
+            continue
+
+        date_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(ts))
+        source = getattr(getattr(e, "source", None), "title", None) or getattr(e, "publisher", None) or ""
+
+        image = pick_image(e, link)
+
+        items.append({
+            "title": title,
             "link": link,
-            "source": getattr(e, "source", {}).get("title", "") or getattr(e, "author", ""),
-            "date": getattr(e, "published", ""),
-            "image": None
-        }
-        items.append(itm)
+            "source": source,
+            "date": date_iso,
+            "image": image
+        })
 
-# Resolve images (best-effort)
-for it in items[:16]:
-    it["image"] = og_image(it["link"])
-    time.sleep(0.5)
+# sort newest first, trim
+items.sort(key=lambda x: x["date"], reverse=True)
+items = items[:MAX_ITEMS]
 
-(DATA / "news.json").write_text(json.dumps(items, indent=2))
-print("Wrote _data/news.json")
+OUT.parent.mkdir(parents=True, exist_ok=True)
+OUT.write_text(json.dumps(items, indent=2))
+print(f"Wrote {len(items)} items to {OUT}")

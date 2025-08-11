@@ -77,21 +77,28 @@ permalink: /updates/
 
   <!-- News -->
   <div id="tab-news" class="tabpanel" role="tabpanel" hidden>
-    {% assign news = site.data.news %}
-    {% if news %}
+    {% assign news = site.data.news | sort: "date" | reverse %}
+    {% if news and news.size > 0 %}
       <div class="grid cols-3">
         {% for n in news %}
-          <a class="card news-card" href="{{ n.link }}" target="_blank" rel="noopener">
-            {% if n.image %}<img src="{{ n.image }}" alt="" class="news-img">{% endif %}
-            <strong class="news-title">{{ n.title }}</strong>
-            <span class="muted">{{ n.source }}{% if n.date %} • {{ n.date | date: "%b %-d" }}{% endif %}</span>
-          </a>
+          {% assign title = n.title | default: "" %}
+          {% if title contains "ski" or title contains "Ski" or title contains "Skiing" or title contains "Mogul" or title contains "Alpine" or title contains "Jump" %}
+            <a class="card news-card" href="{{ n.link }}" target="_blank" rel="noopener">
+              {% if n.image %}<img src="{{ n.image }}" alt="" class="news-img">{% endif %}
+              <strong class="news-title">{{ n.title }}</strong>
+              <span class="muted">
+                {{ n.source }}
+                {% if n.date %} • {{ n.date | date: "%b %-d, %Y" }}{% endif %}
+              </span>
+            </a>
+          {% endif %}
         {% endfor %}
       </div>
     {% else %}
-      <p class="muted">News will appear after the first daily fetch runs.</p>
+      <p class="muted">No relevant news yet. Check back soon.</p>
     {% endif %}
   </div>
+
 
   <!-- Social -->
   <div id="tab-social" class="tabpanel" role="tabpanel" hidden>
@@ -120,6 +127,15 @@ permalink: /updates/
 .news-img{ width:100%; height:160px; object-fit:cover; border-radius:10px; }
 .news-title{ display:block; margin:.4rem 0 .2rem; }
 </style>
+
+<style>
+.news-card{ display:flex; flex-direction:column; gap:.5rem; }
+.news-img{ width:100%; height:160px; object-fit:cover; border-radius:10px; }
+.news-title{ display:block; margin:.25rem 0 .1rem; }
+@media (max-width:900px){ .grid.cols-3{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:600px){ .grid.cols-3{ grid-template-columns:1fr; } .news-img{ height:200px; } }
+</style>
+
 
 <script>
 document.querySelectorAll('.tabs .tab').forEach(btn=>{

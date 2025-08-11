@@ -7,10 +7,10 @@
   facebook: https://www.facebook.com/people/Lauren-Macuga/100077857783360/
   results: /updates/#lauren
   headshots:
-    - /assets/img/gallery/headshots/lauren-headshot-1.jpg
-    - /assets/img/gallery/headshots/lauren-headshot-2.jpg
-    - /assets/img/gallery/headshots/lauren-headshot-3.jpg
-    - /assets/img/gallery/headshots/lauren-headshot-4.jpg
+    - /assets/img/headshots/lauren-headshot-1.jpg
+    - /assets/img/headshots/lauren-headshot-2.jpg
+    - /assets/img/headshots/lauren-headshot-3.jpg
+    - /assets/img/headshots/lauren-headshot-4.jpg
 
 - slug: alli
   name: Alli Macuga
@@ -20,11 +20,11 @@
   instagram: https://instagram.com/alli_macuga
   results: /updates/#alli
   headshots:
-    - /assets/img/gallery/headshots/alli-headshot-1.jpg
-    - /assets/img/gallery/headshots/alli-headshot-2.jpg
-    - /assets/img/gallery/headshots/alli-headshot-3.jpg
-    - /assets/img/gallery/headshots/alli-headshot-4.jpg
-    - /assets/img/gallery/headshots/alli-headshot-5.jpg
+    - /assets/img/headshots/alli-headshot-1.jpg
+    - /assets/img/headshots/alli-headshot-2.jpg
+    - /assets/img/headshots/alli-headshot-3.jpg
+    - /assets/img/headshots/alli-headshot-4.jpg
+    - /assets/img/headshots/alli-headshot-5.jpg
 
 - slug: sam
   name: Sam Macuga
@@ -35,12 +35,12 @@
   facebook: https://www.facebook.com/sam.macuga/
   results: /updates/#sam
   headshots:
-    - /assets/img/gallery/headshots/sam-headshot-1.jpg
-    - /assets/img/gallery/headshots/sam-headshot-2.jpg
-    - /assets/img/gallery/headshots/sam-headshot-3.jpg
-    - /assets/img/gallery/headshots/sam-headshot-4.jpg
+    - /assets/img/headshots/sam-headshot-1.jpg
+    - /assets/img/headshots/sam-headshot-2.jpg
+    - /assets/img/headshots/sam-headshot-3.jpg
+    - /assets/img/headshots/sam-headshot-4.jpg
     # add more if you have them:
-    # - /assets/img/gallery/headshots/sam-headshot-3.jpeg
+    # - /assets/img/headshots/sam-headshot-3.jpeg
 
 - slug: daniel
   name: Daniel Macuga
@@ -50,9 +50,9 @@
   instagram: https://instagram.com/daniel_macugas
   results: /updates/#daniel
   headshots:
-    - /assets/img/gallery/headshots/daniel-headshot-1.jpg
-    - /assets/img/gallery/headshots/daniel-headshot-2.jpg
-    - /assets/img/gallery/headshots/daniel-headshot-3.jpg
+    - /assets/img/headshots/daniel-headshot-1.jpg
+    - /assets/img/headshots/daniel-headshot-2.jpg
+    - /assets/img/headshots/daniel-headshot-3.jpg
 
 - slug: amy
   name: Amy Macuga
@@ -61,10 +61,10 @@
   instagram: https://www.instagram.com/amy.macuga/?hl=en
   facebook: https://www.facebook.com/amy.macuga/
   headshots:
-    - /assets/img/gallery/headshots/amy-headshot-2.jpg
-    - /assets/img/gallery/headshots/amy-headshot-3.jpg
-    - /assets/img/gallery/headshots/amy-headshot-4.jpg
-    - /assets/img/gallery/headshots/amy-headshot-5.jpg
+    - /assets/img/headshots/amy-headshot-2.jpg
+    - /assets/img/headshots/amy-headshot-3.jpg
+    - /assets/img/headshots/amy-headshot-4.jpg
+    - /assets/img/headshots/amy-headshot-5.jpg
 
 - slug: dan
   name: Dan Macuga
@@ -73,7 +73,7 @@
   instagram: https://www.instagram.com/dan.macuga/?hl=en
   facebook: https://www.facebook.com/share/19Sxzz3g2F/?mibextid=wwXIfr
   headshots:
-    - /assets/img/gallery/headshots/dan-headshot-1.jpg
-    - /assets/img/gallery/headshots/dan-headshot-2.jpg
-    - /assets/img/gallery/headshots/dan-headshot-3.jpg
-    - /assets/img/gallery/headshots/dan-headshot-2.jpg
+    - /assets/img/headshots/dan-headshot-1.jpg
+    - /assets/img/headshots/dan-headshot-2.jpg
+    - /assets/img/headshots/dan-headshot-3.jpg
+    - /assets/img/headshots/dan-headshot-2.jpg

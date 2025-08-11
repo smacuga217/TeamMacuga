@@ -41,10 +41,11 @@ redirect_from:
         <!-- Collab: link out, no quick-add -->
         <a class="card-link" href="{{ product.external_url }}" target="_blank" rel="noopener">
           <div class="media">
+            <!-- Overlay badge ON IMAGE -->
+            <span class="img-badge collab">Collab</span>
             <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
           </div>
           <div class="body">
-            <span class="pill" style="background:linear-gradient(90deg,var(--brand),var(--navy));color:#fff;border-color:transparent">Collab</span>
             <div class="name">{{ product.title }}</div>
             {% if product.price %}<div class="price">${{ product.price }}</div>{% endif %}
           </div>
@@ -54,10 +55,13 @@ redirect_from:
         <!-- Normal product -->
         <a class="card-link" href="{{ product.url | relative_url }}">
           <div class="media">
+            {% if product.badge %}
+              <!-- Overlay badge ON IMAGE -->
+              <span class="img-badge">{{ product.badge }}</span>
+            {% endif %}
             <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
           </div>
           <div class="body">
-            {% if product.badge %}<span class="pill">{{ product.badge }}</span>{% endif %}
             <div class="name">{{ product.title }}</div>
             {% if product.price %}<div class="price">${{ product.price }}</div>{% endif %}
           </div>
@@ -97,11 +101,25 @@ redirect_from:
 
 <!-- Only the tiny bits not already in your global CSS -->
 <style>
+  /* chips */
   .chip{ border:1px solid var(--border); padding:.35rem .75rem; border-radius:999px; background:#fff; cursor:pointer; }
   .chip.active{ background:var(--navy); color:#fff; }
 
-  .size-select{ min-width:110px; padding:.45rem .6rem; border:1px solid var(--border); border-radius:8px; background:#fff; }
+  /* position overlay badge */
+  .product-card .media{ position:relative; }  /* so the badge anchors to the image */
+  .img-badge{
+    position:absolute; left:10px; top:10px;
+    padding:4px 10px; font-size:.75rem; font-weight:700; line-height:1;
+    border-radius:999px; color:#fff; background: var(--brand);
+    border:0; box-shadow:0 6px 16px rgba(0,0,0,.10);
+    pointer-events:none; user-select:none;
+  }
+  .img-badge.collab{
+    background: linear-gradient(90deg, var(--brand), var(--navy));
+  }
 
+  /* quick add controls */
+  .size-select{ min-width:110px; padding:.45rem .6rem; border:1px solid var(--border); border-radius:8px; background:#fff; }
   .qty-control{
     display:inline-flex; align-items:center; gap:.5rem;
     background:#fff; border:1px solid var(--border);

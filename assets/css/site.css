@@ -1741,3 +1741,8 @@ body::before{
     width: 100%;
   }
 }
+
+/* Space above the contact strip on every page */
+.sep{
+  height: clamp(24px, 4vw, 56px); /* responsive: ~24–56px */
+}

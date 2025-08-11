@@ -1,5 +1,27 @@
 <!doctype html>
 <html lang="en">
+
+<style>
+body {
+  position: relative;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url('{{ "/assets/img/logo-full-color.png" | relative_url }}') no-repeat center center;
+  background-size: min(80%, 840px);
+  opacity: 0.085;
+  filter: blur(1.5px);
+  z-index: 0;
+  pointer-events: none;
+}
+.nav, .full-bleed, .container, main, footer {
+  position: relative;
+  z-index: 1;
+}
+</style>
+
 <head>
   {% include head.html %}
 </head>

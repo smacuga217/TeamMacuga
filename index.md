@@ -12,15 +12,15 @@ layout: default
   <!-- Overlay (tagline + buttons) -->
   <div class="hero-overlay">
     <div class="hero-content">
-      <div class="hero-box">
+      <div class="hero-box hero-centered">
         <p class="tagline">
           Three sisters, one brother, two legendary parents — one dream: Milano–Cortina 2026 and beyond.
           Follow the journey and rep the team. <strong>#TeamMacuga</strong>
         </p>
-        <div class="hero-actions">
-          <a class="btn primary" href="{{ '/shop/' | relative_url }}">Shop Merch</a>
-          <a class="btn"          href="{{ '/updates/#results' | relative_url }}">Latest Results</a>
-          <a class="btn"          href="{{ '/story/' | relative_url }}">Our Story</a>
+        <div class="hero-actions hero-actions--center">
+          <a class="btn primary hero-btn" href="{{ '/shop/' | relative_url }}">Shop Merch</a>
+          <a class="btn hero-btn"          href="{{ '/updates/#results' | relative_url }}">Latest Results</a>
+          <a class="btn hero-btn"          href="{{ '/story/' | relative_url }}">Our Story</a>
         </div>
       </div>
     </div>
@@ -28,7 +28,7 @@ layout: default
 </div>
 <!-- ===================================================================== -->
 
-<div class="section-gap"></div>
+<div class="section-gap lg"></div>
 
 <!-- ================= Mission Statement ================= -->
 <section id="mission" class="container">
@@ -39,10 +39,13 @@ layout: default
       can carry you from hometown hills to the world stage. Team Macuga exists to inspire the next generation,
       celebrate the people who help us get there, and race with heart in everything we do.
     </p>
+    <div class="mission-actions">
+      <a class="btn primary" href="{{ '/story/' | relative_url }}">Read More</a>
+    </div>
   </div>
 </section>
 
-<div class="section-gap"></div>
+<div class="section-gap lg"></div>
 
 <!-- ================= Family ================= -->
 <section id="family" class="container">
@@ -50,14 +53,14 @@ layout: default
   {% include athlete-grid.html %}
 </section>
 
-<!-- (kept) rotating headshots -->
+<!-- Rotating headshots + link names to Story bios -->
 <script>
 (function(){
+  // ----- headshot rotator -----
   const HEAD_BASE = '{{ "/assets/img/headshots/" | relative_url }}';
-  const counts = { lauren:4, alli:5, sam:4, daniel:3, amy:4, dan:4 }; // default to 5 if missing
+  const counts = { lauren:4, alli:5, sam:4, daniel:3, amy:4, dan:4 };
   const photos = Array.from(document.querySelectorAll('.ath-photo'));
-  let step = 1;                   // global frame index
-  const PERIOD = 3500;            // ms between swaps
+  let step = 1, PERIOD = 3500;
 
   function nextFrame(){
     step++;
@@ -66,17 +69,29 @@ layout: default
       const max  = counts[slug] || 5;
       const idx  = ((step - 1) % max) + 1;
       const url  = `${HEAD_BASE}${slug}-headshot-${idx}.jpg`;
-
       const pre = new Image();
       pre.onload = () => { img.src = url; img.style.opacity = 1; };
       pre.src = url;
     });
   }
+  nextFrame(); setInterval(nextFrame, PERIOD);
 
-  nextFrame();
-  setInterval(nextFrame, PERIOD);
+  // ----- link each member name to Story bio anchor -----
+  // Works if your cards include a data-slug on either the card or the headshot image.
+  document.querySelectorAll('.athlete-card').forEach(card=>{
+    const slug = card.dataset.slug || card.querySelector('[data-slug]')?.dataset.slug;
+    const nameEl = card.querySelector('h3, .name');
+    if(slug && nameEl && !nameEl.querySelector('a')){
+      const a = document.createElement('a');
+      a.href = '{{ "/story/#bio-" | relative_url }}' + slug;
+      a.textContent = nameEl.textContent.trim();
+      nameEl.replaceChildren(a);
+    }
+  });
 })();
 </script>
+
+<div class="section-gap lg"></div>
 
 <!-- ================= About Summary (after the grid) ================= -->
 <section class="container about-summary">
@@ -90,14 +105,14 @@ layout: default
   </div>
 </section>
 
-<div class="section-gap"></div>
+<div class="section-gap xl"></div>
 
 <section class="container">
   <h2 class="section-title">Featured Merch</h2>
   {% include merch-carousel.html %}
 </section>
 
-<div class="section-gap"></div>
+<div class="section-gap xl"></div>
 
 <section class="container">
   <h2 class="section-title">Featured Collab</h2>
@@ -111,7 +126,7 @@ layout: default
   </div>
 </section>
 
-<div class="section-gap"></div>
+<div class="section-gap xl"></div>
 
 <script>
 (function(){
@@ -143,6 +158,21 @@ layout: default
 </script>
 
 <style>
+  /* === Hero: center & enlarge buttons === */
+  .hero-centered{ text-align:center; }
+  .hero-actions{ display:flex; flex-wrap:wrap; gap:12px; }
+  .hero-actions--center{ justify-content:center; }
+  .hero-btn{
+    padding: 12px 18px;            /* bigger */
+    border-radius: 14px;
+    font-weight: 700;
+    min-width: 220px;              /* wider buttons */
+    justify-content: center;
+  }
+  @media (max-width:560px){
+    .hero-btn{ width:100%; }
+  }
+
   /* Mission band */
   .mission-card{
     background:#fff;
@@ -159,6 +189,7 @@ layout: default
     background: linear-gradient(180deg, var(--brand), var(--navy));
   }
   .mission-copy{ margin:8px 0 0; }
+  .mission-actions{ margin-top:12px; display:flex; justify-content:center; }
 
   /* About summary band */
   .about-summary .about-wrap{
@@ -175,6 +206,10 @@ layout: default
     line-height: 1.55;
   }
 
-  /* Gentle spacing utilities */
-  .section-gap{ height: 16px; }
+  /* Section spacing helpers */
+  .section-gap{ height: 20px; }
+  .section-gap.lg{ height: 28px; }
+  .section-gap.xl{ height: 36px; }
+  /* In case a section pair is missing a gap div */
+  section.container + section.container{ margin-top: 24px; }
 </style>

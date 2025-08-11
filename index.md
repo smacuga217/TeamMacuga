@@ -90,3 +90,33 @@ layout: default
 
 <div class="section-gap"></div>  <!-- ← added spacer -->
 
+<script>
+(function(){
+  // Arrow scroll
+  const by = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+  const px = () => Math.ceil(document.querySelector('.product-card')?.getBoundingClientRect().width || 360) + 20;
+
+  by('.slider-btn').forEach(btn=>{
+    const target = document.querySelector(btn.dataset.target);
+    if(!target) return;
+    const update = () => {
+      btn.closest('section').querySelector('.prev').disabled = (target.scrollLeft <= 0);
+      btn.closest('section').querySelector('.next').disabled =
+        (Math.ceil(target.scrollLeft + target.clientWidth) >= target.scrollWidth);
+    };
+    btn.addEventListener('click', () => {
+      target.scrollBy({ left: btn.classList.contains('next') ? px() : -px(), behavior:'smooth' });
+      setTimeout(update, 300);
+    });
+    target.addEventListener('scroll', update, { passive:true });
+    update();
+  });
+
+  // If any legacy links still point to "#", prevent jump-to-top
+  document.querySelectorAll('.product-card a[href="#"]').forEach(a=>{
+    a.addEventListener('click', e => e.preventDefault());
+  });
+})();
+</script>
+
+

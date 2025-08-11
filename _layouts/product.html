@@ -1,0 +1,68 @@
+---
+layout: default
+---
+
+<article class="product container">
+  <div class="product-grid">
+    <div class="gallery">
+      <img id="hero" src="{{ page.featured_image | relative_url }}" alt="{{ page.title }}">
+      {% if page.images and page.images.size > 1 %}
+      <div class="thumbs">
+        {% for img in page.images %}
+          <button class="thumb"><img src="{{ img | relative_url }}" alt=""></button>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="details">
+      {% if page.badge %}<span class="badge">{{ page.badge }}</span>{% endif %}
+      <h1>{{ page.title }}</h1>
+      <p class="price">${{ page.price }}</p>
+
+      {% if page.description %}<p class="desc">{{ page.description }}</p>{% endif %}
+
+      {% if page.sizes %}
+      <label class="sizes-label">Size</label>
+      <div class="sizes">
+        {% for s in page.sizes %}
+        <label class="size">
+          <input type="radio" name="size" value="{{ s }}" {% if forloop.first %}checked{% endif %}> {{ s }}
+        </label>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Replace this with your checkout later -->
+      <a class="btn buy-btn" href="/merch/#buy-{{ page.sku }}">Add to cart</a>
+      <p class="sku">SKU: {{ page.sku }}</p>
+    </div>
+  </div>
+</article>
+
+<script>
+(function(){
+  const hero = document.getElementById('hero');
+  if(!hero) return;
+  document.querySelectorAll('.thumb img').forEach(t=>{
+    t.addEventListener('click', ()=>{ hero.src = t.src; hero.decoding='sync'; });
+  });
+})();
+</script>
+
+<style>
+  .product-grid{ display:grid; grid-template-columns: 1.2fr 1fr; gap:2rem; align-items:start; }
+  .gallery img{ width:100%; border-radius:12px; display:block; }
+  .thumbs{ display:flex; gap:.5rem; margin-top:.5rem; flex-wrap:wrap; }
+  .thumb{ border:0; background:transparent; padding:0; cursor:pointer; }
+  .thumb img{ width:80px; height:80px; object-fit:cover; border-radius:10px; }
+  .details .badge{ display:inline-block; margin-bottom:.5rem; padding:.25rem .5rem; border-radius:999px; background:#eef; }
+  .price{ font-size:1.25rem; font-weight:600; margin:.25rem 0 1rem; }
+  .desc{ margin-bottom:1rem; }
+  .sizes{ display:flex; gap:.5rem; margin:.5rem 0 1rem; flex-wrap:wrap; }
+  .size{ border:1px solid var(--border); border-radius:10px; padding:.4rem .6rem; cursor:pointer; }
+  .size input{ margin-right:.35rem; }
+  .btn.buy-btn{ display:inline-block; padding:.75rem 1rem; border-radius:12px; background:var(--navy); color:#fff; text-decoration:none; }
+  .sku{ margin-top:.5rem; color:var(--muted); font-size:.9rem; }
+  @media (max-width: 960px){ .product-grid{ grid-template-columns: 1fr; } }
+</style>

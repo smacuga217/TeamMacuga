@@ -12,3 +12,8 @@ defaults:
   - scope: { path: "" }
     values:
       layout: default
+
+collections:
+  products:
+    output: true
+    permalink: /shop/:slug/

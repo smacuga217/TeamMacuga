@@ -1,26 +1,27 @@
 ---
-title: Shop
 layout: default
+title: Merch
+permalink: /merch/
 ---
 
-<section class="container">
-  <h1 class="section-title">Shop</h1>
-  <p class="lead">Team Macuga merch and collaborations.</p>
-</section>
-
-<section class="container">
-  <h2 class="section-title">Team Macuga Merch</h2>
-  {% include merch-carousel.html %}
-</section>
-
-<section class="container">
-  <h2 class="section-title">Collabs</h2>
-  <div class="card" style="display:flex;gap:16px;align-items:center">
-    <img src="{{ '/assets/img/logo-mark-color.png' | relative_url }}" alt="" style="width:64px;height:64px">
-    <div style="flex:1">
-      <strong>Lauren Macuga × Pit Viper</strong>
-      <p class="muted" style="margin:4px 0 0">Speed-inspired shades designed by Lauren.</p>
-    </div>
-    <a class="btn primary" href="#">Shop</a>
+<section class="container merch-index">
+  <h1>All Merch</h1>
+  <div class="grid">
+    {% for product in site.products %}
+    <article class="product-card">
+      <a class="card-link" href="{{ product.url | relative_url }}">
+        <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
+        {% if product.badge %}<span class="pill">{{ product.badge }}</span>{% endif %}
+        <h3>{{ product.title }}</h3>
+        <p class="price">${{ product.price }}</p>
+      </a>
+    </article>
+    {% endfor %}
   </div>
 </section>
+
+<style>
+  .merch-index .grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:1.25rem; }
+  @media (max-width: 960px){ .merch-index .grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 640px){ .merch-index .grid{ grid-template-columns: 1fr; } }
+</style>

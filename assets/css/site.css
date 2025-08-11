@@ -1495,3 +1495,15 @@ body::before{
 
 /* Keep real content above the logo layer */
 .nav, .full-bleed, .container, main, footer{ position:relative; z-index:1; }
+
+.merch .row{ display:flex; align-items:center; gap:.75rem; }
+.merch .spacer{ flex:1; }
+.merch-track{
+  display:flex; gap:1.25rem; overflow-x:auto; scroll-snap-type:x mandatory;
+  padding-bottom:1rem; scroll-behavior:smooth;
+}
+.product-card{ flex:0 0 360px; scroll-snap-align:start; background:#fff; border-radius:12px; box-shadow:var(--shadow); }
+.product-card img{ width:100%; height:260px; object-fit:cover; display:block; }
+.slider-btn{ border:0; border-radius:999px; padding:.5rem .7rem; background:#fff; box-shadow:var(--shadow); cursor:pointer; }
+.slider-btn:disabled{ opacity:.4; cursor:default; }
+.card-link{ display:block; color:inherit; text-decoration:none; }

@@ -1,30 +1,25 @@
-<div class="tm-carousel" id="merch-carousel">
-  <button class="tm-arrow prev" aria-label="Previous" disabled>
-    <svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-  </button>
-
-  <div class="tm-track">
-    {% for m in site.data.merch %}
-    <a class="tm-slide" href="{{ m.url | default: '#' }}">
-      <article class="m-card">
-        <div class="m-img">
-          {% if m.badge %}<span class="m-badge">{{ m.badge }}</span>{% endif %}
-          <img
-            src="{{ m.image | default: '/assets/img/placeholders/product.png' | relative_url }}"
-            alt="{{ m.name }}">
-        </div>
-        <div class="m-meta">
-          <div class="m-name">{{ m.name }}</div>
-          <div class="m-price">${{ m.price }}</div>
-        </div>
-      </article>
-    </a>
-    {% endfor %}
+<section class="merch container">
+  <div class="row">
+    <h2>Featured Merch</h2>
+    <div class="spacer"></div>
+    <button class="slider-btn prev" aria-label="Previous" data-target="#merch-slider">‹</button>
+    <button class="slider-btn next" aria-label="Next" data-target="#merch-slider">›</button>
   </div>
 
-  <button class="tm-arrow next" aria-label="Next">
-    <svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-  </button>
-
-  <div class="tm-dots" aria-label="Carousel pagination"></div>
-</div>
+  <div id="merch-slider" class="merch-track">
+    {% for product in site.products limit:9 %}
+      <article class="product-card">
+        <a class="card-link" href="{{ product.url | relative_url }}">
+          {% if product.featured_image %}
+            <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
+          {% endif %}
+          {% if product.badge %}
+            <span class="pill">{{ product.badge }}</span>
+          {% endif %}
+          <h3>{{ product.title }}</h3>
+          <p class="price">${{ product.price }}</p>
+        </a>
+      </article>
+    {% endfor %}
+  </div>
+</section>

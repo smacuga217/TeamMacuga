@@ -77,7 +77,7 @@ permalink: /updates/
 
   <!-- News -->
   <div id="tab-news" class="tabpanel" role="tabpanel" hidden>
-    {% assign news = site.data.news | sort: 'date' | reverse %}
+    {% assign news = site.data.news | sort: 'date' | reverse %}  {# newest first #}
     {% if news and news.size > 0 %}
       {% assign current_year = "" %}
       {% for n in news %}
@@ -92,11 +92,7 @@ permalink: /updates/
 
         <a class="news-card" href="{{ n.link }}" target="_blank" rel="noopener">
           <div class="news-eyebrow">
-            <img class="news-ico"
-                src="https://www.google.com/s2/favicons?domain={{ n.link | uri_escape }}&sz=64"
-                alt="" loading="lazy">
-            <span class="news-source">{{ n.source }}</span>
-            <span aria-hidden="true">•</span>
+            <span class="source-pill">{{ n.source }}</span>
             <time class="news-date" datetime="{{ n.date }}">{{ n.date | date: "%b %-d, %Y" }}</time>
           </div>
 
@@ -112,6 +108,7 @@ permalink: /updates/
       <p class="muted">News will appear after the first daily fetch runs.</p>
     {% endif %}
   </div>
+
 
 
 
@@ -216,6 +213,47 @@ permalink: /updates/
   background-size: cover; background-position: center;
   border-radius: 10px;
   border: 1px solid var(--border);
+}
+
+
+/* News layout */
+.news-year{ margin:18px 0 8px; font-size:1.1rem; opacity:.9; }
+.news-grid{ grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; }
+
+/* Press card */
+.news-card{
+  position:relative; display:block; padding:14px 16px;
+  background:#fff; border:1px solid var(--border);
+  border-radius:14px; box-shadow:var(--shadow); overflow:hidden;
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+.news-card::before{
+  content:""; position:absolute; left:0; top:0; bottom:0; width:6px;
+  background:linear-gradient(180deg,var(--brand),var(--navy));
+  border-top-left-radius:14px; border-bottom-left-radius:14px;
+}
+.news-card:hover{ transform:translateY(-1px); box-shadow:0 12px 30px rgba(0,0,0,.12); }
+
+/* Eyebrow (no favicon, clean pill + date) */
+.news-eyebrow{ display:flex; align-items:center; gap:.5rem; margin-bottom:.25rem; }
+.source-pill{
+  padding:.2rem .5rem; border-radius:999px;
+  background:#f2f5ff; color:#334155; font-size:.8rem; font-weight:600;
+  border:1px solid var(--border);
+}
+.news-date{ color:var(--muted); font-size:.9rem; }
+
+/* Title clamp */
+.news-title{
+  margin:.35rem 0 0; line-height:1.3;
+  display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+}
+
+/* Optional thumbnail (only shows if n.image exists) */
+.news-thumb{
+  margin-top:10px; width:100%; height:140px;
+  background-size:cover; background-position:center;
+  border-radius:10px; border:1px solid var(--border);
 }
 
 

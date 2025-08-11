@@ -8,10 +8,10 @@ images:
   - /assets/img/merch/bucket-hat/alt-1.jpg
   - /assets/img/merch/bucket-hat/alt-2.jpg
 sizes: [One Size]
-badge: "New"
+badge: "Best seller"
 sku: TM-BUC-001
 description: "Bucket hat."
-category: hat   # or hats, misc, collab
+category: hats   # or hats, misc, collab
 
 shopify_handle: bucket-hat
 variant_ids:

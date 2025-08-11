@@ -1449,3 +1449,49 @@ body::before {
   z-index: 0;
   pointer-events: none;
 }
+
+
+/* ===== NAV size bump ===== */
+.nav-inner{ height:84px; }
+.brand-logo img{ height:48px; }
+.links a{ font-size:1.05rem; }
+
+/* ===== Hero overlay: clearer text, no page darkening ===== */
+.hero-overlay::before{ background:none !important; }   /* remove the scrim */
+.hero-box{
+  background: rgba(11,18,32,.58) !important;           /* darker glass */
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+/* ===== Carousels: no opacity animation (instant switch) ===== */
+/* Hero rotator */
+.hero-rotator .slide{ position:absolute; inset:0; display:none !important; opacity:1 !important; transition:none !important; }
+.hero-rotator .slide.active{ display:block !important; }
+
+/* Mini headshots in cards */
+.mini-rotator .tm-slide{ position:absolute; inset:0; display:none !important; opacity:1 !important; transition:none !important; }
+.mini-rotator .tm-slide.active{ display:block !important; }
+
+/* Any generic carousel that used fade */
+.carousel .slide{ display:none !important; opacity:1 !important; transition:none !important; }
+.carousel .slide.active{ display:block !important; }
+
+/* ===== Big, soft background logo (site-wide) ===== */
+/* Make sure the file path is correct AND your CSS is served from the site root.
+   If this file is under /assets/css/, the root-based path below is correct. */
+body{ position:relative; } /* create a stacking context so ::before layers correctly */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background: url('/assets/img/logo-full-color.png') no-repeat center center;
+  background-size: min(80%, 840px);
+  opacity:.085;            /* subtle */
+  filter: blur(1.5px);
+  z-index:0;               /* sits under everything else */
+  pointer-events:none;
+}
+
+/* Keep real content above the logo layer */
+.nav, .full-bleed, .container, main, footer{ position:relative; z-index:1; }

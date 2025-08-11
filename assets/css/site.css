@@ -1674,3 +1674,70 @@ body::before{
 @media (prefers-reduced-motion: reduce){
   .hero-video > video{ animation: none !important; }
 }
+
+
+/* Compact, inline quick-add layout */
+.quick-add{
+  display: grid;
+  grid-template-columns: 1fr auto auto; /* size | qty | button */
+  align-items: center;
+  gap: .6rem;
+  padding: 0;               /* kill the big padded box look */
+  background: transparent;  /* ensure no background box */
+  border: 0;
+}
+
+/* Size select stays flexible, nice and legible */
+.size-select{
+  width: 100%;
+  min-width: 140px;
+  padding: .45rem .6rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+}
+
+/* Qty stepper only as wide as needed */
+.qty-control{
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .25rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+}
+.qty-btn{
+  width: 34px; height: 34px;
+  border: 0; border-radius: 10px;
+  background: #f6f6f6;
+  font-size: 1.15rem; line-height: 1;
+  cursor: pointer;
+}
+.qty-val{
+  width: 2ch;               /* just enough for 1–2 digits */
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Gradient add-to-cart next to qty (not full-width) */
+.quick-add-btn{
+  white-space: nowrap;
+  padding: .6rem 1rem;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Small screens: let button wrap under if cramped */
+@media (max-width: 520px){
+  .quick-add{
+    grid-template-columns: 1fr auto;   /* size | qty */
+  }
+  .quick-add-btn{
+    grid-column: 1 / -1;               /* button on its own row */
+    width: 100%;
+  }
+}

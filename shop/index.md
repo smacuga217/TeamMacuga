@@ -41,7 +41,6 @@ redirect_from:
         <!-- Collab: link out, no quick-add -->
         <a class="card-link" href="{{ product.external_url }}" target="_blank" rel="noopener">
           <div class="media">
-            <!-- Overlay badge ON IMAGE -->
             <span class="img-badge collab">Collab</span>
             <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
           </div>
@@ -56,7 +55,6 @@ redirect_from:
         <a class="card-link" href="{{ product.url | relative_url }}">
           <div class="media">
             {% if product.badge %}
-              <!-- Overlay badge ON IMAGE -->
               <span class="img-badge">{{ product.badge }}</span>
             {% endif %}
             <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
@@ -68,8 +66,9 @@ redirect_from:
         </a>
 
         {% if product.variant_ids or product.variant_id %}
-          <div class="body actions">
-            {% if product.sizes %}
+          <!-- Compact quick add: size (optional) + qty stepper + button -->
+          <div class="body quick-add">
+            {% if product.sizes and product.sizes.size > 1 %}
               <select class="size-select" aria-label="Size">
                 {% for s in product.sizes %}
                   <option value="{{ s }}">{{ s }}</option>
@@ -77,7 +76,6 @@ redirect_from:
               </select>
             {% endif %}
 
-            <!-- Pretty qty stepper -->
             <div class="qty-control" data-qty aria-label="Quantity selector">
               <button type="button" class="qty-btn" data-qty-dec aria-label="Decrease quantity">−</button>
               <span class="qty-val" aria-live="polite">1</span>
@@ -99,38 +97,66 @@ redirect_from:
   </div>
 </section>
 
-<!-- Only the tiny bits not already in your global CSS -->
 <style>
-  /* chips */
+  /* filter chips */
   .chip{ border:1px solid var(--border); padding:.35rem .75rem; border-radius:999px; background:#fff; cursor:pointer; }
   .chip.active{ background:var(--navy); color:#fff; }
 
-  /* position overlay badge */
-  .product-card .media{ position:relative; }  /* so the badge anchors to the image */
+  /* overlay badge on product image */
+  .product-card .media{ position:relative; }
   .img-badge{
     position:absolute; left:10px; top:10px;
     padding:4px 10px; font-size:.75rem; font-weight:700; line-height:1;
     border-radius:999px; color:#fff; background: var(--brand);
-    border:0; box-shadow:0 6px 16px rgba(0,0,0,.10);
+    box-shadow:0 6px 16px rgba(0,0,0,.10);
     pointer-events:none; user-select:none;
   }
-  .img-badge.collab{
-    background: linear-gradient(90deg, var(--brand), var(--navy));
-  }
+  .img-badge.collab{ background: linear-gradient(90deg, var(--brand), var(--navy)); }
 
-  /* quick add controls */
-  .size-select{ min-width:110px; padding:.45rem .6rem; border:1px solid var(--border); border-radius:8px; background:#fff; }
+  /* compact quick add row */
+  .quick-add{
+    display:flex; align-items:center; gap:.6rem; flex-wrap:wrap;
+    padding:0; background:transparent; border:0;
+  }
+  .size-select{
+    flex:0 1 160px;
+    min-width:140px;
+    padding:.45rem .6rem;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:#fff;
+  }
   .qty-control{
+    flex:0 0 auto;
     display:inline-flex; align-items:center; gap:.5rem;
-    background:#fff; border:1px solid var(--border);
-    border-radius:12px; padding:.25rem;
-    box-shadow: 0 1px 2px rgba(0,0,0,.04);
+    padding:.25rem;
+    border:1px solid var(--border);
+    border-radius:12px; background:#fff;
+    box-shadow:0 1px 2px rgba(0,0,0,.04);
   }
   .qty-btn{
-    width:34px; height:34px; border:0; background:#f6f6f6;
-    border-radius:10px; font-size:1.15rem; line-height:1; cursor:pointer;
+    width:34px; height:34px;
+    border:0; border-radius:10px;
+    background:#f6f6f6;
+    font-size:1.15rem; line-height:1; cursor:pointer;
   }
-  .qty-val{ min-width:2ch; text-align:center; font-variant-numeric: tabular-nums; }
+  .qty-val{ width:2ch; text-align:center; font-variant-numeric: tabular-nums; }
+
+  .quick-add-btn{
+    flex:0 0 auto;
+    white-space:nowrap;
+    padding:.6rem 1rem;
+    border-radius:12px;
+    display:inline-flex; align-items:center; justify-content:center;
+  }
+
+  /* stack nicely on small screens */
+  @media (max-width:520px){
+    .quick-add{ gap:.5rem; }
+    .quick-add-btn{ width:100%; order:3; }
+    .size-select{ flex:1 1 100%; order:1; }
+    .qty-control{ order:2; }
+  }
 </style>
 
 <script>
@@ -149,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Quick add (supports one-size by falling back to first variant key)
+  // Quick add (supports one-size by falling back to first/only variant key)
   document.addEventListener('click', (e)=>{
     const btn = e.target.closest('.quick-add-btn');
     if(!btn) return;

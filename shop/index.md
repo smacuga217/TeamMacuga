@@ -52,8 +52,8 @@ permalink: /shop/
           {% if product.price %}<p class="price">${{ product.price }}</p>{% endif %}
         </a>
 
-        {% if product.variant_ids %}
-          <!-- Quick add with size + stepper -->
+        {% if product.variant_ids or product.variant_id %}
+          <!-- Quick add with size + pretty qty stepper -->
           <div class="quick-add">
             {% if product.sizes %}
               <select class="size-select" aria-label="Size">
@@ -69,8 +69,8 @@ permalink: /shop/
               <button type="button" class="qty-btn" data-qty-inc aria-label="Increase quantity">+</button>
             </div>
 
-            <button class="btn quick-add-btn"
-                    data-variants='{{ product.variant_ids | jsonify }}'
+            <button class="btn primary quick-add-btn"
+                    data-variants='{% if product.variant_ids %}{{ product.variant_ids | jsonify }}{% else %}{"default": {{ product.variant_id }} }{% endif %}'
                     data-title="{{ product.title }}"
                     data-price="{{ product.price }}"
                     data-img="{{ product.featured_image | relative_url }}">
@@ -85,30 +85,51 @@ permalink: /shop/
 </section>
 
 <style>
-  .merch-index .grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; }
-  @media (max-width: 960px){ .merch-index .grid{ grid-template-columns:repeat(2,1fr); } }
-  @media (max-width: 640px){ .merch-index .grid{ grid-template-columns:1fr; } }
+  /* Grid: 3 per row on desktop, 4 on wide, 2 tablet, 1 mobile */
+  .merch-index .grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem 1.25rem;
+  }
+  @media (min-width:1280px){ .merch-index .grid{ grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 960px){ .merch-index .grid{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px){ .merch-index .grid{ grid-template-columns: 1fr; } }
 
   .shop-controls{ display:flex; justify-content:space-between; align-items:center; gap:.75rem; margin-bottom:1rem; flex-wrap:wrap; }
   .chip{ border:1px solid var(--border); padding:.3rem .75rem; border-radius:999px; background:#fff; cursor:pointer; }
   .chip.active{ background:var(--navy); color:#fff; }
 
   .product-card{ position:relative; background:#fff; border-radius:12px; box-shadow:var(--shadow); overflow:hidden; }
-  .product-card img{ width:100%; height:260px; object-fit:cover; display:block; }
+  .product-card img{ width:100%; height:240px; object-fit:cover; display:block; }
   .product-card h3, .product-card p{ margin:.5rem .75rem; }
-
   .pill{ position:absolute; top:.5rem; left:.5rem; background:var(--brand); color:#fff; padding:.2rem .6rem; border-radius:999px; font-size:.75rem; font-weight:600; }
   .collab-badge{ background:#ff6600; }
 
   .quick-add{ display:flex; gap:.5rem; align-items:center; padding:.5rem .75rem .75rem; }
-  .size-select{ flex:1; min-width:110px; padding:.4rem; border:1px solid var(--border); border-radius:6px; }
+  .size-select{ flex:1; min-width:110px; padding:.45rem .6rem; border:1px solid var(--border); border-radius:8px; background:#fff; }
 
-  /* Qty stepper */
-  .qty-control{ display:inline-flex; align-items:center; gap:.5rem; border:1px solid var(--border); border-radius:10px; padding:.25rem; }
-  .qty-btn{ width:32px; height:32px; border:0; background:#f6f6f6; border-radius:8px; font-size:1.1rem; line-height:1; cursor:pointer; }
+  /* Pretty qty stepper with white background */
+  .qty-control{
+    display:inline-flex; align-items:center; gap:.5rem;
+    background:#fff; border:1px solid var(--border);
+    border-radius:12px; padding:.25rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  }
+  .qty-btn{
+    width:34px; height:34px; border:0; background:#f6f6f6;
+    border-radius:10px; font-size:1.15rem; line-height:1; cursor:pointer;
+  }
   .qty-val{ min-width:2ch; text-align:center; font-variant-numeric: tabular-nums; }
 
-  .quick-add-btn{ flex-shrink:0; padding:.5rem .75rem; border:0; border-radius:8px; background:var(--navy); color:#fff; cursor:pointer; }
+  /* Make the Add to cart match homepage gradient via .btn.primary. 
+     If .btn.primary already exists sitewide, this fallback won't clash. */
+  .btn.primary{
+    background: linear-gradient(90deg, var(--brand, #1e90ff), var(--brand-2, #22c55e));
+    color:#fff; border:0;
+  }
+  .quick-add-btn{
+    flex-shrink:0; padding:.6rem .9rem; border-radius:12px; cursor:pointer;
+  }
 </style>
 
 <script>
@@ -153,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Quick add (reads size + qty)
+  // Quick add (reads size + qty, supports one-size via first variant fallback)
   document.addEventListener('click', (e)=>{
     const btn = e.target.closest('.quick-add-btn');
     if(!btn) return;

@@ -1437,3 +1437,15 @@ main > section,
   position: relative;
   z-index: 2;
 }
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url('/assets/img/logo-full-color.png') no-repeat center center;
+  background-size: min(80%, 800px);
+  opacity: 0.08; /* adjust softness */
+  filter: blur(2px);
+  z-index: 0;
+  pointer-events: none;
+}

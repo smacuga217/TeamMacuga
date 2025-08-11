@@ -35,10 +35,14 @@
   const set = (c) => localStorage.setItem(KEY, JSON.stringify(c));
   const count = () => get().reduce((n,i)=>n+i.qty,0);
 
-  function add(id, qty){
+  function add(id, qty, title, price, img){
     const cart = get();
     const item = cart.find(i=>i.id===id);
-    item ? item.qty += qty : cart.push({ id, qty, title: document.querySelector('h1')?.textContent || 'Item', img: document.querySelector('#hero')?.src });
+    if(item){
+      item.qty += qty;
+    } else {
+      cart.push({ id, qty, title, price, img });
+    }
     set(cart); updateUI();
   }
 
@@ -47,9 +51,9 @@
   }
 
   function updateUI(){
-    // Update badge
+    // Badge
     document.querySelectorAll('[data-cart-count]').forEach(el=> el.textContent = count());
-    // Update drawer list
+    // Drawer
     const itemsWrap = document.querySelector('.cart-items');
     const totalEl = document.querySelector('[data-cart-total]');
     if(!itemsWrap) return;
@@ -72,6 +76,7 @@
             <button data-inc="${item.id}">+</button>
             <button data-remove="${item.id}">Remove</button>
           </div>
+          <div class="cart-item-price">$${(item.price || 0).toFixed(2)}</div>
         </div>
       `;
       itemsWrap.appendChild(row);
@@ -86,9 +91,13 @@
     window.location.href = `https://${SHOP}/cart/${parts}`;
   }
 
-  // Event wiring
-  window.addEventListener('tm:add', (e)=> add(e.detail.id, e.detail.qty||1));
-  window.addEventListener('tm:remove', (e)=> remove(e.detail.id));
+  // Listen for add-to-cart
+  window.addEventListener('tm:add', (e)=> {
+    const d = e.detail;
+    add(String(d.id), d.qty || 1, d.title || 'Item', parseFloat(d.price) || 0, d.img || '');
+  });
+
+  // Checkout + drawer controls
   document.addEventListener('click', (e)=>{
     if(e.target.matches('[data-checkout]')){ e.preventDefault(); checkout(); }
     if(e.target.matches('#open-cart')){ document.getElementById('mini-cart').classList.add('open'); document.getElementById('cart-overlay').classList.add('show'); }
@@ -102,6 +111,7 @@
   updateUI();
 })();
 </script>
+
 
 
 <body>

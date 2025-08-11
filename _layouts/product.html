@@ -33,10 +33,14 @@ layout: default
       </div>
       {% endif %}
       <!-- inside the details column -->
-     <button class="btn buy-btn" id="add-to-cart"
-            data-variants='{{ page.variant_ids | jsonify }}'>
-      Add to cart
-     </button>
+      <button class="btn buy-btn" id="add-to-cart"
+         data-variants='{{ page.variant_ids | jsonify }}'
+         data-title="{{ page.title }}"
+         data-price="{{ page.price }}"
+         data-img="{{ page.featured_image | relative_url }}">
+         Add to cart
+       </button>
+
 
      <script>
     (function(){
@@ -67,13 +71,31 @@ layout: default
 
 <script>
 (function(){
-  const hero = document.getElementById('hero');
-  if(!hero) return;
-  document.querySelectorAll('.thumb img').forEach(t=>{
-    t.addEventListener('click', ()=>{ hero.src = t.src; hero.decoding='sync'; });
+  const btn = document.getElementById('add-to-cart');
+  if(!btn) return;
+  const variants = JSON.parse(btn.dataset.variants || '{}');
+
+  btn.addEventListener('click', ()=>{
+    const sel = document.querySelector('input[name="size"]:checked');
+    const size = sel ? sel.value : null;
+    const variantId = size ? variants[size] : null;
+
+    if(!variantId){
+      alert('Please pick a size.');
+      return;
+    }
+
+    window.dispatchEvent(new CustomEvent('tm:add', { detail:{
+      id: String(variantId),
+      qty: 1,
+      title: btn.dataset.title,
+      price: btn.dataset.price,
+      img: btn.dataset.img
+    }}));
   });
 })();
 </script>
+
 
 <style>
   .product-grid{ display:grid; grid-template-columns: 1.2fr 1fr; gap:2rem; align-items:start; }

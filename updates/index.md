@@ -20,27 +20,48 @@ permalink: /updates/
       {% for pair in data %}
         {% assign name = pair[0] %}
         {% assign item = pair[1] %}
+
+        {%- comment -%}
+        Look up FIS URL from _data/athletes.yml (works whether it's a list under "athletes" or a flat list)
+        {%- endcomment -%}
+        {% assign athletes_src = site.data.athletes.athletes | default: site.data.athletes %}
+        {% assign meta = athletes_src | where: "name", name | first %}
+
+        {% assign fis_href = meta.url %}
+        {% if fis_href == nil or fis_href == "" %}
+          {% assign fis_href = "https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode="
+            | append: item.sector | append: "&competitorid=" | append: item.fis_id %}
+        {% endif %}
+        {% assign fis_href = fis_href | append: "#results" %}
+
         <article class="card res-card">
           <header class="res-head">
             <h3 id="res-{{ name | slugify }}">{{ name }}</h3>
             <span class="muted">{{ item.discipline }}</span>
           </header>
+
           <div class="res-wrap">
-            <table class="res">
-              <thead><tr><th>Date</th><th>Discipline</th><th>Race</th><th>Place</th><th>Pts</th></tr></thead>
-              <tbody>
-                {% for r in item.results %}
-                <tr>
-                  <td>{{ r.date }}</td>
-                  <td>{{ r.discipline }}</td>
-                  <td>{{ r.race }}{% if r.meta %} — <span class="muted">{{ r.meta }}</span>{% endif %}</td>
-                  <td>{{ r.place }}</td>
-                  <td>{{ r.points }}</td>
-                </tr>
+            {% assign recent = item.results | slice: 0, 3 %}
+            {% if recent and recent.size > 0 %}
+              <table class="res">
+                <thead><tr><th>Date</th><th>Discipline</th><th>Race</th><th>Place</th><th>Pts</th></tr></thead>
+                <tbody>
+                {% for r in recent %}
+                  <tr>
+                    <td>{{ r.date }}</td>
+                    <td>{{ r.discipline }}</td>
+                    <td>{{ r.race }}{% if r.meta %} — <span class="muted">{{ r.meta }}</span>{% endif %}</td>
+                    <td>{{ r.place }}</td>
+                    <td>{{ r.points }}</td>
+                  </tr>
                 {% endfor %}
-              </tbody>
-            </table>
-            <a class="btn" href="{{ item.results[0].source }}" target="_blank" rel="noopener">View on FIS</a>
+                </tbody>
+              </table>
+            {% else %}
+              <p class="muted">No recent results yet.</p>
+            {% endif %}
+
+            <a class="btn" href="{{ fis_href }}" target="_blank" rel="noopener">View on FIS</a>
           </div>
         </article>
       {% endfor %}
@@ -48,6 +69,7 @@ permalink: /updates/
       <p class="muted">Results will appear after the first daily fetch runs.</p>
     {% endif %}
   </div>
+
 
   <!-- News -->
   <div id="tab-news" class="tabpanel" role="tabpanel" hidden>

@@ -4,7 +4,13 @@
   photo: /assets/img/placeholders/person.png
   fis: https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=228398
   instagram: https://instagram.com/lauren_macuga
+  facebook: https://www.facebook.com/people/Lauren-Macuga/100077857783360/
   results: /updates/#lauren
+  headshots:
+    - /assets/img/gallery/headshots/lauren-headshot-1.jpg
+    - /assets/img/gallery/headshots/lauren-headshot-2.jpg
+    - /assets/img/gallery/headshots/lauren-headshot-3.jpg
+    - /assets/img/gallery/headshots/lauren-headshot-4.jpg
 
 - slug: alli
   name: Alli Macuga
@@ -13,14 +19,28 @@
   fis: https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=FS&competitorid=220306
   instagram: https://instagram.com/alli_macuga
   results: /updates/#alli
+  headshots:
+    - /assets/img/gallery/headshots/alli-headshot-1.jpg
+    - /assets/img/gallery/headshots/alli-headshot-2.jpg
+    - /assets/img/gallery/headshots/alli-headshot-3.jpg
+    - /assets/img/gallery/headshots/alli-headshot-4.jpg
+    - /assets/img/gallery/headshots/alli-headshot-5.jpg
 
 - slug: sam
   name: Sam Macuga
   teaser: "Ski Jumping — U.S. Team. National team since 2019."
   photo: /assets/img/placeholders/person.png
   fis: https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=JP&competitorid=211435
-  instagram: https://instagram.com/sammacuga
+  instagram: https://www.instagram.com/sammacuga/?hl=en
+  facebook: https://www.facebook.com/sam.macuga/
   results: /updates/#sam
+  headshots:
+    - /assets/img/gallery/headshots/sam-headshot-1.jpg
+    - /assets/img/gallery/headshots/sam-headshot-2.jpg
+    - /assets/img/gallery/headshots/sam-headshot-3.jpg
+    - /assets/img/gallery/headshots/sam-headshot-4.jpg
+    # add more if you have them:
+    # - /assets/img/gallery/headshots/sam-headshot-3.jpeg
 
 - slug: daniel
   name: Daniel Macuga
@@ -29,17 +49,31 @@
   fis: https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=260517
   instagram: https://instagram.com/daniel_macugas
   results: /updates/#daniel
+  headshots:
+    - /assets/img/gallery/headshots/daniel-headshot-1.jpg
+    - /assets/img/gallery/headshots/daniel-headshot-2.jpg
+    - /assets/img/gallery/headshots/daniel-headshot-3.jpg
 
 - slug: amy
   name: Amy Macuga
   teaser: "Team Operations — logistics, travel, keeping the team grounded."
   photo: /assets/img/placeholders/person.png
-  instagram: https://instagram.com/amy.macuga
-  facebook: "#"
+  instagram: https://www.instagram.com/amy.macuga/?hl=en
+  facebook: https://www.facebook.com/amy.macuga/
+  headshots:
+    - /assets/img/gallery/headshots/amy-headshot-2.jpg
+    - /assets/img/gallery/headshots/amy-headshot-3.jpg
+    - /assets/img/gallery/headshots/amy-headshot-4.jpg
+    - /assets/img/gallery/headshots/amy-headshot-5.jpg
 
 - slug: dan
   name: Dan Macuga
   teaser: "Gear & wax room wisdom — lifelong supporter and strategist."
   photo: /assets/img/placeholders/person.png
-  instagram: https://instagram.com/dan.macuga
-  facebook: "#"
+  instagram: https://www.instagram.com/dan.macuga/?hl=en
+  facebook: https://www.facebook.com/share/19Sxzz3g2F/?mibextid=wwXIfr
+  headshots:
+    - /assets/img/gallery/headshots/dan-headshot-1.jpg
+    - /assets/img/gallery/headshots/dan-headshot-2.jpg
+    - /assets/img/gallery/headshots/dan-headshot-3.jpg
+    - /assets/img/gallery/headshots/dan-headshot-2.jpg

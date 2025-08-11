@@ -58,3 +58,36 @@
     document.querySelectorAll('.tm-carousel').forEach(initCarousel);
   });
 })();
+
+<script>
+(function(){
+  document.querySelectorAll('.mini-rotator').forEach(rot => {
+    const slides = [...rot.querySelectorAll('.tm-slide')];
+    const dotsWrap = rot.querySelector('.tm-dots');
+    if (!slides.length) return;
+
+    // build dots
+    slides.forEach((_,k)=>{
+      const b = document.createElement('button');
+      if (k===0) b.classList.add('active');
+      b.addEventListener('click', ()=>{ stop(); go(k); play(); });
+      dotsWrap.appendChild(b);
+    });
+    const dots = [...dotsWrap.querySelectorAll('button')];
+
+    let i = 0, t;
+    function go(n){
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s,k)=>s.classList.toggle('active', k===i));
+      dots.forEach((d,k)=>d.classList.toggle('active', k===i));
+    }
+    const play = ()=> t = setInterval(()=>go(i+1), 3000);
+    const stop = ()=> clearInterval(t);
+
+    rot.addEventListener('mouseenter', stop);
+    rot.addEventListener('mouseleave', play);
+
+    go(0); play();
+  });
+})();
+</script>

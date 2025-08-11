@@ -594,3 +594,39 @@ section#family .family-card p {
   font-size: .86rem;
   margin: 0 0 8px;
 }
+
+/* Mini headshot rotator inside cards */
+.mini-rotator{ position:relative; border-radius:10px; overflow:hidden; height:140px; }
+.mini-rotator .tm-track{ position:relative; height:100%; }
+.mini-rotator .tm-slide{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover; opacity:0; transition:opacity .45s ease;
+}
+.mini-rotator .tm-slide.active{ opacity:1; }
+.mini-rotator .tm-dots{
+  position:absolute; left:0; right:0; bottom:8px;
+  display:flex; justify-content:center; gap:6px; pointer-events:none;
+}
+.mini-rotator .tm-dots button{
+  width:7px; height:7px; border-radius:999px; border:0; background:#c3c9db;
+  pointer-events:auto; cursor:pointer;
+}
+.mini-rotator .tm-dots button.active{ background:var(--brand); }
+
+/* Icon-only social buttons */
+.icon-btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:36px; height:36px; border-radius:999px; border:1px solid var(--border);
+  background:#fff; box-shadow: var(--shadow);
+  transition: transform .12s ease;
+}
+.icon-btn:hover{ transform: translateY(-1px); }
+.icon-btn img{ width:18px; height:18px; object-fit:contain; display:block; }
+
+/* Make the family cards a bit smaller overall */
+.family-grid{ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:12px; }
+.family-card{ padding:12px; }
+.family-card .media{ height:140px; }
+.family-card h3{ font-size:.95rem; }
+.family-card p{ font-size:.88rem; }

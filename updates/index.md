@@ -190,3 +190,46 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+
+<script>
+(function () {
+  const VALID = ['results','news','social'];
+  const tabs   = document.querySelectorAll('.tabs .tab');
+  const panels = document.querySelectorAll('.tabpanel');
+
+  function show(tab){
+    const key = VALID.includes(tab) ? tab : 'results';
+    tabs.forEach(b=>{
+      const on = b.dataset.tab === key;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    panels.forEach(p=>{
+      const on = p.id === 'tab-' + key;
+      p.toggleAttribute('hidden', !on);
+      p.classList.toggle('show', on);
+    });
+  }
+
+  // click -> update URL hash (so you can refresh/share)
+  document.querySelector('.tabs').addEventListener('click', (e)=>{
+    const t = e.target.closest('.tab');
+    if(!t) return;
+    e.preventDefault();                      // keep page in place
+    const key = t.dataset.tab;
+    if (location.hash !== '#'+key) history.pushState(null, '', '#'+key);
+    show(key);
+  });
+
+  // on load
+  const start = (location.hash || '#results').slice(1);
+  show(VALID.includes(start) ? start : 'results');
+
+  // back/forward buttons
+  window.addEventListener('hashchange', ()=>{
+    const cur = (location.hash || '#results').slice(1);
+    show(VALID.includes(cur) ? cur : 'results');
+  });
+})();
+</script>
+

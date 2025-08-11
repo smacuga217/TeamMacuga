@@ -1,202 +1,144 @@
-# scripts/fetch_news.py
-import json, time, re, sys
+#!/usr/bin/env python3
+import json, re, time
 from datetime import datetime, timezone
-from urllib.parse import urlparse, urljoin
+from urllib.parse import urlparse, parse_qs, unquote
 
-import feedparser
 import requests
+import feedparser
 from bs4 import BeautifulSoup
-from dateutil import parser as dateparse
 
+# ----------------------------------
+# Config
+# ----------------------------------
+QUERIES = [
+    "Macuga ski",
+    "Team Macuga ski",
+    "Lauren Macuga ski",
+    "Sam Macuga ski",
+    "Alli Macuga ski",
+    "Daniel Macuga ski",
+]
+MAX_PER_QUERY = 8          # keep page light
+TIMEOUT = 8
+HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; TeamMacugaBot/1.0)"}
 OUTFILE = "_data/news.json"
 
-# Search terms (you gave these)
-KEYWORDS = [
-    "Macuga", "Team Macuga", "Lauren Macuga",
-    "Sam Macuga", "Alli Macuga", "Daniel Macuga",
-]
+GOOGLE_HOSTS = ("news.google.", "googleusercontent.com", "gstatic.com")
 
-# Require "ski" in the article (title/summary) in addition to a keyword
-REQUIRE_TERM = "ski"
-
-# How many items per query to collect (RSS feeds return ~10-50)
-MAX_PER_QUERY = 20
-
-# User-Agent so publishers serve full pages
-UA = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-    "AppleWebKit/537.36 (KHTML, like Gecko) "
-    "Chrome/124.0 Safari/537.36"
-)
-
-session = requests.Session()
-session.headers.update({"User-Agent": UA})
-
-
-def google_news_rss(query: str) -> str:
-    # hl=en for English; gl=US geo; ceid=US:en
-    return f"https://news.google.com/rss/search?q={requests.utils.quote(query)}&hl=en-US&gl=US&ceid=US:en"
-
-
-def is_bad_image(url: str) -> bool:
-    if not url:
-        return True
-    u = url.lower()
-    bad_bits = ["google", "gstatic", "favicon", ".ico", "sprite", "logo", "placeholder"]
-    return any(b in u for b in bad_bits)
-
-
-def absolutize(src: str, base: str) -> str:
-    if not src:
-        return ""
-    return urljoin(base, src)
-
-
-def extract_meta_image_and_date(html_url: str) -> tuple[str, str]:
-    """
-    Returns (image_url, iso_date or ""), both may be "" if not found.
-    """
+def original_link(google_link: str) -> str:
+    """Google News links often contain ?url=<real-url> — extract it."""
     try:
-        # 1) follow Google News redirect to publisher
-        r = session.get(html_url, timeout=15, allow_redirects=True)
+        u = urlparse(google_link)
+        if "news.google." in u.netloc:
+            qs = parse_qs(u.query)
+            if "url" in qs and qs["url"]:
+                return unquote(qs["url"][0])
+        return google_link
+    except Exception:
+        return google_link
+
+def fetch_og_meta(url: str) -> tuple[str | None, datetime | None]:
+    """Return (image_url, published_dt) from the article page, if available."""
+    try:
+        r = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
         r.raise_for_status()
-        final_url = r.url
+        soup = BeautifulSoup(r.text, "lxml")
 
-        soup = BeautifulSoup(r.text, "html.parser")
+        # og:image or twitter:image
+        img = None
+        for sel in [
+            'meta[property="og:image"]',
+            'meta[name="og:image"]',
+            'meta[name="twitter:image"]',
+            'meta[property="twitter:image"]',
+        ]:
+            tag = soup.select_one(sel)
+            if tag and tag.get("content"):
+                img = tag["content"].strip()
+                break
 
-        # Candidate image tags (priority order)
-        candidates = [
-            ('meta[property="og:image"]', "content"),
-            ('meta[name="og:image"]', "content"),
-            ('meta[name="twitter:image:src"]', "content"),
-            ('meta[name="twitter:image"]', "content"),
-            ('meta[property="twitter:image"]', "content"),
-            ("link[rel='image_src']", "href"),
-        ]
-
-        img_url = ""
-        for selector, attr in candidates:
-            tag = soup.select_one(selector)
-            if tag:
-                candidate = absolutize(tag.get(attr) or "", final_url)
-                if candidate and not is_bad_image(candidate):
-                    img_url = candidate
+        # published time
+        published = None
+        for sel in [
+            'meta[property="article:published_time"]',
+            'meta[name="article:published_time"]',
+            'meta[itemprop="datePublished"]',
+            'time[datetime]'
+        ]:
+            t = soup.select_one(sel)
+            dt = t.get("content") if t else None
+            if not dt and t and t.has_attr("datetime"):
+                dt = t["datetime"]
+            if dt:
+                try:
+                    # Normalize to aware UTC
+                    published = datetime.fromisoformat(dt.replace("Z","+00:00")).astimezone(timezone.utc)
                     break
+                except Exception:
+                    pass
 
-        # Candidate publish date tags
-        date_selectors = [
-            ('meta[property="article:published_time"]', "content"),
-            ('meta[name="article:published_time"]', "content"),
-            ('meta[name="pubdate"]', "content"),
-            ('meta[name="publish-date"]', "content"),
-            ('meta[name="date"]', "content"),
-            ('meta[itemprop="datePublished"]', "content"),
-            ('time[datetime]', "datetime"),
-        ]
-
-        iso_date = ""
-        for selector, attr in date_selectors:
-            t = soup.select_one(selector)
-            if t:
-                raw = (t.get(attr) or "").strip()
-                if raw:
-                    try:
-                        dt = dateparse.parse(raw)
-                        if not dt.tzinfo:
-                            dt = dt.replace(tzinfo=timezone.utc)
-                        iso_date = dt.astimezone(timezone.utc).isoformat()
-                        break
-                    except Exception:
-                        pass
-
-        return img_url, iso_date
+        return img, published
     except Exception:
-        return "", ""
+        return None, None
 
-
-def entry_date(entry) -> datetime:
-    # Prefer publisher date we’ll scrape later; otherwise RSS
-    for key in ("published", "updated"):
-        if getattr(entry, key, None):
-            try:
-                return dateparse.parse(getattr(entry, key)).astimezone(timezone.utc)
-            except Exception:
-                pass
-    # Try structured *_parsed from feedparser
-    for key in ("published_parsed", "updated_parsed"):
-        val = getattr(entry, key, None)
-        if val:
-            try:
-                return datetime(*val[:6], tzinfo=timezone.utc)
-            except Exception:
-                pass
-    return datetime.now(timezone.utc)
-
-
-def normalize_source(link: str) -> str:
+def to_iso(d: datetime | None, fallback_struct) -> str:
+    if isinstance(d, datetime):
+        return d.astimezone(timezone.utc).isoformat()
+    # fallback from feedparser’s struct_time
     try:
-        host = urlparse(link).netloc
-        if host.startswith("www."):
-            host = host[4:]
-        if host.startswith("news.google."):
-            return "Google News"
-        return host
+        return datetime(*fallback_struct[:6], tzinfo=timezone.utc).isoformat()
     except Exception:
-        return "News"
+        return datetime.now(timezone.utc).isoformat()
 
+def is_google_img(url: str | None) -> bool:
+    if not url: return False
+    host = urlparse(url).netloc.lower()
+    return any(h in host for h in GOOGLE_HOSTS)
 
-def fetch():
+def fetch_query(q: str):
+    url = f"https://news.google.com/rss/search?q={requests.utils.quote(q)}&hl=en-US&gl=US&ceid=US:en"
+    feed = feedparser.parse(url)
     items = []
+    for entry in feed.entries[:MAX_PER_QUERY]:
+        link = original_link(entry.link)
+        source = entry.get("source", {}).get("title") or entry.get("source_title") or ""
+        # fetch OG image + better published
+        og_image, og_published = fetch_og_meta(link)
 
-    for kw in KEYWORDS:
-        feed_url = google_news_rss(kw)
-        feed = feedparser.parse(feed_url)
-        for e in feed.entries[:MAX_PER_QUERY]:
-            title = (e.title or "").strip()
-            summary = (getattr(e, "summary", "") or "")
-            link = (e.link or "")
+        published_iso = to_iso(og_published, entry.get("published_parsed") or entry.get("updated_parsed"))
+        # If OG image is a Google image, drop it (we’ll hide in UI)
+        if is_google_img(og_image):
+            og_image = None
 
-            blob = f"{title} {summary}".lower()
-            if REQUIRE_TERM not in blob:
-                # must include "ski"
-                continue
-            if not any(k.lower() in blob for k in [kw.lower()] + [x.lower() for x in KEYWORDS]):
-                continue
+        items.append({
+            "title": entry.title,
+            "link": link,
+            "source": source.strip() or urlparse(link).netloc,
+            "published": published_iso,       # ISO string for sorting in Jekyll
+            "image": og_image or "",          # may be empty
+        })
+        time.sleep(0.25)  # be polite
+    return items
 
-            # Resolve to publisher + extract OG image/date
-            img, better_iso = extract_meta_image_and_date(link)
-            # Fallback to RSS date if OG date missing
-            dt = dateparse.parse(better_iso).astimezone(timezone.utc) if better_iso else entry_date(e)
+def main():
+    all_items = []
+    for q in QUERIES:
+        all_items.extend(fetch_query(q))
 
-            items.append({
-                "title": title,
-                "link": link,
-                "date": dt.isoformat(),
-                "source": normalize_source(link),
-                "image": "" if is_bad_image(img) else img
-            })
-
-            time.sleep(0.5)  # be nice
-
-    # De-dupe by title+source (simple)
+    # de-dup by (title, link)
     seen = set()
     deduped = []
-    for it in sorted(items, key=lambda x: x["date"], reverse=True):
-        key = (it["title"].lower(), it["source"].lower())
-        if key in seen:
-            continue
-        seen.add(key)
-        deduped.append(it)
+    for it in all_items:
+        key = (it["title"], it["link"])
+        if key not in seen:
+            seen.add(key)
+            deduped.append(it)
 
-    # Write JSON
+    # newest first before writing (Jekyll will also sort)
+    deduped.sort(key=lambda x: x["published"], reverse=True)
+
     with open(OUTFILE, "w", encoding="utf-8") as f:
         json.dump(deduped, f, ensure_ascii=False, indent=2)
 
-    print(f"Wrote {len(deduped)} items -> {OUTFILE}")
-
-
 if __name__ == "__main__":
-    try:
-        fetch()
-    except KeyboardInterrupt:
-        sys.exit(1)
+    main()

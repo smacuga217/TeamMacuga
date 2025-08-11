@@ -79,11 +79,11 @@ permalink: /updates/
 
   <!-- News -->
   <div id="tab-news" class="tabpanel" role="tabpanel" hidden>
-    {% assign news_all = site.data.news | where_exp: "n","n.date" | sort: "date" | reverse %}
-    {% if news_all and news_all.size > 0 %}
+    {% assign news = site.data.news | sort: "published" | reverse %}  <!-- sort by ISO -->
+    {% if news and news.size > 0 %}
       {% assign current_year = "" %}
-      {% for n in news_all %}
-        {% assign y = n.date | date: "%Y" %}
+      {% for n in news %}
+        {% assign y = n.published | date: "%Y" %}
         {% if y != current_year %}
           {% unless forloop.first %}</div>{% endunless %}
           <h3 class="news-year">{{ y }}</h3>
@@ -94,18 +94,22 @@ permalink: /updates/
         <a class="news-card" href="{{ n.link }}" target="_blank" rel="noopener">
           <div class="news-eyebrow">
             <span class="source-pill">{{ n.source }}</span>
-            <time class="news-date" datetime="{{ n.date }}">{{ n.date | date: "%b %-d, %Y" }}</time>
+            <time class="news-date" datetime="{{ n.published }}">{{ n.published | date: "%b %-d, %Y" }}</time>
           </div>
+
           <h4 class="news-title">{{ n.title }}</h4>
-          {% if n.image %}
+
+          {% assign img = n.image | downcase %}
+          {% unless img == "" or img contains 'news.google' or img contains 'googleusercontent' or img contains 'gstatic' %}
             <div class="news-thumb" style="background-image:url('{{ n.image }}')"></div>
-          {% endif %}
+          {% endunless %}
         </a>
       {% endfor %}
       </div>
     {% else %}
-      <p class="muted">News will appear after the first daily fetch runs.</p>
+      <p class="muted">No recent articles yet.</p>
     {% endif %}
+
   </div>
 
   <!-- Social -->

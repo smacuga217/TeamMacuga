@@ -694,3 +694,26 @@ section#family .family-card p {
 }
 .ath-ico img{ width:18px; height:18px; object-fit:contain; }
 
+/* Make the hero its own stacking context and clip children */
+.hero-video{
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;       /* <— keeps overlay from affecting content below */
+  z-index: 0;
+}
+
+/* Keep overlay above the video but below everything else */
+.hero-overlay,
+.hero-overlay::before{
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;      /* clicks pass through */
+}
+
+/* Ensure the next sections sit above the hero stack */
+main > section,
+.container{
+  position: relative;
+  z-index: 2;
+}

@@ -15,61 +15,64 @@ permalink: /updates/
 
   <!-- Results -->
   <div id="tab-results" class="tabpanel show" role="tabpanel">
-    {% assign data = site.data.fis_results %}
     {% assign athletes_src = site.data.athletes.athletes | default: site.data.athletes %}
+    {% assign results_src   = site.data.results.athletes | default: site.data.results %}
 
-    {% if data %}
-      {% for pair in data %}
-        {% assign name = pair[0] %}
-        {% assign item = pair[1] %}
+    {% for a in athletes_src %}
+      {% assign name = a.name %}
+      {% assign res_obj = results_src | where: "name", name | first %}
+      {% if res_obj == nil %}
+        {% assign nslug = name | slugify %}
+        {% for r in results_src %}
+          {% if r.name | slugify == nslug %}
+            {% assign res_obj = r %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
 
-        {%- comment -%} Look up static FIS profile + discipline from athletes.yml {%- endcomment -%}
-        {% assign meta = athletes_src | where: "name", name | first %}
-        {% if meta == nil %}
-          {% assign nslug = name | slugify %}
-          {% for a in athletes_src %}
-            {% if a.name | slugify == nslug %}
-              {% assign meta = a %}
-            {% endif %}
-          {% endfor %}
-        {% endif %}
+      {% assign rows = res_obj.results | sort: "date" | reverse %}
+      {% assign top3 = rows | slice: 0, 3 %}
 
-        <article class="card res-card">
-          <header class="res-head">
-            <h3 id="res-{{ name | slugify }}">{{ name }}</h3>
-            <span class="muted">
-              {{ meta.discipline | default: item.discipline }}
-            </span>
-          </header>
+      <article class="card res-card">
+        <header class="res-head">
+          <h3 id="res-{{ name | slugify }}">{{ name }}</h3>
+          <span class="muted">{{ a.discipline }}</span>
+        </header>
 
-          <div class="res-wrap">
+        <div class="res-wrap">
+          {% if top3 and top3.size > 0 %}
             <table class="res">
               <thead>
                 <tr><th>Date</th><th>Discipline</th><th>Race</th><th>Place</th><th>Pts</th></tr>
               </thead>
               <tbody>
-                {% for r in item.results %}
+                {% for r in top3 %}
                 <tr>
-                  <td>{{ r.date }}</td>
+                  <td>{{ r.date | date: "%b %-d, %Y" }}</td>
                   <td>{{ r.discipline }}</td>
-                  <td>{{ r.race }}{% if r.meta %} — <span class="muted">{{ r.meta }}</span>{% endif %}</td>
+                  <td>
+                    {% if r.venue %}{{ r.venue }}{% endif %}
+                    {% if r.nation %} <span class="muted">({{ r.nation }})</span>{% endif %}
+                    {% if r.competition %} — <span class="muted">{{ r.competition }}</span>{% endif %}
+                  </td>
                   <td>{{ r.place }}</td>
                   <td>{{ r.points }}</td>
                 </tr>
                 {% endfor %}
               </tbody>
             </table>
+          {% else %}
+            <p class="muted">No results added yet.</p>
+          {% endif %}
 
-            {% if meta and meta.url %}
-              <a class="btn" href="{{ meta.url }}" target="_blank" rel="noopener">View on FIS</a>
-            {% endif %}
-          </div>
-        </article>
-      {% endfor %}
-    {% else %}
-      <p class="muted">Results will appear after the first daily fetch runs.</p>
-    {% endif %}
+          {% if a.url %}
+            <a class="btn" href="{{ a.url }}" target="_blank" rel="noopener">View on FIS</a>
+          {% endif %}
+        </div>
+      </article>
+    {% endfor %}
   </div>
+
 
 
   <!-- News -->

@@ -1,19 +1,137 @@
-# Edit/append newest results at top
-- date: 2025-02-08
-  athlete: Lauren Macuga
-  discipline: Super-G
-  event: St. Anton World Cup
-  result: 1st
-  link: https://www.fis-ski.com/
-- date: 2025-01-26
-  athlete: Alli Macuga
-  discipline: Moguls
-  event: World Cup — Deer Valley
-  result: 2nd
-  link: https://www.fis-ski.com/
-- date: 2025-01-12
-  athlete: Sam Macuga
-  discipline: Ski Jumping
-  event: Continental Cup
-  result: Top-15
-  link: https://www.fis-ski.com/
+athletes:
+  - name: Lauren Macuga
+    discipline: "Alpine (DH, SG)"
+    fis_url: "https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=228398"
+    results:
+      - date: 2025-04-13
+        competition: FIS
+        venue: "Palisades Tahoe - Alpine Meadows"
+        nation: USA
+        discipline: "Giant Slalom"
+        place: 2
+        points: 29.36
+      - date: 2025-04-12
+        competition: FIS
+        venue: "Palisades Tahoe - Alpine Meadows"
+        nation: USA
+        discipline: "Giant Slalom"
+        place: 2
+        points: 33.53
+      - date: 2025-03-25
+        competition: "World Cup"
+        venue: "Sun Valley"
+        nation: USA
+        discipline: "Giant Slalom"
+        place: 15
+        points: 53.37
+        cup_points: 16
+      - date: 2025-03-23
+        competition: "World Cup"
+        venue: "Sun Valley"
+        nation: USA
+        discipline: "Super G"
+        place: "DNF"
+      - date: 2025-03-21
+        competition: "Training"
+        venue: "Sun Valley"
+        nation: USA
+        discipline: "Downhill"
+        place: 6
+
+  - name: Sam Macuga
+    discipline: "Ski Jumping"
+    fis_url: "https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=JP&competitorid=211435"
+    results:
+      - date: 2025-08-10
+        competition: "Grand Prix"
+        venue: "Courchevel"
+        nation: FRA
+        discipline: "Large Hill HS132"
+        place: 28
+      - date: 2025-08-09
+        competition: "Grand Prix"
+        venue: "Courchevel"
+        nation: FRA
+        discipline: "Large Hill HS132"
+        place: 27
+      - date: 2025-03-06
+        competition: "Qualification"
+        venue: "Trondheim"
+        nation: NOR
+        discipline: "Large Hill HS138"
+        place: 50
+      - date: 2025-02-23
+        competition: "Qualification"
+        venue: "Hinzenbach"
+        nation: AUT
+        discipline: "Normal Hill HS90"
+        place: 46
+      - date: 2025-02-22
+        competition: "Qualification"
+        venue: "Hinzenbach"
+        nation: AUT
+        discipline: "Normal Hill HS90"
+        place: 46
+
+  - name: Daniel Macuga
+    discipline: "Alpine (all)"
+    fis_url: "https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=260517"
+    results:
+      - date: 2025-04-13
+        competition: FIS
+        venue: "Alpine Meadows"
+        nation: USA
+        discipline: "Slalom"
+        place: "DNF1"
+      - date: 2025-04-12
+        competition: FIS
+        venue: "Alpine Meadows"
+        nation: USA
+        discipline: "Slalom"
+        place: "DNF1"
+      - date: 2025-04-11
+        competition: FIS
+        venue: "Palisades Tahoe - Alpine Meadows"
+        nation: USA
+        discipline: "Giant Slalom"
+        place: "DNF1"
+      - date: 2025-04-10
+        competition: FIS
+        venue: "Palisades Tahoe - Alpine Meadows"
+        nation: USA
+        discipline: "Giant Slalom"
+        place: 17
+        points: 46.51
+      - date: 2025-04-08
+        competition: "Entry League FIS"
+        venue: "Mammoth Mountain, CA"
+        nation: USA
+        discipline: "Downhill"
+        place: 5
+        points: 106.78
+
+  - name: Alli Macuga
+    discipline: "Moguls"
+    fis_url: "https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=FS&competitorid=220306"
+    results:
+      - date: 2025-03-30
+        competition: "National Championships"
+        venue: "Palisades Tahoe"
+        nation: USA
+        discipline: "Dual Moguls"
+        place: 1
+        points: 360.00
+      - date: 2025-03-28
+        competition: "National Championships"
+        venue: "Palisades Tahoe"
+        nation: USA
+        discipline: "Moguls"
+        place: 2
+        points: 288.00
+      - date: 2025-03-08
+        competition: "Nor-Am Cup"
+        venue: "Val St Come"
+        nation: CAN
+        discipline: "Dual Moguls"
+        place: 1
+        points: 320.00

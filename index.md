@@ -32,7 +32,7 @@ layout: default
 <div class="section-gap"></div>  <!-- ← added spacer -->
 
 <section id="family" class="container">
-  <h2 class="section-title">Family</h2>
+  <h2 class="section-title">Team Macuga Members</h2>
   {% include athlete-grid.html %}
 </section>
 

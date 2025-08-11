@@ -6,169 +6,179 @@ layout: default
 <section class="container">
   <h1 class="section-title">Our Story</h1>
   <p class="lead">
-    Team Macuga is a family-powered ski crew from Park City. Three sisters—each carving their own path in
-    <strong>alpine</strong>, <strong>moguls</strong>, and <strong>ski jumping</strong>—a younger brother in development,
-    and two all-star parents keeping the show on the road. We travel, train, wax, race, jump, laugh, and learn together,
-    aiming for <strong>Milano–Cortina 2026</strong> and beyond. This is a team that grows by doing—supporting each other at
-    sunrise training runs, late-night tune sessions, and everything between. Welcome to the journey. #TeamMacuga
+    Team Macuga is a family-powered ski crew from Park City. Three sisters, a younger brother in development,
+    and two all-star parents keeping the show on the road. We travel, train, wax, race, jump, laugh, and learn together —
+    aiming for <strong>Milano–Cortina 2026</strong> and beyond. Welcome to the journey. <strong>#TeamMacuga</strong>
   </p>
 </section>
 
-<!-- ===== Gallery Rotator ===== -->
-<section class="container">
-  <div class="hero-rotator">
-    <div class="rotator">
-      {% for p in site.data.gallery %}
-      <figure class="slide">
-        <img src="{{ p.img | relative_url }}" alt="{{ p.caption | escape }}" loading="eager">
-        <figcaption class="sr-only">{{ p.caption }}</figcaption>
+<section id="bios" class="container">
+  <h2 class="section-title">Individual Bios</h2>
+
+  <!-- Lauren -->
+  <article id="bio-lauren" class="bio-block card">
+    <div class="bio-grid">
+      <div class="bio-text">
+        <h3>Lauren</h3>
+        <p>World Cup speed specialist with calm precision and scary-fast lines.</p>
+        <p class="muted">Highlights: World Cup SG winner; Worlds SG bronze.</p>
+        <p><a class="pill" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=228398" target="_blank" rel="noopener">See on FIS</a></p>
+      </div>
+      <figure class="bio-photo-wrap">
+        <img id="photo-lauren" class="bio-photo" alt="Lauren headshot">
       </figure>
-      {% endfor %}
-
-      <button class="tm-arrow prev" aria-label="Previous">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-      </button>
-      <button class="tm-arrow next" aria-label="Next">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-      </button>
-
-      <div class="rotator-dots">
-        {% for p in site.data.gallery %}<button aria-label="Slide {{ forloop.index }}"></button>{% endfor %}
-      </div>
     </div>
-  </div>
-</section>
+  </article>
 
-<script>
-(function(){
-  const r = document.querySelector('.hero-rotator .rotator');
-  if (!r) return;
-  const slides = [...r.querySelectorAll('.slide')];
-  const dots   = [...r.querySelectorAll('.rotator-dots button')];
-  const prev   = r.querySelector('.tm-arrow.prev');
-  const next   = r.querySelector('.tm-arrow.next');
-
-  let i = 0, t;
-  function go(n){
-    i = (n + slides.length) % slides.length;
-    slides.forEach((s,k)=>s.classList.toggle('active', k===i));
-    dots.forEach((d,k)=> d.toggleAttribute('aria-current', k===i));
-  }
-  const play  = () => (t = setInterval(()=>go(i+1), 4000));
-  const pause = () => clearInterval(t);
-
-  dots.forEach((d,k)=> d.addEventListener('click', ()=>{ pause(); go(k); play(); }));
-  prev?.addEventListener('click', ()=>{ pause(); go(i-1); play(); });
-  next?.addEventListener('click', ()=>{ pause(); go(i+1); play(); });
-
-  r.addEventListener('mouseenter', pause);
-  r.addEventListener('mouseleave', play);
-
-  go(0); play();
-})();
-</script>
-
-<!-- ===== Individual Bios (data-driven) ===== -->
-<section id="bios">
-  <div class="container">
-    <h2 class="section-title">Individual Bios</h2>
-
-    {% for a in site.data.family %}
-    <article id="{{ a.slug }}-bio" class="bio-block card">
-      <div class="bio-grid">
-        <div class="bio-text">
-          <h3>{{ a.name }}</h3>
-
-          {% if a.bio %}
-            <p>{{ a.bio }}</p>
-          {% elsif a.teaser %}
-            <p>{{ a.teaser }}</p>
-          {% endif %}
-
-          {% if a.highlights %}
-            <p class="muted">{{ a.highlights }}</p>
-          {% endif %}
-
-          <div class="social-links" style="display:flex;gap:10px;align-items:center;margin-top:8px">
-            {% if a.fis %}
-              <a class="icon" href="{{ a.fis }}" target="_blank" rel="noopener" title="FIS profile">
-                <img src="{{ '/assets/img/icons/fis-logo.png' | relative_url }}" alt="FIS" style="width:22px;height:22px">
-              </a>
-            {% endif %}
-            {% if a.instagram %}
-              <a class="icon" href="{{ a.instagram }}" target="_blank" rel="noopener" title="Instagram">
-                <img src="{{ '/assets/img/icons/instagram-logo.png' | relative_url }}" alt="Instagram" style="width:22px;height:22px">
-              </a>
-            {% endif %}
-            {% if a.facebook %}
-              <a class="icon" href="{{ a.facebook }}" target="_blank" rel="noopener" title="Facebook">
-                <img src="{{ '/assets/img/icons/facebook-logo.png' | relative_url }}" alt="Facebook" style="width:22px;height:22px">
-              </a>
-            {% endif %}
-
-            {% if a.results %}
-              <a class="pill" href="{{ a.results | relative_url }}" style="margin-left:8px">Results</a>
-            {% endif %}
-          </div>
-        </div>
-
-        <figure class="mini-rotator">
-          {% if a.headshots and a.headshots.size > 0 %}
-            {% for src in a.headshots %}
-              <img class="slide{% if forloop.first %} active{% endif %}" src="{{ src | relative_url }}" alt="{{ a.name }} headshot {{ forloop.index }}">
-            {% endfor %}
-          {% else %}
-            <img class="slide active" src="{{ a.photo | default: '/assets/img/placeholders/person.png' | relative_url }}" alt="{{ a.name }}">
-          {% endif %}
-          <div class="dots" aria-hidden="true"></div>
-        </figure>
+  <!-- Alli -->
+  <article id="bio-alli" class="bio-block card">
+    <div class="bio-grid">
+      <div class="bio-text">
+        <h3>Alli</h3>
+        <p>Power + play — clean lines, sharp airs, fast feet. Trajectory: up.</p>
+        <p class="muted">Highlights: World Cup podiums; 2023 FIS Rookie of the Year.</p>
+        <p><a class="pill" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=FS&competitorid=220306" target="_blank" rel="noopener">See on FIS</a></p>
       </div>
-    </article>
-    {% endfor %}
-  </div>
+      <figure class="bio-photo-wrap">
+        <img id="photo-alli" class="bio-photo" alt="Alli headshot">
+      </figure>
+    </div>
+  </article>
+
+  <!-- Sam -->
+  <article id="bio-sam" class="bio-block card">
+    <div class="bio-grid">
+      <div class="bio-text">
+        <h3>Sam</h3>
+        <p>Quiet focus, big-air confidence, steady leadership vibes.</p>
+        <p class="muted">Highlights: Continental Cup starts; relentless work ethic.</p>
+        <p><a class="pill" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=JP&competitorid=211435" target="_blank" rel="noopener">See on FIS</a></p>
+      </div>
+      <figure class="bio-photo-wrap">
+        <img id="photo-sam" class="bio-photo" alt="Sam headshot">
+      </figure>
+    </div>
+  </article>
+
+  <!-- Daniel -->
+  <article id="bio-daniel" class="bio-block card">
+    <div class="bio-grid">
+      <div class="bio-text">
+        <h3>Daniel</h3>
+        <p>Developing racer — learns fast, loves the grind, brings the energy.</p>
+        <p class="muted">Highlights: future speedster; wax-room banter pro.</p>
+        <p><a class="pill" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=260517" target="_blank" rel="noopener">See on FIS</a></p>
+      </div>
+      <figure class="bio-photo-wrap">
+        <img id="photo-daniel" class="bio-photo" alt="Daniel headshot">
+      </figure>
+    </div>
+  </article>
+
+  <!-- Amy -->
+  <article id="bio-amy" class="bio-block card">
+    <div class="bio-grid">
+      <div class="bio-text">
+        <h3>Amy</h3>
+        <p>Operations lead — logistics, travel, and keeping the crew grounded.</p>
+        <p class="muted">Highlights: solves problems before they exist; A-level road-trip DJ.</p>
+      </div>
+      <figure class="bio-photo-wrap">
+        <img id="photo-amy" class="bio-photo" alt="Amy headshot">
+      </figure>
+    </div>
+  </article>
+
+  <!-- Dan -->
+  <article id="bio-dan" class="bio-block card">
+    <div class="bio-grid">
+      <div class="bio-text">
+        <h3>Dan</h3>
+        <p>Gear &amp; wax-room sage, lifelong supporter and sideline strategist.</p>
+        <p class="muted">Highlights: wax whisperer; chairlift-wisdom specialist.</p>
+      </div>
+      <figure class="bio-photo-wrap">
+        <img id="photo-dan" class="bio-photo" alt="Dan headshot">
+      </figure>
+    </div>
+  </article>
 </section>
-
-<script>
-/* Mini headshot rotators inside each bio */
-(function(){
-  document.querySelectorAll('.mini-rotator').forEach(wrap=>{
-    const slides = [...wrap.querySelectorAll('.slide')];
-    if (!slides.length) return;
-
-    const dotsWrap = wrap.querySelector('.dots');
-    slides.forEach((_,k)=>{
-      const b = document.createElement('button');
-      if (k===0) b.classList.add('active');
-      b.addEventListener('click', ()=>{ stop(); go(k); play(); });
-      dotsWrap.appendChild(b);
-    });
-    const dots = [...dotsWrap.querySelectorAll('button')];
-
-    let i = 0, t;
-    function go(n){
-      i = (n + slides.length) % slides.length;
-      slides.forEach((s,k)=>s.classList.toggle('active', k===i));
-      dots.forEach((d,k)=>d.classList.toggle('active', k===i));
-    }
-    const play = ()=> t = setInterval(()=>go(i+1), 3000);
-    const stop = ()=> clearInterval(t);
-
-    wrap.addEventListener('mouseenter', stop);
-    wrap.addEventListener('mouseleave', play);
-
-    go(0); play();
-  });
-})();
-</script>
 
 <!-- Back to top -->
 <button id="back-to-top" aria-label="Scroll to top">↑ Top</button>
+
 <script>
-document.addEventListener("DOMContentLoaded", function(){
-  const btn = document.getElementById("back-to-top");
-  window.addEventListener("scroll", () => {
-    btn.classList.toggle("show", window.scrollY > 300);
+/* --- Automatic headshot rotators (no controls) ----------------------- */
+/* Files live in /assets/img/gallery/headshots/ and names are consistent. */
+const HEADSHOTS = {
+  lauren: [
+    '/assets/img/gallery/headshots/lauren-headshot-1.jpg',
+    '/assets/img/gallery/headshots/lauren-headshot-2.jpg',
+    '/assets/img/gallery/headshots/lauren-headshot-3.jpg',
+    '/assets/img/gallery/headshots/lauren-headshot-4.jpg',
+  ],
+  alli: [
+    '/assets/img/gallery/headshots/alli-headshot-1.jpg',
+    '/assets/img/gallery/headshots/alli-headshot-2.jpg',
+    '/assets/img/gallery/headshots/alli-headshot-3.jpg',
+    '/assets/img/gallery/headshots/alli-headshot-4.jpg',
+    '/assets/img/gallery/headshots/alli-headshot-5.jpg',
+  ],
+  sam: [
+    '/assets/img/gallery/headshots/sam-headshot-1.jpg',
+    '/assets/img/gallery/headshots/sam-headshot-2.jpg',
+    '/assets/img/gallery/headshots/sam-headshot-3.jpg',
+    '/assets/img/gallery/headshots/sam-headshot-4.jpg',
+  ],
+  daniel: [
+    '/assets/img/gallery/headshots/daniel-headshot-1.jpg',
+    '/assets/img/gallery/headshots/daniel-headshot-2.jpg',
+    '/assets/img/gallery/headshots/daniel-headshot-3.jpg',
+  ],
+  amy: [
+    '/assets/img/gallery/headshots/amy-headshot-2.jpg',
+    '/assets/img/gallery/headshots/amy-headshot-3.jpg',
+    '/assets/img/gallery/headshots/amy-headshot-4.jpg',
+    '/assets/img/gallery/headshots/amy-headshot-5.jpg',
+  ],
+  dan: [
+    '/assets/img/gallery/headshots/dan-headshot-1.jpg',
+    '/assets/img/gallery/headshots/dan-headshot-2.jpg',
+    '/assets/img/gallery/headshots/dan-headshot-3.jpg',
+    '/assets/img/gallery/headshots/dan-headshot-4.jpg',
+  ],
+};
+
+function startRotator(imgId, list, ms=3500){
+  const img = document.getElementById(imgId);
+  if (!img || !list?.length) return;
+  let i = 0;
+  // first frame
+  img.src = list[i];
+  // cycle
+  setInterval(()=>{
+    i = (i + 1) % list.length;
+    // quick fade-out / in
+    img.classList.remove('show');
+    requestAnimationFrame(()=>{
+      setTimeout(()=>{ img.src = list[i]; img.classList.add('show'); }, 180);
+    });
+  }, ms);
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  startRotator('photo-lauren', HEADSHOTS.lauren);
+  startRotator('photo-alli',   HEADSHOTS.alli);
+  startRotator('photo-sam',    HEADSHOTS.sam);
+  startRotator('photo-daniel', HEADSHOTS.daniel);
+  startRotator('photo-amy',    HEADSHOTS.amy);
+  startRotator('photo-dan',    HEADSHOTS.dan);
+
+  // back-to-top button behavior
+  const btn = document.getElementById('back-to-top');
+  window.addEventListener('scroll', ()=> {
+    (window.scrollY > 300) ? btn.classList.add('show') : btn.classList.remove('show');
   });
-  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  btn.addEventListener('click', ()=> window.scrollTo({ top: 0, behavior: 'smooth' }));
 });
 </script>

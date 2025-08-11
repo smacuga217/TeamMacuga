@@ -39,24 +39,30 @@ redirect_from:
       data-price="{{ product.price | default: 0 }}">
 
       {% if product.external_url %}
-        <!-- Collab card -->
-        <a class="card-link" href="{{ product.external_url }}" target="_blank" rel="noopener">
-          <div class="media">
-            <span class="img-badge collab">Collab</span>
-            <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
-          </div>
-          <div class="body">
-            <div class="name">{{ product.title }}</div>
-            {% if product.price %}<div class="price">${{ product.price }}</div>{% endif %}
-          </div>
-        </a>
+        <!-- Collab card (no full-card link; use a clear CTA button) -->
+        <div class="media">
+          <span class="img-badge collab">Collab</span>
+          <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
+        </div>
+        <div class="body">
+          <div class="name">{{ product.title }}</div>
+          {% if product.price %}<div class="price">${{ product.price }}</div>{% endif %}
+        </div>
+        <div class="body actions">
+          <a class="btn primary collab-cta full"
+             href="{{ product.external_url }}" target="_blank" rel="noopener"
+             aria-label="Shop the {{ product.title }} collab on partner site">
+            Shop Collab ↗
+          </a>
+        </div>
 
       {% else %}
         <!-- Normal product -->
         <a class="card-link" href="{{ product.url | relative_url }}">
           <div class="media">
             {% if product.badge %}
-              <span class="img-badge">{{ product.badge }}</span>
+              {% assign badge_slug = product.badge | downcase | replace: ' ', '-' | replace: '!', '' %}
+              <span class="img-badge badge-{{ badge_slug }}">{{ product.badge }}</span>
             {% endif %}
             <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
           </div>
@@ -120,6 +126,10 @@ redirect_from:
   }
   .img-badge.collab{ background: linear-gradient(90deg, var(--brand), var(--navy)); }
 
+  /* explicit color mapping for known badges */
+  .img-badge.badge-new{ background: var(--brand); }        /* team red */
+  .img-badge.badge-bestseller{ background: var(--navy); }  /* team navy */
+
   /* actions layout: size row, then qty + button row */
   .actions{
     display:grid; grid-template-columns: 1fr; gap:.6rem;
@@ -141,7 +151,7 @@ redirect_from:
   .qty-control{
     display:inline-flex; align-items:center; gap:.5rem;
     background:#fff; border:1px solid var(--border);
-    border-radius:12px; padding:.25rem .25rem;
+    border-radius:12px; padding:.25rem;
     box-shadow: 0 1px 2px rgba(0,0,0,.04);
   }
   .qty-btn{
@@ -154,6 +164,9 @@ redirect_from:
     width:100%; justify-content:center; white-space:nowrap;
     border:0; border-radius:12px;
   }
+
+  /* Collab CTA full-width, same gradient look */
+  .collab-cta.full{ width:100%; justify-content:center; }
 
   /* a11y helper for the hidden label */
   .sr-only{
@@ -223,7 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const qty = Math.max(1, parseInt(card.querySelector('.qty-val')?.textContent || '1', 10));
-
     if(!variantId){ alert('Please select a size.'); return; }
 
     window.dispatchEvent(new CustomEvent('tm:add', { detail:{

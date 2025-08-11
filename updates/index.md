@@ -77,34 +77,42 @@ permalink: /updates/
 
   <!-- News -->
   <div id="tab-news" class="tabpanel" role="tabpanel" hidden>
-    {% assign news_raw = site.data.news | default: site.data.news_json %}
-    {% assign news = news_raw | sort: "ts" | reverse %}
-
+    {% assign news = site.data.news | sort: 'date' | reverse %}
     {% if news and news.size > 0 %}
-      <div class="news-grid">
-        {% for n in news %}
-          <a class="news-card" href="{{ n.link }}" target="_blank" rel="noopener">
-            <div class="news-media">
-              {% if n.image %}
-                <img src="{{ n.image }}" alt="" loading="lazy">
-              {% else %}
-                <div class="news-ph"></div>
-              {% endif %}
-            </div>
-            <div class="news-body">
-              <strong class="news-title">{{ n.title }}</strong>
-              <span class="news-meta">
-                {{ n.source }}
-                {% if n.date %} • {{ n.date | date: "%b %-d, %Y" }}{% endif %}
-              </span>
-            </div>
-          </a>
-        {% endfor %}
+      {% assign current_year = "" %}
+      {% for n in news %}
+        {% assign y = n.date | date: "%Y" %}
+
+        {% if y != current_year %}
+          {% unless forloop.first %}</div>{% endunless %}
+          <h3 class="news-year">{{ y }}</h3>
+          <div class="grid news-grid">
+          {% assign current_year = y %}
+        {% endif %}
+
+        <a class="news-card" href="{{ n.link }}" target="_blank" rel="noopener">
+          <div class="news-eyebrow">
+            <img class="news-ico"
+                src="https://www.google.com/s2/favicons?domain={{ n.link | uri_escape }}&sz=64"
+                alt="" loading="lazy">
+            <span class="news-source">{{ n.source }}</span>
+            <span aria-hidden="true">•</span>
+            <time class="news-date" datetime="{{ n.date }}">{{ n.date | date: "%b %-d, %Y" }}</time>
+          </div>
+
+          <h4 class="news-title">{{ n.title }}</h4>
+
+          {% if n.image %}
+            <div class="news-thumb" style="background-image:url('{{ n.image }}')"></div>
+          {% endif %}
+        </a>
+      {% endfor %}
       </div>
     {% else %}
-      <p class="muted">News will appear after the next fetch.</p>
+      <p class="muted">News will appear after the first daily fetch runs.</p>
     {% endif %}
   </div>
+
 
 
 
@@ -164,6 +172,52 @@ permalink: /updates/
 /* responsive columns */
 @media (max-width: 1100px){ .news-card{ grid-column: span 6; } }
 @media (max-width: 640px){ .news-card{ grid-column: span 12; } }
+
+/* News layout */
+.news-year{ margin: 18px 0 8px; font-size: 1.1rem; opacity:.9; }
+.news-grid{ grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+
+/* Press card */
+.news-card{
+  position: relative;
+  display: block;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.news-card::before{
+  content:"";
+  position:absolute; left:0; top:0; bottom:0; width:6px;
+  background: linear-gradient(180deg, var(--brand), var(--navy));
+  border-top-left-radius:14px; border-bottom-left-radius:14px;
+}
+.news-card:hover{ transform: translateY(-1px); box-shadow: 0 12px 30px rgba(0,0,0,.12); }
+
+.news-eyebrow{
+  display:flex; align-items:center; gap:.5rem;
+  color: var(--muted); font-size: .92rem;
+}
+.news-ico{ width:16px; height:16px; border-radius:4px; }
+
+.news-title{
+  margin:.35rem 0 0;
+  line-height:1.3;
+  display:-webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow:hidden;
+}
+
+/* Optional tiny thumb (shows only if n.image exists) */
+.news-thumb{
+  margin-top:10px;
+  width:100%; height:140px;
+  background-size: cover; background-position: center;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
 
 </style>
 

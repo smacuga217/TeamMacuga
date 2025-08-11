@@ -1,40 +1,43 @@
-<div class="grid cols-3 family-grid">
+<div class="ath-grid">
   {% for a in site.data.family %}
-  <article class="card family-card" data-slug="{{ a.slug }}">
-    <div class="media headshot">
+  <article class="ath-card" id="{{ a.slug }}">
+    <!-- Headshot (JS will rotate the src) -->
+    <div class="ath-media">
       <img
-        src="{{ '/assets/img/headshots/' | append: a.slug | append: '-headshot-1.jpg' | relative_url }}"
+        class="ath-photo"
+        data-slug="{{ a.slug }}"
         alt="{{ a.name }}"
-        loading="eager"
-      >
+        src="{{ '/assets/img/headshots/' | append: a.slug | append: '-headshot-1.jpg' | relative_url }}"
+        onerror="this.onerror=null;this.src='{{ '/assets/img/placeholders/person.png' | relative_url }}';"
+      />
     </div>
 
-    <div class="body">
-      <h3 class="name"><a href="{{ '/story/#bio-' | append: a.slug | relative_url }}">{{ a.name }}</a></h3>
-      {% if a.teaser %}
-        <p class="teaser">{{ a.teaser }}</p>
-      {% endif %}
+    <!-- Body -->
+    <div class="ath-body">
+      <h3 class="ath-name"><a href="{{ '/story/#' | append: a.slug | append: '-bio' | relative_url }}">{{ a.name }}</a></h3>
+      <p class="ath-teaser">{{ a.teaser }}</p>
+    </div>
 
-      <div class="actions">
-        <a class="btn" href="{{ '/story/#bio-' | append: a.slug | relative_url }}">My story</a>
+    <!-- Actions pinned at bottom -->
+    <div class="ath-actions">
+      <a class="btn" href="{{ '/story/#' | append: a.slug | append: '-bio' | relative_url }}">My story</a>
 
-        <div class="social">
-          {% if a.fis %}
-            <a class="icon-btn" href="{{ a.fis }}" target="_blank" rel="noopener" aria-label="FIS">
-              <img src="{{ '/assets/img/icons/fis-logo.png' | relative_url }}" alt="">
-            </a>
-          {% endif %}
-          {% if a.instagram %}
-            <a class="icon-btn" href="{{ a.instagram }}" target="_blank" rel="noopener" aria-label="Instagram">
-              <img src="{{ '/assets/img/icons/instagram-logo.png' | relative_url }}" alt="">
-            </a>
-          {% endif %}
-          {% if a.facebook %}
-            <a class="icon-btn" href="{{ a.facebook }}" target="_blank" rel="noopener" aria-label="Facebook">
-              <img src="{{ '/assets/img/icons/facebook-logo.png' | relative_url }}" alt="">
-            </a>
-          {% endif %}
-        </div>
+      <div class="ath-social">
+        {% if a.fis %}
+          <a class="ath-ico" href="{{ a.fis }}" target="_blank" rel="noopener">
+            <img src="{{ '/assets/img/icons/fis-logo.png' | relative_url }}" alt="FIS">
+          </a>
+        {% endif %}
+        {% if a.instagram %}
+          <a class="ath-ico" href="{{ a.instagram }}" target="_blank" rel="noopener">
+            <img src="{{ '/assets/img/icons/instagram-logo.png' | relative_url }}" alt="Instagram">
+          </a>
+        {% endif %}
+        {% if a.facebook %}
+          <a class="ath-ico" href="{{ a.facebook }}" target="_blank" rel="noopener">
+            <img src="{{ '/assets/img/icons/facebook-logo.png' | relative_url }}" alt="Facebook">
+          </a>
+        {% endif %}
       </div>
     </div>
   </article>

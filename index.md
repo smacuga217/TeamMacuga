@@ -37,70 +37,36 @@ layout: default
 </section>
 
 <script>
-/* Map of rotating headshots by slug */
-const HEADSHOTS = {
-  lauren: [
-    '/assets/img/headshots/lauren-headshot-1.jpg',
-    '/assets/img/headshots/lauren-headshot-2.jpg',
-    '/assets/img/headshots/lauren-headshot-3.jpg',
-    '/assets/img/headshots/lauren-headshot-4.jpg',
-  ],
-  alli: [
-    '/assets/img/headshots/alli-headshot-1.jpg',
-    '/assets/img/headshots/alli-headshot-2.jpg',
-    '/assets/img/headshots/alli-headshot-3.jpg',
-    '/assets/img/headshots/alli-headshot-4.jpg',
-    '/assets/img/headshots/alli-headshot-5.jpg',
-  ],
-  sam: [
-    '/assets/img/headshots/sam-headshot-1.jpg',
-    '/assets/img/headshots/sam-headshot-2.jpg',
-    '/assets/img/headshots/sam-headshot-3.jpg',
-    '/assets/img/headshots/sam-headshot-4.jpg',
-  ],
-  daniel: [
-    '/assets/img/headshots/daniel-headshot-1.jpg',
-    '/assets/img/headshots/daniel-headshot-2.jpg',
-    '/assets/img/headshots/daniel-headshot-3.jpg',
-  ],
-  amy: [
-    '/assets/img/headshots/amy-headshot-2.jpg',
-    '/assets/img/headshots/amy-headshot-3.jpg',
-    '/assets/img/headshots/amy-headshot-4.jpg',
-    '/assets/img/headshots/amy-headshot-5.jpg',
-  ],
-  dan: [
-    '/assets/img/headshots/dan-headshot-1.jpg',
-    '/assets/img/headshots/dan-headshot-2.jpg',
-    '/assets/img/headshots/dan-headshot-3.jpg',
-    '/assets/img/headshots/dan-headshot-4.jpg',
-  ],
-};
-
 (function(){
-  const cards = document.querySelectorAll('.family-card[data-slug]');
-  const INTERVAL = 4000;
+  // Change this if your path is /img/headshots/
+  const HEAD_BASE = '{{ "/assets/img/headshots/" | relative_url }}';
 
-  // Preload images to reduce flicker
-  Object.values(HEADSHOTS).flat().forEach(src => { const i = new Image(); i.src = src; });
+  // How many headshots per athlete. If a slug is missing here, we’ll try up to 5 automatically.
+  const counts = {
+    lauren: 4, alli: 5, sam: 4, daniel: 3, amy: 4, dan: 4
+  };
 
-  cards.forEach(card => {
-    const slug = card.getAttribute('data-slug');
-    const list = HEADSHOTS[slug];
-    if (!list || list.length < 2) return;
+  function cycle(node){
+    const slug = node.dataset.slug;
+    const max = counts[slug] || 5;
+    let i = 1;
 
-    const img = card.querySelector('.media.headshot img');
-    let idx = 0;
+    function next(){
+      i = i % max + 1;
+      const url = `${HEAD_BASE}${slug}-headshot-${i}.jpg`;
+      // swap, with graceful fallback
+      const img = new Image();
+      img.onload = () => { node.src = url; };
+      img.onerror = () => {}; // keep current if missing
+      img.src = url;
+    }
+    return setInterval(next, 3000);
+  }
 
-    setInterval(() => {
-      idx = (idx + 1) % list.length;
-      // quick fade swap
-      img.style.opacity = 0;
-      setTimeout(() => { img.src = list[idx]; img.style.opacity = 1; }, 120);
-    }, INTERVAL);
-  });
+  document.querySelectorAll('.ath-photo').forEach(el => cycle(el));
 })();
 </script>
+
 
 
 

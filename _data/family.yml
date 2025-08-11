@@ -1,6 +1,6 @@
 - slug: lauren
-  name: Lauren Macuga
-  teaser: "Alpine — Downhill & Super-G. World Cup winner."
+  name: Lauren (Alpine - Speed)
+  teaser: "Downhill & Super-G. World Cup winner. World Champs Medalist."
   photo: /assets/img/placeholders/person.png
   fis: https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=228398
   instagram: https://instagram.com/lauren_macuga
@@ -13,8 +13,8 @@
     - /assets/img/headshots/lauren-headshot-4.jpg
 
 - slug: alli
-  name: Alli Macuga
-  teaser: "Moguls — U.S. Ski Team; 2023 FIS Rookie of the Year."
+  name: Alli (Moguls)
+  teaser: "U.S. Ski Team; 2023 FIS Rookie of the Year."
   photo: /assets/img/placeholders/person.png
   fis: https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=FS&competitorid=220306
   instagram: https://instagram.com/alli_macuga
@@ -27,8 +27,8 @@
     - /assets/img/headshots/alli-headshot-5.jpg
 
 - slug: sam
-  name: Sam Macuga
-  teaser: "Ski Jumping — U.S. Team. National team since 2019."
+  name: Sam (Ski Jumping)
+  teaser: U.S. National Team since 2016. 2x World Championships competitor"
   photo: /assets/img/placeholders/person.png
   fis: https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=JP&competitorid=211435
   instagram: https://www.instagram.com/sammacuga/?hl=en
@@ -43,8 +43,8 @@
     # - /assets/img/headshots/sam-headshot-3.jpeg
 
 - slug: daniel
-  name: Daniel Macuga
-  teaser: "Alpine — developing athlete; future star in the making."
+  name: Daniel (Alpine)
+  teaser: "developing athlete; future star in the making."
   photo: /assets/img/placeholders/person.png
   fis: https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=260517
   instagram: https://instagram.com/daniel_macugas
@@ -55,19 +55,19 @@
     - /assets/img/headshots/daniel-headshot-3.jpg
 
 - slug: amy
-  name: Amy Macuga
+  name: Amy
   teaser: "Team Operations — logistics, travel, keeping the team grounded."
   photo: /assets/img/placeholders/person.png
   instagram: https://www.instagram.com/amy.macuga/?hl=en
   facebook: https://www.facebook.com/amy.macuga/
   headshots:
+    - /assets/img/headshots/amy-headshot-1.jpg
     - /assets/img/headshots/amy-headshot-2.jpg
     - /assets/img/headshots/amy-headshot-3.jpg
     - /assets/img/headshots/amy-headshot-4.jpg
-    - /assets/img/headshots/amy-headshot-5.jpg
 
 - slug: dan
-  name: Dan Macuga
+  name: Dan
   teaser: "Gear & wax room wisdom — lifelong supporter and strategist."
   photo: /assets/img/placeholders/person.png
   instagram: https://www.instagram.com/dan.macuga/?hl=en

@@ -1,0 +1,23 @@
+name: Fetch external feeds
+on:
+  schedule:
+    - cron: "8 7 * * *"   # daily 07:08 UTC
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests beautifulsoup4 lxml feedparser pyyaml
+      - run: python scripts/fetch_fis.py
+      - run: python scripts/fetch_news.py
+      - name: Commit updated data
+        run: |
+          git config user.name "tm-bot"
+          git config user.email "tm-bot@users.noreply.github.com"
+          git add _data/*.json || true
+          git diff --quiet && echo "No changes" || (git commit -m "chore: refresh data" && git push)

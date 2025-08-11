@@ -1,108 +1,71 @@
-#!/usr/bin/env python3
-import json, time, re, urllib.parse, requests
-from pathlib import Path
-import feedparser
+# scripts/fetch_news.py
+import feedparser, requests, time
+from bs4 import BeautifulSoup
+from urllib.parse import quote_plus, urlparse
+import json, pathlib
 
-# -------- settings ----------
-TERMS = [
-  "Macuga", "Team Macuga", "Lauren Macuga", "Sam Macuga", "Alli Macuga", "Daniel Macuga"
+QUERIES = [
+    "Macuga ski", "Team Macuga ski",
+    "Lauren Macuga ski", "Sam Macuga ski",
+    "Alli Macuga ski", "Daniel Macuga ski"
 ]
-# Require 'ski' context (common variations)
-SKI_RE = re.compile(r"\bski(?:ing|er|-?jump|)\b|mogul|alpine|slalom|downhill|super[- ]?g", re.I)
-MAX_ITEMS = 40   # keep the data file lean
-USER_AGENT = "TeamMacugaBot/1.0 (+https://teammacuga.com)"
-OUT = Path("_data/news.json")
-# ----------------------------
+MAX_PER_QUERY = 12
+UA = {"User-Agent":"Mozilla/5.0 (compatible; TeamMacugaNews/1.0)"}
 
-session = requests.Session()
-session.headers.update({"User-Agent": USER_AGENT, "Accept": "*/*"})
-
-def google_news_feed(term: str) -> str:
-    q = f'{term} AND (ski OR skiing OR skier OR moguls OR alpine OR slalom OR downhill OR "super g" OR "ski jumping")'
-    # you can add recency hint: when:365d if you want fresher bias
-    qs = urllib.parse.urlencode({"q": q, "hl":"en-US", "gl":"US", "ceid":"US:en"})
-    return f"https://news.google.com/rss/search?{qs}"
-
-def pick_image(entry, fallback_url: str | None):
-    # 1) media:content on the feed
-    media = getattr(entry, "media_content", None)
-    if media and isinstance(media, list):
-        url = media[0].get("url")
-        if url: return url
-
-    # 2) Try og:image from the article page
-    if not fallback_url: return None
+def pick_image(url:str)->str|None:
     try:
-        r = session.get(fallback_url, timeout=8)
-        if r.ok:
-            html = r.text
-            # prefer og:image
-            m = re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)["\']', html, re.I)
-            if m: return m.group(1)
-            # or twitter:image
-            m = re.search(r'<meta[^>]+name=["\']twitter:image["\'][^>]+content=["\']([^"\']+)["\']', html, re.I)
-            if m: return m.group(1)
-    except requests.RequestException:
-        pass
-    return None
-
-def normalize_link(link: str):
-    # Some Google News links wrap publisher URLs. Try to unwrap ?url= param if present.
-    try:
-        u = urllib.parse.urlparse(link)
-        qs = urllib.parse.parse_qs(u.query)
-        if "url" in qs and qs["url"]:
-            return qs["url"][0]
+        r = requests.get(url, timeout=8, headers=UA)
+        if r.status_code >= 400: return None
+        soup = BeautifulSoup(r.text, "lxml")
+        for sel, attr in [
+            ('meta[property="og:image"]', "content"),
+            ('meta[name="twitter:image"]', "content"),
+            ('link[rel="image_src"]', "href"),
+        ]:
+            tag = soup.select_one(sel)
+            if tag:
+                src = tag.get(attr)
+                if src and src.startswith("//"): src = "https:" + src
+                return src
     except Exception:
-        pass
-    return link
+        return None
 
-seen = set()
 items = []
+for q in QUERIES:
+    feed = f"https://news.google.com/rss/search?q={quote_plus(q)}&hl=en-US&gl=US&ceid=US:en"
+    d = feedparser.parse(feed)
+    for e in d.entries[:MAX_PER_QUERY]:
+        link = e.link
+        ts = int(time.mktime(e.published_parsed)) if getattr(e, "published_parsed", None) else 0
+        date_str = time.strftime("%Y-%m-%d", e.published_parsed) if ts else None
 
-for term in TERMS:
-    feed_url = google_news_feed(term)
-    feed = feedparser.parse(feed_url)
+        # try RSS media first
+        img = None
+        if "media_thumbnail" in e: img = e.media_thumbnail[0].get("url")
+        if not img and "media_content" in e: img = e.media_content[0].get("url")
+        if not img: img = pick_image(link)
 
-    for e in feed.entries:
-        title = e.title.strip()
-        if not SKI_RE.search(title + " " + getattr(e, "summary", "")):
-            continue
-
-        link = normalize_link(e.link)
-        key = (title.lower(), link)
-        if key in seen: 
-            continue
-        seen.add(key)
-
-        # date → ISO string
-        # feedparser gives e.published_parsed sometimes
-        ts = None
-        if getattr(e, "published_parsed", None):
-            ts = int(time.mktime(e.published_parsed))
-        elif getattr(e, "updated_parsed", None):
-            ts = int(time.mktime(e.updated_parsed))
-        if not ts:
-            # if missing, skip (keeps sorting reliable)
-            continue
-
-        date_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(ts))
-        source = getattr(getattr(e, "source", None), "title", None) or getattr(e, "publisher", None) or ""
-
-        image = pick_image(e, link)
+        source = getattr(getattr(e, "source", None), "title", None) or urlparse(link).netloc.replace("www.","")
 
         items.append({
-            "title": title,
+            "title": e.title,
             "link": link,
             "source": source,
-            "date": date_iso,
-            "image": image
+            "date": date_str,
+            "ts": ts,
+            "image": img
         })
 
-# sort newest first, trim
-items.sort(key=lambda x: x["date"], reverse=True)
-items = items[:MAX_ITEMS]
+# de-dupe by link
+seen = set(); deduped = []
+for it in items:
+    if it["link"] in seen: continue
+    seen.add(it["link"]); deduped.append(it)
 
-OUT.parent.mkdir(parents=True, exist_ok=True)
-OUT.write_text(json.dumps(items, indent=2))
-print(f"Wrote {len(items)} items to {OUT}")
+# newest first
+deduped.sort(key=lambda x: x.get("ts", 0), reverse=True)
+
+pathlib.Path("_data").mkdir(exist_ok=True)
+with open("_data/news.json","w") as f:
+    json.dump(deduped, f, indent=2)
+print(f"Wrote {_data := 'news.json'} with", len(deduped), "items")

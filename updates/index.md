@@ -77,27 +77,35 @@ permalink: /updates/
 
   <!-- News -->
   <div id="tab-news" class="tabpanel" role="tabpanel" hidden>
-    {% assign news = site.data.news | sort: "date" | reverse %}
+    {% assign news_raw = site.data.news | default: site.data.news_json %}
+    {% assign news = news_raw | sort: "ts" | reverse %}
+
     {% if news and news.size > 0 %}
-      <div class="grid cols-3">
+      <div class="news-grid">
         {% for n in news %}
-          {% assign title = n.title | default: "" %}
-          {% if title contains "ski" or title contains "Ski" or title contains "Skiing" or title contains "Mogul" or title contains "Alpine" or title contains "Jump" %}
-            <a class="card news-card" href="{{ n.link }}" target="_blank" rel="noopener">
-              {% if n.image %}<img src="{{ n.image }}" alt="" class="news-img">{% endif %}
+          <a class="news-card" href="{{ n.link }}" target="_blank" rel="noopener">
+            <div class="news-media">
+              {% if n.image %}
+                <img src="{{ n.image }}" alt="" loading="lazy">
+              {% else %}
+                <div class="news-ph"></div>
+              {% endif %}
+            </div>
+            <div class="news-body">
               <strong class="news-title">{{ n.title }}</strong>
-              <span class="muted">
+              <span class="news-meta">
                 {{ n.source }}
                 {% if n.date %} • {{ n.date | date: "%b %-d, %Y" }}{% endif %}
               </span>
-            </a>
-          {% endif %}
+            </div>
+          </a>
         {% endfor %}
       </div>
     {% else %}
-      <p class="muted">No relevant news yet. Check back soon.</p>
+      <p class="muted">News will appear after the next fetch.</p>
     {% endif %}
   </div>
+
 
 
   <!-- Social -->
@@ -129,11 +137,34 @@ permalink: /updates/
 </style>
 
 <style>
-.news-card{ display:flex; flex-direction:column; gap:.5rem; }
-.news-img{ width:100%; height:160px; object-fit:cover; border-radius:10px; }
-.news-title{ display:block; margin:.25rem 0 .1rem; }
-@media (max-width:900px){ .grid.cols-3{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
-@media (max-width:600px){ .grid.cols-3{ grid-template-columns:1fr; } .news-img{ height:200px; } }
+/* News grid + cards */
+.news-grid{
+  display:grid; gap:16px;
+  grid-template-columns: repeat(12, 1fr);
+}
+.news-card{
+  grid-column: span 4;
+  display:flex; flex-direction:column; overflow:hidden;
+  background:#fff; border:1px solid var(--border);
+  border-radius:14px; box-shadow: var(--shadow);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.news-card:hover{ transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,0,0,.14); }
+
+.news-media{ position:relative; aspect-ratio: 16/9; background:#f3f6ff; }
+.news-media img{ width:100%; height:100%; object-fit:cover; display:block; }
+.news-ph{ width:100%; height:100%;
+  background: repeating-linear-gradient(45deg,#f5f7fb 0 12px,#eef2f9 12px 24px);
+}
+
+.news-body{ padding:12px 14px; display:grid; gap:6px; }
+.news-title{ font-size:1.02rem; line-height:1.35; }
+.news-meta{ color:#64748b; font-size:.92rem; }
+
+/* responsive columns */
+@media (max-width: 1100px){ .news-card{ grid-column: span 6; } }
+@media (max-width: 640px){ .news-card{ grid-column: span 12; } }
+
 </style>
 
 

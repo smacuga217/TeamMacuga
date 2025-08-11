@@ -72,6 +72,7 @@
 
   <div class="site-wrapper">
     {% include nav.html %}
+    <div id="nav-overlay" class="nav-overlay"></div>
 
     <main id="content">
       {{ content }}
@@ -281,5 +282,44 @@
     });
   })();
   </script>
+
+  <script>
+  (function(){
+    const btn = document.querySelector('.menu-btn');
+    const drawer = document.querySelector('.mobile-drawer');
+    const overlay = document.getElementById('nav-overlay');
+    if(!btn || !drawer) return;
+    const toggle = () => {
+      drawer.classList.toggle('open');
+      overlay?.classList.toggle('show');
+      document.body.classList.toggle('nav-open');
+    };
+    btn.addEventListener('click', toggle);
+    overlay?.addEventListener('click', toggle);
+  })();
+  </script>
+
+  <script>
+  (function(){
+    const v = document.querySelector('.hero-video video');
+    if(!v) return;
+
+    // Required for iOS autoplay
+    v.muted = true;
+    v.playsInline = true;
+
+    function tryPlay(){
+      v.play().catch(() => {
+        // If autoplay is blocked, fall back to poster background
+        document.documentElement.classList.add('hero-video-fallback');
+      });
+    }
+
+    if (document.readyState === 'complete') tryPlay();
+    else window.addEventListener('load', tryPlay);
+  })();
+  </script>
+
+
 </body>
 </html>

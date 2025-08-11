@@ -4,10 +4,18 @@ layout: default
 ---
 <!-- ================= Hero: full-bleed video with overlay ================= -->
 <div class="full-bleed hero-video">
-  <video autoplay muted loop playsinline
-         poster="{{ '/assets/img/hero/poster.jpg' | relative_url }}">
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    webkit-playsinline
+    preload="metadata"
+    poster="{{ '/assets/img/hero/poster.jpg' | relative_url }}"
+  >
     <source src="{{ '/assets/video/hero.mp4' | relative_url }}" type="video/mp4">
   </video>
+
 
   <!-- Overlay (desktop / tablet) -->
   <div class="hero-overlay hero-overlay--desktop">

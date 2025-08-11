@@ -1746,3 +1746,36 @@ body::before{
 .sep{
   height: clamp(24px, 4vw, 56px); /* responsive: ~24–56px */
 }
+
+/* Make sure nav stacks above page */
+.nav{ position: sticky; top:0; z-index: 1500; }
+
+/* Drawer sits above everything */
+.mobile-drawer{
+  position: fixed; left:0; right:0; top: var(--nav-h,72px);
+  height: calc(100dvh - var(--nav-h,72px));
+  background:#fff; border-top:1px solid var(--nav-border);
+  z-index: 3000;
+  transform: translateY(-8px);
+  opacity: 0; pointer-events:none;
+  transition: transform .2s ease, opacity .2s ease;
+}
+.mobile-drawer.open{ transform:none; opacity:1; pointer-events:auto; }
+
+/* Dim background when open */
+.nav-overlay{
+  position: fixed; inset:0; background: rgba(0,0,0,.35);
+  z-index: 2500; opacity:0; pointer-events:none; transition:.2s;
+}
+.nav-overlay.show{ opacity:1; pointer-events:auto; }
+
+/* Prevent body scroll when menu open */
+body.nav-open{ overflow:hidden; }
+
+/* Fallback: show poster image if video can't autoplay */
+.hero-video{
+  background: #000 url('/assets/img/hero/poster.jpg') center/cover no-repeat;
+}
+.hero-video-fallback .hero-video video{
+  display: none;
+}

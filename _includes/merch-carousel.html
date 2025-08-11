@@ -1,4 +1,4 @@
-<div class="tm-carousel" data-carousel>
+<div id="merch-carousel" class="tm-carousel" data-carousel>
   <button class="tm-arrow prev" aria-label="Previous" data-prev>‹</button>
 
   <div class="tm-track" data-track tabindex="0">
@@ -53,7 +53,7 @@
     padding-bottom:6px; scroll-behavior:smooth;
   }
   .tm-card{
-    flex:0 0 240px;               /* smaller cards */
+    flex:0 0 240px; /* smaller cards */
     background:#fff; border:1px solid var(--border);
     border-radius:14px; box-shadow:var(--shadow);
     scroll-snap-align:start; display:flex; flex-direction:column;
@@ -71,8 +71,8 @@
     box-shadow:0 6px 16px rgba(0,0,0,.10); pointer-events:none; user-select:none;
   }
   .img-badge.collab{ background: linear-gradient(90deg, var(--brand), var(--navy)); }
-  .img-badge.badge-new{ background: var(--brand); }       /* team red */
-  .img-badge.badge-bestseller{ background: var(--navy); } /* team navy */
+  .img-badge.badge-new{ background: var(--brand); }
+  .img-badge.badge-bestseller{ background: var(--navy); }
 
   .tm-meta{ display:flex; justify-content:space-between; align-items:center; padding:10px 12px; }
   .tm-name{ font-size:.95rem; font-weight:700; }
@@ -83,6 +83,7 @@
     border:0; width:38px; height:38px; border-radius:999px;
     background:#ffffff; box-shadow:0 4px 14px rgba(0,0,0,.12);
     cursor:pointer; display:grid; place-items:center;
+    z-index: 2; /* ensure above track */
   }
   .tm-arrow.prev{ left:6px; } .tm-arrow.next{ right:6px; }
   .tm-arrow:disabled{ opacity:.35; cursor:default; }
@@ -96,25 +97,28 @@
 
 <script>
 (function(){
-  const root = document.currentScript.closest('[data-carousel]');
+  // Target by ID so we don't rely on script position in the DOM
+  const root  = document.getElementById('merch-carousel');
+  if(!root) return;
+
   const track = root.querySelector('[data-track]');
   const prev  = root.querySelector('[data-prev]');
   const next  = root.querySelector('[data-next]');
   const dotsWrap = root.querySelector('[data-dots]');
 
   function pageWidth(){ return track.clientWidth; }
+  function maxScroll(){ return track.scrollWidth - track.clientWidth; }
   function pages(){ return Math.max(1, Math.ceil(track.scrollWidth / pageWidth())); }
-  function currentPage(){
-    return Math.round(track.scrollLeft / pageWidth());
-  }
+  function currentPage(){ return Math.round(track.scrollLeft / pageWidth()); }
+
   function goTo(page){
     const clamped = Math.max(0, Math.min(page, pages()-1));
     track.scrollTo({ left: clamped * pageWidth(), behavior:'smooth' });
   }
   function update(){
     const p = currentPage(), total = pages();
-    prev.disabled = (p <= 0);
-    next.disabled = (p >= total-1);
+    prev.disabled = (track.scrollLeft <= 0);
+    next.disabled = (track.scrollLeft >= maxScroll() - 1);
 
     // dots
     dotsWrap.innerHTML = '';
@@ -131,6 +135,7 @@
   track.addEventListener('scroll', ()=>{ window.requestAnimationFrame(update); }, { passive:true });
   window.addEventListener('resize', update);
 
+  // Initial state
   update();
 })();
 </script>

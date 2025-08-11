@@ -48,7 +48,6 @@ layout: default
     </div>
   </div>
 </div>
-<!-- ===================================================================== -->
 
 <div class="section-gap lg"></div>
 
@@ -77,7 +76,7 @@ layout: default
 
 <script>
 (function(){
-  // ----- headshot rotator -----
+  // Headshot rotator
   const HEAD_BASE = '{{ "/assets/img/headshots/" | relative_url }}';
   const counts = { lauren:4, alli:5, sam:4, daniel:3, amy:4, dan:4 };
   const photos = Array.from(document.querySelectorAll('.ath-photo'));
@@ -97,7 +96,7 @@ layout: default
   }
   nextFrame(); setInterval(nextFrame, PERIOD);
 
-  // ----- link each member name to Story bio anchor -----
+  // Link member names to Story anchors
   document.querySelectorAll('.athlete-card').forEach(card=>{
     const slug = card.dataset.slug || card.querySelector('[data-slug]')?.dataset.slug;
     const nameEl = card.querySelector('h3, .name');
@@ -149,18 +148,17 @@ layout: default
 <div class="section-gap xl"></div>
 
 <style>
-  /* Brighter white for legibility (no size changes) */
-  .mission-card,
-  .about-summary .about-wrap,
-  .hero-box{
-    background:#fff; border:1px solid rgba(17,24,39,.08);
-    box-shadow: 0 10px 28px rgba(0,0,0,.14);
-  }
-
-  /* HERO */
+  /* Solid, bright hero box (no transparency) */
   .hero-overlay--desktop{ position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:center; padding:min(6vw,28px); }
   .hero-centered{ text-align:center; }
-  .hero-box{ border-radius:14px; padding:14px 16px; color:var(--ink); }
+  .hero-box{
+    background:#fff !important;            /* force solid white */
+    color:var(--ink) !important;
+    border:1px solid rgba(17,24,39,.08);
+    border-radius:14px;
+    padding: clamp(16px, 2.2vw, 24px);     /* more breathing room */
+    box-shadow: 0 14px 34px rgba(0,0,0,.16);
+  }
   .hero-box .tagline{ margin:0 0 12px; line-height:1.38; }
   .hero-box .tagline .t-1, .hero-box .tagline .t-2{ display:block; }
   .hero-actions{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
@@ -174,13 +172,23 @@ layout: default
     .hero-overlay--mobile{ display:block; margin-top:10px; }
   }
 
+  /* Text boxes: brighter + roomier */
+  .mission-card,
+  .about-summary .about-wrap{
+    background:#fff;
+    border:1px solid rgba(17,24,39,.08);
+    border-radius:14px;
+    padding: clamp(16px, 2.2vw, 24px);
+    box-shadow: 0 12px 28px rgba(0,0,0,.12);
+  }
+
   /* Section spacing helpers */
   .section-gap{ height:20px; }
   .section-gap.lg{ height:28px; }
   .section-gap.xl{ height:36px; }
   section.container + section.container{ margin-top:24px; }
 
-  /* “My Story” label consistency */
+  /* Keep “My Story” from wrapping */
   .ath-actions .btn,
-  .family-card .actions .btn{ white-space:nowrap; }
+  .family-card .actions .btn{ white-space:nowrap; min-width:110px; }
 </style>

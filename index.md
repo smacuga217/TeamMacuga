@@ -51,6 +51,11 @@ layout: default
       const max  = counts[slug] || 5;
       const idx  = ((step - 1) % max) + 1;
       const url  = `${HEAD_BASE}${slug}-headshot-${idx}.jpg`;
+
+      // simple crossfade to avoid flash
+      const pre = new Image();
+      pre.onload = () => { img.src = url; img.style.opacity = 1; };
+      pre.src = url;
     });
   }
 

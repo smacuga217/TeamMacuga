@@ -38,32 +38,31 @@ layout: default
 
 <script>
 (function(){
-  // Change this if your path is /img/headshots/
   const HEAD_BASE = '{{ "/assets/img/headshots/" | relative_url }}';
+  const counts = { lauren:4, alli:5, sam:4, daniel:3, amy:4, dan:4 }; // default to 5 if missing
+  const photos = Array.from(document.querySelectorAll('.ath-photo'));
+  let step = 1;                   // global frame index
+  const PERIOD = 3500;            // ms between swaps
 
-  // How many headshots per athlete. If a slug is missing here, we’ll try up to 5 automatically.
-  const counts = {
-    lauren: 4, alli: 5, sam: 4, daniel: 3, amy: 4, dan: 4
-  };
+  function nextFrame(){
+    step++;
+    photos.forEach(img => {
+      const slug = img.dataset.slug;
+      const max  = counts[slug] || 5;
+      const idx  = ((step - 1) % max) + 1;
+      const url  = `${HEAD_BASE}${slug}-headshot-${idx}.jpg`;
 
-  function cycle(node){
-    const slug = node.dataset.slug;
-    const max = counts[slug] || 5;
-    let i = 1;
-
-    function next(){
-      i = i % max + 1;
-      const url = `${HEAD_BASE}${slug}-headshot-${i}.jpg`;
-      // swap, with graceful fallback
-      const img = new Image();
-      img.onload = () => { node.src = url; };
-      img.onerror = () => {}; // keep current if missing
-      img.src = url;
-    }
-    return setInterval(next, 3000);
+      // simple crossfade to avoid flash
+      img.style.opacity = 0.2;
+      const pre = new Image();
+      pre.onload = () => { img.src = url; img.style.opacity = 1; };
+      pre.src = url;
+    });
   }
 
-  document.querySelectorAll('.ath-photo').forEach(el => cycle(el));
+  // kick off in sync
+  nextFrame();
+  setInterval(nextFrame, PERIOD);
 })();
 </script>
 

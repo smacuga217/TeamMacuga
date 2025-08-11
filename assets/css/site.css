@@ -693,3 +693,5 @@ section#family .family-card p {
   background:#fff; border:1px solid var(--border); box-shadow: var(--shadow);
 }
 .ath-ico img{ width:18px; height:18px; object-fit:contain; }
+
+.ath-photo { transition: opacity .25s ease; }

@@ -1,184 +1,211 @@
 ---
 title: Our Story
 layout: default
+permalink: /story/
 ---
 
+<!-- =================== Hero =================== -->
+<header class="story-hero">
+  <div class="hero-media ph ph-hero" aria-hidden="true"></div>
+  <div class="hero-overlay">
+    <div class="container">
+      <h1 class="story-title">Our Story</h1>
+      <p class="story-sub">A family, a dream, and the road to Milano–Cortina 2026 and beyond.</p>
+    </div>
+  </div>
+</header>
+
+<div class="section-gap"></div>
+
+<!-- ========== Family quick nav (jump to bios) ========== -->
+<nav class="container story-nav" aria-label="Family members">
+  <span class="nav-label">Jump to:</span>
+  <a class="chip" href="#bio-lauren">Lauren</a>
+  <a class="chip" href="#bio-alli">Alli</a>
+  <a class="chip" href="#bio-sam">Sam</a>
+  <a class="chip" href="#bio-daniel">Daniel</a>
+  <a class="chip" href="#bio-amy">Amy</a>
+  <a class="chip" href="#bio-dan">Dan</a>
+</nav>
+
+<div class="section-gap"></div>
+
+<!-- =================== Story blocks =================== -->
+<section class="container story-block image-left">
+  <figure class="story-img ph ph-16x9" aria-label="Placeholder image: Origins"></figure>
+  <div class="story-text">
+    <h2>Origins</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer a arcu non velit varius porttitor. Donec
+       condimentum, mi at aliquet gravida, libero tortor mattis nisl, sed feugiat mi ex id libero.</p>
+    <p>Phasellus tempus, nunc vel vulputate luctus, urna diam dictum orci, id efficitur erat lorem vitae lectus.
+       Curabitur a nibh gravida, aliquet velit in, luctus orci.</p>
+  </div>
+</section>
+
+<section class="container story-block image-right">
+  <figure class="story-img ph ph-16x9" aria-label="Placeholder image: Growing up on snow"></figure>
+  <div class="story-text">
+    <h2>Growing Up on Snow</h2>
+    <p>Quisque fermentum, elit vitae tincidunt posuere, justo mi egestas arcu, vel laoreet risus nibh vitae mauris.
+       Aenean sed elit sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.</p>
+    <p>Aliquam erat volutpat. Maecenas sed dui in tellus luctus auctor. Nullam mattis est a ex iaculis, vitae ornare
+       neque tempor.</p>
+  </div>
+</section>
+
+<section class="container story-block image-left">
+  <figure class="story-img ph ph-16x9" aria-label="Placeholder image: Road to the World Cup"></figure>
+  <div class="story-text">
+    <h2>Road to the World Cup</h2>
+    <p>Ut ultricies, purus at euismod pellentesque, massa lorem tincidunt lacus, a viverra dolor est eget sapien.
+       Suspendisse non magna eget risus dictum porta.</p>
+    <ul class="story-list">
+      <li>Milestone one — placeholder text for a key moment.</li>
+      <li>Milestone two — another placeholder that can become real copy.</li>
+      <li>Milestone three — results, breakthroughs, or turning points.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- =================== Pull-quote band =================== -->
+<section class="story-quote">
+  <div class="container">
+    <blockquote>
+      <p>“Big dreams, long days, and the best team — family.”</p>
+      <cite>— Placeholder Attribution</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- =================== Full-width image band =================== -->
+<section class="story-band">
+  <div class="band-media ph ph-21x9" aria-label="Placeholder panoramic image"></div>
+</section>
+
+<div class="section-gap"></div>
+
+<!-- =================== Bios =================== -->
 <section class="container">
-  <h1 class="section-title">Our Story</h1>
-  <p class="lead">
-    Team Macuga is a family-powered ski crew from Park City. Three sisters, a younger brother in development,
-    and two all-star parents keeping the show on the road. We travel, train, wax, race, jump, laugh, and learn together —
-    aiming for <strong>Milano–Cortina 2026</strong> and beyond. Welcome to the journey. <strong>#TeamMacuga</strong>
-  </p>
+  <h2 class="section-title">Team Macuga Bios</h2>
+  <p class="muted">Short intros here. Click a name at the top to jump directly to any bio.</p>
+
+  <div class="bios-grid">
+    <article id="bio-lauren" class="bio-card">
+      <div class="bio-media ph ph-1x1" aria-hidden="true"></div>
+      <div class="bio-body">
+        <h3>Lauren Macuga</h3>
+        <p class="muted role">Alpine Ski — Speed</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus
+           et netus et malesuada fames.</p>
+      </div>
+    </article>
+
+    <article id="bio-alli" class="bio-card">
+      <div class="bio-media ph ph-1x1" aria-hidden="true"></div>
+      <div class="bio-body">
+        <h3>Alli Macuga</h3>
+        <p class="muted role">Freeski — Moguls</p>
+        <p>Morbi dapibus, lacus at luctus maximus, sapien nibh dictum erat, vitae posuere nunc neque sed justo.</p>
+      </div>
+    </article>
+
+    <article id="bio-sam" class="bio-card">
+      <div class="bio-media ph ph-1x1" aria-hidden="true"></div>
+      <div class="bio-body">
+        <h3>Sam Macuga</h3>
+        <p class="muted role">Ski Jumping</p>
+        <p>Integer efficitur, est a ultricies commodo, lorem risus maximus dolor, non accumsan lorem nulla vitae arcu.</p>
+      </div>
+    </article>
+
+    <article id="bio-daniel" class="bio-card">
+      <div class="bio-media ph ph-1x1" aria-hidden="true"></div>
+      <div class="bio-body">
+        <h3>Daniel Macuga</h3>
+        <p class="muted role">Alpine Ski — Tech</p>
+        <p>Sed at tristique ligula. Maecenas mollis mi id justo iaculis, in tempor nulla imperdiet.</p>
+      </div>
+    </article>
+
+    <article id="bio-amy" class="bio-card">
+      <div class="bio-media ph ph-1x1" aria-hidden="true"></div>
+      <div class="bio-body">
+        <h3>Amy Macuga</h3>
+        <p class="muted role">Mom / Team Ops</p>
+        <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.</p>
+      </div>
+    </article>
+
+    <article id="bio-dan" class="bio-card">
+      <div class="bio-media ph ph-1x1" aria-hidden="true"></div>
+      <div class="bio-body">
+        <h3>Dan Macuga</h3>
+        <p class="muted role">Dad / Logistics</p>
+        <p>Donec hendrerit, elit eget rhoncus pharetra, tortor urna luctus massa, nec volutpat odio velit in massa.</p>
+      </div>
+    </article>
+  </div>
+
+  <div class="back-top">
+    <a class="btn" href="#top">Back to top</a>
+  </div>
 </section>
 
-<section id="bios" class="container">
-  <h2 class="section-title">Individual Bios</h2>
+<style>
+  /* Smooth anchors + offset for fixed nav */
+  html{ scroll-behavior: smooth; }
+  [id]{ scroll-margin-top: 96px; } /* adjust if your nav height differs */
 
-  <!-- Lauren -->
-  <article id="bio-lauren" class="bio-block card">
-    <div class="bio-grid">
-      <div class="bio-text">
-        <h3>Lauren</h3>
-        <p>World Cup speed specialist with calm precision and scary-fast lines.</p>
-        <p class="muted">Highlights: World Cup SG winner; Worlds SG bronze.</p>
-        <p><a class="pill" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=228398" target="_blank" rel="noopener">See on FIS</a></p>
-      </div>
-      <figure class="bio-photo-wrap">
-        <img id="photo-lauren" class="bio-photo" alt="Lauren headshot">
-      </figure>
-    </div>
-  </article>
+  .story-hero{ position:relative; }
+  .hero-media{ width:100%; }
+  .hero-overlay{ position:absolute; inset:0; display:flex; align-items:flex-end; background:linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,.45)); }
+  .story-title{ color:#fff; margin:0 0 .25rem; }
+  .story-sub{ color:#fff; max-width:60ch; margin:0 0 1.25rem; }
 
-  <!-- Alli -->
-  <article id="bio-alli" class="bio-block card">
-    <div class="bio-grid">
-      <div class="bio-text">
-        <h3>Alli</h3>
-        <p>Power + play — clean lines, sharp airs, fast feet. Trajectory: up.</p>
-        <p class="muted">Highlights: World Cup podiums; 2023 FIS Rookie of the Year.</p>
-        <p><a class="pill" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=FS&competitorid=220306" target="_blank" rel="noopener">See on FIS</a></p>
-      </div>
-      <figure class="bio-photo-wrap">
-        <img id="photo-alli" class="bio-photo" alt="Alli headshot">
-      </figure>
-    </div>
-  </article>
+  .story-nav{ display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
+  .story-nav .nav-label{ color:var(--muted,#6b7280); margin-right:.25rem; }
+  .chip{ border:1px solid var(--border,#e5e7eb); padding:.35rem .75rem; border-radius:999px; background:#fff; display:inline-block; text-decoration:none; color:inherit; }
+  .chip:hover{ background:#f5f6f8; }
 
-  <!-- Sam -->
-  <article id="bio-sam" class="bio-block card">
-    <div class="bio-grid">
-      <div class="bio-text">
-        <h3>Sam</h3>
-        <p>Quiet focus, big-air confidence, steady leadership vibes.</p>
-        <p class="muted">Highlights: Continental Cup starts; relentless work ethic.</p>
-        <p><a class="pill" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=JP&competitorid=211435" target="_blank" rel="noopener">See on FIS</a></p>
-      </div>
-      <figure class="bio-photo-wrap">
-        <img id="photo-sam" class="bio-photo" alt="Sam headshot">
-      </figure>
-    </div>
-  </article>
+  .story-block{ display:grid; grid-template-columns: 1.1fr 1fr; gap:2rem; align-items:center; margin:2rem 0; }
+  .story-block.image-right{ grid-template-columns: 1fr 1.1fr; }
+  .story-block.image-right .story-img{ order:2; }
+  .story-text h2{ margin:.25rem 0 .5rem; }
+  .story-list{ margin:.75rem 0 0 1.25rem; }
 
-  <!-- Daniel -->
-  <article id="bio-daniel" class="bio-block card">
-    <div class="bio-grid">
-      <div class="bio-text">
-        <h3>Daniel</h3>
-        <p>Developing racer — learns fast, loves the grind, brings the energy.</p>
-        <p class="muted">Highlights: future speedster; wax-room banter pro.</p>
-        <p><a class="pill" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=260517" target="_blank" rel="noopener">See on FIS</a></p>
-      </div>
-      <figure class="bio-photo-wrap">
-        <img id="photo-daniel" class="bio-photo" alt="Daniel headshot">
-      </figure>
-    </div>
-  </article>
+  .story-quote{ background:#0f172a; color:#fff; padding:3rem 0; margin:2rem 0; }
+  .story-quote blockquote{ margin:0; font-size:1.35rem; line-height:1.45; }
+  .story-quote cite{ display:block; opacity:.8; margin-top:.5rem; font-style: normal; }
 
-  <!-- Amy -->
-  <article id="bio-amy" class="bio-block card">
-    <div class="bio-grid">
-      <div class="bio-text">
-        <h3>Amy</h3>
-        <p>Operations lead — logistics, travel, and keeping the crew grounded.</p>
-        <p class="muted">Highlights: solves problems before they exist; A-level road-trip DJ.</p>
-      </div>
-      <figure class="bio-photo-wrap">
-        <img id="photo-amy" class="bio-photo" alt="Amy headshot">
-      </figure>
-    </div>
-  </article>
+  .story-band .band-media{ width:100%; }
 
-  <!-- Dan -->
-  <article id="bio-dan" class="bio-block card">
-    <div class="bio-grid">
-      <div class="bio-text">
-        <h3>Dan</h3>
-        <p>Gear &amp; wax-room sage, lifelong supporter and sideline strategist.</p>
-        <p class="muted">Highlights: wax whisperer; chairlift-wisdom specialist.</p>
-      </div>
-      <figure class="bio-photo-wrap">
-        <img id="photo-dan" class="bio-photo" alt="Dan headshot">
-      </figure>
-    </div>
-  </article>
-</section>
+  .bios-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:1.25rem; margin-top:1rem; }
+  .bio-card{ display:flex; gap:1rem; background:#fff; border:1px solid var(--border,#e5e7eb); border-radius:12px; padding:1rem; align-items:flex-start; }
+  .bio-media{ width:96px; border-radius:10px; flex:0 0 auto; }
+  .bio-body h3{ margin:.2rem 0 .1rem; }
+  .bio-body .role{ margin:0 0 .5rem; }
 
-<!-- Back to top -->
-<button id="back-to-top" aria-label="Scroll to top">↑ Top</button>
+  .back-top{ margin-top:1.25rem; }
 
-<script>
-/* --- Automatic headshot rotators (no controls) ----------------------- */
-/* Files live in /assets/img/gallery/headshots/ and names are consistent. */
-const HEADSHOTS = {
-  lauren: [
-    '/assets/img/gallery/headshots/lauren-headshot-1.jpg',
-    '/assets/img/gallery/headshots/lauren-headshot-2.jpg',
-    '/assets/img/gallery/headshots/lauren-headshot-3.jpg',
-    '/assets/img/gallery/headshots/lauren-headshot-4.jpg',
-  ],
-  alli: [
-    '/assets/img/gallery/headshots/alli-headshot-1.jpg',
-    '/assets/img/gallery/headshots/alli-headshot-2.jpg',
-    '/assets/img/gallery/headshots/alli-headshot-3.jpg',
-    '/assets/img/gallery/headshots/alli-headshot-4.jpg',
-    '/assets/img/gallery/headshots/alli-headshot-5.jpg',
-  ],
-  sam: [
-    '/assets/img/gallery/headshots/sam-headshot-1.jpg',
-    '/assets/img/gallery/headshots/sam-headshot-2.jpg',
-    '/assets/img/gallery/headshots/sam-headshot-3.jpg',
-    '/assets/img/gallery/headshots/sam-headshot-4.jpg',
-  ],
-  daniel: [
-    '/assets/img/gallery/headshots/daniel-headshot-1.jpg',
-    '/assets/img/gallery/headshots/daniel-headshot-2.jpg',
-    '/assets/img/gallery/headshots/daniel-headshot-3.jpg',
-  ],
-  amy: [
-    '/assets/img/gallery/headshots/amy-headshot-2.jpg',
-    '/assets/img/gallery/headshots/amy-headshot-3.jpg',
-    '/assets/img/gallery/headshots/amy-headshot-4.jpg',
-    '/assets/img/gallery/headshots/amy-headshot-5.jpg',
-  ],
-  dan: [
-    '/assets/img/gallery/headshots/dan-headshot-1.jpg',
-    '/assets/img/gallery/headshots/dan-headshot-2.jpg',
-    '/assets/img/gallery/headshots/dan-headshot-3.jpg',
-    '/assets/img/gallery/headshots/dan-headshot-4.jpg',
-  ],
-};
+  /* Responsive */
+  @media (max-width: 1024px){
+    .story-block{ grid-template-columns: 1fr; }
+    .story-block.image-right .story-img{ order:0; }
+    .bios-grid{ grid-template-columns: repeat(2,1fr); }
+  }
+  @media (max-width: 640px){
+    .bios-grid{ grid-template-columns: 1fr; }
+    .bio-card{ flex-direction:row; }
+  }
 
-function startRotator(imgId, list, ms=3500){
-  const img = document.getElementById(imgId);
-  if (!img || !list?.length) return;
-  let i = 0;
-  // first frame
-  img.src = list[i];
-  // cycle
-  setInterval(()=>{
-    i = (i + 1) % list.length;
-    // quick fade-out / in
-    img.classList.remove('show');
-    requestAnimationFrame(()=>{
-      setTimeout(()=>{ img.src = list[i]; img.classList.add('show'); }, 180);
-    });
-  }, ms);
-}
-
-document.addEventListener('DOMContentLoaded', ()=>{
-  startRotator('photo-lauren', HEADSHOTS.lauren);
-  startRotator('photo-alli',   HEADSHOTS.alli);
-  startRotator('photo-sam',    HEADSHOTS.sam);
-  startRotator('photo-daniel', HEADSHOTS.daniel);
-  startRotator('photo-amy',    HEADSHOTS.amy);
-  startRotator('photo-dan',    HEADSHOTS.dan);
-
-  // back-to-top button behavior
-  const btn = document.getElementById('back-to-top');
-  window.addEventListener('scroll', ()=> {
-    (window.scrollY > 300) ? btn.classList.add('show') : btn.classList.remove('show');
-  });
-  btn.addEventListener('click', ()=> window.scrollTo({ top: 0, behavior: 'smooth' }));
-});
-</script>
+  /* ------- Lightweight “image” placeholders ------- */
+  .ph{ background:
+      repeating-linear-gradient(45deg, #f3f4f6 0 10px, #eceff3 10px 20px);
+      border-radius:12px;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.04);
+  }
+  .ph-hero{ aspect-ratio: 21/9; }
+  .ph-21x9{ aspect-ratio: 21/9; }
+  .ph-16x9{ aspect-ratio: 16/9; }
+  .ph-1x1{ aspect-ratio: 1 / 1; }
+</style>

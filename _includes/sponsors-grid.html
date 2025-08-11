@@ -1,17 +1,33 @@
 <section class="sponsors-block">
   <div class="container">
     <h2 class="section-title">Thank you to our sponsors</h2>
-    <p class="section-sub">Their support keeps the dream racing.</p>
+    <p class="section-sub">Their support keeps the dream alive.</p>
+
     <ul class="sponsors-grid">
       {% for s in site.data.sponsors %}
-      <li class="sponsor">
-        <a href="{{ s.url }}" target="_blank" rel="noopener">
-          <div class="logo-wrap">
-            <img src="{{ s.logo | relative_url }}" alt="{{ s.name }} logo" loading="lazy" onerror="this.classList.add('logo-fallback')">
-          </div>
-          <span class="s-name">{{ s.name }}</span>
-        </a>
-      </li>
+        {% assign href = s.url %}
+        {% if href %}
+          {% comment %}
+            Allow absolute links untouched; if someone entered "pitviper.com" (no protocol),
+            auto-prefix "https://".
+          {% endcomment %}
+          {% unless href contains '://' %}
+            {% assign href = 'https://' | append: href %}
+          {% endunless %}
+        {% endif %}
+
+        <li class="sponsor">
+          {% if href %}
+            <a class="sponsor-link" href="{{ href }}" target="_blank" rel="noopener noreferrer" aria-label="{{ s.name }}">
+          {% endif %}
+
+            <div class="logo-wrap">
+              <img src="{{ s.logo | relative_url }}" alt="{{ s.name }} logo" loading="lazy" onerror="this.classList.add('logo-fallback')">
+            </div>
+            <span class="s-name">{{ s.name }}</span>
+
+          {% if href %}</a>{% endif %}
+        </li>
       {% endfor %}
     </ul>
   </div>

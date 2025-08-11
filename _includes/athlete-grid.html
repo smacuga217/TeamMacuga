@@ -1,53 +1,41 @@
-<div class="grid cols-3 athlete-grid">
+<div class="grid cols-3 family-grid">
   {% for a in site.data.family %}
-  <article class="card family-card" id="{{ a.slug }}">
-    <div class="media">
-      {% if a.headshots and a.headshots.size > 0 %}
-        <div class="mini-rotator" data-rot="{{ a.slug }}">
-          <div class="tm-track">
-            {% for src in a.headshots %}
-              <img class="tm-slide" src="{{ src | relative_url }}" alt="{{ a.name }} headshot {{ forloop.index }}">
-            {% endfor %}
-          </div>
-          <div class="tm-dots"></div>
-        </div>
-      {% else %}
-        <img src="{{ a.photo | default: '/assets/img/placeholders/person.png' | relative_url }}" alt="{{ a.name }}">
-      {% endif %}
+  <article class="card family-card" data-slug="{{ a.slug }}">
+    <div class="media headshot">
+      <img
+        src="{{ '/assets/img/headshots/' | append: a.slug | append: '-headshot-1.jpg' | relative_url }}"
+        alt="{{ a.name }}"
+        loading="eager"
+      >
     </div>
 
-    <h3 style="margin:6px 0 4px">
-      <a href="{{ '/story/#' | append: a.slug | append: '-bio' | relative_url }}">{{ a.name }}</a>
-    </h3>
-    <p class="muted" style="margin:0 0 10px">{{ a.teaser }}</p>
-
-    <!-- your actions (Results/FIS/IG/FB) go here as we set up earlier -->
-
-       <h3 style="margin:6px 0 4px">
-      <a href="{{ '/story/#' | append: a.slug | append: '-bio' | relative_url }}">{{ a.name }}</a>
-    </h3>
-    <p class="muted" style="margin:0 0 10px">{{ a.teaser }}</p>
-
-    <div class="actions" style="display:flex; gap:10px; align-items:center; flex-wrap:wrap">
-      <!-- Results goes to Story anchor -->
-      <a class="btn" href="{{ '/story/#' | append: a.slug | append: '-bio' | relative_url }}">Results</a>
-
-      <!-- Icon buttons show only if the link exists -->
-      {% if a.fis %}
-        <a class="icon-btn" href="{{ a.fis }}" target="_blank" rel="noopener" aria-label="{{ a.name }} on FIS">
-          <img src="{{ '/assets/img/icons/fis-logo.png' | relative_url }}" alt="">
-        </a>
+    <div class="body">
+      <h3 class="name"><a href="{{ '/story/#bio-' | append: a.slug | relative_url }}">{{ a.name }}</a></h3>
+      {% if a.teaser %}
+        <p class="teaser">{{ a.teaser }}</p>
       {% endif %}
-      {% if a.instagram %}
-        <a class="icon-btn" href="{{ a.instagram }}" target="_blank" rel="noopener" aria-label="{{ a.name }} on Instagram">
-          <img src="{{ '/assets/img/icons/instagram-logo.png' | relative_url }}" alt="">
-        </a>
-      {% endif %}
-      {% if a.facebook %}
-        <a class="icon-btn" href="{{ a.facebook }}" target="_blank" rel="noopener" aria-label="{{ a.name }} on Facebook">
-          <img src="{{ '/assets/img/icons/facebook-logo.png' | relative_url }}" alt="">
-        </a>
-      {% endif %}
+
+      <div class="actions">
+        <a class="btn" href="{{ '/story/#bio-' | append: a.slug | relative_url }}">My story</a>
+
+        <div class="social">
+          {% if a.fis %}
+            <a class="icon-btn" href="{{ a.fis }}" target="_blank" rel="noopener" aria-label="FIS">
+              <img src="{{ '/assets/img/icons/fis-logo.png' | relative_url }}" alt="">
+            </a>
+          {% endif %}
+          {% if a.instagram %}
+            <a class="icon-btn" href="{{ a.instagram }}" target="_blank" rel="noopener" aria-label="Instagram">
+              <img src="{{ '/assets/img/icons/instagram-logo.png' | relative_url }}" alt="">
+            </a>
+          {% endif %}
+          {% if a.facebook %}
+            <a class="icon-btn" href="{{ a.facebook }}" target="_blank" rel="noopener" aria-label="Facebook">
+              <img src="{{ '/assets/img/icons/facebook-logo.png' | relative_url }}" alt="">
+            </a>
+          {% endif %}
+        </div>
+      </div>
     </div>
   </article>
   {% endfor %}

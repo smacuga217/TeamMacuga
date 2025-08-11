@@ -36,6 +36,72 @@ layout: default
   {% include athlete-grid.html %}
 </section>
 
+<script>
+/* Map of rotating headshots by slug */
+const HEADSHOTS = {
+  lauren: [
+    '/assets/img/headshots/lauren-headshot-1.jpg',
+    '/assets/img/headshots/lauren-headshot-2.jpg',
+    '/assets/img/headshots/lauren-headshot-3.jpg',
+    '/assets/img/headshots/lauren-headshot-4.jpg',
+  ],
+  alli: [
+    '/assets/img/headshots/alli-headshot-1.jpg',
+    '/assets/img/headshots/alli-headshot-2.jpg',
+    '/assets/img/headshots/alli-headshot-3.jpg',
+    '/assets/img/headshots/alli-headshot-4.jpg',
+    '/assets/img/headshots/alli-headshot-5.jpg',
+  ],
+  sam: [
+    '/assets/img/headshots/sam-headshot-1.jpg',
+    '/assets/img/headshots/sam-headshot-2.jpg',
+    '/assets/img/headshots/sam-headshot-3.jpg',
+    '/assets/img/headshots/sam-headshot-4.jpg',
+  ],
+  daniel: [
+    '/assets/img/headshots/daniel-headshot-1.jpg',
+    '/assets/img/headshots/daniel-headshot-2.jpg',
+    '/assets/img/headshots/daniel-headshot-3.jpg',
+  ],
+  amy: [
+    '/assets/img/headshots/amy-headshot-2.jpg',
+    '/assets/img/headshots/amy-headshot-3.jpg',
+    '/assets/img/headshots/amy-headshot-4.jpg',
+    '/assets/img/headshots/amy-headshot-5.jpg',
+  ],
+  dan: [
+    '/assets/img/headshots/dan-headshot-1.jpg',
+    '/assets/img/headshots/dan-headshot-2.jpg',
+    '/assets/img/headshots/dan-headshot-3.jpg',
+    '/assets/img/headshots/dan-headshot-4.jpg',
+  ],
+};
+
+(function(){
+  const cards = document.querySelectorAll('.family-card[data-slug]');
+  const INTERVAL = 4000;
+
+  // Preload images to reduce flicker
+  Object.values(HEADSHOTS).flat().forEach(src => { const i = new Image(); i.src = src; });
+
+  cards.forEach(card => {
+    const slug = card.getAttribute('data-slug');
+    const list = HEADSHOTS[slug];
+    if (!list || list.length < 2) return;
+
+    const img = card.querySelector('.media.headshot img');
+    let idx = 0;
+
+    setInterval(() => {
+      idx = (idx + 1) % list.length;
+      // quick fade swap
+      img.style.opacity = 0;
+      setTimeout(() => { img.src = list[idx]; img.style.opacity = 1; }, 120);
+    }, INTERVAL);
+  });
+})();
+</script>
+
 
 
 <div class="section-gap"></div>  <!-- ← added spacer -->

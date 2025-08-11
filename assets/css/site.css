@@ -630,3 +630,27 @@ section#family .family-card p {
 .family-card .media{ height:140px; }
 .family-card h3{ font-size:.95rem; }
 .family-card p{ font-size:.88rem; }
+
+/* Smooth fade for rotating card headshots */
+.family-card .media{ position:relative; overflow:hidden; border-radius:12px; }
+.family-card .media img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  opacity:0; transition:opacity .25s ease;
+}
+.family-card .media img.show{ opacity:1; }
+
+/* Family cards – compact */
+.family-grid{ grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 14px; }
+.family-card{ padding: 12px; border-radius: 12px; display: flex; flex-direction: column; }
+.family-card .media.headshot{ width: 100%; aspect-ratio: 1 / 1; border-radius: 10px; overflow: hidden;
+  background: #eef3ff; border: 1px solid var(--border); }
+.family-card .media.headshot img{ width:100%; height:100%; object-fit: cover; display:block; }
+.family-card .name{ margin: 8px 0 4px; font-size: 1rem; }
+.family-card .teaser{ margin:0 0 10px; font-size:.9rem; color: var(--muted); }
+.family-card .actions{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.family-card .social{ display:flex; align-items:center; gap:8px; margin-left:auto; }
+
+.icon-btn{ width:36px; height:36px; border-radius:999px; display:grid; place-items:center;
+  background:#fff; border:1px solid var(--border); box-shadow: var(--shadow); }
+.icon-btn img{ width:18px; height:18px; object-fit:contain; display:block; }
+.icon-btn:hover{ transform: translateY(-1px); }

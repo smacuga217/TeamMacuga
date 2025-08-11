@@ -127,40 +127,49 @@ redirect_from:
   }
   .img-badge.collab{ background: linear-gradient(90deg, var(--brand), var(--navy)); }
 
-  /* tidy footer rows */
+  /* Uniform action row: 3 fixed columns on desktop */
   .actions{
-    margin-top:auto; padding:12px 14px 14px; display:grid; align-items:center; gap:.6rem;
-    grid-template-columns: minmax(140px,1fr) auto minmax(150px,auto); /* size | qty | button */
+    display:grid;
+    align-items:center;
+    gap:.6rem;
+    grid-template-columns: 160px 1fr 180px;   /* size | qty | button */
+    padding:12px 14px 14px;
+    margin-top:auto;
   }
-  .actions.no-size{ grid-template-columns: auto minmax(150px,auto); } /* qty | button when no size */
 
+  /* Hide the size dropdown when there’s only one size,
+     but keep the 1st column reserved so qty & button align */
+  .actions.no-size .size-select{ display:none; }
+  .actions.no-size::before{
+    content:"";
+    grid-column:1;                 /* occupies the Size column invisibly */
+  }
+
+  /* Compact qty and full-width button inside their columns */
+  .qty-control{ justify-self:start; }
+  .quick-add-btn{ width:100%; justify-content:center; }
+
+  /* Select width matches the Size column */
   .size-select{
-    min-width:140px; padding:.45rem .6rem; border:1px solid var(--border);
+    width:100%; min-width:160px;   /* fills that first column cleanly */
+    padding:.45rem .6rem;
+    border:1px solid var(--border);
     border-radius:10px; background:#fff;
   }
 
-  .qty-control{
-    display:inline-flex; align-items:center; gap:.5rem; padding:.25rem;
-    border:1px solid var(--border); border-radius:12px; background:#fff;
-    box-shadow:0 1px 2px rgba(0,0,0,.04);
-  }
-  .qty-btn{ width:34px; height:34px; border:0; border-radius:10px; background:#f6f6f6; font-size:1.15rem; line-height:1; cursor:pointer; }
-  .qty-val{ width:2ch; text-align:center; font-variant-numeric: tabular-nums; }
-
-  .quick-add-btn{
-    justify-self:end; white-space:nowrap; padding:.6rem 1rem; border-radius:12px;
-    display:inline-flex; align-items:center; justify-content:center;
-  }
-
-  /* collab CTA fills the row (cleaner) */
+  /* Collab CTA still fills its row */
   .collab-actions{ grid-template-columns: 1fr; }
-  .external-btn{ width:100%; justify-content:center; }
+  .external-btn{ width:100%; }
 
-  /* tighten overall grid on large screens (smaller cards) */
-  @media (min-width:1100px){
-    .products{ grid-template-columns:repeat(12,1fr); }
-    .product-card{ grid-column: span 3; } /* 4 per row */
+  /* Mobile: stack nicely */
+  @media (max-width: 560px){
+    .actions, .actions.no-size{
+      grid-template-columns: 1fr 1fr;
+    }
+    .size-select{ grid-column: 1 / -1; }
+    .quick-add-btn{ grid-column: 1 / -1; }
   }
+
 </style>
 
 <script>

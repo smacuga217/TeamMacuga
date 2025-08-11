@@ -14,6 +14,7 @@ layout: default
   </p>
 </section>
 
+<!-- ===== Gallery Rotator ===== -->
 <section class="container">
   <div class="hero-rotator">
     <div class="rotator">
@@ -24,7 +25,6 @@ layout: default
       </figure>
       {% endfor %}
 
-      <!-- arrows -->
       <button class="tm-arrow prev" aria-label="Previous">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
       </button>
@@ -32,11 +32,8 @@ layout: default
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
       </button>
 
-      <!-- dots -->
       <div class="rotator-dots">
-        {% for p in site.data.gallery %}
-        <button aria-label="Slide {{ forloop.index }}"></button>
-        {% endfor %}
+        {% for p in site.data.gallery %}<button aria-label="Slide {{ forloop.index }}"></button>{% endfor %}
       </div>
     </div>
   </div>
@@ -71,148 +68,107 @@ layout: default
 })();
 </script>
 
+<!-- ===== Individual Bios (data-driven) ===== -->
 <section id="bios">
   <div class="container">
     <h2 class="section-title">Individual Bios</h2>
 
-    <!-- Lauren -->
-    <article id="bio-lauren" class="bio-block card">
+    {% for a in site.data.family %}
+    <article id="{{ a.slug }}-bio" class="bio-block card">
       <div class="bio-grid">
         <div class="bio-text">
-          <h3>Lauren Macuga</h3>
-          <p>Alpine speed specialist (downhill &amp; super-G). A force of nature with calm precision, Lauren has stacked World Cup results and continues to push speed lines every season. Park City roots, world stage pace.</p>
-          <p class="muted">Highlights: World Cup SG winner; Worlds SG bronze; fan of scary-fast turns and good coffee.</p>
-          <p><a class="pill" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=228398" target="_blank" rel="noopener">See on FIS</a></p>
-        </div>
-        <figure class="mini-rotator">
-          <img class="slide active" src="{{ '/assets/img/placeholders/ath-lauren-1.jpg' | relative_url }}" alt="Lauren 1">
-          <img class="slide"        src="{{ '/assets/img/placeholders/ath-lauren-2.jpg' | relative_url }}" alt="Lauren 2">
-          <img class="slide"        src="{{ '/assets/img/placeholders/ath-lauren-3.jpg' | relative_url }}" alt="Lauren 3">
-          <div class="dots" aria-hidden="true"></div>
-        </figure>
-      </div>
-    </article>
+          <h3>{{ a.name }}</h3>
 
-    <!-- Alli -->
-    <article id="bio-alli" class="bio-block card">
-      <div class="bio-grid">
-        <div class="bio-text">
-          <h3>Alli Macuga</h3>
-          <p>Moguls with style. Alli blends power and play—clean lines, sharp airs, fast feet. Multiple World Cup podiums and 2023 FIS Rookie of the Year underline the trajectory.</p>
-          <p class="muted">Highlights: World Cup podiums; progressive airs; contagious stoke.</p>
-          <p><a class="pill" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=FS&competitorid=220306" target="_blank" rel="noopener">See on FIS</a></p>
-        </div>
-        <figure class="mini-rotator">
-          <img class="slide active" src="{{ '/assets/img/placeholders/ath-alli-1.jpg' | relative_url }}" alt="Alli 1">
-          <img class="slide"        src="{{ '/assets/img/placeholders/ath-alli-2.jpg' | relative_url }}" alt="Alli 2">
-          <img class="slide"        src="{{ '/assets/img/placeholders/ath-alli-3.jpg' | relative_url }}" alt="Alli 3">
-          <div class="dots" aria-hidden="true"></div>
-        </figure>
-      </div>
-    </article>
+          {% if a.bio %}
+            <p>{{ a.bio }}</p>
+          {% elsif a.teaser %}
+            <p>{{ a.teaser }}</p>
+          {% endif %}
 
-    <!-- Sam -->
-    <article id="bio-sam" class="bio-block card">
-      <div class="bio-grid">
-        <div class="bio-text">
-          <h3>Sam Macuga</h3>
-          <p>U.S. Ski Jumping Team. Big-air confidence, quiet focus, and leadership vibes. Sam’s been on the national team since 2019 and is building height, distance, and consistency.</p>
-          <p class="muted">Highlights: Continental Cup starts; relentless work ethic; team glue.</p>
-          <p><a class="pill" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=JP&competitorid=211435" target="_blank" rel="noopener">See on FIS</a></p>
-        </div>
-        <figure class="mini-rotator">
-          <img class="slide active" src="{{ '/assets/img/placeholders/ath-sam-1.jpg' | relative_url }}" alt="Sam 1">
-          <img class="slide"        src="{{ '/assets/img/placeholders/ath-sam-2.jpg' | relative_url }}" alt="Sam 2">
-          <img class="slide"        src="{{ '/assets/img/placeholders/ath-sam-3.jpg' | relative_url }}" alt="Sam 3">
-          <div class="dots" aria-hidden="true"></div>
-        </figure>
-      </div>
-    </article>
+          {% if a.highlights %}
+            <p class="muted">{{ a.highlights }}</p>
+          {% endif %}
 
-    <!-- Daniel -->
-    <article id="bio-daniel" class="bio-block card">
-      <div class="bio-grid">
-        <div class="bio-text">
-          <h3>Daniel Macuga</h3>
-          <p>Developing alpine racer—learning fast, loving the grind, and bringing energy to every session. Eyes on speed and technical excellence.</p>
-          <p class="muted">Highlights: future speedster; pro at wax room banter.</p>
-          <p><a class="pill" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=260517" target="_blank" rel="noopener">See on FIS</a></p>
-        </div>
-        <figure class="mini-rotator">
-          <img class="slide active" src="{{ '/assets/img/placeholders/ath-daniel-1.jpg' | relative_url }}" alt="Daniel 1">
-          <img class="slide"        src="{{ '/assets/img/placeholders/ath-daniel-2.jpg' | relative_url }}" alt="Daniel 2">
-          <img class="slide"        src="{{ '/assets/img/placeholders/ath-daniel-3.jpg' | relative_url }}" alt="Daniel 3">
-          <div class="dots" aria-hidden="true"></div>
-        </figure>
-      </div>
-    </article>
+          <div class="social-links" style="display:flex;gap:10px;align-items:center;margin-top:8px">
+            {% if a.fis %}
+              <a class="icon" href="{{ a.fis }}" target="_blank" rel="noopener" title="FIS profile">
+                <img src="{{ '/assets/img/icons/fis-logo.png' | relative_url }}" alt="FIS" style="width:22px;height:22px">
+              </a>
+            {% endif %}
+            {% if a.instagram %}
+              <a class="icon" href="{{ a.instagram }}" target="_blank" rel="noopener" title="Instagram">
+                <img src="{{ '/assets/img/icons/instagram-logo.png' | relative_url }}" alt="Instagram" style="width:22px;height:22px">
+              </a>
+            {% endif %}
+            {% if a.facebook %}
+              <a class="icon" href="{{ a.facebook }}" target="_blank" rel="noopener" title="Facebook">
+                <img src="{{ '/assets/img/icons/facebook-logo.png' | relative_url }}" alt="Facebook" style="width:22px;height:22px">
+              </a>
+            {% endif %}
 
-    <!-- Amy -->
-    <article id="bio-amy" class="bio-block card">
-      <div class="bio-grid">
-        <div class="bio-text">
-          <h3>Amy Macuga</h3>
-          <p>Operations lead—logistics, travel, and keeping the crew grounded and grateful. The unsung hero behind smooth seasons.</p>
-          <p class="muted">Highlights: solves problems before they exist; A-level road trip DJ.</p>
+            {% if a.results %}
+              <a class="pill" href="{{ a.results | relative_url }}" style="margin-left:8px">Results</a>
+            {% endif %}
+          </div>
         </div>
-        <figure class="mini-rotator">
-          <img class="slide active" src="{{ '/assets/img/placeholders/ath-amy-1.jpg' | relative_url }}" alt="Amy 1">
-          <img class="slide"        src="{{ '/assets/img/placeholders/ath-amy-2.jpg' | relative_url }}" alt="Amy 2">
-          <img class="slide"        src="{{ '/assets/img/placeholders/ath-amy-3.jpg' | relative_url }}" alt="Amy 3">
-          <div class="dots" aria-hidden="true"></div>
-        </figure>
-      </div>
-    </article>
 
-    <!-- Dan -->
-    <article id="bio-dan" class="bio-block card">
-      <div class="bio-grid">
-        <div class="bio-text">
-          <h3>Dan Macuga</h3>
-          <p>Gear &amp; wax room sage. Lifelong supporter and sideline strategist. Keeps the edges sharp and the vibes sharper.</p>
-          <p class="muted">Highlights: wax whisperer; chairlift wisdom specialist.</p>
-        </div>
         <figure class="mini-rotator">
-          <img class="slide active" src="{{ '/assets/img/placeholders/ath-dan-1.jpg' | relative_url }}" alt="Dan 1">
-          <img class="slide"        src="{{ '/assets/img/placeholders/ath-dan-2.jpg' | relative_url }}" alt="Dan 2">
-          <img class="slide"        src="{{ '/assets/img/placeholders/ath-dan-3.jpg' | relative_url }}" alt="Dan 3">
+          {% if a.headshots and a.headshots.size > 0 %}
+            {% for src in a.headshots %}
+              <img class="slide{% if forloop.first %} active{% endif %}" src="{{ src | relative_url }}" alt="{{ a.name }} headshot {{ forloop.index }}">
+            {% endfor %}
+          {% else %}
+            <img class="slide active" src="{{ a.photo | default: '/assets/img/placeholders/person.png' | relative_url }}" alt="{{ a.name }}">
+          {% endif %}
           <div class="dots" aria-hidden="true"></div>
         </figure>
       </div>
     </article>
+    {% endfor %}
   </div>
 </section>
 
-
 <script>
-/* tiny per-person rotator (re-uses the hero rotator behavior) */
-document.querySelectorAll('[class^="rotator-"]').forEach((wrap)=>{
-  const slides=[...wrap.querySelectorAll('.slide')], dots=wrap.querySelector('.dots'); let i=0;
-  slides.forEach((_,k)=>{const b=document.createElement('button');if(k===0)b.classList.add('active');b.onclick=()=>go(k);dots.appendChild(b);});
-  function go(n){ i=n; slides.forEach((s,k)=>s.classList.toggle('active',k===i));
-    dots.querySelectorAll('button').forEach((d,k)=>d.classList.toggle('active',k===i)); }
-  setInterval(()=>go((i+1)%slides.length), 5000);
-});
+/* Mini headshot rotators inside each bio */
+(function(){
+  document.querySelectorAll('.mini-rotator').forEach(wrap=>{
+    const slides = [...wrap.querySelectorAll('.slide')];
+    if (!slides.length) return;
+
+    const dotsWrap = wrap.querySelector('.dots');
+    slides.forEach((_,k)=>{
+      const b = document.createElement('button');
+      if (k===0) b.classList.add('active');
+      b.addEventListener('click', ()=>{ stop(); go(k); play(); });
+      dotsWrap.appendChild(b);
+    });
+    const dots = [...dotsWrap.querySelectorAll('button')];
+
+    let i = 0, t;
+    function go(n){
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s,k)=>s.classList.toggle('active', k===i));
+      dots.forEach((d,k)=>d.classList.toggle('active', k===i));
+    }
+    const play = ()=> t = setInterval(()=>go(i+1), 3000);
+    const stop = ()=> clearInterval(t);
+
+    wrap.addEventListener('mouseenter', stop);
+    wrap.addEventListener('mouseleave', play);
+
+    go(0); play();
+  });
+})();
 </script>
 
-<button id="back-to-top" aria-label="Scroll to top">
-  ↑ Top
-</button>
-
+<!-- Back to top -->
+<button id="back-to-top" aria-label="Scroll to top">↑ Top</button>
 <script>
 document.addEventListener("DOMContentLoaded", function(){
   const btn = document.getElementById("back-to-top");
-
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
-      btn.classList.add("show");
-    } else {
-      btn.classList.remove("show");
-    }
+    btn.classList.toggle("show", window.scrollY > 300);
   });
-
-  btn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 });
 </script>

@@ -32,44 +32,32 @@ layout: default
         {% endfor %}
       </div>
       {% endif %}
-      <!-- inside the details column -->
+
+      {% if page.variant_ids %}
       <button class="btn buy-btn" id="add-to-cart"
-         data-variants='{{ page.variant_ids | jsonify }}'
-         data-title="{{ page.title }}"
-         data-price="{{ page.price }}"
-         data-img="{{ page.featured_image | relative_url }}">
-         Add to cart
-       </button>
-
-
-     <script>
-    (function(){
-    const btn = document.getElementById('add-to-cart');
-    if(!btn) return;
-    const variants = JSON.parse(btn.dataset.variants || '{}');
-
-    btn.addEventListener('click', ()=>{
-        // read selected size (from your existing radios)
-        const sel = document.querySelector('input[name="size"]:checked');
-        const size = sel ? sel.value : null;
-        const variantId = size ? variants[size] : null;
-
-        if(!variantId){
-        alert('Please pick a size.');
-        return;
-        }
-        window.dispatchEvent(new CustomEvent('tm:add', { detail:{ id:String(variantId), qty:1 } }));
-    });
-    })();
-    </script>
-
-
-    
+        data-variants='{{ page.variant_ids | jsonify }}'
+        data-title="{{ page.title }}"
+        data-price="{{ page.price }}"
+        data-img="{{ page.featured_image | relative_url }}">
+        Add to cart
+      </button>
+      {% endif %}
+      {% if page.sku %}<p class="sku">SKU: {{ page.sku }}</p>{% endif %}
     </div>
   </div>
 </article>
 
 <script>
+/* Product gallery thumbs */
+(function(){
+  const hero = document.getElementById('hero');
+  if(!hero) return;
+  document.querySelectorAll('.thumb img').forEach(t=>{
+    t.addEventListener('click', ()=>{ hero.src = t.src; hero.decoding='sync'; });
+  });
+})();
+
+/* Single add-to-cart handler (no duplicates) */
 (function(){
   const btn = document.getElementById('add-to-cart');
   if(!btn) return;
@@ -77,8 +65,8 @@ layout: default
 
   btn.addEventListener('click', ()=>{
     const sel = document.querySelector('input[name="size"]:checked');
-    const size = sel ? sel.value : null;
-    const variantId = size ? variants[size] : null;
+    const size = sel && sel.value;
+    const variantId = size && variants[size];
 
     if(!variantId){
       alert('Please pick a size.');
@@ -86,23 +74,24 @@ layout: default
     }
 
     window.dispatchEvent(new CustomEvent('tm:add', { detail:{
-      id: String(variantId),
-      qty: 1,
-      title: btn.dataset.title,
-      price: btn.dataset.price,
-      img: btn.dataset.img
+      id:String(variantId), qty:1,
+      title: btn.dataset.title, price: btn.dataset.price, img: btn.dataset.img
     }}));
+
+    // open mini-cart for feedback (if present)
+    document.getElementById('mini-cart')?.classList.add('open');
+    document.getElementById('cart-overlay')?.classList.add('show');
   });
 })();
 </script>
 
-
 <style>
-  .product-grid{ display:grid; grid-template-columns: 1.2fr 1fr; gap:2rem; align-items:start; }
+  .product-grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:2rem; align-items:start; }
   .gallery img{ width:100%; border-radius:12px; display:block; }
   .thumbs{ display:flex; gap:.5rem; margin-top:.5rem; flex-wrap:wrap; }
   .thumb{ border:0; background:transparent; padding:0; cursor:pointer; }
   .thumb img{ width:80px; height:80px; object-fit:cover; border-radius:10px; }
+
   .details .badge{ display:inline-block; margin-bottom:.5rem; padding:.25rem .5rem; border-radius:999px; background:#eef; }
   .price{ font-size:1.25rem; font-weight:600; margin:.25rem 0 1rem; }
   .desc{ margin-bottom:1rem; }
@@ -111,5 +100,5 @@ layout: default
   .size input{ margin-right:.35rem; }
   .btn.buy-btn{ display:inline-block; padding:.75rem 1rem; border-radius:12px; background:var(--navy); color:#fff; text-decoration:none; }
   .sku{ margin-top:.5rem; color:var(--muted); font-size:.9rem; }
-  @media (max-width: 960px){ .product-grid{ grid-template-columns: 1fr; } }
+  @media (max-width:960px){ .product-grid{ grid-template-columns:1fr; } }
 </style>

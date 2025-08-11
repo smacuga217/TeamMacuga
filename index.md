@@ -11,10 +11,9 @@ layout: default
     playsinline
     webkit-playsinline
     preload="metadata"
-    poster="{{ '/assets/img/opt/1200/hero-poster.jpg' | relative_url }}"
+    poster="{{ '/assets/img/hero/poster.jpg' | relative_url }}"
   >
-    <source src="{{ '/assets/video/opt/hero-720.webm' | relative_url }}" type="video/webm">
-    <source src="{{ '/assets/video/opt/hero-720.mp4'  | relative_url }}" type="video/mp4">
+    <source src="{{ '/assets/video/hero.mp4' | relative_url }}" type="video/mp4">
   </video>
 
   <!-- Overlay (desktop / tablet) -->
@@ -22,7 +21,7 @@ layout: default
     <div class="hero-content">
       <div class="hero-box hero-centered">
         <p class="tagline">
-          <span class="t-1">Four siblings, three sports, two parents — one dream: Milano–Cortina 2026 and beyond.</span>
+          <span class="t-1">Three sisters, one brother, two legendary parents — one dream: Milano–Cortina 2026 and beyond.</span>
           <span class="t-2">Follow the journey and rep the team. <strong>#TeamMacuga</strong></span>
         </p>
         <div class="hero-actions hero-actions--center">
@@ -39,7 +38,7 @@ layout: default
 <div class="container hero-overlay--mobile">
   <div class="hero-box hero-centered">
     <p class="tagline">
-      <span class="t-1">Four siblings, three sports, two parents — one dream: Milano–Cortina 2026 and beyond.</span>
+      <span class="t-1">Three sisters, one brother, two legendary parents — one dream: Milano–Cortina 2026 and beyond.</span>
       <span class="t-2">Follow the journey and rep the team. <strong>#TeamMacuga</strong></span>
     </p>
     <div class="hero-actions hero-actions--center">
@@ -153,11 +152,11 @@ layout: default
   .hero-overlay--desktop{ position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:center; padding:min(6vw,28px); }
   .hero-centered{ text-align:center; }
   .hero-box{
-    background:#fff !important;
+    background:#fff !important;            /* force solid white */
     color:var(--ink) !important;
     border:1px solid rgba(17,24,39,.08);
     border-radius:14px;
-    padding: clamp(16px, 2.2vw, 24px);
+    padding: clamp(16px, 2.2vw, 24px);     /* more breathing room */
     box-shadow: 0 14px 34px rgba(0,0,0,.16);
   }
   .hero-box .tagline{ margin:0 0 12px; line-height:1.38; }

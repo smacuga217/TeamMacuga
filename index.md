@@ -9,13 +9,13 @@ layout: default
     <source src="{{ '/assets/video/hero.mp4' | relative_url }}" type="video/mp4">
   </video>
 
-  <!-- Overlay (tagline + buttons) -->
-  <div class="hero-overlay">
+  <!-- Overlay (desktop / tablet) -->
+  <div class="hero-overlay hero-overlay--desktop">
     <div class="hero-content">
       <div class="hero-box hero-centered">
         <p class="tagline">
-          Three sisters, one brother, two legendary parents — one dream: Milano–Cortina 2026 and beyond.
-          Follow the journey and rep the team. <strong>#TeamMacuga</strong>
+          <span class="t-1">Three sisters, one brother, two legendary parents — one dream: Milano–Cortina 2026 and beyond.</span>
+          <span class="t-2">Follow the journey and rep the team. <strong>#TeamMacuga</strong></span>
         </p>
         <div class="hero-actions hero-actions--center">
           <a class="btn primary hero-btn" href="{{ '/shop/' | relative_url }}">Shop Merch</a>
@@ -23,6 +23,21 @@ layout: default
           <a class="btn hero-btn"          href="{{ '/story/' | relative_url }}">Our Story</a>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay (mobile-only, placed AFTER the video so it doesn’t cover it) -->
+<div class="container hero-overlay--mobile">
+  <div class="hero-box hero-centered">
+    <p class="tagline">
+      <span class="t-1">Three sisters, one brother, two legendary parents — one dream: Milano–Cortina 2026 and beyond.</span>
+      <span class="t-2">Follow the journey and rep the team. <strong>#TeamMacuga</strong></span>
+    </p>
+    <div class="hero-actions hero-actions--center">
+      <a class="btn primary hero-btn" href="{{ '/shop/' | relative_url }}">Shop Merch</a>
+      <a class="btn hero-btn"          href="{{ '/updates/#results' | relative_url }}">Latest Results</a>
+      <a class="btn hero-btn"          href="{{ '/story/' | relative_url }}">Our Story</a>
     </div>
   </div>
 </div>
@@ -53,7 +68,6 @@ layout: default
   {% include athlete-grid.html %}
 </section>
 
-<!-- Rotating headshots + link names to Story bios -->
 <script>
 (function(){
   // ----- headshot rotator -----
@@ -77,7 +91,6 @@ layout: default
   nextFrame(); setInterval(nextFrame, PERIOD);
 
   // ----- link each member name to Story bio anchor -----
-  // Works if your cards include a data-slug on either the card or the headshot image.
   document.querySelectorAll('.athlete-card').forEach(card=>{
     const slug = card.dataset.slug || card.querySelector('[data-slug]')?.dataset.slug;
     const nameEl = card.querySelector('h3, .name');
@@ -132,7 +145,7 @@ layout: default
 (function(){
   // Arrow scroll for carousels
   const by = (sel, root=document) => Array.from(root.querySelectorAll(sel));
-  const px = () => Math.ceil(document.querySelector('.product-card')?.getBoundingClientRect().width || 360) + 20;
+  const px = () => Math.ceil(document.querySelector('.tm-card')?.getBoundingClientRect().width || 280) + 16;
 
   by('.slider-btn').forEach(btn=>{
     const target = document.querySelector(btn.dataset.target);
@@ -151,99 +164,87 @@ layout: default
   });
 
   // Prevent "#" links from jumping to top (legacy)
-  document.querySelectorAll('.product-card a[href="#"]').forEach(a=>{
+  document.querySelectorAll('.tm-card a[href="#"]').forEach(a=>{
     a.addEventListener('click', e => e.preventDefault());
   });
 })();
 </script>
 
 <style>
-  /* === Hero: center & enlarge buttons === */
+  /* ----- brighter white cards sitewide ----- */
+  .card,
+  .mission-card,
+  .about-summary .about-wrap,
+  .hero-box{
+    background:#fff !important;
+    border:1px solid rgba(17,24,39,.08);
+    box-shadow: 0 10px 28px rgba(0,0,0,.14);
+  }
+
+  /* ===== HERO ===== */
+  .hero-overlay--desktop{ position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:center; padding: min(6vw, 28px); }
   .hero-centered{ text-align:center; }
-  .hero-actions{ display:flex; flex-wrap:wrap; gap:12px; }
-  .hero-actions--center{ justify-content:center; }
-  .hero-btn{
-    padding: 12px 18px;            /* bigger */
-    border-radius: 14px;
-    font-weight: 700;
-    min-width: 220px;              /* wider buttons */
-    justify-content: center;
-  }
-  @media (max-width:560px){
-    .hero-btn{ width:100%; }
-  }
+  .hero-box{ border-radius:14px; padding:14px 16px; color:var(--ink); }
+  .hero-box .tagline{ margin: 0 0 12px; line-height:1.38; }
+  .hero-box .tagline .t-1,
+  .hero-box .tagline .t-2{ display:block; }
+  .hero-actions{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+  .hero-btn{ padding:12px 18px; border-radius:14px; font-weight:700; min-width:220px; justify-content:center; }
+  @media (max-width:560px){ .hero-btn{ width:100%; } }
 
-  /* Mission band */
-  .mission-card{
-    background:#fff;
-    border:1px solid var(--border);
-    border-radius:14px;
-    box-shadow: var(--shadow);
-    padding:18px;
-    position:relative;
-  }
-  .mission-card::before{
-    content:"";
-    position:absolute; left:0; top:0; bottom:0; width:6px;
-    border-top-left-radius:14px; border-bottom-left-radius:14px;
-    background: linear-gradient(180deg, var(--brand), var(--navy));
-  }
-  .mission-copy{ margin:8px 0 0; }
-  .mission-actions{ margin-top:12px; display:flex; justify-content:center; }
-
-  /* About summary band */
-  .about-summary .about-wrap{
-    background: linear-gradient(180deg,#ffffff, #f7f9ff);
-    border:1px solid var(--border);
-    border-radius:14px;
-    box-shadow: var(--shadow);
-    padding:18px;
-  }
-  .about-summary p{
-    margin:0;
-    color: var(--muted);
-    font-size: clamp(1rem, 1.05vw, 1.05rem);
-    line-height: 1.55;
+  /* Mobile: don’t overlay the video — show the hero box below it */
+  .hero-overlay--mobile{ display:none; }
+  @media (max-width: 700px){
+    .hero-overlay--desktop{ display:none; }
+    .hero-overlay--mobile{ display:block; margin-top: 10px; }
   }
 
   /* Section spacing helpers */
   .section-gap{ height: 20px; }
   .section-gap.lg{ height: 28px; }
   .section-gap.xl{ height: 36px; }
-  /* In case a section pair is missing a gap div */
   section.container + section.container{ margin-top: 24px; }
-  /* === Hero box: brighter white + dark text for clarity === */
-  .hero-overlay::before{ background: none !important; } /* no dark scrim */
-  .hero-box{
-    background: rgba(255,255,255,.92) !important;
-    color: var(--ink) !important;
-    border: 1px solid rgba(11,18,32,.08);
-    box-shadow: 0 10px 28px rgba(0,0,0,.16);
+
+  /* ===== Featured Merch carousel: smaller cards + overlay badges + dots ===== */
+  .tm-carousel{ --gap:14px; position:relative; overflow:hidden; }
+  .tm-track{ display:flex; gap:var(--gap); overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom: 6px; }
+  .tm-card{ flex:0 0 260px; scroll-snap-align:start; background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow: var(--shadow); }
+  .tm-imgwrap{ position:relative; aspect-ratio:4/3; background:#f3f6ff; }
+  .tm-imgwrap img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  /* badge on image like shop */
+  .m-badge,
+  .tm-imgwrap .img-badge{
+    position:absolute; left:10px; top:10px;
+    padding:4px 10px; font-size:.75rem; font-weight:700; line-height:1;
+    border-radius:999px; color:#fff; background: var(--brand);
+    box-shadow:0 6px 16px rgba(0,0,0,.10); pointer-events:none; user-select:none;
   }
+  .img-badge.collab{ background: linear-gradient(90deg, var(--brand), var(--navy)); }
+  .img-badge.badge-new{ background: var(--brand); }       /* red */
+  .img-badge.badge-bestseller{ background: var(--navy); } /* navy */
 
-  /* Force two-line tagline */
-  .hero-box .tagline{ margin: 0 0 12px; line-height: 1.35; }
-  .hero-box .tagline span{ display:block; }
-  .hero-box .tagline .t-1{ font-weight: 700; }
-  .hero-box .tagline .t-2{ margin-top: 2px; }
+  .tm-meta{ display:flex; justify-content:space-between; align-items:center; padding:10px 12px; }
+  .tm-name{ font-size:.95rem; font-weight:700; }
+  .tm-price{ font-size:.92rem; color:#64748b; }
 
-  /* Center + bigger hero buttons */
-  .hero-actions{ justify-content: center; gap: 12px; }
-  .hero-actions .btn{ padding: 12px 18px; border-radius: 14px; font-weight: 700; }
-  .hero-actions .btn.primary{ color:#fff; }
-  .hero-actions .btn{ min-width: 220px; justify-content: center; }
-  @media (max-width:560px){ .hero-actions .btn{ width:100%; } }
-
-  /* === Featured Merch: smaller cards === */
-  /* show 4-up on large screens; keep 3-up on mid screens */
-  @media (min-width: 1100px){
-    .tm-slide{ flex: 0 0 calc(25% - var(--gap)*3/4); } /* 4 across */
+  /* arrows */
+  .tm-arrow{
+    position:absolute; top:50%; transform:translateY(-50%);
+    border:0; width:38px; height:38px; border-radius:999px;
+    background:#ffffff; box-shadow:0 4px 14px rgba(0,0,0,.12);
+    cursor:pointer; display:grid; place-items:center;
   }
-  /* tighten image height */
-  .tm-imgwrap{ aspect-ratio: 4 / 3; } /* was 16/9; shorter cards */
-  /* compact card body */
-  .tm-meta{ padding: 10px 12px; }
-  .tm-name{ font-size: .95rem; }
-  .tm-price{ font-size: .92rem; }
+  .tm-arrow.prev{ left:6px; } .tm-arrow.next{ right:6px; }
+  .tm-arrow:disabled{ opacity:.35; cursor:default; }
 
+  /* dots */
+  .tm-dots{ display:flex; gap:8px; justify-content:center; margin-top:10px; }
+  .tm-dots button{ width:8px; height:8px; border-radius:999px; border:0; background:#c3c9db; cursor:pointer; }
+  .tm-dots button[aria-current="true"]{ background: var(--brand); }
+
+  /* ===== Family cards: keep “My Story” on one line and even heights ===== */
+  .ath-actions .btn,
+  .family-card .actions .btn{ white-space: nowrap; }
+  .family-card .actions{ align-items:center; }
 </style>

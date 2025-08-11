@@ -10,8 +10,10 @@ sizes: [S, M, L, XL, 2XL]
 badge: "New"
 sku: TM-HOOD-001
 description: "Cozy midweight hoodie with kangaroo pocket and embroidered logo."
+category: tops   # or hats, misc, collab
 
-shopify_handle: classic-tee
+
+shopify_handle: hoodie
 variant_ids:
   XS: 12345678900001
   S:  12345678900002

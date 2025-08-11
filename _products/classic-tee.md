@@ -11,6 +11,7 @@ sizes: [XS, S, M, L, XL, 2XL]
 badge: "Best seller"
 sku: TM-TEE-001
 description: "Soft cotton tee with Team Macuga mark. True to size."
+category: tops   # or hats, misc, collab
 
 shopify_handle: classic-tee
 variant_ids:

@@ -1,0 +1,59 @@
+name: Optimize assets
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "assets/img/**"
+      - "assets/video/**"
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # --- Images (Squoosh CLI) ---
+      - name: Install squoosh-cli
+        run: npm i -g @squoosh/cli
+
+      - name: Convert & resize images to AVIF/WebP (800/1200/1600)
+        shell: bash
+        run: |
+          shopt -s globstar nullglob
+          mkdir -p assets/img/opt/800 assets/img/opt/1200 assets/img/opt/1600
+          for f in assets/img/**/*.{jpg,jpeg,png}; do
+            base="$(basename "$f")"
+            name="${base%.*}"
+            for w in 800 1200 1600; do
+              out="assets/img/opt/${w}"
+              # This writes name.avif / name.webp into the width folder
+              squoosh-cli \
+                --resize "{\"width\":${w}}" \
+                --avif "cqLevel=35" \
+                --webp "quality=75" \
+                --output-dir "${out}" "$f" >/dev/null
+              # Keep only avif/webp
+              find "${out}" -maxdepth 1 -type f -name "${name}.*" ! -name "*.avif" ! -name "*.webp" -delete
+            done
+          done
+
+      # --- Video (FFmpeg) ---
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Transcode hero video (720p MP4 + WebM) + poster
+        run: |
+          mkdir -p assets/video/opt assets/img/opt/1200
+          ffmpeg -y -i assets/video/hero.mp4 -vf "scale=-2:720" \
+            -c:v libx264 -profile:v high -preset slow -crf 22 -pix_fmt yuv420p \
+            -movflags +faststart -c:a aac -b:a 128k assets/video/opt/hero-720.mp4
+          ffmpeg -y -i assets/video/hero.mp4 -vf "scale=-2:720" \
+            -c:v libvpx-vp9 -b:v 0 -crf 32 -row-mt 1 -c:a libopus -b:a 96k assets/video/opt/hero-720.webm
+          ffmpeg -y -i assets/video/hero.mp4 -vframes 1 -vf "scale=-2:720" assets/img/opt/1200/hero-poster.jpg
+
+      - name: Commit optimized assets
+        run: |
+          git config user.name  "tm-bot"
+          git config user.email "tm-bot@users.noreply.github.com"
+          git add assets/img/opt assets/video/opt || true
+          git diff --cached --quiet || git commit -m "chore: optimize assets" && git push

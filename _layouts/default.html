@@ -1,85 +1,90 @@
 <!doctype html>
 <html lang="en">
-
-<style>
-body {
-  position: relative;
-}
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: url('{{ "/assets/img/logo-full-color.png" | relative_url }}') no-repeat center center;
-  background-size: min(80%, 840px);
-  opacity: 0.085;
-  filter: blur(1.5px);
-  z-index: 0;
-  pointer-events: none;
-}
-.nav, .full-bleed, .container, main, footer {
-  position: relative;
-  z-index: 1;
-}
-</style>
-
 <head>
   {% include head.html %}
+
+  <style>
+    :root{
+      --bg-logo-url: url('{{ "/assets/img/logo-full-color.png" | relative_url }}');
+    }
+
+    /* keeps logo fixed behind everything */
+    body::before{
+      content:"";
+      position: fixed;
+      inset: 0;
+      background: var(--bg-logo-url) no-repeat center center;
+      background-size: min(80vw, 840px);
+      opacity: .085;
+      filter: blur(1.5px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ensure page content sits above the fixed bg logo */
+    .site-wrapper, main, header, footer { position: relative; z-index: 1; }
+  </style>
 </head>
 
-<!-- in _layouts/default.html just before </body> -->
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  // Tiny rotator for .carousel (bios)
-  document.querySelectorAll('.carousel').forEach(car=>{
-    const slides=[...car.querySelectorAll('.slide')];
-    const dots=[...car.querySelectorAll('.dots button')];
-    let i=0; const show=n=>{slides.forEach((s,k)=>s.classList.toggle('active',k===n));
-                            dots.forEach((d,k)=>d.classList.toggle('active',k===n)); i=n;};
-    dots.forEach((d,idx)=>d.addEventListener('click',()=>show(idx)));
-    if(slides.length>1) setInterval(()=>show((i+1)%slides.length), 4500);
-  });
-
-  // Shop filters/sort (if present)
-  const grid = document.getElementById('products');
-  if(grid){
-    const chips = document.querySelectorAll('.shop-controls .chip');
-    const sortSel = document.getElementById('sortPrice');
-    const filter = cat => document.querySelectorAll('.product-card')
-      .forEach(c => c.classList.toggle('hide', !(cat==='all'||(c.dataset.cat||'').includes(cat))));
-    chips.forEach(ch => ch.addEventListener('click', ()=>{
-      chips.forEach(c=>c.classList.remove('active')); ch.classList.add('active'); filter(ch.dataset.filter);
-    }));
-    sortSel?.addEventListener('change', ()=>{
-      const cards=[...document.querySelectorAll('.product-card')];
-      if(sortSel.value!=='default'){
-        const dir = sortSel.value==='asc'?1:-1;
-        cards.sort((a,b)=> (parseFloat(a.dataset.price)-parseFloat(b.dataset.price))*dir);
-      }
-      cards.forEach(c=>grid.appendChild(c));
-    });
-  }
-});
-</script>
-
-<script defer src="{{ '/assets/js/carousel.js' | relative_url }}"></script>
-
-
 <body>
-  {% include nav.html %}
+  <div class="site-wrapper">
+    {% include nav.html %}
 
-  <main id="content">
-    {{ content }}
-  </main>
+    <main id="content">
+      {{ content }}
+    </main>
 
-  <div class="sep"></div>
-  {% include contact-strip.html %}
+    <div class="sep"></div>
+    {% include contact-strip.html %}
 
-  <footer class="container">
-    © {{ "now" | date: "%Y" }} Team Macuga. All rights reserved.
-  </footer>
+    <footer class="container">
+      © {{ "now" | date: "%Y" }} Team Macuga. All rights reserved.
+    </footer>
+  </div>
 
-    <script>
-      
+  <!-- scripts (keep at end of body) -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Tiny rotator for .carousel (bios)
+    document.querySelectorAll('.carousel').forEach(car=>{
+      const slides=[...car.querySelectorAll('.slide')];
+      const dots=[...car.querySelectorAll('.dots button')];
+      let i=0; const show=n=>{
+        slides.forEach((s,k)=>s.classList.toggle('active',k===n));
+        dots.forEach((d,k)=>d.classList.toggle('active',k===n));
+        i=n;
+      };
+      dots.forEach((d,idx)=>d.addEventListener('click',()=>show(idx)));
+      if(slides.length>1) setInterval(()=>show((i+1)%slides.length), 4500);
+    });
+
+    // Shop filters/sort (if present)
+    const grid = document.getElementById('products');
+    if(grid){
+      const chips = document.querySelectorAll('.shop-controls .chip');
+      const sortSel = document.getElementById('sortPrice');
+      const filter = cat => document.querySelectorAll('.product-card')
+        .forEach(c => c.classList.toggle('hide', !(cat==='all'||(c.dataset.cat||'').includes(cat))));
+      chips.forEach(ch => ch.addEventListener('click', ()=>{
+        chips.forEach(c=>c.removeAttribute('class')); 
+        ch.classList.add('chip','active');
+        filter(ch.dataset.filter);
+      }));
+      sortSel?.addEventListener('change', ()=>{
+        const cards=[...document.querySelectorAll('.product-card')];
+        if(sortSel.value!=='default'){
+          const dir = sortSel.value==='asc'?1:-1;
+          cards.sort((a,b)=>(parseFloat(a.dataset.price)-parseFloat(b.dataset.price))*dir);
+        }
+        cards.forEach(c=>grid.appendChild(c));
+      });
+    }
+  });
+  </script>
+
+  <script defer src="{{ '/assets/js/carousel.js' | relative_url }}"></script>
+
+  <script>
   (function(){
     const blocks = document.querySelectorAll('.mini-rotator');
     blocks.forEach(block => {
@@ -113,6 +118,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })();
   </script>
-
 </body>
 </html>

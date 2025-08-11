@@ -212,4 +212,38 @@ layout: default
   .section-gap.xl{ height: 36px; }
   /* In case a section pair is missing a gap div */
   section.container + section.container{ margin-top: 24px; }
+  /* === Hero box: brighter white + dark text for clarity === */
+  .hero-overlay::before{ background: none !important; } /* no dark scrim */
+  .hero-box{
+    background: rgba(255,255,255,.92) !important;
+    color: var(--ink) !important;
+    border: 1px solid rgba(11,18,32,.08);
+    box-shadow: 0 10px 28px rgba(0,0,0,.16);
+  }
+
+  /* Force two-line tagline */
+  .hero-box .tagline{ margin: 0 0 12px; line-height: 1.35; }
+  .hero-box .tagline span{ display:block; }
+  .hero-box .tagline .t-1{ font-weight: 700; }
+  .hero-box .tagline .t-2{ margin-top: 2px; }
+
+  /* Center + bigger hero buttons */
+  .hero-actions{ justify-content: center; gap: 12px; }
+  .hero-actions .btn{ padding: 12px 18px; border-radius: 14px; font-weight: 700; }
+  .hero-actions .btn.primary{ color:#fff; }
+  .hero-actions .btn{ min-width: 220px; justify-content: center; }
+  @media (max-width:560px){ .hero-actions .btn{ width:100%; } }
+
+  /* === Featured Merch: smaller cards === */
+  /* show 4-up on large screens; keep 3-up on mid screens */
+  @media (min-width: 1100px){
+    .tm-slide{ flex: 0 0 calc(25% - var(--gap)*3/4); } /* 4 across */
+  }
+  /* tighten image height */
+  .tm-imgwrap{ aspect-ratio: 4 / 3; } /* was 16/9; shorter cards */
+  /* compact card body */
+  .tm-meta{ padding: 10px 12px; }
+  .tm-name{ font-size: .95rem; }
+  .tm-price{ font-size: .92rem; }
+
 </style>

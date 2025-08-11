@@ -13,26 +13,22 @@
     <h2 class="section-title">Thank you to our sponsors</h2>
 
     <ul class="sponsors-grid">
-        {% for s in site.data.sponsors %}
-          {% assign href = s.url | default: '' | strip %}
-          {% if href and href contains '://' == false %}
-            {% assign href = 'https://' | append: href %}
+      {% for s in site.data.sponsors %}
+        {% assign href = s.url | default: '' | strip %}
+        <li class="sponsor">
+          {% if href %}
+            <a class="sponsor-link" href="{{ href }}" target="_blank" rel="noopener noreferrer" aria-label="{{ s.name }}">
           {% endif %}
 
-          <li class="sponsor">
-            {% if href %}
-              <a class="sponsor-link" href="{{ href }}" target="_blank" rel="noopener noreferrer" aria-label="{{ s.name }}">
-            {% endif %}
+            <div class="logo-wrap">
+              <img src="{{ s.logo | relative_url }}" alt="{{ s.name }} logo" loading="lazy" onerror="this.classList.add('logo-fallback')">
+            </div>
+            <span class="s-name">{{ s.name }}</span>
 
-              <div class="logo-wrap">
-                <img src="{{ s.logo | relative_url }}" alt="{{ s.name }} logo" loading="lazy" onerror="this.classList.add('logo-fallback')">
-              </div>
-              <span class="s-name">{{ s.name }}</span>
-
-            {% if href %}</a>{% endif %}
-          </li>
-        {% endfor %}
-      </ul>
+          {% if href %}</a>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
 
   </div>
 </section>

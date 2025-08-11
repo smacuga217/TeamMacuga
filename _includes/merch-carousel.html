@@ -1,24 +1,136 @@
-<section class="merch container">
-  <div class="row">
-    <div class="spacer"></div>
-    <button class="slider-btn prev" aria-label="Previous" data-target="#merch-slider">‹</button>
-    <button class="slider-btn next" aria-label="Next" data-target="#merch-slider">›</button>
-  </div>
+<div class="tm-carousel" data-carousel>
+  <button class="tm-arrow prev" aria-label="Previous" data-prev>‹</button>
 
-  <div id="merch-slider" class="merch-track">
-    {% for product in site.products limit:9 %}
-      <article class="product-card">
-        <a class="card-link" href="{{ product.url | relative_url }}">
-          {% if product.featured_image %}
-            <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
-          {% endif %}
-          {% if product.badge %}
-            <span class="pill">{{ product.badge }}</span>
-          {% endif %}
-          <h3>{{ product.title }}</h3>
-          <p class="price">${{ product.price }}</p>
-        </a>
+  <div class="tm-track" data-track tabindex="0">
+    {% for product in site.products limit:12 %}
+      <article class="tm-card">
+        {% if product.external_url %}
+          <a class="tm-link" href="{{ product.external_url }}" target="_blank" rel="noopener">
+            <div class="tm-imgwrap">
+              <span class="img-badge collab">Collab</span>
+              {% if product.featured_image %}
+                <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
+              {% endif %}
+            </div>
+            <div class="tm-meta">
+              <span class="tm-name">{{ product.title }}</span>
+              {% if product.price %}<span class="tm-price">${{ product.price }}</span>{% endif %}
+            </div>
+          </a>
+        {% else %}
+          <a class="tm-link" href="{{ product.url | relative_url }}">
+            <div class="tm-imgwrap">
+              {% if product.badge %}
+                {% assign b = product.badge | downcase %}
+                <span class="img-badge
+                  {% if b contains 'new' %}badge-new{% elsif b contains 'best' %}badge-bestseller{% endif %}">
+                  {{ product.badge }}
+                </span>
+              {% endif %}
+              {% if product.featured_image %}
+                <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
+              {% endif %}
+            </div>
+            <div class="tm-meta">
+              <span class="tm-name">{{ product.title }}</span>
+              {% if product.price %}<span class="tm-price">${{ product.price }}</span>{% endif %}
+            </div>
+          </a>
+        {% endif %}
       </article>
     {% endfor %}
   </div>
-</section>
+
+  <button class="tm-arrow next" aria-label="Next" data-next>›</button>
+  <div class="tm-dots" data-dots aria-label="Carousel pagination"></div>
+</div>
+
+<style>
+  .tm-carousel{ --gap:14px; position:relative; overflow:hidden; }
+  .tm-track{
+    display:flex; gap:var(--gap);
+    overflow-x:auto; scroll-snap-type:x mandatory;
+    padding-bottom:6px; scroll-behavior:smooth;
+  }
+  .tm-card{
+    flex:0 0 240px;               /* smaller cards */
+    background:#fff; border:1px solid var(--border);
+    border-radius:14px; box-shadow:var(--shadow);
+    scroll-snap-align:start; display:flex; flex-direction:column;
+  }
+  @media (min-width:1100px){ .tm-card{ flex-basis: 260px; } }
+
+  .tm-imgwrap{ position:relative; aspect-ratio:4/3; background:#f3f6ff; }
+  .tm-imgwrap img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  /* overlay badges (match shop) */
+  .img-badge{
+    position:absolute; left:10px; top:10px;
+    padding:4px 10px; font-size:.75rem; font-weight:700; line-height:1;
+    border-radius:999px; color:#fff; background: var(--brand);
+    box-shadow:0 6px 16px rgba(0,0,0,.10); pointer-events:none; user-select:none;
+  }
+  .img-badge.collab{ background: linear-gradient(90deg, var(--brand), var(--navy)); }
+  .img-badge.badge-new{ background: var(--brand); }       /* team red */
+  .img-badge.badge-bestseller{ background: var(--navy); } /* team navy */
+
+  .tm-meta{ display:flex; justify-content:space-between; align-items:center; padding:10px 12px; }
+  .tm-name{ font-size:.95rem; font-weight:700; }
+  .tm-price{ font-size:.92rem; color:#64748b; }
+
+  .tm-arrow{
+    position:absolute; top:50%; transform:translateY(-50%);
+    border:0; width:38px; height:38px; border-radius:999px;
+    background:#ffffff; box-shadow:0 4px 14px rgba(0,0,0,.12);
+    cursor:pointer; display:grid; place-items:center;
+  }
+  .tm-arrow.prev{ left:6px; } .tm-arrow.next{ right:6px; }
+  .tm-arrow:disabled{ opacity:.35; cursor:default; }
+
+  .tm-dots{ display:flex; gap:8px; justify-content:center; margin-top:10px; }
+  .tm-dots button{
+    width:8px; height:8px; border-radius:999px; border:0; background:#c3c9db; cursor:pointer;
+  }
+  .tm-dots button[aria-current="true"]{ background: var(--brand); }
+</style>
+
+<script>
+(function(){
+  const root = document.currentScript.closest('[data-carousel]');
+  const track = root.querySelector('[data-track]');
+  const prev  = root.querySelector('[data-prev]');
+  const next  = root.querySelector('[data-next]');
+  const dotsWrap = root.querySelector('[data-dots]');
+
+  function pageWidth(){ return track.clientWidth; }
+  function pages(){ return Math.max(1, Math.ceil(track.scrollWidth / pageWidth())); }
+  function currentPage(){
+    return Math.round(track.scrollLeft / pageWidth());
+  }
+  function goTo(page){
+    const clamped = Math.max(0, Math.min(page, pages()-1));
+    track.scrollTo({ left: clamped * pageWidth(), behavior:'smooth' });
+  }
+  function update(){
+    const p = currentPage(), total = pages();
+    prev.disabled = (p <= 0);
+    next.disabled = (p >= total-1);
+
+    // dots
+    dotsWrap.innerHTML = '';
+    for(let i=0;i<total;i++){
+      const b = document.createElement('button');
+      if(i===p) b.setAttribute('aria-current','true');
+      b.addEventListener('click', ()=>goTo(i));
+      dotsWrap.appendChild(b);
+    }
+  }
+
+  prev.addEventListener('click', ()=>goTo(currentPage()-1));
+  next.addEventListener('click', ()=>goTo(currentPage()+1));
+  track.addEventListener('scroll', ()=>{ window.requestAnimationFrame(update); }, { passive:true });
+  window.addEventListener('resize', update);
+
+  update();
+})();
+</script>

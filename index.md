@@ -16,7 +16,6 @@ layout: default
     <source src="{{ '/assets/video/hero.mp4' | relative_url }}" type="video/mp4">
   </video>
 
-
   <!-- Overlay (desktop / tablet) -->
   <div class="hero-overlay hero-overlay--desktop">
     <div class="hero-content">
@@ -149,110 +148,39 @@ layout: default
 
 <div class="section-gap xl"></div>
 
-<script>
-(function(){
-  // Arrow scroll for carousels
-  const by = (sel, root=document) => Array.from(root.querySelectorAll(sel));
-  const px = () => Math.ceil(document.querySelector('.tm-card')?.getBoundingClientRect().width || 280) + 16;
-
-  by('.slider-btn').forEach(btn=>{
-    const target = document.querySelector(btn.dataset.target);
-    if(!target) return;
-    const update = () => {
-      btn.closest('section').querySelector('.prev').disabled = (target.scrollLeft <= 0);
-      btn.closest('section').querySelector('.next').disabled =
-        (Math.ceil(target.scrollLeft + target.clientWidth) >= target.scrollWidth);
-    };
-    btn.addEventListener('click', () => {
-      target.scrollBy({ left: btn.classList.contains('next') ? px() : -px(), behavior:'smooth' });
-      setTimeout(update, 300);
-    });
-    target.addEventListener('scroll', update, { passive:true });
-    update();
-  });
-
-  // Prevent "#" links from jumping to top (legacy)
-  document.querySelectorAll('.tm-card a[href="#"]').forEach(a=>{
-    a.addEventListener('click', e => e.preventDefault());
-  });
-})();
-</script>
-
 <style>
-  /* ----- brighter white cards sitewide ----- */
-  .card,
+  /* Brighter white for legibility (no size changes) */
   .mission-card,
   .about-summary .about-wrap,
   .hero-box{
-    background:#fff !important;
-    border:1px solid rgba(17,24,39,.08);
+    background:#fff; border:1px solid rgba(17,24,39,.08);
     box-shadow: 0 10px 28px rgba(0,0,0,.14);
   }
 
-  /* ===== HERO ===== */
-  .hero-overlay--desktop{ position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:center; padding: min(6vw, 28px); }
+  /* HERO */
+  .hero-overlay--desktop{ position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:center; padding:min(6vw,28px); }
   .hero-centered{ text-align:center; }
   .hero-box{ border-radius:14px; padding:14px 16px; color:var(--ink); }
-  .hero-box .tagline{ margin: 0 0 12px; line-height:1.38; }
-  .hero-box .tagline .t-1,
-  .hero-box .tagline .t-2{ display:block; }
+  .hero-box .tagline{ margin:0 0 12px; line-height:1.38; }
+  .hero-box .tagline .t-1, .hero-box .tagline .t-2{ display:block; }
   .hero-actions{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
   .hero-btn{ padding:12px 18px; border-radius:14px; font-weight:700; min-width:220px; justify-content:center; }
   @media (max-width:560px){ .hero-btn{ width:100%; } }
 
-  /* Mobile: don’t overlay the video — show the hero box below it */
+  /* Mobile: overlay below video */
   .hero-overlay--mobile{ display:none; }
-  @media (max-width: 700px){
+  @media (max-width:700px){
     .hero-overlay--desktop{ display:none; }
-    .hero-overlay--mobile{ display:block; margin-top: 10px; }
+    .hero-overlay--mobile{ display:block; margin-top:10px; }
   }
 
   /* Section spacing helpers */
-  .section-gap{ height: 20px; }
-  .section-gap.lg{ height: 28px; }
-  .section-gap.xl{ height: 36px; }
-  section.container + section.container{ margin-top: 24px; }
+  .section-gap{ height:20px; }
+  .section-gap.lg{ height:28px; }
+  .section-gap.xl{ height:36px; }
+  section.container + section.container{ margin-top:24px; }
 
-  /* ===== Featured Merch carousel: smaller cards + overlay badges + dots ===== */
-  .tm-carousel{ --gap:14px; position:relative; overflow:hidden; }
-  .tm-track{ display:flex; gap:var(--gap); overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom: 6px; }
-  .tm-card{ flex:0 0 260px; scroll-snap-align:start; background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow: var(--shadow); }
-  .tm-imgwrap{ position:relative; aspect-ratio:4/3; background:#f3f6ff; }
-  .tm-imgwrap img{ width:100%; height:100%; object-fit:cover; display:block; }
-
-  /* badge on image like shop */
-  .m-badge,
-  .tm-imgwrap .img-badge{
-    position:absolute; left:10px; top:10px;
-    padding:4px 10px; font-size:.75rem; font-weight:700; line-height:1;
-    border-radius:999px; color:#fff; background: var(--brand);
-    box-shadow:0 6px 16px rgba(0,0,0,.10); pointer-events:none; user-select:none;
-  }
-  .img-badge.collab{ background: linear-gradient(90deg, var(--brand), var(--navy)); }
-  .img-badge.badge-new{ background: var(--brand); }       /* red */
-  .img-badge.badge-bestseller{ background: var(--navy); } /* navy */
-
-  .tm-meta{ display:flex; justify-content:space-between; align-items:center; padding:10px 12px; }
-  .tm-name{ font-size:.95rem; font-weight:700; }
-  .tm-price{ font-size:.92rem; color:#64748b; }
-
-  /* arrows */
-  .tm-arrow{
-    position:absolute; top:50%; transform:translateY(-50%);
-    border:0; width:38px; height:38px; border-radius:999px;
-    background:#ffffff; box-shadow:0 4px 14px rgba(0,0,0,.12);
-    cursor:pointer; display:grid; place-items:center;
-  }
-  .tm-arrow.prev{ left:6px; } .tm-arrow.next{ right:6px; }
-  .tm-arrow:disabled{ opacity:.35; cursor:default; }
-
-  /* dots */
-  .tm-dots{ display:flex; gap:8px; justify-content:center; margin-top:10px; }
-  .tm-dots button{ width:8px; height:8px; border-radius:999px; border:0; background:#c3c9db; cursor:pointer; }
-  .tm-dots button[aria-current="true"]{ background: var(--brand); }
-
-  /* ===== Family cards: keep “My Story” on one line and even heights ===== */
+  /* “My Story” label consistency */
   .ath-actions .btn,
-  .family-card .actions .btn{ white-space: nowrap; }
-  .family-card .actions{ align-items:center; }
+  .family-card .actions .btn{ white-space:nowrap; }
 </style>

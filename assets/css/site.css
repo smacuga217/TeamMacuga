@@ -1579,3 +1579,12 @@ body::before{
   z-index: 9998;
 }
 .cart-overlay.show { display: block; }
+
+.cart-link{ position:relative; display:inline-flex; align-items:center; gap:.25rem; padding:.25rem; }
+.cart-link svg{ display:block; }
+.cart-count{
+  position:absolute; top:-6px; right:-8px;
+  min-width:16px; height:16px; padding:0 4px;
+  border-radius:999px; background:#e11d48; color:#fff;
+  font-size:.7rem; line-height:16px; text-align:center;
+}

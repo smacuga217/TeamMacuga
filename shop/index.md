@@ -34,43 +34,45 @@ permalink: /shop/
              data-cat="{% if cats %}{% if cats.first %}{{ cats | join: ' ' }}{% else %}{{ cats }}{% endif %}{% endif %}"
              data-price="{{ product.price }}">
       
-      {% if product.external_url %}
-        <!-- Collab: link out, no quick-add -->
-        <a class="card-link" href="{{ product.external_url }}" target="_blank" rel="noopener">
-          <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
-          <span class="pill collab-badge">{{ product.badge | default: 'Collab' }}</span>
-          <h3>{{ product.title }}</h3>
-          {% if product.price %}<p class="price">${{ product.price }}</p>{% endif %}
-        </a>
-      {% else %}
-        <!-- Normal product: link to product page -->
-        <a class="card-link" href="{{ product.url | relative_url }}">
-          <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
-          {% if product.badge %}<span class="pill">{{ product.badge }}</span>{% endif %}
-          <h3>{{ product.title }}</h3>
-          {% if product.price %}<p class="price">${{ product.price }}</p>{% endif %}
-        </a>
+        {% if product.external_url %}
+          <!-- Collab: link out, no quick-add -->
+          <a class="card-link" href="{{ product.external_url }}" target="_blank" rel="noopener">
+            <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
+            <span class="pill collab-badge">{{ product.badge | default: 'Collab' }}</span>
+            <h3>{{ product.title }}</h3>
+            {% if product.price %}<p class="price">${{ product.price }}</p>{% endif %}
+          </a>
+        {% else %}
+          <!-- Normal product: link to product page -->
+          <a class="card-link" href="{{ product.url | relative_url }}">
+            <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
+            {% if product.badge %}<span class="pill">{{ product.badge }}</span>{% endif %}
+            <h3>{{ product.title }}</h3>
+            {% if product.price %}<p class="price">${{ product.price }}</p>{% endif %}
+          </a>
 
-        {% if product.variant_ids %}
-          <!-- Quick add -->
-          <div class="quick-add">
-            {% if product.sizes %}
-              <select class="size-select">
-                {% for s in product.sizes %}
-                  <option value="{{ s }}">{{ s }}</option>
-                {% endfor %}
-              </select>
-            {% endif %}
-            <button class="btn quick-add-btn"
-                    data-variants='{{ product.variant_ids | jsonify }}'
-                    data-title="{{ product.title }}"
-                    data-price="{{ product.price }}"
-                    data-img="{{ product.featured_image | relative_url }}">
-              Add to cart
-            </button>
-          </div>
+          {% if product.variant_ids %}
+            <!-- Quick add -->
+            <div class="quick-add">
+              {% if product.sizes %}
+                <select class="size-select">
+                  {% for s in product.sizes %}
+                    <option value="{{ s }}">{{ s }}</option>
+                  {% endfor %}
+                </select>
+              {% endif %}
+              <input type="number" class="qty-input" min="1" value="1" inputmode="numeric" aria-label="Quantity">
+              <button class="btn quick-add-btn"
+                      data-variants='{{ product.variant_ids | jsonify }}'
+                      data-title="{{ product.title }}"
+                      data-price="{{ product.price }}"
+                      data-img="{{ product.featured_image | relative_url }}">
+                Add to cart
+              </button>
+            </div>
+
+          {% endif %}
         {% endif %}
-      {% endif %}
     </article>
     {% endfor %}
   </div>

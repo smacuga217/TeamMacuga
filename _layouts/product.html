@@ -32,6 +32,10 @@ layout: default
         {% endfor %}
       </div>
       {% endif %}
+      <div class="qty-row">
+        <label for="qty">Quantity</label>
+        <input id="qty" type="number" min="1" value="1" inputmode="numeric">
+      </div>
 
       {% if page.variant_ids %}
       <button class="btn buy-btn" id="add-to-cart"

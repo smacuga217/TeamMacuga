@@ -13,41 +13,26 @@
     <h2 class="section-title">Thank you to our sponsors</h2>
 
     <ul class="sponsors-grid">
-      <li class="sponsor">
-        <a href="#" aria-label="Stifel" target="_blank" rel="noopener">
-          <img src="{{ '/assets/img/sponsors/stifel.png' | relative_url }}" alt="Stifel">
-        </a>
-      </li>
-      <li class="sponsor">
-        <a href="#" aria-label="Pit Viper" target="_blank" rel="noopener">
-          <img src="{{ '/assets/img/sponsors/pit-viper.png' | relative_url }}" alt="Pit Viper">
-        </a>
-      </li>
-      <li class="sponsor">
-        <a href="#" aria-label="Rossignol" target="_blank" rel="noopener">
-          <img src="{{ '/assets/img/sponsors/rossignol.png' | relative_url }}" alt="Rossignol">
-        </a>
-      </li>
-      <li class="sponsor">
-        <a href="#" aria-label="Giro" target="_blank" rel="noopener">
-          <img src="{{ '/assets/img/sponsors/giro.png' | relative_url }}" alt="Giro">
-        </a>
-      </li>
-      <li class="sponsor">
-        <a href="#" aria-label="Swix" target="_blank" rel="noopener">
-          <img src="{{ '/assets/img/sponsors/swix.png' | relative_url }}" alt="Swix">
-        </a>
-      </li>
-      <li class="sponsor">
-        <a href="#" aria-label="TaraShakti" target="_blank" rel="noopener">
-          <img src="{{ '/assets/img/sponsors/tarashakti.png' | relative_url }}" alt="TaraShakti">
-        </a>
-      </li>
-      <li class="sponsor">
-        <a href="#" aria-label="Level" target="_blank" rel="noopener">
-          <img src="{{ '/assets/img/sponsors/level.png' | relative_url }}" alt="Level">
-        </a>
-      </li>
-    </ul>
+        {% for s in site.data.sponsors %}
+          {% assign href = s.url | default: '' | strip %}
+          {% if href and href contains '://' == false %}
+            {% assign href = 'https://' | append: href %}
+          {% endif %}
+
+          <li class="sponsor">
+            {% if href %}
+              <a class="sponsor-link" href="{{ href }}" target="_blank" rel="noopener noreferrer" aria-label="{{ s.name }}">
+            {% endif %}
+
+              <div class="logo-wrap">
+                <img src="{{ s.logo | relative_url }}" alt="{{ s.name }} logo" loading="lazy" onerror="this.classList.add('logo-fallback')">
+              </div>
+              <span class="s-name">{{ s.name }}</span>
+
+            {% if href %}</a>{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+
   </div>
 </section>

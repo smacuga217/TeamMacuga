@@ -11,15 +11,14 @@
       <a href="{{ '/story/' | relative_url }}">Our Story</a>
       <a href="{{ '/updates/' | relative_url }}">Updates</a>
       <a href="{{ '/shop/' | relative_url }}">Shop</a>
-      <!-- Cart button -->
-      <a href="#" id="open-cart" class="cart-link" aria-label="Open cart">
-        <!-- simple cart icon -->
+
+      <!-- Cart icon (opens mini-cart preview) -->
+      <a href="#" class="cart-link" data-open-cart aria-label="Open cart">
         <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M7 4h-2l-1 2v2h2l3.6 7.59-1.35 2.41A1 1 0 0 0 9.1 20h9.9v-2H10.42l1-1.8h6.18a1 1 0 0 0 .92-.62l3.38-8.13A1 1 0 0 0 21 6H7.21l-.94-2Z"/>
         </svg>
         <span class="cart-count" data-cart-count>0</span>
       </a>
-
     </div>
 
     <!-- Mobile menu button -->
@@ -32,10 +31,9 @@
     <a href="{{ '/story/' | relative_url }}">Our Story</a>
     <a href="{{ '/updates/' | relative_url }}">Updates</a>
     <a href="{{ '/shop/' | relative_url }}">Shop</a>
-    <a href="#" class="btn" data-checkout>Checkout</a>
+
+    <!-- View Cart opens preview; checkout lives inside the mini-cart -->
+    <a href="#" class="btn" data-open-cart>View Cart</a>
     <span data-cart-count>0</span>
-    <button id="open-cart" aria-label="Open cart">🛒</button>
-
-
   </div>
 </nav>

@@ -1615,3 +1615,62 @@ body::before{
 .cart-footer{ display:flex; justify-content:space-between; align-items:center; gap:.75rem; padding:1rem; border-top:1px solid var(--border); }
 .cart-overlay{ position:fixed; inset:0; background:rgba(0,0,0,.4); display:none; z-index:9998; }
 .cart-overlay.show{ display:block; }
+
+/* ===== Bigger CTA size ===== */
+.btn.lg{
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+/* ===== Cinematic hero: slow zoom + vignette ===== */
+.hero-video > video{
+  animation: heroZoom 18s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+@keyframes heroZoom{
+  from{ transform: scale(1); }
+  to  { transform: scale(1.06); }
+}
+
+/* soft vignette around the edges for depth */
+.hero-video::after{
+  content:"";
+  position:absolute; inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at center,
+      rgba(0,0,0,0) 55%,
+      rgba(0,0,0,.35) 100%);
+  mix-blend-mode: multiply;   /* keeps colors rich under the vignette */
+}
+
+/* Hero glass card a touch larger/darker for punch */
+.hero-box{
+  background: rgba(11,18,32,.46);  /* was .30–.38 earlier */
+  border: 1px solid rgba(255,255,255,.15);
+  padding: 16px 18px;              /* a tad bigger */
+  border-radius: 14px;
+}
+
+/* Scroll cue button */
+.scroll-cue{
+  position:absolute; left:50%; bottom:16px; transform:translateX(-50%);
+  width:42px; height:42px; border-radius:999px; border:0;
+  background: #ffffffcc;
+  display:grid; place-items:center; cursor:pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,.18);
+}
+.scroll-cue svg{ width:18px; height:18px; }
+.scroll-cue:hover{ filter: brightness(1.03); }
+
+/* Larger hero buttons only inside the hero */
+.hero-actions .btn{ border-radius: 12px; }
+.hero-actions .btn.primary{ background: linear-gradient(90deg, var(--brand), var(--navy)); }
+.hero-actions .btn.lg{ font-size:1.06rem; padding: 12px 16px; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .hero-video > video{ animation: none !important; }
+}

@@ -1,6 +1,7 @@
 title: Team Macuga
-url: "https://smacuga217.github.io"
-baseurl: "/TeamMacuga"   # <- important for GitHub Pages
+url: https://teammacuga.com
+baseurl: ""        # IMPORTANT: empty for a custom domain at the root
+
 theme: null
 markdown: kramdown
 permalink: pretty

@@ -25,9 +25,9 @@ layout: default
           <span class="t-2">Follow the journey and rep the team. <strong>#TeamMacuga</strong></span>
         </p>
         <div class="hero-actions hero-actions--center">
-          <a class="btn primary hero-btn" href="{{ '/shop/' | relative_url }}">Shop Merch</a>
-          <a class="btn hero-btn"          href="{{ '/updates/#results' | relative_url }}">Latest Results</a>
           <a class="btn hero-btn"          href="{{ '/story/' | relative_url }}">Our Story</a>
+          <a class="btn hero-btn"          href="{{ '/updates/#results' | relative_url }}">Latest Results</a>
+          <a class="btn primary hero-btn" href="{{ '/shop/' | relative_url }}">Shop Merch</a>
         </div>
       </div>
     </div>

@@ -1779,3 +1779,42 @@ body.nav-open{ overflow:hidden; }
 .hero-video-fallback .hero-video video{
   display: none;
 }
+
+/* Crisp, slightly stronger site-wide watermark */
+body{ position: relative; }  /* stacking context */
+
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  /* Prefer SVG, fall back to 2× and 1× PNG */
+  background-image: image-set(
+    url('/assets/img/logo-full-color.svg') type('image/svg+xml'),
+    url('/assets/img/logo-full-color@2x.png') type('image/png') 2x,
+    url('/assets/img/logo-full-color.png') type('image/png') 1x
+  );
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  /* Size to round pixel values so it stays sharp */
+  background-size: clamp(520px, 68vw, 860px);
+
+  /* Make it crisper + a touch bolder */
+  opacity: .16;                 /* was ~.08 */
+  filter: blur(.25px) saturate(1.05) contrast(1.02);
+}
+
+/* Keep real content above the watermark */
+.nav, .full-bleed, .container, main, footer{ position:relative; z-index:1; }
+
+/* Tone down on small screens */
+@media (max-width: 640px){
+  body::before{
+    background-size: clamp(360px, 78vw, 600px);
+    opacity: .12;
+    filter: blur(.2px);
+  }
+}

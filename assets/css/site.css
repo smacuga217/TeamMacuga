@@ -2059,3 +2059,11 @@ body::before{
   color: #6b7280;
   text-align: center;
 }
+
+/* Make the Get in touch bar solid white */
+.strip{
+  background: #fff !important;
+  border-top: 1px solid rgba(11,18,32,.10);
+  border-bottom: 1px solid rgba(11,18,32,.06); /* optional, for a subtle edge */
+  box-shadow: 0 6px 14px rgba(0,0,0,.06);      /* optional depth; remove if not wanted */
+}

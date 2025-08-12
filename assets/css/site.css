@@ -1857,3 +1857,51 @@ body{
 
 /* If your watermark is making boxes look dim, tone it down */
 body::before{ opacity:.10; filter: blur(.2px); }
+
+/* === Elevated white surfaces site-wide (stronger contrast) === */
+:root{
+  --page-1:#e9f0ff;                  /* slightly darker page tint */
+  --page-2:#dfe7ff;
+  --surface:#ffffff;                 /* pure white cards */
+  --surface-ink:#0b1220;
+  --surface-border: rgba(11,18,32,.14);
+  --surface-shadow: 0 12px 30px rgba(11,18,32,.14);
+}
+
+body{
+  background: linear-gradient(180deg, var(--page-1), var(--page-2));
+}
+
+/* All “boxes with info” */
+.card,
+.mission-card,
+.about-summary .about-wrap,
+.family-card,
+.bio-block,
+.product-card,
+.tm-card,
+.news-card,
+.res-card,
+.hero-box {
+  background: var(--surface) !important;
+  color: var(--surface-ink) !important;
+  border: 1px solid var(--surface-border) !important;
+  box-shadow: var(--surface-shadow) !important;
+}
+
+/* Tables on Results shouldn’t look grey */
+.res th, .res td { background:#fff !important; }
+
+/* Watermark slightly crisper but not muddying text */
+body::before{
+  opacity:.12 !important;           /* was lower; make it a touch crisper */
+  filter: blur(0.5px) !important;   /* reduce blur so it reads as a logo */
+}
+
+/* full-width band behind a section */
+.band {
+  background: linear-gradient(180deg, #eef4ff, #eaf0ff);
+  border-top: 1px solid rgba(11,18,32,.06);
+  border-bottom: 1px solid rgba(11,18,32,.06);
+}
+.band > .container { padding-top: 28px; padding-bottom: 28px; }

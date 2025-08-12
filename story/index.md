@@ -19,16 +19,6 @@ permalink: /story/
         <a class="btn primary" href="#timeline">Read the Timeline</a>
         <a class="btn" href="#bios">Skip to Bios</a>
       </div>
-
-      <nav class="chip-row" aria-label="Jump to bios">
-        <span class="muted">Jump to:</span>
-        <a class="chip" href="#bio-lauren">Lauren</a>
-        <a class="chip" href="#bio-alli">Alli</a>
-        <a class="chip" href="#bio-sam">Sam</a>
-        <a class="chip" href="#bio-daniel">Daniel</a>
-        <a class="chip" href="#bio-amy">Amy</a>
-        <a class="chip" href="#bio-dan">Dan</a>
-      </nav>
     </div>
   </div>
 </header>
@@ -38,7 +28,7 @@ permalink: /story/
 <!-- ================ Timeline ================= -->
 <section id="timeline" class="container">
   <h2 class="section-title">The Macuga Timeline</h2>
-  <p class="muted">Highlights you can scroll — photos, video, and the moments that shaped the team.</p>
+  <p class="muted tl-intro">Highlights you can scroll — photos, video, and the moments that shaped the team.</p>
 
   <div class="tl">
     <div class="tl-line" aria-hidden="true"></div>
@@ -92,12 +82,11 @@ permalink: /story/
                 {% for li in it.list %}<li>{{ li }}</li>{% endfor %}
               </ul>
             {% endif %}
-            {# any it.source/credits are intentionally NOT rendered #}
           </div>
         </article>
       {% endfor %}
     {% else %}
-      <p class="muted">Add timeline items in <code>_data/timeline.yml</code> to see them here.</p>
+      <p class="muted">Add timeline items in <code>/_data/timeline.yml</code> to see them here.</p>
     {% endif %}
   </div>
 </section>
@@ -107,7 +96,7 @@ permalink: /story/
 <!-- ================ Bios ================= -->
 <section id="bios" class="container">
   <h2 class="section-title">Team Macuga Bios</h2>
-  <p class="muted">Click any name above to jump here.</p>
+  <p class="muted">Click the button above to jump here anytime.</p>
 
   <div class="bios">
     <!-- Lauren -->
@@ -186,11 +175,10 @@ permalink: /story/
       </div>
     </article>
   </div>
-
-  <div class="back-top">
-    <a class="btn" href="#top">Back to top</a>
-  </div>
 </section>
+
+<!-- Floating back-to-top -->
+<button id="storyBackTop" class="back-top-fab" aria-label="Back to top">↑</button>
 
 <style>
 /* Centering + bright cards */
@@ -201,16 +189,15 @@ permalink: /story/
 .story-hero .sub{ color:#fff; opacity:.9; margin:.25rem 0 1rem; }
 .story-hero h1{ color:#fff; margin:0; }
 .hero-cta{ display:flex; gap:.5rem; flex-wrap:wrap; margin:.5rem 0 1rem; }
-.chip-row{ display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; }
-.chip{ border:1px solid var(--border); padding:.35rem .75rem; border-radius:999px; background:#fff; }
 
 /* Timeline */
-.tl{ position:relative; margin:14px 0 0; }
+.tl-intro{ margin: 0 0 18px; }                 /* space under the intro line */
+.tl{ position:relative; margin-top: 16px; padding-top: 18px; }  /* extra headroom for first date label */
 .tl-line{ position:absolute; left:50%; top:0; bottom:0; width:3px; background:linear-gradient(var(--brand),var(--navy)); transform:translateX(-50%); border-radius:999px; }
-.tl-item{ position:relative; margin:26px 0; display:grid; grid-template-columns: 1fr; }
+.tl-item{ position:relative; margin:34px 0; display:grid; grid-template-columns: 1fr; }
 .tl-item.left  .tl-card{ grid-column:1; margin-right: min(6%, 40px); }
 .tl-item.right .tl-card{ grid-column:1; margin-left:  min(6%, 40px); }
-.tl-time{ position:absolute; top:-10px; left:50%; transform:translate(-50%,-100%); font-size:.8rem; color:#64748b; background:#fff; padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
+.tl-time{ position:absolute; top:-8px; left:50%; transform:translate(-50%,-100%); font-size:.8rem; color:#64748b; background:#fff; padding:2px 8px; border-radius:999px; border:1px solid var(--border); }
 .tl-card{
   background:#fff; border:1px solid var(--border); border-radius:14px;
   box-shadow:0 10px 28px rgba(0,0,0,.10);
@@ -240,7 +227,32 @@ permalink: /story/
 .ext{ color:var(--navy); text-decoration:underline; }
 @media (max-width: 760px){ .bios{ grid-template-columns:1fr; } .bio{ flex-direction:row; } }
 
+/* Floating back-to-top */
+.back-top-fab{
+  position: fixed; right: 20px; bottom: 22px;
+  width: 44px; height: 44px; border-radius: 999px; border: 0;
+  background: #ffffff; box-shadow: 0 8px 22px rgba(0,0,0,.16);
+  color: #111827; font-size: 18px; font-weight: 700;
+  display: grid; place-items: center;
+  opacity: 0; transform: translateY(6px); pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease, box-shadow .2s ease;
+  z-index: 2000;
+}
+.back-top-fab.show{ opacity: 1; transform: none; pointer-events: auto; }
+.back-top-fab:hover{ box-shadow: 0 10px 28px rgba(0,0,0,.2); }
+
 /* General spacing */
 .section-gap{ height:24px; }
 .section-gap.xl{ height:40px; }
 </style>
+
+<script>
+(() => {
+  // Floating Back-to-top
+  const btn = document.getElementById('storyBackTop');
+  const toggle = () => (window.scrollY > 400 ? btn.classList.add('show') : btn.classList.remove('show'));
+  window.addEventListener('scroll', toggle, { passive: true });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  toggle();
+})();
+</script>

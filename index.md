@@ -17,7 +17,7 @@ layout: default
   </video>
 
   <!-- Overlay (desktop / tablet) -->
-  <div class="hero-overlay hero-overlay--desktop">
+  <div class="hero-overlay hero-overlay--desktop" aria-hidden="false">
     <div class="hero-content">
       <div class="hero-box hero-centered">
         <p class="tagline">
@@ -53,7 +53,7 @@ layout: default
 
 <!-- ================= Mission Statement ================= -->
 <section id="mission" class="container">
-  <div class="mission-card">
+  <div class="mission-card cardish">
     <h2 class="section-title">Our Mission</h2>
     <p class="lead mission-copy">
       We compete as a family — pushing limits, lifting each other, and showing that grit, joy, and community
@@ -114,7 +114,7 @@ layout: default
 
 <!-- ================= About Summary (after the grid) ================= -->
 <section class="container about-summary">
-  <div class="about-wrap">
+  <div class="about-wrap cardish">
     <p>
       From the first turns to World Cup starts, our story has always been bigger than a podium.
       It’s about family miles in a van, small-town backing, early-morning training, and a belief
@@ -135,7 +135,7 @@ layout: default
 
 <section class="container">
   <h2 class="section-title">Featured Collab</h2>
-  <div class="card" style="display:flex;gap:16px;align-items:center">
+  <div class="card cardish" style="display:flex;gap:16px;align-items:center">
     <img src="{{ '/assets/img/logo-mark-color.png' | relative_url }}" alt="" style="width:64px;height:64px">
     <div style="flex:1">
       <strong>Lauren Macuga × Pit Viper</strong>
@@ -148,15 +148,24 @@ layout: default
 <div class="section-gap xl"></div>
 
 <style>
-  /* Solid, bright hero box (no transparency) */
-  .hero-overlay--desktop{ position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:center; padding:min(6vw,28px); }
+  /* Ensure overlay layers correctly and is clickable */
+  .full-bleed.hero-video{ position:relative; z-index:0; }
+  .full-bleed.hero-video > video{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
+    display:block;
+  }
+  .hero-overlay--desktop{
+    position:absolute; inset:0; z-index:1; /* above video */
+    display:flex; align-items:flex-end; justify-content:center; padding:min(6vw,28px);
+  }
   .hero-centered{ text-align:center; }
   .hero-box{
-    background:#fff !important;            /* force solid white */
+    pointer-events:auto;                    /* buttons are clickable */
+    background:#fff !important;             /* solid white for legibility */
     color:var(--ink) !important;
-    border:1px solid rgba(17,24,39,.08);
+    border:1px solid rgba(11,18,32,.10);
     border-radius:14px;
-    padding: clamp(16px, 2.2vw, 24px);     /* more breathing room */
+    padding: clamp(16px, 2.2vw, 24px);
     box-shadow: 0 14px 34px rgba(0,0,0,.16);
   }
   .hero-box .tagline{ margin:0 0 12px; line-height:1.38; }
@@ -165,21 +174,22 @@ layout: default
   .hero-btn{ padding:12px 18px; border-radius:14px; font-weight:700; min-width:220px; justify-content:center; }
   @media (max-width:560px){ .hero-btn{ width:100%; } }
 
-  /* Mobile: overlay below video */
+  /* Mobile: overlay goes BELOW video (never covers it) */
   .hero-overlay--mobile{ display:none; }
   @media (max-width:700px){
     .hero-overlay--desktop{ display:none; }
     .hero-overlay--mobile{ display:block; margin-top:10px; }
   }
 
-  /* Text boxes: brighter + roomier */
+  /* Bright, roomy info boxes everywhere */
+  .cardish,
   .mission-card,
   .about-summary .about-wrap{
-    background:#fff;
-    border:1px solid rgba(17,24,39,.08);
-    border-radius:14px;
-    padding: clamp(16px, 2.2vw, 24px);
-    box-shadow: 0 12px 28px rgba(0,0,0,.12);
+    background:#fff !important;
+    border:1px solid rgba(11,18,32,.10) !important;
+    border-radius:14px !important;
+    padding: clamp(16px, 2.2vw, 24px) !important;
+    box-shadow: 0 12px 28px rgba(0,0,0,.12) !important;
   }
 
   /* Section spacing helpers */

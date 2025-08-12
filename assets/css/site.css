@@ -2067,3 +2067,63 @@ body::before{
   border-bottom: 1px solid rgba(11,18,32,.06); /* optional, for a subtle edge */
   box-shadow: 0 6px 14px rgba(0,0,0,.06);      /* optional depth; remove if not wanted */
 }
+
+/* === Athlete card action bar: one line, no spill === */
+.family-card .actions{
+  display: grid;
+  grid-template-columns: auto 1fr;   /* [My story] | [icons] */
+  align-items: center;
+  gap: 8px;
+}
+
+.family-card .actions .btn{
+  padding: 8px 12px;
+  border-radius: 10px;
+  min-width: 0;                      /* allow button to shrink if tight */
+}
+
+.family-card .actions .social{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;                      /* let this grid cell actually shrink */
+  flex-wrap: nowrap;                 /* keep everything on one row */
+  overflow: hidden;                  /* no overflow outside the card */
+}
+
+/* Base icon size */
+.family-card .actions .icon-btn{
+  width: 32px;
+  height: 32px;
+}
+
+/* Make icons auto-shrink when there are 3+ so they still fit */
+.family-card .actions .social:has(.icon-btn:nth-child(3)) .icon-btn{
+  width: 28px;
+  height: 28px;
+  gap: 4px;
+}
+.family-card .actions .social:has(.icon-btn:nth-child(4)) .icon-btn{
+  width: 26px;
+  height: 26px;
+}
+
+/* Ensure the image inside scales with the button */
+.family-card .actions .icon-btn img{
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+
+/* On very narrow phones, let icons wrap under the button gracefully */
+@media (max-width: 420px){
+  .family-card .actions{
+    grid-template-columns: 1fr;
+  }
+  .family-card .actions .social{
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+}

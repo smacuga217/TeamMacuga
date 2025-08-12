@@ -26,8 +26,8 @@ layout: default
         </p>
         <div class="hero-actions hero-actions--center">
           <a class="btn primary hero-btn" href="{{ '/story/' | relative_url }}">Our Story</a>
-          <a class="btn hero-btn"          href="{{ '/updates/#results' | relative_url }}">Latest Results</a>
-          <a class="btn hero-btn"          href="{{ '/shop/' | relative_url }}">Rep the Team</a>
+          <a class="btn primary hero-btn" href="{{ '/updates/#results' | relative_url }}">Latest Results</a>
+          <a class="btn primary hero-btn" href="{{ '/shop/' | relative_url }}">Rep the Team</a>
         </div>
       </div>
     </div>
@@ -43,8 +43,8 @@ layout: default
     </p>
     <div class="hero-actions hero-actions--center">
       <a class="btn primary hero-btn" href="{{ '/story/' | relative_url }}">Our Story</a>
-      <a class="btn hero-btn"          href="{{ '/updates/#results' | relative_url }}">Latest Results</a>
-      <a class="btn hero-btn"          href="{{ '/shop/' | relative_url }}">Rep the Team</a>
+      <a class="btn primary hero-btn" href="{{ '/updates/#results' | relative_url }}">Latest Results</a>
+      <a class="btn primary hero-btn" href="{{ '/shop/' | relative_url }}">Rep the Team</a>
     </div>
   </div>
 </div>

@@ -6,26 +6,25 @@
     <ul class="sponsors-grid">
       {% for s in site.data.sponsors %}
         {% assign href = s.url %}
-        {% if href %}
-          {% comment %}
-            Allow absolute links untouched; if someone entered "pitviper.com" (no protocol),
-            auto-prefix "https://".
-          {% endcomment %}
-          {% unless href contains '://' %}
-            {% assign href = 'https://' | append: href %}
-          {% endunless %}
-        {% endif %}
+        {% if href and href contains '://' == false %}{% assign href = 'https://' | append: href %}{% endif %}
+
+        {%- assign name = s.name -%}
+        {%- assign note = '' -%}
+        {%- if name contains '(' -%}
+          {%- assign parts = name | split: '(' -%}
+          {%- assign name = parts[0] | strip -%}
+          {%- assign note = parts[1] | replace:')','' | strip -%}
+        {%- endif -%}
 
         <li class="sponsor">
-          {% if href %}
-            <a class="sponsor-link" href="{{ href }}" target="_blank" rel="noopener noreferrer" aria-label="{{ s.name }}">
-          {% endif %}
-
+          {% if href %}<a class="sponsor-link" href="{{ href }}" target="_blank" rel="noopener">{% endif %}
             <div class="logo-wrap">
               <img src="{{ s.logo | relative_url }}" alt="{{ s.name }} logo" loading="lazy" onerror="this.classList.add('logo-fallback')">
             </div>
-            <span class="s-name">{{ s.name }}</span>
-
+            <span class="s-name">{{ name }}</span>
+            {% if note != '' %}
+              <span class="s-note">({{ note }})</span>
+            {% endif %}
           {% if href %}</a>{% endif %}
         </li>
       {% endfor %}

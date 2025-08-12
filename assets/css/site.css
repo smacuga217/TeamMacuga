@@ -51,6 +51,27 @@ section{ padding:56px 0; }
   background:linear-gradient(90deg,var(--brand),var(--navy)); border-radius:999px;
 }
 
+:root{
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-display: "Outfit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+body{ font-family: var(--font-body); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+/* Use display font where it counts */
+h1, h2, h3, .section-title,
+.nav .links a, .brand-logo, .btn, .chip, .pill, .tm-name,
+.hero-box .tagline strong{
+  font-family: var(--font-display);
+}
+
+/* Slightly bolder headings for punch */
+h1, .section-title{ font-weight: 800; }
+h2, h3{ font-weight: 700; }
+
+/* Optional: tighten buttons/chips a hair */
+.btn, .chip{ letter-spacing: .01em; }
+
+
 /* ======================================================================
    NAVBAR
    =================================================================== */
@@ -2008,4 +2029,33 @@ body::before{
   line-height: 1.1;
   color: #64748b;
   white-space: nowrap;  /* or remove if you want wrapping */
+}
+
+/* Sponsor tiles: tighter, smaller labels */
+.sponsors-grid{
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+.sponsor{
+  height: auto; padding: 12px;
+  display: flex; flex-direction: column; align-items: center;
+  border-radius: 12px; background: #fff; /* if you prefer white tiles */
+}
+.logo-wrap{ height: 56px; display: grid; place-items: center; }
+.logo-wrap img{ max-height: 40px; width: auto; object-fit: contain; filter: none; }
+
+.s-name{
+  margin-top: 8px;
+  font-size: 0.70rem;      /* ~half size compared to your body text */
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: .01em;
+  text-align: center;
+}
+.s-note{
+  margin-top: 2px;
+  font-size: 0.60rem;      /* smaller, secondary line */
+  line-height: 1.2;
+  color: #6b7280;
+  text-align: center;
 }

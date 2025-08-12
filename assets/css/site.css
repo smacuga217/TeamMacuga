@@ -1905,3 +1905,69 @@ body::before{
   border-bottom: 1px solid rgba(11,18,32,.06);
 }
 .band > .container { padding-top: 28px; padding-bottom: 28px; }
+
+/* ===== Bright white cards — override anything earlier ===== */
+.card,
+.mission-card,
+.about-summary .about-wrap,
+.family-card,
+.product-card,
+.tm-card,
+.merch .product-card,
+.featured-collab .card {
+  background: #fff !important;
+  border: 1px solid rgba(11,18,32,.10) !important;
+  box-shadow: 0 12px 28px rgba(0,0,0,.12) !important;
+}
+
+/* Kill the pastel blue fills inside media areas */
+.family-card .media,
+.product-card .media,
+.tm-imgwrap {
+  background: #fff !important;
+  border-color: rgba(11,18,32,.08) !important;
+}
+
+/* Carousel slides/cards specifically */
+.merch-track .product-card,
+.tm-carousel .tm-card {
+  background: #fff !important;
+}
+
+/* Athlete card actions layout: button + icon row that can wrap */
+.family-card .actions{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 10px;
+  align-items: center;
+}
+
+.family-card .actions .btn{
+  min-width: 110px;
+  justify-self: start;
+}
+
+.family-card .actions .social{
+  display: flex;
+  flex-wrap: wrap;          /* <-- allow wrap */
+  gap: 6px;
+  justify-content: flex-end;
+  max-width: 100%;
+}
+
+/* Slightly smaller icon buttons so more fit per row */
+.family-card .actions .icon-btn{
+  width: 32px;
+  height: 32px;
+}
+
+/* If a card gets very narrow, stack the icons under the button */
+@media (max-width: 520px){
+  .family-card .actions{
+    grid-template-columns: 1fr;  /* button on first row */
+  }
+  .family-card .actions .social{
+    justify-content: flex-start;
+  }
+}
+

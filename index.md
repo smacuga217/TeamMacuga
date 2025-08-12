@@ -110,6 +110,16 @@ layout: default
 })();
 </script>
 
+<script>
+  // Add icons-N class based on how many icon buttons are present
+  document.querySelectorAll('.athlete-card .actions .social, .family-card .actions .social')
+    .forEach(row => {
+      const n = row.querySelectorAll('.icon-btn').length;
+      if (n) row.classList.add('icons-' + n);
+    });
+</script>
+
+
 <div class="section-gap lg"></div>
 
 <!-- ================= About Summary (after the grid) ================= -->

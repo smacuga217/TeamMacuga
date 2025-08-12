@@ -1,0 +1,80 @@
+- date: 1995-06-01
+  side: left
+  title: It started with a ski club (and a honeymoon)
+  body: >
+    Amy & Dan met through the Radically Inclined Ski Club at UCSD.
+    First chapter: a honeymoon in Vail — and a decision that snow
+    would always be part of the story.
+  media: /assets/img/story/1995-vail.jpg
+
+- date: 1999-08-01
+  side: right
+  title: West to a ski town
+  body: >
+    Dan’s job offer opened the door to Park City. Goal: share a love
+    of skiing with the kids — and give them mountains for a backyard.
+  media: /assets/img/story/1999-park-city.jpg
+
+# Suggested additions (you can paste these and tweak copy/media):
+- date: 2023-03-01
+  side: left
+  title: Sam named to World Championships team
+  body: >
+    Sam makes the U.S. ski jumping roster for the 2023 FIS Nordic
+    World Ski Championships in Planica.
+  media: /assets/img/story/2023-sam-planica.jpg
+  source: https://usanordic.org/2023-fis-nordic-world-ski-championships-teams/   # kept in data, not rendered
+
+- date: 2024-01-04
+  side: right
+  title: Alli’s breakout season
+  body: >
+    Alli is recognized as “Rookie of the Year” for remarkable progress
+    across the 2023/24 moguls season.
+  media: /assets/img/story/2024-alli-breakout.jpg
+  source: https://www.fis-ski.com/en/freestyle-freeski/moguls-aerials/news/2023-24/a-moguls-and-dual-moguls-season-to-remember
+
+- date: 2024-12-12
+  side: left
+  title: Get Out & Play roots
+  body: >
+    The kids’ first turns came through Park City’s “Get Out & Play”
+    program — the spark that lit a family fire.
+  media: /assets/img/story/get-out-and-play.jpg
+  source: https://www.vaildaily.com/news/us-ski-team-lauren-macuga-birds-of-prey-world-cup/
+
+- date: 2025-01-12
+  side: right
+  title: Lauren wins her first World Cup (SG)
+  body: >
+    A milestone in St. Anton: Lauren’s first World Cup victory in super-G.
+    Later that winter, she adds a Worlds medal.
+  media: /assets/img/story/2025-lauren-st-anton.jpg
+  source: https://www.reuters.com/world/europe/mckennis-duran-lands-alpine-worlds-super-g-gold-2025-02-06/
+
+- date: 2025-02-06
+  side: left
+  title: World Championships hardware
+  body: >
+    In Saalbach, the U.S. women earn super-G hardware; Lauren plays her part
+    in a landmark Worlds for the team.
+  media: /assets/img/story/2025-worlds-saalbach.jpg
+  source: https://www.reuters.com/world/europe/mckennis-duran-lands-alpine-worlds-super-g-gold-2025-02-06/
+
+- date: 2025-02-06
+  side: right
+  title: Alli top-10 at Deer Valley
+  body: >
+    Under the lights at home, Alli posts a top-10 in moguls at the iconic
+    Deer Valley World Cup.
+  media: /assets/img/story/2025-alli-dv.jpg
+  source: https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=FS&competitorid=220306&raceid=…  # (her DV 2025 result)
+
+- date: 2025-08-10
+  side: left
+  title: Sam in Grand Prix, Courchevel
+  body: >
+    Sam competes on the HS132 — part of a summer Grand Prix step toward
+    the World Cup season.
+  media: /assets/img/story/2025-sam-courchevel.jpg
+  source: https://www.fis-ski.com/DB/ski-jumping/calendar-results.html?sectorcode=JP

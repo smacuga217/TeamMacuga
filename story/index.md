@@ -7,7 +7,6 @@ permalink: /story/
 <!-- ================ Hero ================= -->
 <header class="story-hero">
   <div class="story-hero-media">
-    <!-- Use a wide family photo or short loop here -->
     <img src="{{ '/assets/img/story/hero-wide.jpg' | relative_url }}" alt="" />
   </div>
 
@@ -44,118 +43,62 @@ permalink: /story/
   <div class="tl">
     <div class="tl-line" aria-hidden="true"></div>
 
-    <!-- 1995 -->
-    <article class="tl-item left">
-      <time class="tl-time">1995 • Vail</time>
-      <div class="tl-card">
-        <figure class="tl-media">
-          <img src="{{ '/assets/img/story/1995-vail.jpg' | relative_url }}" alt="Honeymoon in Vail" />
-        </figure>
-        <h3>It started with a ski club (and a honeymoon)</h3>
-        <p>Amy & Dan met through the <em>Radically Inclined Ski Club</em> at UC San Diego — then honeymooned in Vail. The seed was planted: a family life that always made room for snow.</p>
-        <p class="tiny muted">Family note</p>
-      </div>
-    </article>
+    {% assign items = site.data.timeline | sort: 'date' %}
+    {% if items and items.size > 0 %}
+      {% for it in items %}
+        {% assign side = it.side %}
+        {% if side == nil or side == '' %}
+          {% if forloop.index0 | modulo: 2 == 0 %}
+            {% assign side = 'left' %}
+          {% else %}
+            {% assign side = 'right' %}
+          {% endif %}
+        {% endif %}
 
-    <!-- 1999 -->
-    <article class="tl-item right">
-      <time class="tl-time">1999 →</time>
-      <div class="tl-card">
-        <figure class="tl-media">
-          <img src="{{ '/assets/img/story/1999-park-city.jpg' | relative_url }}" alt="Move to Park City" />
-        </figure>
-        <h3>West to a ski town</h3>
-        <p>Dan’s job offer opened the door to Park City. Goal: share a love of skiing with the kids — and give them mountains for a backyard. Fun fact: all four were born in different states before Utah became home.</p>
-        <p class="tiny muted">Family note</p>
-      </div>
-    </article>
+        {% assign label = it.label %}
+        {% if label == nil or label == '' %}
+          {% if it.date %}
+            {% assign label = it.date | date: "%Y" %}
+          {% else %}
+            {% assign label = "" %}
+          {% endif %}
+        {% endif %}
 
-    <!-- Early 2000s -->
-    <article class="tl-item left">
-      <time class="tl-time">Early 2000s • Snowbird</time>
-      <div class="tl-card">
-        <figure class="tl-media">
-          <!-- mom’s clip goes here once you send it -->
-          <video controls preload="metadata" poster="{{ '/assets/img/story/snowbird-poster.jpg' | relative_url }}">
-            <source src="{{ '/assets/video/story/snowbird-kids.mp4' | relative_url }}" type="video/mp4" />
-          </video>
-        </figure>
-        <h3>Skiing young</h3>
-        <p>Short skis, big grins, and family room full of gear. Programs like Park City’s <em>Get Out &amp; Play</em> helped turn after-school into on-snow. <span class="tiny muted">Program info via Youth Sports Alliance</span></p>
-      </div>
-    </article>
+        <article class="tl-item {{ side }}">
+          {% if label != "" or it.place %}
+            <time class="tl-time">
+              {{ label }}{% if it.place %} • {{ it.place }}{% endif %}
+            </time>
+          {% endif %}
 
-    <!-- 2019–2021 Lauren joins U.S. Team / WC debut (conservative) -->
-    <article class="tl-item right">
-      <time class="tl-time">2019–2021</time>
-      <div class="tl-card">
-        <h3>Lauren levels up</h3>
-        <p>Lauren breaks through to the U.S. team system and starts stacking speed results, earning World Cup starts in downhill and super-G.</p>
-        <p class="tiny muted">Based on U.S. media/bio coverage and FIS profile</p>
-      </div>
-    </article>
+          <div class="tl-card">
+            {% if it.media %}
+              {% assign m = it.media | downcase %}
+              <figure class="tl-media">
+                {% if m contains '.mp4' or m contains '.webm' or m contains '.mov' %}
+                  <video controls preload="metadata" {% if it.poster %}poster="{{ it.poster | relative_url }}"{% endif %}>
+                    <source src="{{ it.media | relative_url }}" type="video/{% if m contains '.webm' %}webm{% else %}mp4{% endif %}">
+                  </video>
+                {% else %}
+                  <img src="{{ it.media | relative_url }}" alt="{{ it.alt | default: it.title }}">
+                {% endif %}
+              </figure>
+            {% endif %}
 
-    <!-- 2023 Sam World Champs / national team presence -->
-    <article class="tl-item left">
-      <time class="tl-time">2023</time>
-      <div class="tl-card">
-        <h3>Sam on the world stage</h3>
-        <p>Sam competes internationally with USA Nordic, earning Continental Cup podiums and World Cup starts — part of the U.S. women’s resurgence in ski jumping.</p>
-        <p class="tiny muted">FIS/USA Nordic coverage</p>
-      </div>
-    </article>
-
-    <!-- 2023 Alli Rookie of the Year -->
-    <article class="tl-item right">
-      <time class="tl-time">2023</time>
-      <div class="tl-card">
-        <h3>Alli: FIS Rookie of the Year</h3>
-        <p>A NorAm sweep (moguls & duals) and <strong>FIS Rookie of the Year</strong> status put Alli on the map as one of moguls’ rising stars.</p>
-        <p class="tiny muted">U.S. Ski &amp; Snowboard awards</p>
-      </div>
-    </article>
-
-    <!-- 2024–25 Alli World Cup podiums (keep phrasing general if exact venues vary) -->
-    <article class="tl-item left">
-      <time class="tl-time">2024–25</time>
-      <div class="tl-card">
-        <h3>Alli scores World Cup podiums</h3>
-        <p>Breakthrough World Cup podiums and a stack of NorAm wins confirm the trajectory.</p>
-        <p class="tiny muted">Season coverage / FIS profile</p>
-      </div>
-    </article>
-
-    <!-- Jan 12, 2025 Lauren WC win -->
-    <article class="tl-item right">
-      <time class="tl-time">Jan 12, 2025</time>
-      <div class="tl-card">
-        <figure class="tl-media">
-          <img src="{{ '/assets/img/story/lauren-st-anton.jpg' | relative_url }}" alt="Lauren at St. Anton" />
-        </figure>
-        <h3>Lauren wins a World Cup</h3>
-        <p><strong>First career World Cup victory</strong> in super-G at St. Anton, Austria — a landmark for U.S. speed and the team.</p>
-        <p class="tiny muted">Reported by AP / NBC / FIS</p>
-      </div>
-    </article>
-
-    <!-- 2025 Sam GP / World Cup starts -->
-    <article class="tl-item left">
-      <time class="tl-time">2025</time>
-      <div class="tl-card">
-        <h3>Sam: World Cup & Grand Prix starts</h3>
-        <p>Starts across World Cup & Summer Grand Prix fields (Hinzenbach, Trondheim, Courchevel) as she targets Milano–Cortina 2026.</p>
-        <p class="tiny muted">FIS start lists/results</p>
-      </div>
-    </article>
-
-    <!-- “Next chapters” -->
-    <article class="tl-item right">
-      <time class="tl-time">2026 →</time>
-      <div class="tl-card">
-        <h3>Next chapters</h3>
-        <p>Four siblings, three sports — one dream: <strong>Milano–Cortina 2026</strong>. More starts, more points, more podium hunts… and more family miles in the van.</p>
-      </div>
-    </article>
+            {% if it.title %}<h3>{{ it.title }}</h3>{% endif %}
+            {% if it.body  %}<p>{{ it.body }}</p>{% endif %}
+            {% if it.list and it.list.size > 0 %}
+              <ul>
+                {% for li in it.list %}<li>{{ li }}</li>{% endfor %}
+              </ul>
+            {% endif %}
+            {# any it.source/credits are intentionally NOT rendered #}
+          </div>
+        </article>
+      {% endfor %}
+    {% else %}
+      <p class="muted">Add timeline items in <code>_data/timeline.yml</code> to see them here.</p>
+    {% endif %}
   </div>
 </section>
 
@@ -275,11 +218,9 @@ permalink: /story/
 }
 .tl-media{ margin:0 0 .5rem; border-radius:10px; overflow:hidden; background:#eef3ff; border:1px solid var(--border); }
 .tl-media img, .tl-media video{ width:100%; height:auto; display:block; }
-.tiny{ font-size:.82rem; }
 
 /* Two-column feel on wide screens */
 @media (min-width: 980px){
-  .tl{ padding: 0 0 0; }
   .tl-item{ display:grid; grid-template-columns: 1fr 1fr; align-items:start; }
   .tl-item.left  .tl-card{ grid-column: 1; justify-self: end; }
   .tl-item.right .tl-card{ grid-column: 2; justify-self: start; }

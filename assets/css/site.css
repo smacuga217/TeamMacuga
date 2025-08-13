@@ -882,3 +882,161 @@ body.theme-navy #family .ath-card a,
 body.theme-navy .home .athlete-card a {
   color: inherit;
 }
+
+/* ============================
+   TYPOGRAPHY POLISH — SITEWIDE
+   (safe, minimal, legible)
+   ============================ */
+
+/* Scale + rhythm */
+:root{
+  --lh-tight: 1.15;
+  --lh-body: 1.6;
+  --track-tight: -0.01em;
+  --track-wide:  .04em;
+
+  --fs-h1: clamp(2.1rem, 1.2rem + 2.6vw, 3.2rem);
+  --fs-h2: clamp(1.55rem, 1.1rem + 1.6vw, 2.2rem);
+  --fs-h3: clamp(1.15rem, .95rem + .8vw, 1.45rem);
+  --fs-eyebrow: .78rem;
+}
+
+/* Body copy */
+body{
+  font-feature-settings: "liga","calt","ss01","ss02";
+  line-height: var(--lh-body);
+}
+
+/* Headings: slightly tighter, bolder, nicer tracking */
+h1,h2,h3,
+.section-title{
+  letter-spacing: var(--track-tight);
+}
+h1{ font-size: var(--fs-h1); line-height: 1.1; }
+h2,.section-title{ font-size: var(--fs-h2); line-height: 1.16; }
+h3{ font-size: var(--fs-h3); line-height: 1.2; }
+
+/* Eyebrow/kicker label (you already use .section-kicker) */
+.section-kicker,
+.eyebrow{
+  text-transform: uppercase;
+  letter-spacing: var(--track-wide);
+  font-weight: 800;
+  font-size: var(--fs-eyebrow);
+  color: var(--navy);
+  opacity: .95;
+}
+
+/* Links: cleaner underline + color that adapts */
+a{
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+a:hover{
+  text-decoration: underline;
+}
+
+/* Emphasis that reads well on both backgrounds */
+strong, b{ color: inherit; font-weight: 800; }
+
+/* Muted text just a hair darker for readability */
+.muted{ color: var(--muted); opacity: .95; }
+
+/* ============================
+   DARK NAVY BACKGROUND SUPPORT
+   ============================ */
+
+/* On dark sections (outside cards), use bright tokens */
+body.theme-navy{
+  --ink-on-dark: #f1f5ff;
+  --muted-on-dark: #c9d2e8;
+}
+
+/* Section headings + intro lines that sit on the navy bg */
+body.theme-navy .story-hero h1,
+body.theme-navy .story-hero .sub,
+body.theme-navy #timeline > .section-title,
+body.theme-navy #timeline .tl-intro,
+body.theme-navy #bios > .section-title,
+body.theme-navy #bios > .muted {
+  color: var(--ink-on-dark) !important;
+}
+body.theme-navy #timeline .tl-intro,
+body.theme-navy #bios > .muted {
+  color: var(--muted-on-dark) !important;
+}
+
+/* Eyebrow labels on dark: lighten a bit */
+body.theme-navy .section-kicker,
+body.theme-navy .eyebrow{
+  color: #e5ecff;
+  opacity: .95;
+}
+
+/* “Skip to Bios” — keep readable on navy hero */
+.story-hero .btn:not(.primary){
+  background: #fff;
+  color: #0b1220 !important;
+  border: 1px solid rgba(11,18,32,.15);
+}
+.story-hero .btn:not(.primary):hover{
+  text-decoration: none;
+  box-shadow: 0 8px 22px rgba(0,0,0,.12);
+}
+
+/* ============================
+   STORY PAGE — CONTENT CARDS
+   (stay dark on white surfaces)
+   ============================ */
+
+/* Timeline cards + Bio cards always dark-on-white */
+body.theme-navy .tl-card,
+body.theme-navy .bio{
+  --ink:   #0b1220;
+  --muted: #384559;
+  color: var(--ink) !important;
+}
+body.theme-navy .tl-card h3,
+body.theme-navy .tl-card p,
+body.theme-navy .tl-card li,
+body.theme-navy .tl-card a,
+body.theme-navy .bio h3,
+body.theme-navy .bio p,
+body.theme-navy .bio li,
+body.theme-navy .bio a{
+  color: var(--ink) !important;
+}
+body.theme-navy .bio .role{ color:#475569 !important; }
+
+/* Timeline date pill: stays dark on white */
+body.theme-navy .tl-time{
+  color:#334155; background:#fff; border-color: var(--border);
+}
+
+/* ============================
+   OPTIONAL: SUBTLE ACCENTS
+   (Use sparingly for personality)
+   ============================ */
+
+/* Gradient underline on section titles (already present);
+   add a faint gradient text fill for H1 on the hero only */
+.story-hero h1{
+  background: linear-gradient(90deg, #fff, #e6ecff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Small-caps-ish feel for date/eyebrow on timeline cards */
+.tl-card h3{
+  font-weight: 800;
+  letter-spacing: -0.005em;
+}
+.tl-card .eyebrow{ color:#3B3C78; }
+
+/* Links inside white cards: darker underline for clarity */
+.tl-card a:not(.btn),
+.bio a:not(.btn){
+  color: var(--navy);
+  text-decoration: underline;
+}

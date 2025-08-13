@@ -790,3 +790,26 @@ body.theme-navy .strip strong{
    - any plain links are dark */
 body.theme-navy .strip a.btn.primary{ color:#fff !important; }
 body.theme-navy .strip a:not(.btn){ color:var(--ink) !important; }
+
+/* Navy theme: set default (for dark background areas) */
+body.theme-navy{
+  --ink:   #eaf1ff;
+  --muted: #c7d0e6;
+}
+
+/* But inside white-surface components on navy,
+   revert tokens so muted is dark and readable */
+body.theme-navy .card,
+body.theme-navy .family-card,
+body.theme-navy .mission-card,
+body.theme-navy .about-summary .about-wrap,
+body.theme-navy .product-card,
+body.theme-navy .tm-card,
+body.theme-navy .news-card,
+body.theme-navy .res-card,
+body.theme-navy .hero-box,
+body.theme-navy .sponsors-grid .sponsor,
+body.theme-navy .strip {
+  --ink:   #0b1220;
+  --muted: #384559; /* a hair lighter than #1f2b3b, great on white */
+}

@@ -18,7 +18,7 @@ QUERIES = [
     "Alli Macuga ski",
     "Daniel Macuga ski",
 ]
-MAX_PER_QUERY = 8          # keep page light
+MAX_PER_QUERY = 20          # keep page light
 TIMEOUT = 8
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; TeamMacugaBot/1.0)"}
 OUTFILE = "_data/news_feed.json"

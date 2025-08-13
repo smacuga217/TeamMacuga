@@ -1,34 +1,40 @@
-<div class="strip">
-  <div class="container">
-    <div class="row">
-      <h3 style="margin:0">Get in touch</h3>
-      <p>Have a question or want to partner? We’d love to hear from you.</p>
-      <a class="btn primary" href="mailto:teammacuga@gmail.com">Email — teammacuga@gmail.com</a>
-    </div>
-  </div>
-</div>
+<section id="contact" class="strip">
+  <div class="container row">
+    <!-- General -->
+    <article class="contact-card">
+      <h3>General Questions</h3>
+      <p class="muted">Shoot us a note—fans, orders, ideas.</p>
+      <a class="btn" href="mailto:teammacuga@gmail.com?subject=General%20Question%20%E2%80%94%20Team%20Macuga">Email Us</a>
+    </article>
 
-<section class="sponsors">
-  <div class="container">
-    <h2 class="section-title">Thank you to our sponsors</h2>
+    <!-- Partnerships & Media -->
+    <article class="contact-card">
+      <h3>Partnerships &amp; Media</h3>
+      <p class="muted">Brands, press, collabs—pick your lane.</p>
+      <div class="contact-actions" style="display:flex; gap:.5rem; flex-wrap:wrap;">
+        <!-- Partnerships (Erica, CC team inbox) -->
+        <a
+          class="btn primary"
+          href="mailto:erica@truenorthsportsmgt.com?cc=teammacuga@gmail.com&subject=Partnership%20Inquiry%20%E2%80%94%20Team%20Macuga&body=Hi%20Erica%2C%0A%0AI%E2%80%99m%20reaching%20out%20about%20a%20brand%2Fpartnership%20opportunity.%0A%0ABrand%3A%20%0ACampaign%20%2F%20idea%3A%20%0ATimeline%3A%20%0ABudget%20range%3A%20%0A%0ABest%20contact%3A%20%0A%0AThanks!"
+        >Partnerships</a>
 
-    <ul class="sponsors-grid">
-      {% for s in site.data.sponsors %}
-        {% assign href = s.url | default: '' | strip %}
-        <li class="sponsor">
-          {% if href %}
-            <a class="sponsor-link" href="{{ href }}" target="_blank" rel="noopener noreferrer" aria-label="{{ s.name }}">
-          {% endif %}
+        <!-- Media (Team Macuga inbox with prefill) -->
+        <a
+          class="btn"
+          href="mailto:teammacuga@gmail.com?subject=Media%20Inquiry%20%E2%80%94%20Team%20Macuga&body=Hi%20Team%20Macuga%2C%0A%0AI%E2%80%99m%20reaching%20out%20with%20a%20media%20request.%0A%0AOutlet%2FOrganization%3A%20%0AStory%20topic%2Fangle%3A%20%0AInterview%20request%20(Y%2FN)%3A%20%0ADeadline%3A%20%0ABest%20contact%3A%20%0A%0AThanks!"
+        >Media</a>
+      </div>
+    </article>
 
-            <div class="logo-wrap">
-              <img src="{{ s.logo | relative_url }}" alt="{{ s.name }} logo" loading="lazy" onerror="this.classList.add('logo-fallback')">
-            </div>
-            <span class="s-name">{{ s.name }}</span>
-
-          {% if href %}</a>{% endif %}
-        </li>
-      {% endfor %}
-    </ul>
-
+    <!-- Fan mail / mailing address -->
+    <article class="contact-card">
+      <h3>Fan Mail</h3>
+      <address class="muted" style="font-style:normal; line-height:1.45;">
+        Team Macuga<br>
+        1 Victory Ln<br>
+        Park City, UT 84060<br>
+        USA
+      </address>
+    </article>
   </div>
 </section>

@@ -771,3 +771,22 @@ body.theme-navy .section-title { color: #fff; }
 
 /* But inside white surfaces, stay dark (already set above) */
 
+/* === Contact strip: readable on navy === */
+body.theme-navy .strip{
+  background:#fff;              /* your strip stays white */
+  color:var(--ink) !important;  /* default text color = dark */
+}
+
+/* Headline + copy in the strip */
+body.theme-navy .strip h3,
+body.theme-navy .strip p,
+body.theme-navy .strip span,
+body.theme-navy .strip strong{
+  color:var(--ink) !important;
+}
+
+/* Links in the strip:
+   - gradient buttons stay white text
+   - any plain links are dark */
+body.theme-navy .strip a.btn.primary{ color:#fff !important; }
+body.theme-navy .strip a:not(.btn){ color:var(--ink) !important; }

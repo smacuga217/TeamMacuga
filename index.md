@@ -211,4 +211,16 @@ layout: default
   /* Keep “My Story” from wrapping */
   .ath-actions .btn,
   .family-card .actions .btn{ white-space:nowrap; min-width:110px; }
+
+  /* Our Mission: keep heading dark on the white card (navy theme) */
+  body.theme-navy #mission .section-title,
+  body.theme-navy #mission h2.section-title{
+    color: var(--ink) !important;
+  }
+
+  /* (optional) make sure the underline still shows at normal strength */
+  body.theme-navy #mission .section-title::after{
+    opacity: 1;
+  }
+
 </style>

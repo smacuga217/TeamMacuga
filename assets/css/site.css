@@ -891,39 +891,3 @@ body.theme-navy .band > .container {
 a.btn.primary,
 button.btn.primary { color:#fff !important; text-shadow:0 1px 0 rgba(0,0,0,.15); }
 
-{% assign feed = site.data.news_feed | default: empty %}
-{% assign title = include.title | default: "Latest Coverage" %}
-{% assign kicker = include.kicker | default: "From around the web" %}
-
-<section class="news-feed">
-  <header class="section-head">
-    <p class="section-kicker">{{ kicker }}</p>
-    <h2 class="section-heading">{{ title }}</h2>
-  </header>
-
-  {% if feed == empty %}
-    <p class="muted">No recent articles yet.</p>
-  {% else %}
-    {% assign sorted = feed | sort: "published" | reverse %}
-    {% assign groups = sorted | group_by_exp: "item", "item.published | slice: 0, 4" %}
-    {% for g in groups %}
-      <h3 class="news-year">{{ g.name }}</h3>
-      <div class="news-grid">
-        {% for a in g.items %}
-          {% assign img = a.image | default: a.og_image %}
-          <a class="news-card" href="{{ a.link }}" target="_blank" rel="noopener">
-            <div class="news-eyebrow">
-              {% if a.source %}<span class="source-pill">{{ a.source }}</span>{% endif %}
-              {% if a.published %}<time class="news-date" datetime="{{ a.published }}">{{ a.published | slice: 0, 10 }}</time>{% endif %}
-            </div>
-            <h4 class="news-title">{{ a.title }}</h4>
-            {% if img %}
-              <div class="news-thumb" style="background-image:url('{{ img }}');"></div>
-            {% endif %}
-          </a>
-        {% endfor %}
-      </div>
-    {% endfor %}
-  {% endif %}
-</section>
-

@@ -1063,4 +1063,89 @@ body.theme-navy .tl-time{
 .contact-beacon .btn{ box-shadow:none; }
 .theme-navy .contact-beacon .btn:not(.primary){ background:#fff; color:#0b1220; }
 
+/* =========================
+   CONTACT STRIP
+   ========================= */
+.contact-strip .row.tri{
+  display:grid; gap:16px;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+}
+@media (max-width:900px){ .contact-strip .row.tri{ grid-template-columns:1fr; } }
 
+.contact-strip .col h3{ margin:0 0 6px; }
+.contact-strip .col p{ margin:0 0 10px; }
+.contact-strip .btn-row{ display:flex; gap:10px; flex-wrap:wrap; }
+
+/* All buttons in the strip = gradient */
+.contact-strip .btn{
+  border-color: transparent !important;
+  background: linear-gradient(90deg, var(--brand), var(--navy)) !important;
+  color: #fff !important;
+  font-weight: 700;
+}
+
+/* Address should be dark and readable on the white strip */
+.contact-strip .addr,
+.contact-strip .addr address,
+.contact-strip .addr a{
+  color: var(--ink) !important;
+}
+.contact-strip address{ font-style: normal; line-height: 1.4; }
+
+/* =========================
+   SPONSORS GRID (footer)
+   ========================= */
+.sponsors{ padding: clamp(28px, 5vw, 52px) 0; }
+.sponsors-grid{
+  list-style:none; margin:0; padding:0;
+  display:grid; gap:16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+/* White tiles, smaller logos, just the picture */
+.s-tile{
+  position:relative;
+  background:#fff; border:1px solid var(--border);
+  border-radius:14px; box-shadow: var(--shadow);
+  display:grid; place-items:center;
+  aspect-ratio: 16 / 9;          /* consistent tile shape */
+  padding: 10px 12px;            /* keeps logo off the edges */
+}
+
+/* Dial logo size down a touch */
+.s-logo{
+  max-height: 42px;              /* was a bit large; tune as needed */
+  width: auto; object-fit: contain; display:block;
+}
+@media (min-width: 960px){ .s-logo{ max-height: 50px; } }
+
+/* Small corner tag for athlete-specific sponsors */
+.s-badge{
+  position:absolute; right:8px; bottom:8px;
+  display:inline-flex; align-items:center; gap:6px;
+  padding: 3px 8px; font-size:.68rem; line-height:1;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--brand), var(--navy));
+  color:#fff; border:1px solid rgba(255,255,255,.35);
+  box-shadow: 0 8px 18px rgba(0,0,0,.10);
+}
+.s-tile:not(.has-badge) .s-badge{ display:none; }
+
+/* Navy theme: footer stays readable (tiles are white already) */
+body.theme-navy .sponsors,
+body.theme-navy .sponsors a{ color:#eaf1ff; }
+body.theme-navy .sponsors .s-tile{ color: var(--ink); } /* inside tiles */
+
+/* Sponsors header: left-align title + kicker */
+.sponsors .section-head{
+  text-align: left !important;
+  display: flex;               /* handles cases where header is flex/centered */
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* just in case something added margins for centering */
+.sponsors .section-head .section-kicker,
+.sponsors .section-head .section-title{
+  margin-left: 0;
+}

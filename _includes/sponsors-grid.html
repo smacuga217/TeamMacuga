@@ -1,32 +1,21 @@
-<section class="sponsors-block">
+<section class="sponsors" aria-labelledby="sponsors-title">
   <div class="container">
-    <h2 class="section-title">Thank you to our sponsors</h2>
-    <p class="section-sub">Their support keeps the dream alive.</p>
+    <header class="section-head">
+      <p class="section-kicker">Their support keeps the dream alive.</p>
+      <h2 id="sponsors-title" class="section-title">Thank you to our sponsors</h2>
+    </header>
 
     <ul class="sponsors-grid">
-      {% for s in site.data.sponsors %}
-        {% assign href = s.url %}
-        {% if href and href contains '://' == false %}{% assign href = 'https://' | append: href %}{% endif %}
-
-        {%- assign name = s.name -%}
-        {%- assign note = '' -%}
-        {%- if name contains '(' -%}
-          {%- assign parts = name | split: '(' -%}
-          {%- assign name = parts[0] | strip -%}
-          {%- assign note = parts[1] | replace:')','' | strip -%}
-        {%- endif -%}
-
-        <li class="sponsor">
-          {% if href %}<a class="sponsor-link" href="{{ href }}" target="_blank" rel="noopener">{% endif %}
-            <div class="logo-wrap">
-              <img src="{{ s.logo | relative_url }}" alt="{{ s.name }} logo" loading="lazy" onerror="this.classList.add('logo-fallback')">
-            </div>
-            <span class="s-name">{{ name }}</span>
-            {% if note != '' %}
-              <span class="s-note">({{ note }})</span>
-            {% endif %}
-          {% if href %}</a>{% endif %}
-        </li>
+      {% assign items = site.data.sponsors %}
+      {% for s in items %}
+      <li class="s-item">
+        <figure class="s-tile{% if s.athlete %} has-badge{% endif %}">
+          <img class="s-logo" src="{{ s.logo | relative_url }}" alt="{{ s.name }}">
+          {% if s.athlete %}
+            <figcaption class="s-badge" aria-label="Sponsored athlete">{{ s.athlete }}</figcaption>
+          {% endif %}
+        </figure>
+      </li>
       {% endfor %}
     </ul>
   </div>

@@ -149,7 +149,7 @@ layout: default
     <img src="{{ '/assets/img/logo-mark-color.png' | relative_url }}" alt="" style="width:64px;height:64px">
     <div style="flex:1">
       <strong>Lauren Macuga × Pit Viper</strong>
-      <p class="muted" style="margin:4px 0 0">Bold speed-inspired shades designed by Lauren.</p>
+      <p style="margin:4px 0 0">Bold speed-inspired shades designed by Lauren.</p>
     </div>
     <a class="btn primary" href="#">Shop the collab</a>
   </div>

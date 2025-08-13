@@ -2260,3 +2260,30 @@ body::before{
 #tab-news .news-grid { 
   gap: 14px !important; 
 }
+
+/* ——— News tab spacing polish ——— */
+
+/* 1) A little more breathing room above the first section */
+#tab-news .news-highlights .section-head {
+  margin-top: clamp(10px, 1.2vw, 16px) !important;
+}
+
+/* 2) Tighten the space between highlights and the "Updated daily" section */
+#tab-news .news-highlights { 
+  margin-bottom: 6px !important;      /* less space under the highlight block */
+}
+#tab-news .divider { 
+  margin: 6px 0 8px !important;       /* pull the divider closer to the cards */
+}
+#tab-news .news-feed .section-head {
+  margin-top: 4px !important;         /* pull the "Updated daily" title up */
+}
+
+/* (still keep grids tidy) */
+#tab-news .news-grid { gap: 14px !important; }
+
+/* Optional: if highlights still feel tight on small screens, ease them slightly */
+@media (max-width: 640px){
+  #tab-news .news-highlights .section-head { margin-top: 12px !important; }
+  #tab-news .divider { margin: 8px 0 10px !important; }
+}

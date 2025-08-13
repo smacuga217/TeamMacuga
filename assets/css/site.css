@@ -891,3 +891,33 @@ body.theme-navy .band > .container {
 a.btn.primary,
 button.btn.primary { color:#fff !important; text-shadow:0 1px 0 rgba(0,0,0,.15); }
 
+/* --- FIX: Our Mission card on the navy theme --- */
+
+/* 1) The outer band should NOT turn white */
+body.theme-navy .band,
+body.theme-navy .band > .container{
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+
+/* 2) The Mission card itself stays a white surface with dark text */
+#mission .mission-card,
+#mission .about-summary .about-wrap{
+  background:#fff !important;
+  color: var(--ink) !important;
+  border: 1px solid var(--border);
+}
+
+/* 3) Override the "all headings white on navy" rule INSIDE Mission */
+body.theme-navy #mission h1,
+body.theme-navy #mission h2,
+body.theme-navy #mission h3,
+body.theme-navy #mission .section-title{
+  color: var(--ink) !important;
+}
+
+/* 4) Paragraphs and links inside Mission: readable */
+#mission p,
+#mission a{ color: var(--ink) !important; }
+#mission .muted{ color:#334155 !important; }  /* stronger than the pale gray */

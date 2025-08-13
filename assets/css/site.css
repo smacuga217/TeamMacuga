@@ -6,7 +6,7 @@
 :root{
   /* Color */
   --bg:#f7fbff; --bg-2:#eef4ff;
-  --ink:#0b1220; --muted:#475569;
+  --ink:#0b1220; --muted:#1f2b3b;
   --border:rgba(11,18,32,.10);
   --card:#fff; --shadow:0 12px 28px rgba(0,0,0,.12);
 

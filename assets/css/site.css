@@ -2221,3 +2221,42 @@ body::before{
 
 /* Optional: slightly reduce card spacing */
 #tab-news .news-grid { gap: 6px; }
+
+/* --- Tighten the News tab spacing (scoped) --- */
+#tab-news { 
+  margin-top: 0 !important;
+  padding-top: 0 !important;      /* stop margin-collapsing */
+}
+
+.tabs { 
+  margin: 6px 0 8px !important;   /* smaller gap under the tab buttons */
+}
+
+/* kill any top margin on the first section */
+#tab-news > .news-highlights:first-child,
+#tab-news > .news-feed:first-child {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  display: flow-root;              /* also prevents margin-collapsing */
+}
+
+/* section title block: tighter */
+#tab-news .section-head { 
+  margin: 2px 0 8px !important; 
+}
+#tab-news .section-kicker { 
+  margin: 0 0 2px !important; 
+}
+#tab-news .section-heading { 
+  margin: 0 !important; 
+}
+
+/* divider between the two sections */
+#tab-news .divider { 
+  margin: 10px 0 !important; 
+}
+
+/* card grid spacing in news */
+#tab-news .news-grid { 
+  gap: 14px !important; 
+}

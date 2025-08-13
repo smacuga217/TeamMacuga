@@ -579,3 +579,90 @@ body.theme-navy .section-title{ color:#fff; }
   padding:14px;
   background:#fff;
 }
+
+/* ===== Readability on dark navy pages ===== */
+body.theme-navy{
+  color:#eaf1ff;              /* default body text */
+}
+body.theme-navy .muted{ color:#c7d0e6; }
+
+/* keep white-surface components dark-on-white as-is */
+body.theme-navy .nav,
+body.theme-navy .card,
+body.theme-navy .family-card,
+body.theme-navy .product-card,
+body.theme-navy .tm-card,
+body.theme-navy .news-card,
+body.theme-navy .res-card,
+body.theme-navy .hero-box {
+  color: var(--ink);
+}
+
+/* headlines in normal sections on dark bg */
+body.theme-navy .section-title,
+body.theme-navy h1, 
+body.theme-navy h2, 
+body.theme-navy h3 { color:#fff; }
+
+/* links readable on dark background (but inherit inside white cards) */
+body.theme-navy a{ color:#ffffff; }
+body.theme-navy .card a,
+body.theme-navy .nav a { color: inherit; }
+
+/* ===== Home: athlete grid hard reset ===== */
+.home .ath-grid,
+#family .ath-grid,
+.home .athlete-grid {                     /* legacy class safety net */
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap:16px;
+}
+
+/* square media well with strict sizing */
+.home .ath-card .ath-media,
+#family .ath-card .ath-media,
+.home .athlete-card .media {              /* legacy */
+  width:100%;
+  aspect-ratio: 1 / 1;
+  height:auto !important;                 /* stomp any fixed heights */
+  border-radius:12px;
+  overflow:hidden;
+  background:#eef3ff;
+  border:1px solid var(--border);
+}
+
+/* headshots fill the well */
+.home .ath-card .ath-media img,
+#family .ath-card .ath-media img,
+.home .athlete-card .media img {          /* legacy */
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  display:block;
+}
+
+/* logos should NOT fill — contain & pad */
+.home .ath-card .ath-media img.logo,
+#family .ath-card .ath-media img.logo,
+.home .ath-card .ath-media img[alt*="logo" i],
+#family .ath-card .ath-media img[alt*="logo" i],
+.home .athlete-card .media img.logo,      /* legacy */
+.home .athlete-card .media img[alt*="logo" i] {
+  object-fit:contain !important;
+  padding:14px;
+  background:#fff;
+}
+
+/* keep CTAs aligned across cards */
+.home .ath-card, #family .ath-card, .home .athlete-card {
+  display:flex; flex-direction:column;
+}
+.home .ath-card .ath-actions,
+#family .ath-card .ath-actions,
+.home .athlete-card .actions { margin-top:auto; }
+
+/* small social icons */
+#family .ath-ico img, .home .ath-ico img {
+  width:18px; height:18px; object-fit:contain;
+}
+

@@ -1,41 +1,41 @@
 /* =========================================================================
-   Team Macuga — Light Theme (CLEANED)
+   TEAM MACUGA — CLEAN THEME
    ========================================================================= */
 
-/* --------------------------- Design Tokens ----------------------------- */
+/* --------------------------- Design tokens ----------------------------- */
 :root{
-  /* Color */
-  --bg:#f7fbff; --bg-2:#eef4ff;
-  --ink:#0b1220; --muted:#475569;
+  /* brand + surfaces */
+  --brand:#9F1D2D;
+  --navy:#3B3C78;
+
+  /* backgrounds */
+  --page-1:#f9fbff;
+  --page-2:#f2f6ff;
+
+  /* text + borders */
+  --ink:#0b1220;
+  --muted:#475569;                    /* medium contrast, readable */
   --border:rgba(11,18,32,.10);
-  --card:#fff; --shadow:0 12px 28px rgba(0,0,0,.12);
+  --card:#ffffff;
+  --shadow:0 12px 28px rgba(0,0,0,.12);
 
-  --brand:#9F1D2D;     /* team red */
-  --navy:#3B3C78;      /* team navy */
-
-  /* Nav */
-  --nav-bg:#fff; --nav-ink:#3B3C78; --nav-border:#e5e7eb;
-
-  /* Radii / layout */
-  --r-s:10px; --r:14px; --r-l:18px;
+  /* layout */
   --container:1100px;
+  --r-s:10px; --r:14px; --r-l:18px;
 
-  /* Other */
+  /* misc */
   --snow-a:.35;
-
-  /* Fonts */
-  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-  --font-display: "Outfit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 }
 
 /* --------------------------- Base ------------------------------------- */
 *{ box-sizing:border-box; }
 html{ scroll-behavior:smooth; }
 body{
-  margin:0; color:var(--ink); font-family:var(--font-body);
+  margin:0; font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
   -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-  background:linear-gradient(180deg,#f9fbff 0%, #f2f6ff 60%, #f9fbff 100%);
-  position:relative; /* for watermark layering */
+  color:var(--ink);
+  background:linear-gradient(180deg,var(--page-1),var(--page-2));
+  position:relative; /* for site watermark set in layout via body::before */
 }
 a{ color:inherit; text-decoration:none; }
 img{ max-width:100%; display:block; }
@@ -44,10 +44,12 @@ section{ padding:56px 0; }
 .lead{ font-size:clamp(1.02rem,1.2vw,1.25rem); color:var(--muted); }
 .muted{ color:var(--muted); }
 
-/* Typographic accents */
+/* Headings (display face) */
 h1,h2,h3,.section-title,
 .nav .links a,.brand-logo,.btn,.pill,.tm-name,
-.hero-box .tagline strong{ font-family:var(--font-display); }
+.hero-box .tagline strong{
+  font-family:Outfit, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
 h1,.section-title{ font-weight:800; }
 h2,h3{ font-weight:700; }
 
@@ -57,12 +59,16 @@ h2,h3{ font-weight:700; }
   display:inline-flex; align-items:center; gap:8px;
   padding:10px 14px; border-radius:12px;
   border:1px solid var(--border); background:#fff; box-shadow:var(--shadow);
-  letter-spacing:.01em;
+  letter-spacing:.01em; color:var(--ink);
 }
-.btn.primary{ border-color:transparent; background:linear-gradient(90deg,var(--brand),var(--navy)); color:#fff; font-weight:700; }
+.btn.primary{
+  border-color:transparent;
+  background:linear-gradient(90deg,var(--brand),var(--navy));
+  color:#fff; font-weight:700; text-shadow:0 1px 0 rgba(0,0,0,.15);
+}
 .btn.lg{ padding:14px 18px; border-radius:14px; font-size:1.05rem; font-weight:700; }
 
-/* Headings with gradient underline */
+/* Gradient underline headings */
 .section-title{ font-size:clamp(1.35rem,2vw,1.75rem); margin:0 0 10px; position:relative; }
 .section-title::after{
   content:""; display:block; height:3px; width:80px; margin-top:8px;
@@ -70,244 +76,74 @@ h2,h3{ font-weight:700; }
 }
 
 /* =========================================================================
-   NAVBAR
+   NAV
    ========================================================================= */
 .nav{
   position:sticky; top:0; z-index:1500;
-  background:var(--nav-bg); color:var(--nav-ink);
-  border-bottom:1px solid var(--nav-border);
+  background:#fff; color:#1f2937;
+  border-bottom:1px solid #e5e7eb;
   box-shadow:0 6px 18px rgba(15,23,42,.06);
 }
 .nav-inner{ height:84px; display:flex; align-items:center; gap:16px; }
 .brand-logo img{ height:48px; width:auto; display:block; }
 .links{ display:flex; align-items:center; gap:25px; margin-left:auto; }
-.links a{ color:var(--nav-ink); font-weight:600; font-size:1.05rem; }
+.links a{ color:#3B3C78; font-weight:600; font-size:1.05rem; }
 
-/* Mobile menu */
-.menu-btn{ display:none; background:transparent; border:1px solid var(--nav-border); padding:8px 12px; border-radius:10px; color:#111827; }
+.menu-btn{ display:none; background:transparent; border:1px solid #e5e7eb; padding:8px 12px; border-radius:10px; color:#111827; }
 .mobile-drawer{
-  position:fixed; left:0; right:0; top:var(--nav-h,84px);
-  height:calc(100dvh - var(--nav-h,84px));
-  background:#fff; border-top:1px solid var(--nav-border);
-  transform:translateY(-8px); opacity:0; pointer-events:none;
-  transition:.2s ease; z-index:3000; display:flex; flex-direction:column;
+  position:fixed; left:0; right:0; top:84px; height:calc(100dvh - 84px);
+  background:#fff; border-top:1px solid #e5e7eb;
+  transform:translateY(-8px); opacity:0; pointer-events:none; transition:.2s;
+  z-index:3000; display:flex; flex-direction:column;
 }
 .mobile-drawer.open{ transform:none; opacity:1; pointer-events:auto; }
-.mobile-drawer a{ padding:14px 20px; border-top:1px solid var(--nav-border); color:#111827; }
+.mobile-drawer a{ padding:14px 20px; border-top:1px solid #e5e7eb; color:#111827; }
 .nav-overlay{ position:fixed; inset:0; background:rgba(0,0,0,.35); z-index:2500; opacity:0; pointer-events:none; transition:.2s; }
 .nav-overlay.show{ opacity:1; pointer-events:auto; }
 body.nav-open{ overflow:hidden; }
-
-@media (max-width:768px){
-  .links{ display:none; }
-  .menu-btn{ display:inline-flex; }
-}
+@media (max-width:768px){ .links{ display:none; } .menu-btn{ display:inline-flex; } }
 
 /* Hide theme-provided headers */
 .site-header,.secondary-nav,header[role="banner"]{ display:none !important; }
 
 /* =========================================================================
-   HERO — Full-bleed video + overlay
+   HERO (video + overlay)
    ========================================================================= */
 .full-bleed{ position:relative; left:50%; margin-left:-50vw; width:100vw; overflow:hidden; background:#000; }
-.hero-video{ height:clamp(360px,62vh,740px); margin-bottom:8px; position:relative; overflow:hidden; isolation:isolate; background:#000 url('/assets/img/hero/poster.jpg') center/cover no-repeat; }
-.hero-video>video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; animation:heroZoom 18s ease-in-out infinite alternate; transform-origin:center; }
-@media (prefers-reduced-motion:reduce){ .hero-video>video{ animation:none !important; } }
-@keyframes heroZoom{ from{transform:scale(1);} to{transform:scale(1.06);} }
-.hero-video::after{ content:""; position:absolute; inset:0; pointer-events:none;
-  background:radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,.35) 100%); mix-blend-mode:multiply; }
-
+.hero-video{
+  height:clamp(360px,62vh,740px); margin-bottom:8px;
+  position:relative; overflow:hidden; isolation:isolate;
+  background:#000 url('/assets/img/hero/poster.jpg') center/cover no-repeat;
+}
+.hero-video>video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
 .hero-cta-row{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin:8px 0 18px; }
 .home .hero-logo{ max-width:420px; width:90%; margin:18px auto 8px; display:block; }
 
 .hero-overlay{ position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:center; padding:min(4vw,18px); pointer-events:none; }
-.hero-overlay::before{ content:""; position:absolute; inset:0; } /* scrim disabled globally */
 .hero-content{ width:100%; max-width:var(--container); margin:0 auto; padding:0 20px; position:relative; display:flex; justify-content:center; }
 .hero-box{
-  pointer-events:auto; color:#fff; background:rgba(11,18,32,.46);
-  border:1px solid rgba(255,255,255,.15); border-radius:14px; padding:16px 18px;
+  pointer-events:auto; color:#0b1220; /* we’ll keep hero-box white on navy theme */
+  background:#fff;
+  border:1px solid var(--border); border-radius:14px; padding:16px 18px;
   box-shadow:0 10px 30px rgba(0,0,0,.15);
 }
 .hero-box .tagline{ margin:0 0 8px; font-size:clamp(.95rem,1.05vw,1.05rem); line-height:1.35; max-width:760px; }
 .hero-actions{ display:flex; flex-wrap:wrap; gap:10px; }
-.hero-actions .btn{ border-radius:12px; }
-.hero-actions .btn.primary{ background:linear-gradient(90deg,var(--brand),var(--navy)); }
-.hero-actions .btn.lg{ font-size:1.06rem; padding:12px 16px; }
-
-/* Optional scroll cue */
-.scroll-cue{
-  position:absolute; left:50%; bottom:16px; transform:translateX(-50%);
-  width:42px; height:42px; border-radius:999px; border:0;
-  background:#ffffffcc; display:grid; place-items:center; cursor:pointer;
-  box-shadow:0 6px 18px rgba(0,0,0,.18);
-}
 
 /* Space after hero */
 .hero-video + .container,
 .hero-video + section{ margin-top:8px; }
 
-/* Hero rotator (stack + fade, simplified) */
-.hero-rotator{ position:relative; margin-top:16px; }
-.hero-rotator .rotator{ position:relative; height:clamp(320px,52vh,640px); overflow:hidden; border-radius:14px; }
-.hero-rotator .slide{ position:absolute; inset:0; opacity:0; transition:opacity .45s ease; }
-.hero-rotator .slide.active{ opacity:1; }
-.hero-rotator .slide img{ width:100%; height:100%; object-fit:cover; }
-.hero-rotator .rotator-dots{ position:absolute; left:0; right:0; bottom:10px; display:flex; justify-content:center; gap:8px; }
-.hero-rotator .rotator-dots button{ width:8px; height:8px; border-radius:999px; border:0; background:#c3c9db; cursor:pointer; }
-.hero-rotator .rotator-dots button[aria-current="true"]{ background:var(--brand); }
-.tm-arrow{ position:absolute; top:50%; transform:translateY(-50%); border:0; width:38px; height:38px; border-radius:999px; background:#ffffffcc; box-shadow:0 4px 14px rgba(0,0,0,.12); cursor:pointer; display:grid; place-items:center; }
-.tm-arrow.prev{ left:8px; } .tm-arrow.next{ right:8px; }
-.tm-arrow:disabled{ opacity:.35; cursor:default; }
-
 /* =========================================================================
-   CARDS & GRIDS
+   CARDS / GRIDS
    ========================================================================= */
-.card{ background:#fff; border:1px solid var(--border); border-radius:var(--r); box-shadow:var(--shadow); padding:16px; }
+.card{ background:#fff; border:1px solid var(--border); border-radius:var(--r); box-shadow:var(--shadow); padding:16px; color:var(--ink); }
 .grid{ display:grid; gap:16px; }
 .grid.cols-2{ grid-template-columns:repeat(2,minmax(0,1fr)); }
 .grid.cols-3{ grid-template-columns:repeat(3,minmax(0,1fr)); }
 .grid.cols-4{ grid-template-columns:repeat(4,minmax(0,1fr)); }
 @media (max-width:960px){ .grid.cols-4{ grid-template-columns:repeat(2,1fr); } }
 @media (max-width:720px){ .grid.cols-2,.grid.cols-3,.grid.cols-4{ grid-template-columns:1fr; } }
-
-/* =========================================================================
-   FAMILY (overview + compact cards)
-   ========================================================================= */
-.family-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; }
-.family-card{
-  background:#fff; border:1px solid var(--border); border-radius:12px;
-  box-shadow:var(--shadow); padding:12px; display:flex; flex-direction:column;
-}
-.family-card .media{ width:100%; height:140px; border-radius:10px; overflow:hidden; background:#fff; border:1px solid var(--border); position:relative; }
-.family-card .media img{ width:100%; height:100%; object-fit:cover; display:block; }
-.family-card h3{ font-size:.98rem; margin:6px 0 4px; }
-.family-card p{ font-size:.88rem; margin:0 0 8px; color:var(--muted); }
-.family-card .actions{ display:grid; grid-template-columns:auto 1fr; align-items:center; gap:8px; }
-.family-card .actions .social{ display:flex; justify-content:flex-end; align-items:center; gap:6px; min-width:0; flex-wrap:nowrap; overflow:hidden; }
-.icon-btn{ display:grid; place-items:center; width:32px; height:32px; border-radius:999px; border:1px solid var(--border); background:#fff; box-shadow:var(--shadow); transition:transform .12s ease; }
-.icon-btn:hover{ transform:translateY(-1px); }
-.icon-btn img{ width:18px; height:18px; object-fit:contain; }
-
-@media (max-width:420px){
-  .family-card .actions{ grid-template-columns:1fr; }
-  .family-card .actions .social{ justify-content:flex-start; flex-wrap:wrap; overflow:visible; }
-}
-
-/* Mini headshot rotator (inside cards) */
-.mini-rotator{ position:relative; border-radius:10px; overflow:hidden; height:140px; }
-.mini-rotator .tm-track{ position:relative; height:100%; }
-.mini-rotator .tm-slide{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .45s ease; }
-.mini-rotator .tm-slide.active{ opacity:1; }
-.mini-rotator .tm-dots{ position:absolute; left:0; right:0; bottom:8px; display:flex; justify-content:center; gap:6px; pointer-events:none; }
-.mini-rotator .tm-dots button{ width:7px; height:7px; border-radius:999px; border:0; background:#c3c9db; pointer-events:auto; cursor:pointer; }
-.mini-rotator .tm-dots button.active{ background:var(--brand); }
-
-/* =========================================================================
-   BIO BLOCKS
-   ========================================================================= */
-.bio-block{
-  display:grid; grid-template-columns:1.1fr .9fr; gap:18px; align-items:start;
-  background:linear-gradient(180deg,#ffffff 0%, #f6f9ff 100%);
-  border:1px solid var(--border); border-radius:var(--r); padding:18px; margin:18px 0;
-}
-.bio-block h3{ margin:6px 0 8px; font-size:22px; }
-.bio-block p{ color:var(--muted); margin:0 0 10px; }
-@media (max-width:900px){ .bio-block{ grid-template-columns:1fr; } }
-
-/* Generic fade carousel */
-.carousel{ position:relative; border:1px solid var(--border); border-radius:12px; overflow:hidden; min-height:220px; background:#fff; }
-.carousel .slide{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .45s ease; }
-.carousel .slide.active{ opacity:1; }
-.carousel .dots{ position:absolute; left:0; right:0; bottom:10px; display:flex; justify-content:center; gap:8px; }
-.carousel .dots button{ width:8px; height:8px; border-radius:999px; border:0; background:#9aa7bd; cursor:pointer; }
-.carousel .dots button.active{ background:var(--brand); }
-
-/* =========================================================================
-   RESULTS
-   ========================================================================= */
-.results-lead{ color:var(--muted); margin-top:4px; }
-.results-list{ list-style:none; padding:0; margin:18px 0 0; display:grid; gap:12px; }
-.result-item{ background:#fff; border:1px solid var(--border); border-radius:14px; padding:14px; display:grid; gap:6px; box-shadow:var(--shadow); }
-.result-item h4{ margin:0; font-size:18px; }
-.result-meta{ color:var(--muted); font-size:14px; }
-.result-actions{ display:flex; gap:8px; flex-wrap:wrap; }
-.res th,.res td{ background:#fff; }
-
-/* =========================================================================
-   SHOP (grid)
-   ========================================================================= */
-.shop-controls{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin:12px 0 16px; }
-.products{ display:grid; gap:16px; grid-template-columns:repeat(12,1fr); }
-.product-card{
-  grid-column:span 4; background:#fff; border:1px solid var(--border); border-radius:var(--r);
-  overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column;
-}
-.product-card .media{ background:#fff; border-bottom:1px solid var(--border); }
-.product-card .media img{ width:100%; height:240px; object-fit:cover; }
-.product-card .body{ padding:14px; display:grid; gap:6px; }
-.product-card .name{ font-weight:700; }
-.product-card .price{ color:var(--muted); }
-.product-card .actions{ margin-top:4px; }
-.product-card.hide{ display:none; }
-@media (max-width:900px){ .product-card{ grid-column:span 6; } }
-@media (max-width:640px){ .product-card{ grid-column:span 12; } }
-
-/* Quick add */
-.quick-add{
-  display:grid; grid-template-columns:1fr auto auto; align-items:center; gap:.6rem;
-  padding:0; background:transparent; border:0;
-}
-.size-select{ width:100%; min-width:140px; padding:.45rem .6rem; border:1px solid var(--border); border-radius:10px; background:#fff; }
-.qty-control{ display:inline-flex; align-items:center; gap:.5rem; padding:.25rem; border:1px solid var(--border); border-radius:12px; background:#fff; box-shadow:0 1px 2px rgba(0,0,0,.04); }
-.qty-btn{ width:34px; height:34px; border:0; border-radius:10px; background:#f6f6f6; font-size:1.15rem; line-height:1; cursor:pointer; }
-.qty-val{ width:2ch; text-align:center; font-variant-numeric:tabular-nums; }
-.quick-add-btn{ white-space:nowrap; padding:.6rem 1rem; border-radius:12px; display:inline-flex; align-items:center; justify-content:center; }
-@media (max-width:520px){
-  .quick-add{ grid-template-columns:1fr auto; }
-  .quick-add-btn{ grid-column:1/-1; width:100%; }
-}
-
-/* =========================================================================
-   MERCH / GENERIC CAROUSEL (horizontal)
-   ========================================================================= */
-.tm-carousel{ --gap:14px; position:relative; overflow:hidden; }
-.tm-track{ display:flex; gap:var(--gap); transition:transform .45s ease; will-change:transform; }
-.tm-slide{ flex:0 0 100%; display:flex; }
-@media (min-width:640px){ .tm-slide{ flex:0 0 calc(50% - var(--gap)/2); } }
-@media (min-width:960px){ .tm-slide{ flex:0 0 calc(33.333% - var(--gap)*2/3); } }
-.tm-card{ background:#fff; border:1px solid var(--border); border-radius:14px; overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column; }
-.tm-imgwrap{ position:relative; aspect-ratio:16/9; background:#fff; border:1px solid var(--border); }
-.tm-imgwrap img{ width:100%; height:100%; object-fit:cover; display:block; }
-.tm-meta{ display:flex; justify-content:space-between; align-items:center; padding:12px 14px; }
-.tm-name{ font-weight:700; }
-.tm-price{ color:#64748b; }
-.tm-dots{ display:flex; gap:8px; justify-content:center; margin-top:12px; }
-.tm-dots button{ width:8px; height:8px; border-radius:999px; border:0; background:#c3c9db; cursor:pointer; }
-.tm-dots button[aria-current="true"]{ background:var(--brand); }
-
-/* =========================================================================
-   SPONSORS
-   ========================================================================= */
-.sponsors{ padding:28px 0 56px; }
-.sponsors .section-title{ margin-bottom:14px; }
-.sponsors-grid{
-  list-style:none; margin:0; padding:0;
-  display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:16px;
-}
-.sponsor{ background:#fff; border:1px solid var(--border); border-radius:12px; padding:12px; display:flex; flex-direction:column; align-items:center; }
-.logo-wrap{ height:56px; display:grid; place-items:center; }
-.logo-wrap img{ max-height:40px; width:auto; object-fit:contain; }
-.s-name{ margin-top:8px; font-size:.70rem; line-height:1.15; font-weight:700; letter-spacing:.01em; text-align:center; }
-.s-note{ margin-top:2px; font-size:.60rem; line-height:1.2; color:#6b7280; text-align:center; }
-
-/* =========================================================================
-   CONTACT STRIP & FOOTER
-   ========================================================================= */
-.strip{ background:#fff; border-top:1px solid var(--border); border-bottom:1px solid rgba(11,18,32,.06); padding:40px 0; box-shadow:0 6px 14px rgba(0,0,0,.06); }
-.strip .row{ display:flex; flex-wrap:wrap; align-items:center; gap:14px; justify-content:flex-start; }
-.strip h3{ margin:0 12px 0 0; font-size:18px; }
-.strip p{ margin:0; color:var(--muted); }
-footer{ padding:40px 0 80px; color:#64748b; text-align:center; border-top:1px solid var(--border); }
 
 /* =========================================================================
    NEWS (highlights + feed)
@@ -320,8 +156,8 @@ footer{ padding:40px 0 80px; color:#64748b; text-align:center; border-top:1px so
 .section-heading{ margin:0; font-size:clamp(1.25rem,1.1rem + .8vw,1.75rem); line-height:1.2; }
 
 .news-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; }
-.news-card .news-title{ margin:.35rem 0 0; line-height:1.3; }
-.news-card .summary{ margin:.35rem 0 0; color:var(--ink); opacity:.9; }
+.news-card .news-title{ margin:.35rem 0 0; line-height:1.3; color:var(--ink); }
+.news-card .summary{ margin:.35rem 0 0; color:#334155; }
 .news-thumb{
   margin-top:10px; width:100%; aspect-ratio:16/9;
   background-size:cover; background-position:center;
@@ -330,343 +166,173 @@ footer{ padding:40px 0 80px; color:#64748b; text-align:center; border-top:1px so
 .news-highlights .news-thumb{ aspect-ratio:3/2; }
 @media (min-width:960px){ .news-highlights .news-thumb{ aspect-ratio:16/9; } }
 
-/* Updates page: spacing + tabs */
-#updates-root{ padding-top:clamp(20px,3.5vw,64px); }
-#updates-root .section-title{ margin:0 0 8px; }
-#updates-root .tabs{ margin:8px 0 10px; display:flex; gap:.5rem; flex-wrap:wrap; }
-#updates-root .tab{
-  font-weight:700; font-size:clamp(.95rem,.9rem + .2vw,1.05rem);
-  padding:.52rem 1.05rem; border:1px solid var(--border); border-radius:999px; background:#fff; cursor:pointer;
-}
-#tab-news{ padding-top:4px; }
-#tab-news .section-head{ margin:6px 0 8px; }
-#tab-news .section-kicker{ margin:0 0 2px; }
-#tab-news .news-highlights{ margin-bottom:6px; display:flow-root; }
-#tab-news .news-feed .section-head{ margin-top:4px; }
-#tab-news .divider{
-  border:0; border-top:3px solid var(--navy); opacity:.30; margin:6px 0;
-}
+.divider{ border:0; border-top:1px solid var(--border); margin:12px 0; }
 
 /* =========================================================================
-   MINI CART & CART LINK
+   RESULTS
+   ========================================================================= */
+.res-card{ color:var(--ink); }
+.res-card h3{ margin:0; }
+.res{ width:100%; border-collapse:collapse; }
+.res th, .res td{ padding:.55rem .65rem; border-top:1px solid var(--border); background:#fff; color:#1f2937; }
+.res .muted{ color:#475569; }
+
+/* =========================================================================
+   FAMILY / ATHLETES (Home grid)
+   ========================================================================= */
+#family .ath-grid,
+.home .ath-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
+
+.ath-card{
+  display:flex; flex-direction:column;
+  background:#fff; border:1px solid var(--border);
+  border-radius:14px; box-shadow:var(--shadow); padding:14px; gap:12px;
+  color:var(--ink);
+}
+.ath-media{
+  width:100%; aspect-ratio:1/1; height:auto !important;
+  border-radius:12px; overflow:hidden;
+  background:#eef3ff; border:1px solid var(--border);
+}
+.ath-media img{ width:100% !important; height:100% !important; object-fit:cover !important; display:block; }
+
+/* Logos inside athlete tiles */
+.ath-media img.logo,
+.ath-media img[alt*="logo" i]{ object-fit:contain !important; padding:14px; background:#fff; }
+
+/* Actions row pinned; “My story” readable */
+.ath-actions{ margin-top:auto; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.ath-actions .btn{ color:var(--ink) !important; }
+.ath-social{ display:flex; gap:10px; }
+.ath-ico{
+  width:32px; height:32px; border-radius:999px; display:grid; place-items:center;
+  background:#fff; border:1px solid var(--border); box-shadow:var(--shadow);
+}
+.ath-ico img{ width:18px; height:18px; object-fit:contain; }
+
+/* =========================================================================
+   SHOP (grid + tabs)
+   ========================================================================= */
+.shop-controls{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin:12px 0 16px; }
+
+/* Tabs (both shop + updates use .tabs/.tab) */
+.tabs{ display:flex; gap:.5rem; margin:10px 0 16px; flex-wrap:wrap; }
+.tab{
+  border:1px solid var(--border); border-radius:999px;
+  padding:.52rem 1.05rem; background:#fff; cursor:pointer; font-weight:700;
+  transition:box-shadow .15s ease, transform .05s ease;
+}
+.tab:hover{ box-shadow:var(--shadow); transform:translateY(-1px); }
+.tab.active{
+  background:linear-gradient(90deg,var(--brand),var(--navy));
+  color:#fff; border-color:transparent;
+  box-shadow:0 8px 22px rgba(20,37,94,.18);
+}
+.tabpanel{ margin-top:10px; }
+.tabpanel[hidden]{ display:none; }
+
+/* Products */
+.products{ display:grid; gap:16px; grid-template-columns:repeat(12,1fr); }
+.product-card{
+  grid-column:span 4; background:#fff; border:1px solid var(--border); border-radius:var(--r);
+  overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column; color:var(--ink);
+}
+.product-card .media{ background:#fff; border-bottom:1px solid var(--border); }
+.product-card .media img{ width:100%; height:240px; object-fit:cover; }
+.product-card .body{ padding:14px; display:flex; flex-direction:column; gap:6px; flex:1; }
+.product-card .name{ font-weight:700; }
+.product-card .price{ color:#334155; }
+.product-card .actions{ margin-top:auto; }
+.product-card .actions .btn{ width:100%; }
+.product-card.hide{ display:none; }
+@media (max-width:900px){ .product-card{ grid-column:span 6; } }
+@media (max-width:640px){ .product-card{ grid-column:span 12; } }
+
+/* =========================================================================
+   SPONSORS
+   ========================================================================= */
+.sponsors{ padding:28px 0 56px; color:var(--ink); }
+.sponsors-grid{
+  list-style:none; margin:0; padding:0;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:16px;
+}
+.sponsor{
+  background:#fff; border:1px solid var(--border); border-radius:12px;
+  padding:12px; display:flex; flex-direction:column; align-items:center; color:var(--ink);
+}
+.logo-wrap{ height:56px; display:grid; place-items:center; }
+.logo-wrap img{ max-height:40px; width:auto; object-fit:contain; }
+.s-name{ margin-top:8px; font-size:.70rem; line-height:1.15; font-weight:700; letter-spacing:.01em; text-align:center; }
+.s-note{ margin-top:2px; font-size:.60rem; line-height:1.2; color:#6b7280; text-align:center; }
+
+/* =========================================================================
+   CONTACT STRIP
+   ========================================================================= */
+.strip{
+  background:#fff; color:var(--ink) !important;
+  border-top:1px solid var(--border); border-bottom:1px solid rgba(11,18,32,.06);
+  padding:40px 0; box-shadow:0 6px 14px rgba(0,0,0,.06);
+}
+.strip h3{ margin:0 12px 0 0; font-size:18px; color:var(--ink); }
+.strip p, .strip a{ margin:0; color:var(--ink); }
+
+/* =========================================================================
+   BIOS & TIMELINE (readable on white)
+   ========================================================================= */
+.bio-block{
+  display:grid; grid-template-columns:1.1fr .9fr; gap:18px; align-items:start;
+  background:#fff; border:1px solid var(--border); border-radius:var(--r); padding:18px; margin:18px 0; color:var(--ink);
+}
+.bio-block h3{ margin:6px 0 8px; font-size:22px; }
+.bio-block p{ margin:0 0 10px; color:#334155; }
+@media (max-width:900px){ .bio-block{ grid-template-columns:1fr; } }
+
+.story-timeline .card,
+.story-timeline .tl-card{
+  background:#fff; color:var(--ink);
+  border:1px solid rgba(15,23,42,.12);
+  box-shadow:0 12px 28px rgba(0,0,0,.10);
+  border-radius:14px;
+}
+.story-timeline p{ color:#334155; }
+
+/* Featured collab secondary line stronger */
+.featured-collab .meta,
+.featured-collab .subtext,
+.featured-collab small{ color:#3a475b; }
+
+/* “Jump to bios” button readable on Navy */
+.story .btn, #story-root .btn{ color:var(--ink); }
+.story .btn.primary, #story-root .btn.primary{ color:#fff; }
+
+/* =========================================================================
+   MINI CART (kept minimal)
    ========================================================================= */
 .mini-cart{
   position:fixed; top:0; right:-380px; width:340px; height:100%;
   background:#fff; box-shadow:-4px 0 16px rgba(0,0,0,.12);
-  display:flex; flex-direction:column; z-index:9999; transition:right .3s ease;
+  display:flex; flex-direction:column; z-index:9999; transition:right .3s ease; color:var(--ink);
 }
 .mini-cart.open{ right:0; }
-.cart-header{ display:flex; justify-content:space-between; align-items:center; padding:1rem; border-bottom:1px solid var(--border); }
-.cart-items{ flex:1; overflow:auto; padding:1rem; }
-.cart-item{ display:flex; gap:.75rem; align-items:center; margin-bottom:1rem; }
-.cart-item img{ width:60px; height:60px; object-fit:cover; border-radius:6px; }
-.cart-item-title{ font-size:.95rem; margin-bottom:.25rem; }
-.cart-item-qty{ display:flex; gap:.25rem; align-items:center; }
-.cart-item-qty button{ border:1px solid var(--border); background:#f7f7f7; padding:.25rem .5rem; cursor:pointer; }
-.cart-footer{ display:flex; justify-content:space-between; align-items:center; gap:.75rem; padding:1rem; border-top:1px solid var(--border); }
 .cart-overlay{ position:fixed; inset:0; background:rgba(0,0,0,.4); display:none; z-index:9998; }
 .cart-overlay.show{ display:block; }
-.cart-link{ position:relative; display:inline-flex; align-items:center; gap:.25rem; padding:.25rem; }
-.cart-count{
-  position:absolute; top:-6px; right:-8px; min-width:16px; height:16px; padding:0 4px;
-  border-radius:999px; background:#e11d48; color:#fff; font-size:.7rem; line-height:16px; text-align:center;
-}
 
 /* =========================================================================
-   WATERMARK (site-wide logo)
+   THEME — NAVY BACKGROUND
    ========================================================================= */
-body::before{
-  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
-  background-image:image-set(
-    url('/assets/img/logo-full-color.svg') type('image/svg+xml'),
-    url('/assets/img/logo-full-color@2x.png') type('image/png') 2x,
-    url('/assets/img/logo-full-color.png') type('image/png') 1x
-  );
-  background-repeat:no-repeat; background-position:center center;
-  background-size:clamp(520px,68vw,860px);
-  opacity:.12; filter:blur(.25px) saturate(1.05) contrast(1.02);
-}
-.nav,.full-bleed,.container,main,footer{ position:relative; z-index:1; }
-@media (max-width:640px){
-  body::before{ background-size:clamp(360px,78vw,600px); opacity:.12; filter:blur(.2px); }
-}
-
-/* =========================================================================
-   SNOW (subtle)
-   ========================================================================= */
-.snow{
-  position:fixed; inset:0; pointer-events:none; z-index:200; opacity:var(--snow-a);
-  background-image:
-    radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,.9) 50%, transparent 51%),
-    radial-gradient(1.6px 1.6px at 50px 80px, rgba(255,255,255,.75) 50%, transparent 51%),
-    radial-gradient(2.4px 2.4px at 150px 120px, rgba(255,255,255,.85) 50%, transparent 51%),
-    radial-gradient(2px 2px at 250px 10px, rgba(255,255,255,.7) 50%, transparent 51%);
-  background-size:200px 200px, 220px 220px, 180px 180px, 260px 260px;
-  animation:snowDown 20s linear infinite;
-}
-@keyframes snowDown{
-  from{ background-position:0 0,0 0,0 0,0 0; }
-  to  { background-position:0 1000px,0 800px,0 1200px,0 900px; }
-}
-
-/* =========================================================================
-   BANDS / SEPARATORS
-   ========================================================================= */
-.band{ background:linear-gradient(180deg,#eef4ff,#eaf0ff); border-top:1px solid rgba(11,18,32,.06); border-bottom:1px solid rgba(11,18,32,.06); }
-.band>.container{ padding-top:28px; padding-bottom:28px; }
-.sep{ height:clamp(24px,4vw,56px); }
-
-/* Make the product body take up remaining height, so actions can sit at the bottom */
-.product-card{ display:flex; flex-direction:column; }
-.product-card .body{ display:flex; flex-direction:column; gap:6px; flex:1; }
-
-/* Pin the button/action row to the bottom of the card */
-.product-card .actions{ margin-top:auto; }
-
-/* Optional: make the button full-width inside grid cards */
-.product-card .actions .btn{ width:100%; }
-
-/* Tabs – gradient style to match primary buttons */
-#updates-root .tab{
-  border:1px solid var(--border);
-  background:#fff;
-  transition:box-shadow .15s ease, transform .05s ease;
-}
-#updates-root .tab:hover{ box-shadow:var(--shadow); transform:translateY(-1px); }
-
-/* Active tab = gradient pill */
-#updates-root .tab.active{
-  background:linear-gradient(90deg,var(--brand),var(--navy));
-  color:#fff;
-  border-color:transparent;
-  box-shadow:0 8px 22px rgba(20,37,94,.18);
-}
-
-/* Home athlete grid sizing reset */
-.home .athlete-grid{
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap:16px;
-}
-
-/* Square media area; consistent across cards */
-.home .athlete-card .media{
-  width:100%;
-  aspect-ratio:1/1;
-  border-radius:12px;
-  overflow:hidden;
-  background:#eef3ff;
-  border:1px solid var(--border);
-}
-
-/* Default: headshots fill the tile */
-.home .athlete-card .media img{
-  width:100%; height:100%;
-  object-fit:cover; display:block;
-}
-
-/* If an image is a logo, contain it so it doesn’t look huge */
-.home .athlete-card .media img.logo,
-.home .athlete-card .media.logo img,
-.home .athlete-card .media img[alt*="logo" i]{
-  object-fit:contain;
-  padding:14px;
-  background:#fff;
-}
-
-/* Card body spacing */
-.home .athlete-card{ display:flex; flex-direction:column; }
-.home .athlete-card .actions{ margin-top:auto; }
-
-/* Dark navy background theme with white watermark */
 body.theme-navy{
-  --page-1:#0f1a3a;         /* deep navy */
-  --page-2:#0a1330;
+  --page-1:#0f1a3a; --page-2:#0a1330;
   background:linear-gradient(180deg,var(--page-1),var(--page-2));
-}
-
-/* Use a white mark for contrast; falls back to inverting colored mark if needed */
-body.theme-navy::before{
-  background-image: image-set(
-    url('/assets/img/logo-mark-white.svg') type('image/svg+xml'),
-    url('/assets/img/logo-mark-white.png') type('image/png') 1x
-  );
-  opacity:.10;
-  filter:none;
-}
-/* If you don’t have a white mark asset yet, comment the block above and use this instead: */
-/*
-body.theme-navy::before{
-  background-image:url('/assets/img/logo-full-color.svg');
-  opacity:.10;
-  filter:brightness(0) invert(1) contrast(1.1); 
-}
-*/
-
-/* Keep cards/nav bright on the dark ground */
-body.theme-navy .nav,
-body.theme-navy .card,
-body.theme-navy .family-card,
-body.theme-navy .product-card,
-body.theme-navy .tm-card,
-body.theme-navy .news-card,
-body.theme-navy .res-card,
-body.theme-navy .hero-box{
-  background:#fff;
-  color:var(--ink);
-  border:1px solid var(--border);
-  box-shadow:var(--shadow);
-}
-
-/* ===== Readability on dark navy ===== */
-body.theme-navy{
-  /* make default text light on dark pages */
-  color: #eaf1ff;
+  color:#eaf1ff;                         /* base text on dark */
 }
 body.theme-navy .muted{ color:#c7d0e6; }
-
-/* links readable on dark sections, but keep cards/nav dark-on-white */
-body.theme-navy a{ color:#ffffff; }
-body.theme-navy .nav a,
-body.theme-navy .card a,
-body.theme-navy .family-card a,
-body.theme-navy .product-card a,
-body.theme-navy .tm-card a,
-body.theme-navy .news-card a,
-body.theme-navy .res-card a,
-body.theme-navy .hero-box a{ color: inherit; }
-
-/* section headings on dark (outside cards) get a touch more contrast */
-body.theme-navy .section-title{ color:#fff; }
-
-/* ===== Home: athlete grid hard reset ===== */
-#family .ath-grid{
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap:16px;
-}
-
-/* square media well with strict sizing */
-#family .ath-card .ath-media{
-  width:100%;
-  aspect-ratio: 1 / 1;
-  height:auto !important;          /* stomp any fixed heights */
-  border-radius:12px;
-  overflow:hidden;
-  background:#eef3ff;
-  border:1px solid var(--border);
-}
-
-/* headshots fill; no stretching */
-#family .ath-card .ath-media img{
-  width:100% !important;
-  height:100% !important;
-  object-fit:cover !important;
-  display:block;
-}
-
-/* social icons stay small */
-#family .ath-ico img{ width:18px; height:18px; object-fit:contain; }
-
-/* keep actions at the bottom so heights are even */
-#family .ath-card{ display:flex; flex-direction:column; }
-#family .ath-actions{ margin-top:auto; }
-
-/* logos inside the athlete media tile */
-#family .ath-card .ath-media img.logo,
-#family .ath-card .ath-media img[alt*="logo" i]{
-  object-fit:contain !important;
-  padding:14px;
-  background:#fff;
-}
-
-/* ===== Readability on dark navy pages ===== */
-body.theme-navy{
-  color:#eaf1ff;              /* default body text */
-}
-body.theme-navy .muted{ color:#c7d0e6; }
-
-/* keep white-surface components dark-on-white as-is */
-body.theme-navy .nav,
-body.theme-navy .card,
-body.theme-navy .family-card,
-body.theme-navy .product-card,
-body.theme-navy .tm-card,
-body.theme-navy .news-card,
-body.theme-navy .res-card,
-body.theme-navy .hero-box {
-  color: var(--ink);
-}
-
-/* headlines in normal sections on dark bg */
 body.theme-navy .section-title,
-body.theme-navy h1, 
-body.theme-navy h2, 
-body.theme-navy h3 { color:#fff; }
+body.theme-navy h1, body.theme-navy h2, body.theme-navy h3{ color:#fff; }
 
-/* links readable on dark background (but inherit inside white cards) */
-body.theme-navy a{ color:#ffffff; }
-body.theme-navy .card a,
-body.theme-navy .nav a { color: inherit; }
+/* White watermark mark (set in layout via --bg-logo-url) */
+body.theme-navy::before{ opacity:.12; filter:none; }
 
-/* ===== Home: athlete grid hard reset ===== */
-.home .ath-grid,
-#family .ath-grid,
-.home .athlete-grid {                     /* legacy class safety net */
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap:16px;
-}
-
-/* square media well with strict sizing */
-.home .ath-card .ath-media,
-#family .ath-card .ath-media,
-.home .athlete-card .media {              /* legacy */
-  width:100%;
-  aspect-ratio: 1 / 1;
-  height:auto !important;                 /* stomp any fixed heights */
-  border-radius:12px;
-  overflow:hidden;
-  background:#eef3ff;
-  border:1px solid var(--border);
-}
-
-/* headshots fill the well */
-.home .ath-card .ath-media img,
-#family .ath-card .ath-media img,
-.home .athlete-card .media img {          /* legacy */
-  width:100% !important;
-  height:100% !important;
-  object-fit:cover !important;
-  display:block;
-}
-
-/* logos should NOT fill — contain & pad */
-.home .ath-card .ath-media img.logo,
-#family .ath-card .ath-media img.logo,
-.home .ath-card .ath-media img[alt*="logo" i],
-#family .ath-card .ath-media img[alt*="logo" i],
-.home .athlete-card .media img.logo,      /* legacy */
-.home .athlete-card .media img[alt*="logo" i] {
-  object-fit:contain !important;
-  padding:14px;
-  background:#fff;
-}
-
-/* keep CTAs aligned across cards */
-.home .ath-card, #family .ath-card, .home .athlete-card {
-  display:flex; flex-direction:column;
-}
-.home .ath-card .ath-actions,
-#family .ath-card .ath-actions,
-.home .athlete-card .actions { margin-top:auto; }
-
-/* small social icons */
-#family .ath-ico img, .home .ath-ico img {
-  width:18px; height:18px; object-fit:contain;
-}
-
-/* === White surfaces must use dark ink on the navy theme === */
+/* Keep all white “surfaces” dark-on-white for legibility */
 body.theme-navy .nav,
 body.theme-navy .card,
 body.theme-navy .mission-card,
@@ -681,92 +347,40 @@ body.theme-navy .hero-box,
 body.theme-navy .strip,
 body.theme-navy .sponsors,
 body.theme-navy .sponsors-grid .sponsor,
-body.theme-navy .band > .container {
-  color: var(--ink) !important;
+body.theme-navy .band > .container{
+  background:#fff; color:var(--ink) !important; border-color:var(--border); box-shadow:var(--shadow);
 }
-
-/* links inside white surfaces should be dark (unless a button) */
+/* links inside white surfaces should be dark (unless button) */
 body.theme-navy .card a:not(.btn),
 body.theme-navy .strip a:not(.btn),
 body.theme-navy .sponsors a:not(.btn),
-body.theme-navy .band > .container a:not(.btn) {
-  color: var(--ink) !important;
-}
+body.theme-navy .band > .container a:not(.btn){ color:var(--ink) !important; }
 
-/* === Gradient buttons/pills must have white text === */
-.btn.primary,
-a.btn.primary,
-#updates-root .tab.active {
-  color: #fff !important;
-  text-shadow: 0 1px 0 rgba(0,0,0,.15); /* subtle readability boost */
-}
+/* News headings + divider readable on navy pages */
+body.theme-navy .section-kicker{ color:#e7ecff; }
+body.theme-navy .section-heading{ color:#fff; }
+body.theme-navy .divider{ border-top-color:rgba(255,255,255,.35); }
 
-/* ===== Home: Athlete grid hard reset ===== */
-.home .ath-grid,
-#family .ath-grid {                      /* cover both includes */
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-}
+/* Tabs: already rounded; keep active gradient white text */
+body.theme-navy .tab.active{ color:#fff; text-shadow:0 1px 0 rgba(0,0,0,.15); }
 
-/* square media well */
-.home .ath-card .ath-media,
-#family .ath-card .ath-media {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  height: auto !important;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #eef3ff;
-  border: 1px solid var(--border);
-}
+/* Mission section on Home: ensure not white-on-white confusion */
+#mission, .mission, .mission-card, .about-summary .about-wrap{ color:var(--ink); background:#fff; }
 
-/* headshots fill; logos contain with padding */
-.home .ath-card .ath-media img,
-#family .ath-card .ath-media img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  display: block;
-}
-.home .ath-card .ath-media img.logo,
-#family .ath-card .ath-media img.logo,
-.home .ath-card .ath-media img[alt*="logo" i],
-#family .ath-card .ath-media img[alt*="logo" i]{
-  object-fit: contain !important;
-  padding: 14px;
-  background: #fff;
-}
+/* Contact strip legible on navy */
+body.theme-navy .strip h3,
+body.theme-navy .strip p,
+body.theme-navy .strip a{ color:var(--ink); }
 
-/* keep "My story" readable on white cards */
-.home .ath-card .btn,
-#family .ath-card .btn { color: var(--ink) !important; }
+/* Results page: make sure names/details are dark on white tables */
+body.theme-navy .res th,
+body.theme-navy .res td{ color:#1f2937; }
+body.theme-navy .res .muted{ color:#475569; }
 
-/* actions row pinned to bottom; icons inline */
-.home .ath-card, #family .ath-card { display: flex; flex-direction: column; }
-.home .ath-card .ath-actions, #family .ath-card .ath-actions { 
-  margin-top: auto; 
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-}
+/* Our Story headings + divider contrast on navy */
+body.theme-navy #story-root .section-kicker,
+body.theme-navy #story-root .section-heading{ color:#fff; }
+body.theme-navy #story-root .divider{ border-top-color:rgba(255,255,255,.35); }
 
-/* icon pills inline and small */
-.home .ath-ico, #family .ath-ico{
-  display: inline-grid; place-items: center;
-  width: 32px; height: 32px; border-radius: 999px;
-  background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow);
-}
-.home .ath-ico img, #family .ath-ico img{ width: 18px; height: 18px; object-fit: contain; }
-
-/* Sponsors grid safety net */
-.sponsors-grid{
-  display: grid !important;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
-  gap: 16px !important;
-}
-
-/* Page text on navy */
-body.theme-navy { color: #eaf1ff; }
-body.theme-navy .muted { color: #c7d0e6; }
-body.theme-navy .section-title { color: #fff; }
-
-/* But inside white surfaces, stay dark (already set above) */
+/* Sponsors names centered (safety net) */
+.s-name{ text-align:center; }

@@ -2217,7 +2217,7 @@ body::before{
 }
 
 /* Make the divider lighter + tighter */
-#tab-news .divider { margin: 12px 0; }
+#tab-news .divider { margin: 6px 0; }
 
 /* Optional: slightly reduce card spacing */
-#tab-news .news-grid { gap: 14px; }
+#tab-news .news-grid { gap: 6px; }

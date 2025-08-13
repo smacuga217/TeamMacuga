@@ -83,9 +83,12 @@
     <div class="sep"></div>
     {% include contact-strip.html %}
 
-    <footer class="container">
-      © {{ "now" | date: "%Y" }} Team Macuga. All rights reserved.
-    </footer>
+    <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      {% include sponsors.html %}
+      <div class="legal">© {{ "now" | date: "%Y" }} Team Macuga. All rights reserved.</div>
+    </div>
+  </footer>
   </div>
 
   <!-- scripts (keep at end of body) -->

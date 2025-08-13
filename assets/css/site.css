@@ -1149,3 +1149,7 @@ body.theme-navy .sponsors .s-tile{ color: var(--ink); } /* inside tiles */
 .sponsors .section-head .section-title{
   margin-left: 0;
 }
+
+html {
+  scroll-behavior: smooth;
+}

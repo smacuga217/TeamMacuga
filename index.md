@@ -25,8 +25,8 @@ layout: default
           <span class="t-2">Follow the journey and rep the team. <strong>#TeamMacuga</strong></span>
         </p>
         <div class="hero-actions hero-actions--center">
-          <a class="btn primary hero-btn" href="{{ '/story/' | relative_url }}">Our Story</a>
-          <a class="btn primary hero-btn" href="{{ '/updates/#results' | relative_url }}">Latest Results</a>
+          <a class="btn primary hero-btn" href="{{ '/story/' | relative_url }}">How This Happened</a>
+          <a class="btn primary hero-btn" href="{{ '/updates/#results' | relative_url }}">Latest Updates</a>
           <a class="btn primary hero-btn" href="{{ '/shop/' | relative_url }}">Rep the Team</a>
         </div>
       </div>
@@ -61,7 +61,7 @@ layout: default
       celebrate the people who help us get there, and race with heart in everything we do.
     </p>
     <div class="mission-actions">
-      <a class="btn primary" href="{{ '/story/' | relative_url }}">Read Our Story</a>
+      <a class="btn primary" href="{{ '/story/' | relative_url }}">Read More</a>
     </div>
   </div>
 </section>

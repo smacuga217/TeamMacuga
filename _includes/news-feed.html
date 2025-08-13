@@ -1,5 +1,13 @@
 {% assign feed = site.data.news_feed | default: empty %}
+{% assign title = include.title | default: "Latest Coverage" %}
+{% assign kicker = include.kicker | default: "From around the web" %}
+
 <section class="news-feed">
+  <header class="section-head">
+    <p class="section-kicker">{{ kicker }}</p>
+    <h2 class="section-heading">{{ title }}</h2>
+  </header>
+
   {% if feed == empty %}
     <p class="muted">No recent articles yet.</p>
   {% else %}

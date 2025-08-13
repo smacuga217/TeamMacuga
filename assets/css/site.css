@@ -2156,3 +2156,50 @@ body::before{
   background-size:cover; background-position:center;
   border-radius:10px; border:1px solid var(--border);
 }
+
+/* Section titles */
+.section-head{ margin:24px 0 12px; }
+.section-kicker{
+  text-transform:uppercase; letter-spacing:.08em; font-weight:700;
+  color:var(--navy); font-size:.8rem; margin:0 0 4px;
+}
+.section-heading{
+  margin:0;
+  font-size:clamp(1.25rem, 1.1rem + .8vw, 1.75rem);
+  line-height:1.2;
+}
+
+/* Ensure the grid actually grids */
+.news-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:16px;
+}
+
+/* Card typography / spacing */
+.news-card .news-title{ margin:.35rem 0 0; line-height:1.3; }
+.news-card .summary{ margin:.35rem 0 0; color:var(--ink); opacity:.9; }
+
+/* Taller highlight cards */
+.news-card.tall .news-title{ font-size:1.15rem; }
+.news-card.tall .summary{ font-size:.95rem; }
+
+/* Use aspect-ratio for thumbs (nice and consistent) */
+.news-thumb{
+  margin-top:10px; width:100%;
+  aspect-ratio:16/9; /* default for feed cards */
+  background-size:cover; background-position:center;
+  border-radius:10px; border:1px solid var(--border);
+}
+
+/* Make highlight thumbs taller for a more editorial look */
+.news-highlights .news-thumb{ aspect-ratio:3/2; }
+@media (min-width: 960px){
+  .news-highlights .news-thumb{ aspect-ratio:16/9; }
+}
+
+/* Optional: a slightly larger grid for highlights on wide screens */
+.news-highlights .news-grid{
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:18px;
+}

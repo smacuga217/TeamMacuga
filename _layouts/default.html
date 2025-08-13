@@ -73,8 +73,6 @@
   <div class="site-wrapper">
     {% include nav.html %}
     <div id="nav-overlay" class="nav-overlay"></div>
-    
-    {% include contact-beacon.html %}
    
     <main id="content">
       {{ content }}
@@ -304,6 +302,16 @@
     btn.addEventListener('click', toggle);
     overlay?.addEventListener('click', toggle);
   })();
+
+  // Close mobile drawer when clicking any in-page anchor
+  document.querySelectorAll('.links a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', ()=>{
+      document.querySelector('.mobile-drawer')?.classList.remove('open');
+      document.getElementById('nav-overlay')?.classList.remove('show');
+      document.body.classList.remove('nav-open');
+    });
+  });
+
   </script>
 
   <script>

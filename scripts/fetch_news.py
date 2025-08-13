@@ -21,7 +21,7 @@ QUERIES = [
 MAX_PER_QUERY = 8          # keep page light
 TIMEOUT = 8
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; TeamMacugaBot/1.0)"}
-OUTFILE = "_data/news.json"
+OUTFILE = "_data/news_feed.json"
 
 GOOGLE_HOSTS = ("news.google.", "googleusercontent.com", "gstatic.com")
 

@@ -1,0 +1,20 @@
+{% assign highlights = site.data.news_highlights | slice: 0, 3 %}
+<section class="news-highlights">
+  <div class="grid">
+    {% for n in highlights %}
+      <article class="card">
+        <a href="{{ n.link }}" class="cover">
+          <img src="{{ n.image }}" alt="{{ n.title }}" loading="eager" decoding="async">
+        </a>
+        <div class="body">
+          <p class="meta">
+            <time datetime="{{ n.date }}">{{ n.date }}</time>
+            {% if n.source %} · {{ n.source }}{% endif %}
+          </p>
+          <h3><a href="{{ n.link }}">{{ n.title }}</a></h3>
+          {% if n.summary %}<p class="summary">{{ n.summary }}</p>{% endif %}
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</section>

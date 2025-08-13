@@ -79,37 +79,9 @@ permalink: /updates/
 
   <!-- News -->
   <div id="tab-news" class="tabpanel" role="tabpanel" hidden>
-    {% assign news = site.data.news | sort: "published" | reverse %}  <!-- sort by ISO -->
-    {% if news and news.size > 0 %}
-      {% assign current_year = "" %}
-      {% for n in news %}
-        {% assign y = n.published | date: "%Y" %}
-        {% if y != current_year %}
-          {% unless forloop.first %}</div>{% endunless %}
-          <h3 class="news-year">{{ y }}</h3>
-          <div class="grid news-grid">
-          {% assign current_year = y %}
-        {% endif %}
-
-        <a class="news-card" href="{{ n.link }}" target="_blank" rel="noopener">
-          <div class="news-eyebrow">
-            <span class="source-pill">{{ n.source }}</span>
-            <time class="news-date" datetime="{{ n.published }}">{{ n.published | date: "%b %-d, %Y" }}</time>
-          </div>
-
-          <h4 class="news-title">{{ n.title }}</h4>
-
-          {% assign img = n.image | downcase %}
-          {% unless img == "" or img contains 'news.google' or img contains 'googleusercontent' or img contains 'gstatic' %}
-            <div class="news-thumb" style="background-image:url('{{ n.image }}')"></div>
-          {% endunless %}
-        </a>
-      {% endfor %}
-      </div>
-    {% else %}
-      <p class="muted">No recent articles yet.</p>
-    {% endif %}
-
+    {% include news-highlights.html %}
+    <hr class="divider">
+    {% include news-feed.html %}
   </div>
 
   <!-- Social -->

@@ -1,0 +1,17 @@
+{% assign feed = site.data.news_feed | default: empty %}
+<section class="news-feed">
+  {% if feed == empty %}
+    <p>No recent articles yet. Check back tomorrow.</p>
+  {% else %}
+    {% assign sorted = feed | sort: "published" | reverse %}
+    <ul class="feed-list">
+      {% for a in sorted %}
+        <li class="feed-item">
+          <time datetime="{{ a.published }}">{{ a.published | slice: 0, 10 }}</time>
+          · <strong><a href="{{ a.link }}">{{ a.title }}</a></strong>
+          {% if a.source %}<em> ({{ a.source }})</em>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</section>

@@ -2287,3 +2287,37 @@ body::before{
   #tab-news .news-highlights .section-head { margin-top: 12px !important; }
   #tab-news .divider { margin: 8px 0 10px !important; }
 }
+
+/* ===== Updates page polish (scoped) ===== */
+
+/* Bigger space above the H1 without margin-collapsing */
+#updates-root { padding-top: clamp(20px, 3.5vw, 64px); }
+#updates-root .section-title { margin: 0 0 8px; }
+
+/* Tabs: bolder, slightly larger, comfy hit area */
+#updates-root .tabs { margin: 8px 0 10px; }
+#updates-root .tab {
+  font-weight: 700;
+  font-size: clamp(.95rem, .9rem + .2vw, 1.05rem);
+  padding: .52rem 1.05rem;
+}
+
+/* Headlines inside each news section */
+#tab-news .section-head { margin: 6px 0 8px; }
+#tab-news .section-kicker { margin: 0 0 2px; }
+
+/* Tighten gap between highlights and feed */
+#tab-news .news-highlights { margin-bottom: 6px; }
+#tab-news .news-feed .section-head { margin-top: 4px; }
+
+/* Divider: thicker line, tighter space */
+#tab-news .divider {
+  border: 0;
+  border-top: 2px solid var(--navy, #3B3C78);
+  opacity: .28;
+  margin: 6px 0 !important;
+}
+
+/* Grid spacing */
+#tab-news .news-grid { gap: 14px; }
+

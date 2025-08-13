@@ -4,7 +4,7 @@ title: Updates
 permalink: /updates/
 ---
 
-<section class="container">
+<section id="updates-root" class="container">
   <h1 class="section-title">Updates</h1>
 
   <div class="tabs" role="tablist" aria-label="Updates tabs">

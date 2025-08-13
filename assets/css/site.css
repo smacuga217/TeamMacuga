@@ -415,3 +415,105 @@ body::before{
 .band{ background:linear-gradient(180deg,#eef4ff,#eaf0ff); border-top:1px solid rgba(11,18,32,.06); border-bottom:1px solid rgba(11,18,32,.06); }
 .band>.container{ padding-top:28px; padding-bottom:28px; }
 .sep{ height:clamp(24px,4vw,56px); }
+
+/* Make the product body take up remaining height, so actions can sit at the bottom */
+.product-card{ display:flex; flex-direction:column; }
+.product-card .body{ display:flex; flex-direction:column; gap:6px; flex:1; }
+
+/* Pin the button/action row to the bottom of the card */
+.product-card .actions{ margin-top:auto; }
+
+/* Optional: make the button full-width inside grid cards */
+.product-card .actions .btn{ width:100%; }
+
+/* Tabs – gradient style to match primary buttons */
+#updates-root .tab{
+  border:1px solid var(--border);
+  background:#fff;
+  transition:box-shadow .15s ease, transform .05s ease;
+}
+#updates-root .tab:hover{ box-shadow:var(--shadow); transform:translateY(-1px); }
+
+/* Active tab = gradient pill */
+#updates-root .tab.active{
+  background:linear-gradient(90deg,var(--brand),var(--navy));
+  color:#fff;
+  border-color:transparent;
+  box-shadow:0 8px 22px rgba(20,37,94,.18);
+}
+
+/* Home athlete grid sizing reset */
+.home .athlete-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap:16px;
+}
+
+/* Square media area; consistent across cards */
+.home .athlete-card .media{
+  width:100%;
+  aspect-ratio:1/1;
+  border-radius:12px;
+  overflow:hidden;
+  background:#eef3ff;
+  border:1px solid var(--border);
+}
+
+/* Default: headshots fill the tile */
+.home .athlete-card .media img{
+  width:100%; height:100%;
+  object-fit:cover; display:block;
+}
+
+/* If an image is a logo, contain it so it doesn’t look huge */
+.home .athlete-card .media img.logo,
+.home .athlete-card .media.logo img,
+.home .athlete-card .media img[alt*="logo" i]{
+  object-fit:contain;
+  padding:14px;
+  background:#fff;
+}
+
+/* Card body spacing */
+.home .athlete-card{ display:flex; flex-direction:column; }
+.home .athlete-card .actions{ margin-top:auto; }
+
+/* Dark navy background theme with white watermark */
+body.theme-navy{
+  --page-1:#0f1a3a;         /* deep navy */
+  --page-2:#0a1330;
+  background:linear-gradient(180deg,var(--page-1),var(--page-2));
+}
+
+/* Use a white mark for contrast; falls back to inverting colored mark if needed */
+body.theme-navy::before{
+  background-image: image-set(
+    url('/assets/img/logo-mark-white.svg') type('image/svg+xml'),
+    url('/assets/img/logo-mark-white.png') type('image/png') 1x
+  );
+  opacity:.10;
+  filter:none;
+}
+/* If you don’t have a white mark asset yet, comment the block above and use this instead: */
+/*
+body.theme-navy::before{
+  background-image:url('/assets/img/logo-full-color.svg');
+  opacity:.10;
+  filter:brightness(0) invert(1) contrast(1.1); 
+}
+*/
+
+/* Keep cards/nav bright on the dark ground */
+body.theme-navy .nav,
+body.theme-navy .card,
+body.theme-navy .family-card,
+body.theme-navy .product-card,
+body.theme-navy .tm-card,
+body.theme-navy .news-card,
+body.theme-navy .res-card,
+body.theme-navy .hero-box{
+  background:#fff;
+  color:var(--ink);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+}

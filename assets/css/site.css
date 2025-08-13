@@ -1114,7 +1114,7 @@ body.theme-navy .tl-time{
 
 /* Dial logo size down a touch */
 .s-logo{
-  max-height: 42px;              /* was a bit large; tune as needed */
+  max-height: 100px;              /* was a bit large; tune as needed */
   width: auto; object-fit: contain; display:block;
 }
 @media (min-width: 960px){ .s-logo{ max-height: 50px; } }

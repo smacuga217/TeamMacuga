@@ -5,10 +5,14 @@
 
   <style>
     :root{
+      /* Set your actual nav height if different */
+      --nav-h: 84px;
+
+      /* Watermark logo (color version by default) */
       --bg-logo-url: url('{{ "/assets/img/logo-mark-color.png" | relative_url }}');
     }
 
-    /* keeps logo fixed behind everything */
+    /* ---- Site-wide watermark behind everything ---- */
     body::before{
       content:"";
       position: fixed;
@@ -21,10 +25,56 @@
       pointer-events: none;
     }
 
-    /* ensure page content sits above the fixed bg logo */
+    /* Ensure page content sits above the fixed bg logo */
     .site-wrapper, main, header, footer { position: relative; z-index: 1; }
 
-    /* --- Mini-cart + overlay (quick styles) --- */
+    /* ===================== NAV / MOBILE DRAWER ===================== */
+
+    /* Your top nav should always be above page content */
+    .nav{ position: sticky; top: 0; z-index: 5000; }
+
+    /* Full-screen overlay behind the drawer (but under the nav) */
+    .nav-overlay{
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.45);
+      opacity: 0; pointer-events: none;
+      transition: opacity .18s ease;
+      z-index: 4500;
+    }
+    .nav-overlay.show{ opacity: 1; pointer-events: auto; }
+
+    /* Mobile drawer panel (slides in under the nav bar) */
+    .mobile-drawer{
+      position: fixed; left: 0; right: 0; top: var(--nav-h,84px);
+      height: calc(100dvh - var(--nav-h,84px));
+      background: #fff;
+      border-top: 1px solid var(--nav-border, #e5e7eb);
+      transform: translateY(-8px);
+      opacity: 0; pointer-events: none;
+      transition: transform .18s ease, opacity .18s ease;
+      z-index: 4600;
+      display: flex; flex-direction: column;
+      will-change: transform, opacity;
+    }
+    .mobile-drawer.open{
+      transform: none;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .mobile-drawer a{
+      padding: 14px 20px;
+      border-top: 1px solid var(--nav-border, #e5e7eb);
+      color: var(--ink, #0b1220);
+      background: #fff;
+    }
+
+    /* Keep the hamburger button on top so it’s always tappable */
+    .menu-btn{ position: relative; z-index: 5001; }
+
+    /* Lock the page scroll when the drawer is open */
+    body.nav-open{ overflow: hidden; touch-action: none; }
+
+    /* ===================== MINI CART (as you had it) ===================== */
     .mini-cart{
       position:fixed; top:0; right:-380px; width:340px; height:100%; background:#fff;
       box-shadow:-4px 0 16px rgba(0,0,0,.12); display:flex; flex-direction:column; z-index:9999;
@@ -42,16 +92,14 @@
     .cart-overlay{ position:fixed; inset:0; background:rgba(0,0,0,.4); display:none; z-index:9998; }
     .cart-overlay.show{ display:block; }
 
-    /* mobile drawer should not intercept clicks when closed */
-    .mobile-drawer{ pointer-events:none; opacity:0; transform:translateY(-6px); transition:opacity .2s, transform .2s; }
-    .mobile-drawer.open{ pointer-events:auto; opacity:1; transform:none; }
-    
+    /* (Optional) If you previously had a minimal drawer style, remove it.
+       This file fully replaces the drawer CSS. */
   </style>
 </head>
 
 <body class="theme-navy">
 
-  <!-- Mini Cart Drawer (preview) -->
+  <!-- Mini Cart Drawer -->
   <div id="mini-cart" class="mini-cart">
     <div class="cart-header">
       <h2>Your Cart</h2>
@@ -67,13 +115,13 @@
     </div>
   </div>
 
-  <!-- Overlay -->
+  <!-- Overlays -->
   <div id="cart-overlay" class="cart-overlay"></div>
 
   <div class="site-wrapper">
     {% include nav.html %}
     <div id="nav-overlay" class="nav-overlay"></div>
-   
+
     <main id="content">
       {{ content }}
     </main>
@@ -81,15 +129,18 @@
     <div class="sep"></div>
     {% include contact-strip.html %}
 
+    <!-- Sponsors-as-footer -->
     <footer class="site-footer" role="contentinfo">
-    <div class="container">
-      {% include sponsors-grid.html %}
-      <div class="legal">© {{ "now" | date: "%Y" }} Team Macuga. All rights reserved.</div>
-    </div>
-  </footer>
+      <div class="container">
+        {% include sponsors.html %}
+        <div class="legal">© {{ "now" | date: "%Y" }} Team Macuga. All rights reserved.</div>
+      </div>
+    </footer>
   </div>
 
-  <!-- scripts (keep at end of body) -->
+  <!-- ===================== SCRIPTS ===================== -->
+
+  <!-- Carousels + shop helpers -->
   <script>
   document.addEventListener('DOMContentLoaded', () => {
     // Tiny rotator for .carousel (bios)
@@ -110,11 +161,12 @@
     if(grid){
       const chips = document.querySelectorAll('.shop-controls .chip');
       const sortSel = document.getElementById('sortPrice');
+
       const filter = cat => document.querySelectorAll('.product-card')
         .forEach(c => c.classList.toggle('hide', !(cat==='all'||(c.dataset.cat||'').includes(cat))));
-      // SAFE — only toggles 'active'
+
       chips.forEach(ch => ch.addEventListener('click', () => {
-        chips.forEach(c => c.classList.remove('active'));
+        chips.forEach(c=>c.classList.remove('active'));
         ch.classList.add('active');
         filter(ch.dataset.filter);
       }));
@@ -133,6 +185,7 @@
 
   <script defer src="{{ '/assets/js/carousel.js' | relative_url }}"></script>
 
+  <!-- Mini cart behavior -->
   <script>
   (function(){
     const SHOP = '{{ site.shopify.domain | default: "yourshop.myshopify.com" }}';
@@ -155,15 +208,11 @@
     function renderCart(){
       const list = drawer?.querySelector('.cart-items');
       const totalEl = drawer?.querySelector('[data-cart-total]');
-
-      // Always update the badge
       updateBadge();
-
       if(!list || !totalEl) return;
 
       const cart = get();
       list.innerHTML = '';
-
       if(!cart.length){
         list.innerHTML = '<p>Your cart is empty.</p>';
         totalEl.textContent = '$0.00';
@@ -174,7 +223,6 @@
       cart.forEach(item=>{
         const price = parseFloat(item.price) || 0;
         total += price * (item.qty || 1);
-
         const row = document.createElement('div');
         row.className = 'cart-item';
         row.innerHTML = `
@@ -225,17 +273,14 @@
       window.location.href = `https://${SHOP}/cart/${parts}`;
     }
 
-    // Events from product pages / grid quick-add
     window.addEventListener('tm:add', (e)=> {
       const d = e.detail || {};
       add(d.id, d.qty, d.title, d.price, d.img);
     });
     window.addEventListener('tm:remove', (e)=> remove(String(e.detail?.id || '')));
 
-    // Open/close/checkout + qty buttons (use closest for nested clicks)
     document.addEventListener('click', (e)=>{
       const t = e.target;
-
       if(t.closest('[data-open-cart]') || t.closest('#open-cart')){ e.preventDefault(); openCart(); return; }
       if(t.closest('#close-cart') || t.closest('#cart-overlay')){ e.preventDefault(); closeCart(); return; }
       if(t.closest('[data-checkout]')){ e.preventDefault(); checkout(); return; }
@@ -248,93 +293,70 @@
       if(rem){ remove(rem.dataset.remove); return; }
     });
 
-    // Init
     renderCart();
   })();
   </script>
 
+  <!-- Robust mobile menu toggle -->
   <script>
   (function(){
-    const blocks = document.querySelectorAll('.mini-rotator');
-    blocks.forEach(block => {
-      const slides = Array.from(block.querySelectorAll('.slide'));
-      if (slides.length < 2) return;
-
-      // dots
-      const dotsWrap = block.querySelector('.dots');
-      slides.forEach((_, i) => {
-        const b = document.createElement('button');
-        b.addEventListener('click', () => go(i));
-        dotsWrap.appendChild(b);
-      });
-
-      let idx = 0, timer;
-      const dots = dotsWrap.querySelectorAll('button');
-
-      function go(n){
-        slides[idx].classList.remove('active');
-        dots[idx].classList.remove('active');
-        idx = (n + slides.length) % slides.length;
-        slides[idx].classList.add('active');
-        dots[idx].classList.add('active');
-      }
-      function start(){ timer = setInterval(() => go(idx+1), 3500); }
-      function stop(){ clearInterval(timer); }
-
-      go(0); start();
-      block.addEventListener('mouseenter', stop);
-      block.addEventListener('mouseleave', start);
-    });
-  })();
-  </script>
-
-  <script>
-  (function(){
-    const btn = document.querySelector('.menu-btn');
-    const drawer = document.querySelector('.mobile-drawer');
+    const btn     = document.querySelector('.menu-btn');
+    const drawer  = document.querySelector('.mobile-drawer');
     const overlay = document.getElementById('nav-overlay');
-    if(!btn || !drawer) return;
-    const toggle = () => {
-      drawer.classList.toggle('open');
-      overlay?.classList.toggle('show');
-      document.body.classList.toggle('nav-open');
+
+    if(!btn || !drawer || !overlay) return;
+
+    const open = () => {
+      drawer.classList.add('open');
+      overlay.classList.add('show');
+      document.body.classList.add('nav-open');
+      btn.setAttribute('aria-expanded', 'true');
     };
-    btn.addEventListener('click', toggle);
-    overlay?.addEventListener('click', toggle);
-  })();
-
-  // Close mobile drawer when clicking any in-page anchor
-  document.querySelectorAll('.links a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', ()=>{
-      document.querySelector('.mobile-drawer')?.classList.remove('open');
-      document.getElementById('nav-overlay')?.classList.remove('show');
+    const close = () => {
+      drawer.classList.remove('open');
+      overlay.classList.remove('show');
       document.body.classList.remove('nav-open');
-    });
-  });
+      btn.setAttribute('aria-expanded', 'false');
+    };
+    const toggle = () => (drawer.classList.contains('open') ? close() : open());
 
+    // open/close on button tap
+    btn.addEventListener('click', (e)=>{ e.preventDefault(); toggle(); }, { passive:false });
+
+    // close on overlay
+    overlay.addEventListener('click', close);
+
+    // close on ESC
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') close(); });
+
+    // close when tapping any link inside the drawer (including #anchors)
+    drawer.addEventListener('click', (e)=>{
+      const a = e.target.closest('a');
+      if(a) close();
+    });
+
+    // close on hash changes (in-page jumps)
+    window.addEventListener('hashchange', close);
+  })();
   </script>
 
+  <!-- Hero video autoplay helper -->
   <script>
   (function(){
     const v = document.querySelector('.hero-video video');
     if(!v) return;
-
-    // Required for iOS autoplay
     v.muted = true;
     v.playsInline = true;
 
     function tryPlay(){
       v.play().catch(() => {
-        // If autoplay is blocked, fall back to poster background
         document.documentElement.classList.add('hero-video-fallback');
       });
     }
-
     if (document.readyState === 'complete') tryPlay();
     else window.addEventListener('load', tryPlay);
   })();
   </script>
-
 
 </body>
 </html>

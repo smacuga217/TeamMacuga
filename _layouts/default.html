@@ -109,11 +109,13 @@
       const sortSel = document.getElementById('sortPrice');
       const filter = cat => document.querySelectorAll('.product-card')
         .forEach(c => c.classList.toggle('hide', !(cat==='all'||(c.dataset.cat||'').includes(cat))));
-      chips.forEach(ch => ch.addEventListener('click', ()=>{
-        chips.forEach(c=>c.removeAttribute('class')); 
-        ch.classList.add('chip','active');
+      // SAFE — only toggles 'active'
+      chips.forEach(ch => ch.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('active'));
+        ch.classList.add('active');
         filter(ch.dataset.filter);
       }));
+
       sortSel?.addEventListener('change', ()=>{
         const cards=[...document.querySelectorAll('.product-card')];
         if(sortSel.value!=='default'){

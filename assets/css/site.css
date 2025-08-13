@@ -666,3 +666,107 @@ body.theme-navy .nav a { color: inherit; }
   width:18px; height:18px; object-fit:contain;
 }
 
+/* === White surfaces must use dark ink on the navy theme === */
+body.theme-navy .nav,
+body.theme-navy .card,
+body.theme-navy .mission-card,
+body.theme-navy .about-summary .about-wrap,
+body.theme-navy .family-card,
+body.theme-navy .bio-block,
+body.theme-navy .product-card,
+body.theme-navy .tm-card,
+body.theme-navy .news-card,
+body.theme-navy .res-card,
+body.theme-navy .hero-box,
+body.theme-navy .strip,
+body.theme-navy .sponsors,
+body.theme-navy .sponsors-grid .sponsor,
+body.theme-navy .band > .container {
+  color: var(--ink) !important;
+}
+
+/* links inside white surfaces should be dark (unless a button) */
+body.theme-navy .card a:not(.btn),
+body.theme-navy .strip a:not(.btn),
+body.theme-navy .sponsors a:not(.btn),
+body.theme-navy .band > .container a:not(.btn) {
+  color: var(--ink) !important;
+}
+
+/* === Gradient buttons/pills must have white text === */
+.btn.primary,
+a.btn.primary,
+#updates-root .tab.active {
+  color: #fff !important;
+  text-shadow: 0 1px 0 rgba(0,0,0,.15); /* subtle readability boost */
+}
+
+/* ===== Home: Athlete grid hard reset ===== */
+.home .ath-grid,
+#family .ath-grid {                      /* cover both includes */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+/* square media well */
+.home .ath-card .ath-media,
+#family .ath-card .ath-media {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  height: auto !important;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #eef3ff;
+  border: 1px solid var(--border);
+}
+
+/* headshots fill; logos contain with padding */
+.home .ath-card .ath-media img,
+#family .ath-card .ath-media img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block;
+}
+.home .ath-card .ath-media img.logo,
+#family .ath-card .ath-media img.logo,
+.home .ath-card .ath-media img[alt*="logo" i],
+#family .ath-card .ath-media img[alt*="logo" i]{
+  object-fit: contain !important;
+  padding: 14px;
+  background: #fff;
+}
+
+/* keep "My story" readable on white cards */
+.home .ath-card .btn,
+#family .ath-card .btn { color: var(--ink) !important; }
+
+/* actions row pinned to bottom; icons inline */
+.home .ath-card, #family .ath-card { display: flex; flex-direction: column; }
+.home .ath-card .ath-actions, #family .ath-card .ath-actions { 
+  margin-top: auto; 
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+
+/* icon pills inline and small */
+.home .ath-ico, #family .ath-ico{
+  display: inline-grid; place-items: center;
+  width: 32px; height: 32px; border-radius: 999px;
+  background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow);
+}
+.home .ath-ico img, #family .ath-ico img{ width: 18px; height: 18px; object-fit: contain; }
+
+/* Sponsors grid safety net */
+.sponsors-grid{
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
+  gap: 16px !important;
+}
+
+/* Page text on navy */
+body.theme-navy { color: #eaf1ff; }
+body.theme-navy .muted { color: #c7d0e6; }
+body.theme-navy .section-title { color: #fff; }
+
+/* But inside white surfaces, stay dark (already set above) */

@@ -921,3 +921,31 @@ body.theme-navy #mission .section-title{
 #mission p,
 #mission a{ color: var(--ink) !important; }
 #mission .muted{ color:#334155 !important; }  /* stronger than the pale gray */
+
+/* --- Navy theme: keep section backgrounds transparent (no big white blocks) --- */
+
+/* FAMILY / TEAM section background */
+body.theme-navy #family,
+body.theme-navy section#family,
+body.theme-navy #family > .container {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+/* Keep family cards themselves white (legible) */
+body.theme-navy #family .ath-card { background:#fff; color:var(--ink); }
+
+/* SPONSORS section background */
+body.theme-navy .sponsors,
+body.theme-navy .sponsors > .container,
+body.theme-navy .band.sponsors {         /* just in case sponsors uses .band */
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+/* Sponsor tiles stay white; names readable */
+body.theme-navy .sponsors-grid .sponsor { background:#fff; color:var(--ink); }
+body.theme-navy .sponsors .section-title,
+body.theme-navy .sponsors .section-kicker { color:#fff; }
+
+/* (We already fixed Mission earlier; this ensures only Mission's card is white) */

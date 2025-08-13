@@ -1,5 +1,6 @@
-{% assign feed = site.data.news_feed | default: empty %}
-{% assign title = include.title | default: "Latest Coverage" %}
+{% comment %} Resolve data source: news_feed.json or news.json {% endcomment %}
+{% assign raw = site.data.news_feed | default: site.data.news | default: empty %}
+{% assign title  = include.title  | default: "Latest Coverage" %}
 {% assign kicker = include.kicker | default: "From around the web" %}
 
 <section class="news-feed">
@@ -8,11 +9,13 @@
     <h2 class="section-heading">{{ title }}</h2>
   </header>
 
-  {% if feed == empty %}
+  {% if raw == empty %}
     <p class="muted">No recent articles yet.</p>
   {% else %}
+    {% assign feed   = raw | where_exp: "i", "i.published" %}
     {% assign sorted = feed | sort: "published" | reverse %}
-    {% assign groups = sorted | group_by_exp: "item", "item.published | slice: 0, 4" %}
+    {% assign groups = sorted | group_by_exp: "item", "item.published | date: '%Y'" %}
+
     {% for g in groups %}
       <h3 class="news-year">{{ g.name }}</h3>
       <div class="news-grid">
@@ -21,9 +24,28 @@
           <a class="news-card" href="{{ a.link }}" target="_blank" rel="noopener">
             <div class="news-eyebrow">
               {% if a.source %}<span class="source-pill">{{ a.source }}</span>{% endif %}
-              {% if a.published %}<time class="news-date" datetime="{{ a.published }}">{{ a.published | slice: 0, 10 }}</time>{% endif %}
+
+              {% if a.published %}
+                {% assign day_num = a.published | date: "%-d" | plus: 0 %}
+                {% if day_num == 11 or day_num == 12 or day_num == 13 %}
+                  {% assign suf = "th" %}
+                {% else %}
+                  {% assign ones = day_num | modulo: 10 %}
+                  {% case ones %}
+                    {% when 1 %}{% assign suf = "st" %}
+                    {% when 2 %}{% assign suf = "nd" %}
+                    {% when 3 %}{% assign suf = "rd" %}
+                    {% else %}{% assign suf = "th" %}
+                  {% endcase %}
+                {% endif %}
+                <time class="news-date" datetime="{{ a.published }}">
+                  {{ a.published | date: "%B" }} {{ day_num }}{{ suf }}, {{ a.published | date: "%Y" }}
+                </time>
+              {% endif %}
             </div>
+
             <h4 class="news-title">{{ a.title }}</h4>
+
             {% if img %}
               <div class="news-thumb" style="background-image:url('{{ img }}');"></div>
             {% endif %}
@@ -33,4 +55,3 @@
     {% endfor %}
   {% endif %}
 </section>
-

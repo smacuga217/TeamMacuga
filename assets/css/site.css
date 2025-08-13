@@ -384,7 +384,7 @@ body::before{
   );
   background-repeat:no-repeat; background-position:center center;
   background-size:clamp(520px,68vw,860px);
-  opacity:.12; filter:blur(.25px) saturate(1.05) contrast(1.02);
+  opacity:.5; filter:blur(.25px) saturate(1.05) contrast(1.02);
 }
 .nav,.full-bleed,.container,main,footer{ position:relative; z-index:1; }
 @media (max-width:640px){

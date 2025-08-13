@@ -1,5 +1,6 @@
+{% comment %} Reads _data/news_highlights.yml {% endcomment %}
 {% assign highlights = site.data.news_highlights | slice: 0, 3 %}
-{% assign title = include.title | default: "Featured Stories" %}
+{% assign title  = include.title  | default: "Featured Stories" %}
 {% assign kicker = include.kicker | default: "Top picks from Team Macuga" %}
 
 <section class="news-highlights">
@@ -14,10 +15,29 @@
         <a class="news-card tall" href="{{ n.link }}" target="_blank" rel="noopener">
           <div class="news-eyebrow">
             <span class="source-pill">{{ n.source | default: "Featured" }}</span>
-            {% if n.date %}<time class="news-date" datetime="{{ n.date }}">{{ n.date }}</time>{% endif %}
+
+            {% if n.date %}
+              {% assign day_num = n.date | date: "%-d" | plus: 0 %}
+              {% if day_num == 11 or day_num == 12 or day_num == 13 %}
+                {% assign suf = "th" %}
+              {% else %}
+                {% assign ones = day_num | modulo: 10 %}
+                {% case ones %}
+                  {% when 1 %}{% assign suf = "st" %}
+                  {% when 2 %}{% assign suf = "nd" %}
+                  {% when 3 %}{% assign suf = "rd" %}
+                  {% else %}{% assign suf = "th" %}
+                {% endcase %}
+              {% endif %}
+              <time class="news-date" datetime="{{ n.date }}">
+                {{ n.date | date: "%B" }} {{ day_num }}{{ suf }}, {{ n.date | date: "%Y" }}
+              </time>
+            {% endif %}
           </div>
+
           <h3 class="news-title">{{ n.title }}</h3>
           {% if n.summary %}<p class="summary">{{ n.summary }}</p>{% endif %}
+
           {% if n.image %}
             <div class="news-thumb" style="background-image:url('{{ n.image }}');"></div>
           {% endif %}

@@ -1,12 +1,18 @@
-- name: Stifel (Lauren)
+- name: Stifel
   url: https://www.stifel.com/
   logo: /assets/img/sponsors/stifel.png
+  athlete: Lauren
+- name: Deer Valley
+  url: https://www.deervalley.com/
+  logo: /assets/img/sponsors/deer-valley.png
+  athlete: Alli
 - name: Pit Viper
   url: https://www.pitviper.com/
   logo: /assets/img/sponsors/pit-viper.png
-- name: Rossignol (Lauren)
+- name: Rossignol
   url: https://www.rossignol.com/
   logo: /assets/img/sponsors/rossignol.png
+  athlete: Lauren
 - name: Giro
   url: https://www.giro.com/
   logo: /assets/img/sponsors/giro.png
@@ -16,12 +22,11 @@
 - name: TaraShakti
   url: https://tarashakti.com/
   logo: /assets/img/sponsors/tarashakti.png
-- name: Level (Lauren)
+- name: Level
   url: https://www.levelgloves.com/
   logo: /assets/img/sponsors/level.png
-- name: Deer Valley (Alli)
-  url: https://www.deervalley.com/
-  logo: /assets/img/sponsors/deer-valley.png
-- name: ID One (Alli)
+  athlete: Lauren
+- name: ID One
   url: https://www.idoneusa.com/
   logo: /assets/img/sponsors/idone.png
+  athlete: Alli

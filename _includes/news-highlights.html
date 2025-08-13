@@ -1,20 +1,21 @@
 {% assign highlights = site.data.news_highlights | slice: 0, 3 %}
 <section class="news-highlights">
-  <div class="grid">
-    {% for n in highlights %}
-      <article class="card">
-        <a href="{{ n.link }}" class="cover">
-          <img src="{{ n.image }}" alt="{{ n.title }}" loading="eager" decoding="async">
+  {% if highlights and highlights.size > 0 %}
+    <div class="news-grid">
+      {% for n in highlights %}
+        <a class="news-card" href="{{ n.link }}" target="_blank" rel="noopener">
+          <div class="news-eyebrow">
+            <span class="source-pill">{{ n.source | default: "Featured" }}</span>
+            {% if n.date %}<time class="news-date" datetime="{{ n.date }}">{{ n.date }}</time>{% endif %}
+          </div>
+          <h3 class="news-title">{{ n.title }}</h3>
+          {% if n.image %}
+            <div class="news-thumb" style="background-image:url('{{ n.image }}');"></div>
+          {% endif %}
         </a>
-        <div class="body">
-          <p class="meta">
-            <time datetime="{{ n.date }}">{{ n.date }}</time>
-            {% if n.source %} · {{ n.source }}{% endif %}
-          </p>
-          <h3><a href="{{ n.link }}">{{ n.title }}</a></h3>
-          {% if n.summary %}<p class="summary">{{ n.summary }}</p>{% endif %}
-        </div>
-      </article>
-    {% endfor %}
-  </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="muted">Add three stories to <code>_data/news_highlights.yml</code> to show highlights.</p>
+  {% endif %}
 </section>

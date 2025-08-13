@@ -1,17 +1,27 @@
 {% assign feed = site.data.news_feed | default: empty %}
 <section class="news-feed">
   {% if feed == empty %}
-    <p>No recent articles yet. Check back tomorrow.</p>
+    <p class="muted">No recent articles yet.</p>
   {% else %}
     {% assign sorted = feed | sort: "published" | reverse %}
-    <ul class="feed-list">
-      {% for a in sorted %}
-        <li class="feed-item">
-          <time datetime="{{ a.published }}">{{ a.published | slice: 0, 10 }}</time>
-          · <strong><a href="{{ a.link }}">{{ a.title }}</a></strong>
-          {% if a.source %}<em> ({{ a.source }})</em>{% endif %}
-        </li>
-      {% endfor %}
-    </ul>
+    {% assign groups = sorted | group_by_exp: "item", "item.published | slice: 0, 4" %}
+    {% for g in groups %}
+      <h3 class="news-year">{{ g.name }}</h3>
+      <div class="news-grid">
+        {% for a in g.items %}
+          {% assign img = a.image | default: a.og_image %}
+          <a class="news-card" href="{{ a.link }}" target="_blank" rel="noopener">
+            <div class="news-eyebrow">
+              {% if a.source %}<span class="source-pill">{{ a.source }}</span>{% endif %}
+              {% if a.published %}<time class="news-date" datetime="{{ a.published }}">{{ a.published | slice: 0, 10 }}</time>{% endif %}
+            </div>
+            <h4 class="news-title">{{ a.title }}</h4>
+            {% if img %}
+              <div class="news-thumb" style="background-image:url('{{ img }}');"></div>
+            {% endif %}
+          </a>
+        {% endfor %}
+      </div>
+    {% endfor %}
   {% endif %}
 </section>

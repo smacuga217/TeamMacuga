@@ -843,3 +843,42 @@ body.theme-navy .athlete-card .btn.primary,
 body.theme-navy .ath-card .btn.primary {
   color: #fff !important;
 }
+
+/* ===== Navy theme: athlete cards use light text on dark tiles ===== */
+
+/* Switch tokens to light inside the athlete grid on navy */
+body.theme-navy #family .ath-card,
+body.theme-navy .home .athlete-card {     /* legacy include class */
+  --ink:   #ffffff;
+  --muted: #c7d0e6;
+  color: var(--ink);
+}
+
+/* Names/titles specifically: make them white */
+body.theme-navy #family .ath-card .ath-name,
+body.theme-navy .home .athlete-card .name,
+body.theme-navy #family .family-card h3,          /* safety for older markup */
+body.theme-navy .home .athlete-card h3 {
+  color: #fff !important;
+}
+
+/* “My story” (non-primary) button should be readable on dark */
+body.theme-navy #family .ath-card .btn:not(.primary),
+body.theme-navy .home .athlete-card .btn:not(.primary) {
+  background: transparent;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,.35);
+}
+
+/* Media well borders look better subtle on dark */
+body.theme-navy #family .ath-card .ath-media,
+body.theme-navy .home .athlete-card .media {
+  border-color: rgba(255,255,255,.15);
+  background: rgba(255,255,255,.04);
+}
+
+/* Links inside cards inherit the light text */
+body.theme-navy #family .ath-card a,
+body.theme-navy .home .athlete-card a {
+  color: inherit;
+}

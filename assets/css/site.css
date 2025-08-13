@@ -813,3 +813,33 @@ body.theme-navy .strip {
   --ink:   #0b1220;
   --muted: #384559; /* a hair lighter than #1f2b3b, great on white */
 }
+
+/* ===== Fix: make nav and athlete cards use dark tokens on white surfaces (navy theme) ===== */
+
+/* Reset tokens inside white surfaces that were missing */
+body.theme-navy .nav,
+body.theme-navy .athlete-card,
+body.theme-navy .ath-card {
+  --ink:   #0b1220;   /* dark text */
+  --muted: #384559;   /* readable secondary */
+}
+
+/* Nav links: explicit dark color on the white nav bar */
+body.theme-navy .nav a { color: var(--ink) !important; }
+
+/* Athlete grid: ensure links/buttons read as dark on the white cards */
+body.theme-navy .athlete-card a,
+body.theme-navy .ath-card a { color: var(--ink) !important; }
+
+/* “My story” (non-primary button) should be dark */
+body.theme-navy .athlete-card .btn:not(.primary),
+body.theme-navy .ath-card .btn:not(.primary) {
+  color: var(--ink) !important;
+}
+
+/* Keep gradient buttons white text wherever they appear */
+body.theme-navy .nav .btn.primary,
+body.theme-navy .athlete-card .btn.primary,
+body.theme-navy .ath-card .btn.primary {
+  color: #fff !important;
+}

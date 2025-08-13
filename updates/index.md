@@ -144,6 +144,47 @@ permalink: /updates/
   background-size:cover; background-position:center;
   border-radius:10px; border:1px solid var(--border);
 }
+
+/* ===== Updates page — News tab polish (scoped) ===== */
+#updates-root #tab-news .section-head {
+  /* a bit more space under the “Hand-picked stories / Updated daily” headings */
+  margin-bottom: 12px;
+}
+
+/* keep section headings readable on the navy background */
+body.theme-navy #updates-root #tab-news .section-kicker,
+body.theme-navy #updates-root #tab-news .section-heading {
+  color: #fff !important;
+}
+
+/* divider: thicker, white, and tighter spacing */
+#updates-root #tab-news .divider {
+  border: 0;
+  border-top: 4px solid var(--divider, #0b1220);
+  margin: 6px 0;            /* less space above/below */
+}
+body.theme-navy #updates-root #tab-news .divider {
+  --divider: #ffffff;
+  opacity: .9;
+}
+
+/* card content should be dark-on-white (names/titles not white) */
+#updates-root #tab-news .news-card,
+#updates-root #tab-news .news-card a,
+#updates-root #tab-news .news-card .news-title,
+#updates-root #tab-news .news-card .summary {
+  color: var(--ink) !important;
+}
+#updates-root #tab-news .news-date { color: var(--muted) !important; }
+
+/* also ensure Results tab names aren’t white */
+#updates-root .res-card h3 { color: var(--ink) !important; }
+#updates-root .res-card .muted { color: var(--muted) !important; }
+
+/* optional: a touch more breathing room below each section block */
+#updates-root #tab-news .news-highlights { margin-bottom: 10px; }
+#updates-root #tab-news .news-feed      { margin-top: 10px; }
+
 </style>
 
 <script>

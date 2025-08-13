@@ -2203,3 +2203,21 @@ body::before{
   grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
   gap:18px;
 }
+
+/* Tighten spacing in the News tab */
+#tab-news { padding-top: 4px; } /* prevents margin collapse */
+#tab-news .section-head { margin: 4px 0 10px; }
+#tab-news .section-kicker { margin: 0 0 2px; }
+
+/* Remove extra top gap before each section and keep layout stable */
+#tab-news .news-highlights,
+#tab-news .news-feed {
+  margin-top: 0;
+  display: flow-root;         /* blocks margin-collapsing */
+}
+
+/* Make the divider lighter + tighter */
+#tab-news .divider { margin: 12px 0; }
+
+/* Optional: slightly reduce card spacing */
+#tab-news .news-grid { gap: 14px; }

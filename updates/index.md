@@ -82,7 +82,6 @@ permalink: /updates/
     {% include news-highlights.html title="Featured" kicker="Hand-picked stories" %}
     <hr class="divider">
     {% include news-feed.html title="Latest Coverage" kicker="Updated daily" %}
-
   </div>
 
   <!-- Social -->

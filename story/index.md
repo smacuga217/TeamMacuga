@@ -244,6 +244,66 @@ permalink: /story/
 /* General spacing */
 .section-gap{ height:24px; }
 .section-gap.xl{ height:40px; }
+
+/* =========================
+   OUR STORY — READABILITY
+   ========================= */
+
+/* 1) "Skip to Bios" should be dark text on a white button */
+.story-hero .btn:not(.primary){
+  background: #fff;
+  color: #0b1220 !important;
+  border: 1px solid rgba(11,18,32,.15);
+}
+.story-hero .btn:not(.primary):hover{
+  text-decoration: none;
+  box-shadow: 0 8px 22px rgba(0,0,0,.12);
+}
+
+/* 2) On the navy theme, force dark tokens INSIDE white cards */
+body.theme-navy .tl-card,
+body.theme-navy .bio{
+  --ink:   #0b1220;
+  --muted: #384559;
+  color: var(--ink);
+}
+
+/* Timeline card text: dark + readable */
+body.theme-navy .tl-card h3,
+body.theme-navy .tl-card p,
+body.theme-navy .tl-card li,
+body.theme-navy .tl-card a{
+  color: var(--ink) !important;
+}
+body.theme-navy .tl-card .muted{
+  color: var(--muted) !important;
+}
+
+/* Timeline date pill remains dark on white */
+body.theme-navy .tl-time{
+  color: #334155;
+  background: #fff;
+  border-color: var(--border);
+}
+
+/* 3) Bio cards: names and body copy must be dark */
+body.theme-navy .bio h3,
+body.theme-navy .bio p,
+body.theme-navy .bio li,
+body.theme-navy .bio a{
+  color: var(--ink) !important;
+}
+body.theme-navy .bio .role{
+  color: #475569 !important;  /* medium-dark for the subtitle */
+}
+
+/* 4) Make sure links inside white cards don’t become white */
+body.theme-navy .tl-card a:not(.btn),
+body.theme-navy .bio a:not(.btn){
+  color: var(--ink) !important;
+  text-decoration: underline;
+}
+
 </style>
 
 <script>

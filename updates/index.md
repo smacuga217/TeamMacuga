@@ -130,11 +130,78 @@ permalink: /updates/
 
   <!-- Social -->
   <div id="tab-social" class="tabpanel" role="tabpanel" hidden>
-    <div class="card">
-      <p class="muted">Live social wall goes here.</p>
+    <h2 class="section-title">Latest from the fam</h2>
+
+    <!-- Featured videos -->
+    <div class="video-grid">
+      <!-- Lauren — USSS highlight -->
+      <article class="card video">
+        <div class="video-16x9">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/WSZOawWPVcM"
+            title="Lauren Macuga wins in St. Anton — U.S. Ski & Snowboard"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <p class="cap"><strong>Lauren Macuga</strong> — St. Anton win highlights (U.S. Ski & Snowboard)</p>
+      </article>
+
+      <!-- Lauren — FIS highlight -->
+      <article class="card video">
+        <div class="video-16x9">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/H9GTHJitgkQ"
+            title="Lauren Macuga — First win with style | FIS Alpine"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <p class="cap"><strong>Lauren</strong> — “First win with style” (FIS Alpine)</p>
+      </article>
+
+      <!-- Lauren — quick interview -->
+      <article class="card video">
+        <div class="video-16x9">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/PRYqJTONbY8"
+            title="FIS interviews: Lauren Macuga — Atomic Ski Fans"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <p class="cap"><strong>Lauren</strong> — short post-race chat (Atomic Ski Fans)</p>
+      </article>
+
+      <!-- Sam — news feature -->
+      <article class="card video">
+        <div class="video-16x9">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/UB6V1z0dr_8"
+            title="Utah Teens Representing United States In Ski Jump World Cup — FOX 13"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <p class="cap"><strong>Sam Macuga</strong> — World Cup feature (FOX 13 News / USA Nordic)</p>
+      </article>
+    </div>
+
+    <div class="section-gap"></div>
+
+    <!-- Instagram picks -->
+    <h3 class="section-title">From Instagram</h3>
+    <div class="ig-grid">
+      <!-- Lauren -->
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Bqlb4OBgFS8/" data-instgrm-version="14"></blockquote>
+
+      <!-- Alli -->
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/C8BAON1R_my/" data-instgrm-version="14"></blockquote>
+
+      <!-- Sam -->
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CeqqXl2o8om/" data-instgrm-version="14"></blockquote>
+
+      <!-- Daniel -->
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Cfb0D2IsJeW/" data-instgrm-version="14"></blockquote>
     </div>
   </div>
-</section>
+
 
 <style>
 /* Tabs */
@@ -250,6 +317,37 @@ body.theme-navy #updates-root #tab-news .divider{ --divider:#fff; opacity:.9; }
 /* keep DSQ/DNS/DNF readable (you already style .place.dnf) */
 .place.dnf .place-badge{ text-decoration:line-through; }
 
+/* Social tab layout */
+.video-grid,
+.ig-grid{
+  display:grid;
+  gap:16px;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+}
+
+/* 16:9 safe iframe wrapper */
+.video-16x9{
+  position:relative;
+  padding-top:56.25%;
+  border-radius:12px;
+  overflow:hidden;
+  background:#000;
+  border:1px solid var(--border);
+}
+.video-16x9 iframe{
+  position:absolute; inset:0;
+  width:100%; height:100%; border:0;
+}
+
+.cap{ margin:.5rem 0 0; color:var(--muted); }
+.cap strong{ color:var(--ink); }
+
+/* Make sure cards stay dark-on-white inside the navy theme */
+body.theme-navy #tab-social .card,
+body.theme-navy #tab-social .card *{
+  color: var(--ink);
+}
+
 </style>
 
 <script>
@@ -310,3 +408,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 })();
 </script>
+
+<script async src="//www.instagram.com/embed.js"></script>
+

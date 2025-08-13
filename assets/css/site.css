@@ -517,3 +517,65 @@ body.theme-navy .hero-box{
   border:1px solid var(--border);
   box-shadow:var(--shadow);
 }
+
+/* ===== Readability on dark navy ===== */
+body.theme-navy{
+  /* make default text light on dark pages */
+  color: #eaf1ff;
+}
+body.theme-navy .muted{ color:#c7d0e6; }
+
+/* links readable on dark sections, but keep cards/nav dark-on-white */
+body.theme-navy a{ color:#ffffff; }
+body.theme-navy .nav a,
+body.theme-navy .card a,
+body.theme-navy .family-card a,
+body.theme-navy .product-card a,
+body.theme-navy .tm-card a,
+body.theme-navy .news-card a,
+body.theme-navy .res-card a,
+body.theme-navy .hero-box a{ color: inherit; }
+
+/* section headings on dark (outside cards) get a touch more contrast */
+body.theme-navy .section-title{ color:#fff; }
+
+/* ===== Home: athlete grid hard reset ===== */
+#family .ath-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap:16px;
+}
+
+/* square media well with strict sizing */
+#family .ath-card .ath-media{
+  width:100%;
+  aspect-ratio: 1 / 1;
+  height:auto !important;          /* stomp any fixed heights */
+  border-radius:12px;
+  overflow:hidden;
+  background:#eef3ff;
+  border:1px solid var(--border);
+}
+
+/* headshots fill; no stretching */
+#family .ath-card .ath-media img{
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  display:block;
+}
+
+/* social icons stay small */
+#family .ath-ico img{ width:18px; height:18px; object-fit:contain; }
+
+/* keep actions at the bottom so heights are even */
+#family .ath-card{ display:flex; flex-direction:column; }
+#family .ath-actions{ margin-top:auto; }
+
+/* logos inside the athlete media tile */
+#family .ath-card .ath-media img.logo,
+#family .ath-card .ath-media img[alt*="logo" i]{
+  object-fit:contain !important;
+  padding:14px;
+  background:#fff;
+}

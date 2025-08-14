@@ -44,8 +44,7 @@ permalink: /updates/
         <header class="res-head">
           <img class="res-avatar" src="{{ headshot }}" alt="{{ name }}">
           <div class="res-meta">
-            <h3 id="res-{{ name | slugify }}">{{ name }}</h3>
-            {% if a.discipline %}<span class="pill role">{{ a.discipline }}</span>{% endif %}
+            <h3 id="res-{{ name | slugify }}">{{ name }}</h3> {% if a.discipline %}<span class="pill role">{{ a.discipline }}</span>{% endif %}
           </div>
           {% if a.url %}
             <a class="btn primary sm" href="{{ a.url }}" target="_blank" rel="noopener">FIS Profile ↗</a>

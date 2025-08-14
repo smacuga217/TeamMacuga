@@ -1513,3 +1513,21 @@ body.theme-navy .s-card{ background:#fff; }
 .s-grid .s-card .s-badge.pill{
   border:0; background:linear-gradient(90deg,var(--brand),var(--navy));
 }
+
+/* Keep highlight cards dark-on-white on any theme */
+.news-highlights .news-card,
+.news-highlights .news-card a,
+.news-highlights .news-card .news-title,
+.news-highlights .news-card .summary,
+.news-feed      .news-card,
+.news-feed      .news-card * {
+  color: var(--ink) !important;
+}
+
+/* The small kicker/heading above highlights on navy should stay white */
+body.theme-navy .news-highlights .section-kicker,
+body.theme-navy .news-highlights .section-heading,
+body.theme-navy .news-feed .section-kicker,
+body.theme-navy .news-feed .section-heading {
+  color: #fff !important;
+}

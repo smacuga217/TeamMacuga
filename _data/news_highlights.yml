@@ -1,21 +1,17 @@
-# Exactly three items you control manually
-- title: "Shark wins hometown comp"
-  link: "https://example.com/shark-hometown"
-  image: "/img/news/hometown.jpg"
-  date: "2025-02-10"
-  source: "Local News"
-  summary: "A perfect day on the hill and a packed crowd."
+- source: AP
+  title: Macuga sisters feature (AP)
+  link: https://apnews.com/article/macuga-sisters-ski-winter-olympics-milan-87d15f0d5e4a756b4f96f2a9debda888
+  date: Feb 2025
+  image: /assets/img/news/ap-highlight.webp
 
-- title: "Training camp announced"
-  link: "https://example.com/training-camp"
-  image: "/img/news/camp.jpg"
-  date: "2025-01-20"
-  source: "Team Macuga"
-  summary: "Join us for a high-altitude training week."
+- source: NY Times (The Athletic)
+  title: The Macuga siblings’ Olympic push
+  link: https://www.nytimes.com/athletic/5973179/2024/12/17/lauren-macuga-alli-sam-olympics-skiing/
+  date: Dec 17, 2024
+  image: /assets/img/news/nytimes-highlight.JPG
 
-- title: "Gear collab sneak peek"
-  link: "https://example.com/collab-sneak"
-  image: "/img/news/collab.jpg"
-  date: "2024-12-05"
-  source: "TM Journal"
-  summary: "First look at our limited-run collab."
+- source: Park Record
+  title: Macuga family is all in with the U.S. Ski Team
+  link: https://www.parkrecord.com/2025/03/28/macuga-family-is-all-in-with-the-u-s-ski-team/
+  date: Mar 28, 2025
+  image: /assets/img/news/park-record-highlight.webp

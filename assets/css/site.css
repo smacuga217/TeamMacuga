@@ -1263,3 +1263,55 @@ body.theme-navy .sponsors .section-heading{ text-align:left; color:#fff; }
 /* Navy theme: headings stay readable */
 body.theme-navy .sponsors .section-kicker,
 body.theme-navy .sponsors .section-heading{ color:#fff; }
+
+/* ===== Sponsors (footer block) ===== */
+.sponsors { margin-top: 8px; }
+.sponsors-head { margin-bottom: 14px; text-align: left; }
+/* h2 now uses .section-title so your sitewide gradient underline returns */
+
+/* Grid: bigger, wider logo plates; no outer “card” */
+.sponsors-grid{
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.sponsor{ /* kill the outer card look */
+  background: transparent; border: 0; box-shadow: none; padding: 0;
+}
+.sponsor-link{ display: block; color: inherit; text-decoration: none; }
+
+/* Single white plate (no double border), wider & bigger logos */
+.s-logo-box{
+  position: relative; display: grid; place-items: center; overflow: hidden;
+  width: 100%;
+  aspect-ratio: 16 / 5;                 /* wider rectangle */
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.10);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.sponsor-link:hover .s-logo-box{
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.14);
+}
+.s-logo-box img{
+  max-width: 92%;
+  max-height: 82%;                      /* make logos larger, but contained */
+  width: auto; height: auto; display: block; object-fit: contain;
+  filter: saturate(1.03) contrast(1.02);
+}
+
+/* Tiny gradient pill for athlete (less obtrusive, won’t drown the logo) */
+.s-badge{
+  position: absolute; right: 10px; bottom: 10px;
+  padding: 4px 10px; border-radius: 999px;
+  font-size: .72rem; font-weight: 800; letter-spacing: .01em;
+  color: #fff; background: linear-gradient(90deg, var(--brand), var(--navy));
+  box-shadow: 0 6px 16px rgba(0,0,0,.10);
+  backdrop-filter: saturate(1.2);
+}
+
+/* Navy theme readability for headings */
+body.theme-navy .sponsors .section-kicker,
+body.theme-navy .sponsors .section-title { color: #fff; }

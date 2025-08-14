@@ -1216,3 +1216,50 @@ html {
    but ensure headings left aligned if you prefer that look */
 body.theme-navy .sponsors .section-kicker,
 body.theme-navy .sponsors .section-heading{ text-align:left; color:#fff; }
+
+/* ===== Sponsors (footer block) ===== */
+.sponsors-head{ margin-bottom:10px; text-align:left; }
+.site-footer .sponsors-head .section-kicker,
+.site-footer .sponsors-head .section-heading{ text-align:left; }
+
+/* Grid: bigger, wider plates */
+.sponsors-grid{
+  list-style:none; margin:0; padding:0;
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+  gap:16px;
+}
+.sponsor{
+  background:#fff; border:1px solid var(--border);
+  border-radius:14px; padding:12px; box-shadow:var(--shadow);
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+.sponsor:hover{ transform:translateY(-1px); box-shadow:0 12px 30px rgba(0,0,0,.12); }
+
+.sponsor-link{ display:block; color:inherit; text-decoration:none; }
+
+/* Wide rectangular logo “plate” */
+.s-logo-box{
+  position:relative; width:100%;
+  aspect-ratio:16/6;                /* wide + taller for bigger logos */
+  border:1px solid var(--border);
+  border-radius:12px; background:#fff;
+  display:grid; place-items:center; overflow:hidden;
+}
+.s-logo-box img{
+  max-width:94%; max-height:84%;
+  width:auto; height:auto; object-fit:contain; display:block;
+  filter:saturate(1.05) contrast(1.02);
+}
+
+/* Tiny gradient pill for athlete (only when s.athlete exists) */
+.s-badge{
+  position:absolute; right:10px; bottom:10px;
+  padding:4px 10px; border-radius:999px;
+  font-size:.72rem; font-weight:800; letter-spacing:.01em;
+  color:#fff; background:linear-gradient(90deg, var(--brand), var(--navy));
+  box-shadow:0 6px 16px rgba(0,0,0,.10);
+}
+
+/* Navy theme: headings stay readable */
+body.theme-navy .sponsors .section-kicker,
+body.theme-navy .sponsors .section-heading{ color:#fff; }

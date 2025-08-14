@@ -39,7 +39,16 @@
           {% if n.summary %}<p class="summary">{{ n.summary }}</p>{% endif %}
 
           {% if n.image %}
-            <div class="news-thumb" style="background-image:url('{{ n.image }}');"></div>
+            {% assign img_rel = n.image
+                | remove: '/assets/img/'
+                | remove: '/assets/img_src/'
+                | remove_first: '/' %}
+            {% include picture.html
+              src=img_rel
+              alt=n.title
+              widths="480,768,1100,1600"
+              sizes="(min-width:960px) 50vw, 100vw"
+              class="news-thumb-pic" %}
           {% endif %}
         </a>
       {% endfor %}

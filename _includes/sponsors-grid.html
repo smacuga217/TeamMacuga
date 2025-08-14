@@ -7,17 +7,25 @@
 
     <ul class="s-grid">
       {% for s in site.data.sponsors %}
-        <li class="s-item">
-          <a class="s-card" href="{{ s.url }}" target="_blank" rel="noopener" aria-label="{{ s.name }}">
-            {% if s.athlete %}
-              <span class="s-badge">{{ s.athlete }}</span>
-            {% endif %}
-            <div class="s-logo-wrap">
-              <img class="s-logo" src="{{ s.logo | relative_url }}" alt="{{ s.name }}">
-            </div>
-          </a>
-        </li>
+      <li class="s-item">
+        <a class="s-tile" href="{{ s.url }}" target="_blank" rel="noopener">
+          {% assign logo_rel = s.logo
+              | remove: '/assets/img/'
+              | remove: '/assets/img_src/'
+              | remove_first: '/' %}
+          {% include picture.html
+            src=logo_rel
+            alt=s.name
+            widths="360,520,720"
+            sizes="(min-width:1100px) 20vw, (min-width:700px) 33vw, 50vw"
+            class="s-logo" %}
+          {% if s.athlete %}
+            <span class="s-badge">{{ s.athlete }}</span>
+          {% endif %}
+        </a>
+      </li>
       {% endfor %}
     </ul>
+
   </div>
 </section>

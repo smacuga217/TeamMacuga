@@ -116,6 +116,7 @@ permalink: /updates/
           {% else %}
             <p class="muted">No results added yet.</p>
           {% endif %}
+        </div>
       </article>
     {% endfor %}
   </div>

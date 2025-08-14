@@ -213,7 +213,7 @@ permalink: /updates/
     <div id="ig-grid" class="ig-grid"></div>
   </div>
 
-  </div>
+</section>
 
 
 <style>
@@ -523,3 +523,4 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 })();
 </script>
+

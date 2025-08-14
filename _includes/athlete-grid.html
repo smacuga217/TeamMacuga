@@ -20,12 +20,7 @@
 
     <!-- Actions pinned at bottom -->
     <div class="ath-actions">
-      {% assign display = a.first | default: a.name | split: ' ' | first %}
-      <a class="btn" href="{{ '/story/#bio-' | append: a.slug | relative_url }}">
-        Read about {{ display }}
-      </a>
-    </div>
-
+      <a class="btn" href="{{ '/story/#' | append: a.slug | append: '-bio' | relative_url }}">My story</a>
 
       <div class="ath-social">
         {% if a.fis %}

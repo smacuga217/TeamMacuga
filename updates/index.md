@@ -380,56 +380,6 @@ body.theme-navy #tab-social .card *{ color:var(--ink); }
   margin:0; /* Instagram injects its own margins; we override here */
 }
 
-/* Uniform IG tiles (all cards are 9:16, content keeps its own ratio) */
-.ig-grid{
-  display:grid;
-  gap:16px;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-}
-
-/* Card wrapper */
-.ig-tile{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:12px;
-  box-shadow:var(--shadow);
-  overflow:hidden;
-  padding:0;                 /* iframe fits edge-to-edge */
-}
-
-/* Outer fixed 9:16 box for EVERY tile */
-.ig-9x16{
-  position:relative;
-  aspect-ratio:9/16;
-  background:#000;
-}
-
-/* Inner wrappers: choose sq (1:1) for posts, fill for reels */
-.ig-fill, .ig-sq{
-  position:absolute; inset:0;
-  display:flex; align-items:center; justify-content:center;
-}
-
-/* Reels: fill the 9:16 box */
-.ig-fill iframe{
-  width:100%; height:100%; border:0;
-}
-
-/* Posts: keep square (or landscape) without distortion, centered */
-.ig-sq{
-  /* make the inner box square and fit by height */
-  height:100%;
-  aspect-ratio:1/1;
-  width:auto;
-}
-.ig-sq iframe{
-  width:100%; height:100%; border:0;
-}
-
-/* Dark theme safeguard: keep text dark inside the white card */
-body.theme-navy #tab-social .ig-tile, 
-body.theme-navy #tab-social .ig-tile *{ color:var(--ink); }
-
 
 </style>
 
@@ -492,9 +442,11 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 </script>
 
+<script async src="https://www.instagram.com/embed.js"></script>
+
 <script>
 (function(){
-  // Your IG URLs (we’ll randomize order on each load)
+  // Your IG URLs (randomized on each load)
   const IG_URLS = [
     "https://www.instagram.com/p/DHqvu_nOlND/?img_index=1",
     "https://www.instagram.com/reel/DFT0Jx4zV2s/",
@@ -524,19 +476,6 @@ document.addEventListener('DOMContentLoaded', () => {
     "https://www.instagram.com/p/DELFhfdiDAN/?img_index=1"
   ];
 
-  // Convert a public URL to the official /embed endpoint
-  function toEmbed(u){
-    try{
-      const url = new URL(u);
-      const seg = url.pathname.split('/').filter(Boolean); // ["p","ID"] or ["reel","ID"]
-      const type = seg[0], id = seg[1];
-      if (['p','reel','tv'].includes(type) && id){
-        return `https://www.instagram.com/${type}/${id}/embed/`;
-      }
-    }catch(e){}
-    return u; // fallback (shouldn’t happen with provided URLs)
-  }
-
   function shuffle(arr){
     for(let i=arr.length-1;i>0;i--){
       const j = Math.floor(Math.random()*(i+1));
@@ -548,49 +487,39 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderIG(){
     const wrap = document.getElementById('ig-grid');
     if(!wrap) return;
+
+    // Clear once (safe if reprocessed)
     wrap.innerHTML = "";
 
-    // Randomize and take up to 12
-    shuffle(IG_URLS.slice()).slice(0,12).forEach(u=>{
-      const isReel = /\/reel\//.test(u);
-      const embed = toEmbed(u);
-
-      const tile = document.createElement('article');
-      tile.className = 'ig-tile';
-
-      const outer = document.createElement('div');
-      outer.className = 'ig-9x16';
-
-      const inner = document.createElement('div');
-      inner.className = isReel ? 'ig-fill' : 'ig-sq';
-
-      inner.innerHTML = `
-        <iframe
-          src="${embed}"
-          loading="lazy"
-          allowfullscreen
-          referrerpolicy="strict-origin-when-cross-origin"
-          title="Instagram"
-        ></iframe>`;
-
-      outer.appendChild(inner);
-      tile.appendChild(outer);
-      wrap.appendChild(tile);
+    // Show up to 12, randomized
+    const pick = shuffle(IG_URLS.slice()).slice(0, 12);
+    pick.forEach(url=>{
+      const bq = document.createElement('blockquote');
+      bq.className = 'instagram-media';
+      bq.setAttribute('data-instgrm-permalink', url);
+      bq.setAttribute('data-instgrm-version','14');
+      bq.style.margin = "0";
+      wrap.appendChild(bq);
     });
+
+    // Ask Instagram to (re)process
+    if (window.instgrm?.Embeds?.process) window.instgrm.Embeds.process();
+    else setTimeout(()=>window.instgrm?.Embeds?.process?.(), 350);
   }
 
-  // Render once now…
+  // Render now (even if panel is hidden)
   renderIG();
 
-  // …and re-render if the Social tab is selected later (hash/tab clicks)
+  // Re-process when the Social tab is shown
   document.querySelector('.tabs')?.addEventListener('click', (e)=>{
     const t = e.target.closest('.tab');
-    if (t && t.dataset.tab === 'social') renderIG();
+    if (t && t.dataset.tab === 'social') setTimeout(renderIG, 50);
   });
+
+  // Also handle hash navigation direct to #social
   window.addEventListener('hashchange', ()=>{
-    if ((location.hash||"").slice(1) === 'social') renderIG();
+    if ((location.hash||"").slice(1) === 'social') setTimeout(renderIG, 50);
   });
 })();
 </script>
-
 

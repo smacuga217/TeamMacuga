@@ -406,6 +406,17 @@ body.theme-navy #tab-social .card *{ color:var(--ink); }
   white-space:nowrap;     /* keeps the pill from breaking awkwardly */
 }
 
+/* Updates → News tab: tighten vertical spacing */
+#updates-root #tab-news .news-highlights,
+#updates-root #tab-news .news-feed{
+  padding-top: 28px;   /* was 56px */
+  padding-bottom: 28px;/* optional, keeps the block balanced */
+}
+
+/* Also halve the top margin on the section header itself */
+#updates-root #tab-news .section-head{
+  margin: 12px 0 12px; /* was 24px 0 12px globally */
+}
 
 </style>
 

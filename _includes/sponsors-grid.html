@@ -1,20 +1,23 @@
 <section class="sponsors" aria-labelledby="sponsors-title">
   <div class="container">
-    <header class="section-head">
-      <h2 id="sponsors-title" class="section-title">Thank you to our sponsors</h2>
-      <p class="section-kicker">Their support keeps the dream alive.</p>
+    <header class="sponsors-head">
+      <p class="section-kicker">Thank you to our sponsors</p>
+      <h2 id="sponsors-title" class="section-heading">Their support keeps the dream alive.</h2>
     </header>
 
+    {% assign sponsors = site.data.sponsors | default: site.data.sponsors_grid %}
     <ul class="sponsors-grid">
-      {% assign items = site.data.sponsors %}
-      {% for s in items %}
-      <li class="s-item">
-        <figure class="s-tile{% if s.athlete %} has-badge{% endif %}">
-          <img class="s-logo" src="{{ s.logo | relative_url }}" alt="{{ s.name }}">
-          {% if s.athlete %}
-            <figcaption class="s-badge" aria-label="Sponsored athlete">{{ s.athlete }}</figcaption>
-          {% endif %}
-        </figure>
+      {% for s in sponsors %}
+      <li class="sponsor">
+        {% if s.url %}<a class="sponsor-link" href="{{ s.url }}" target="_blank" rel="noopener">{% endif %}
+          <div class="s-logo-box">
+            <img src="{{ s.logo | relative_url }}" alt="{{ s.name }}">
+            {% if s.sponsor_of %}
+              <span class="s-badge" title="Sponsor of {{ s.sponsor_of }}"> {{ s.sponsor_of }} </span>
+            {% endif %}
+          </div>
+          {% if s.name %}<div class="s-name">{{ s.name }}</div>{% endif %}
+        {% if s.url %}</a>{% endif %}
       </li>
       {% endfor %}
     </ul>

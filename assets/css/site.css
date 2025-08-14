@@ -1153,3 +1153,66 @@ body.theme-navy .sponsors .s-tile{ color: var(--ink); } /* inside tiles */
 html {
   scroll-behavior: smooth;
 }
+
+/* ===== Sponsors (footer) ===== */
+.sponsors-head{ margin-bottom:10px; }
+.sponsors-grid{
+  list-style:none; margin:0; padding:0;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:16px;
+}
+
+.sponsor{
+  background:#fff; border:1px solid var(--border);
+  border-radius:14px; padding:12px;
+  box-shadow:var(--shadow);
+}
+
+.sponsor-link{
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  color:inherit; text-align:center;
+}
+
+/* Wide rectangular logo plate */
+.s-logo-box{
+  position:relative;
+  width:100%;
+  aspect-ratio: 16 / 6;                /* wide rectangle */
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#fff;
+  display:grid; place-items:center;
+  overflow:hidden;
+}
+
+/* Make logos bigger but never distort */
+.s-logo-box img{
+  max-width:90%;
+  max-height:80%;
+  width:auto; height:auto;
+  object-fit:contain; display:block;
+  filter: saturate(1.05) contrast(1.02);
+}
+
+/* Optional small corner badge like “Lauren” or “Alli” */
+.s-badge{
+  position:absolute; right:8px; bottom:8px;
+  font-size:.72rem; font-weight:700; line-height:1;
+  padding:4px 8px; border-radius:999px;
+  background:#0b1220; color:#fff; opacity:.85;
+}
+
+/* Name under logo */
+.s-name{
+  font-size:.82rem; font-weight:700; letter-spacing:.01em;
+  text-align:center; margin-top:6px; color:var(--ink);
+}
+
+/* Hover polish */
+.sponsor:hover{ transform:translateY(-1px); box-shadow:0 12px 30px rgba(0,0,0,.1); }
+
+/* Navy theme: keep cards bright/dark text (your tokens already handle this),
+   but ensure headings left aligned if you prefer that look */
+body.theme-navy .sponsors .section-kicker,
+body.theme-navy .sponsors .section-heading{ text-align:left; color:#fff; }

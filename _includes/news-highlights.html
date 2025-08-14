@@ -39,10 +39,17 @@
           {% if n.summary %}<p class="summary">{{ n.summary }}</p>{% endif %}
 
           {% if n.image %}
+            {%- comment -%}
+              Accepts either:
+              - full path like "/assets/img/news/ap-highlight.webp"
+              - or bare filename like "news/ap-highlight.webp"
+              We normalize to a path relative to /assets/img/ or /assets/img_src/.
+            {%- endcomment -%}
             {% assign img_rel = n.image
                 | remove: '/assets/img/'
                 | remove: '/assets/img_src/'
                 | remove_first: '/' %}
+
             {% include picture.html
               src=img_rel
               alt=n.title

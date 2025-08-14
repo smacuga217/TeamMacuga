@@ -1315,3 +1315,65 @@ body.theme-navy .sponsors .section-heading{ color:#fff; }
 /* Navy theme readability for headings */
 body.theme-navy .sponsors .section-kicker,
 body.theme-navy .sponsors .section-title { color: #fff; }
+
+/* ==== SPONSORS: make logos actually fit ==== */
+
+/* grid sizing is a touch wider so logos can breathe */
+.s-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap:16px;
+}
+
+/* card look stays the same */
+.s-card{
+  position:relative;
+  display:block;
+  padding:14px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+/* create a fixed “logo well” the image can scale inside */
+.s-card .logo-box,
+.s-card .s-logo-box {                   /* support either class if you used both */
+  aspect-ratio: 16 / 9;                 /* consistent rectangle */
+  display:grid;
+  place-items:center;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:#fff;
+  padding: clamp(12px, 2.2vw, 22px);    /* space so tall/wide marks never touch edges */
+  overflow:hidden;
+}
+
+/* the actual logo — always contain, never crop */
+.s-card img{
+  width:auto;
+  height:auto;
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+  display:block;
+}
+
+/* athlete badge (kept, just nudged above the logo well) */
+.s-card .badge,
+.s-card .s-badge{
+  position:absolute;
+  left:16px; top:16px;
+  padding:.35rem .75rem;
+  font-weight:800;
+  border-radius:999px;
+  color:#fff;
+  background:linear-gradient(90deg,var(--brand),var(--navy));
+  box-shadow:0 8px 18px rgba(0,0,0,.18);
+}
+
+/* small tweak so extremely wide/tall logos don’t look tiny */
+@media (min-width:1200px){
+  .s-grid{ grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+}

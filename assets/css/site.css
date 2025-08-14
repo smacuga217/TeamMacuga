@@ -1440,3 +1440,37 @@ body.theme-navy .sponsors .section-title { color: #fff; }
 /* Dark theme: headings stay white, cards stay white-on-dark */
 body.theme-navy .s-title, body.theme-navy .s-kicker{ color:#fff; }
 body.theme-navy .s-card{ background:#fff; }
+
+/* Fix: athlete pill blowing up to full width */
+.s-grid .s-card { position: relative; } /* ensure a positioning context */
+
+.s-grid .s-card .s-badge{
+  position: absolute !important;
+  left: 12px; 
+  top: 12px;
+  z-index: 3;
+
+  /* keep it small and inline */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  width: auto !important;
+  max-width: calc(100% - 24px);
+  height: auto;
+
+  /* visual style */
+  padding: .35rem .7rem;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: .8rem;
+  color: #fff;
+  background: linear-gradient(90deg, var(--brand), var(--navy));
+  box-shadow: 0 8px 20px rgba(0,0,0,.18);
+
+  /* neutralize any inherited borders/backgrounds */
+  border: 0 !important;
+}
+
+/* make sure the logo layer sits *below* the badge */
+.s-grid .s-card .s-logo-wrap{ z-index: 1; }

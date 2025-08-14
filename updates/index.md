@@ -132,74 +132,87 @@ permalink: /updates/
   <div id="tab-social" class="tabpanel" role="tabpanel" hidden>
     <h2 class="section-title">Latest from the fam</h2>
 
-    <!-- Featured videos -->
+    <!-- Video highlights -->
     <div class="video-grid">
-      <!-- Lauren — USSS highlight -->
+      <!-- YouTube -->
       <article class="card video">
         <div class="video-16x9">
           <iframe
-            src="https://www.youtube-nocookie.com/embed/WSZOawWPVcM"
-            title="Lauren Macuga wins in St. Anton — U.S. Ski & Snowboard"
+            src="https://www.youtube-nocookie.com/embed/--YC7E8rEc4"
+            title="YouTube video"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
         </div>
-        <p class="cap"><strong>Lauren Macuga</strong> — St. Anton win highlights (U.S. Ski & Snowboard)</p>
       </article>
 
-      <!-- Lauren — FIS highlight -->
+      <!-- YouTube -->
       <article class="card video">
         <div class="video-16x9">
           <iframe
             src="https://www.youtube-nocookie.com/embed/H9GTHJitgkQ"
-            title="Lauren Macuga — First win with style | FIS Alpine"
+            title="YouTube video"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
         </div>
-        <p class="cap"><strong>Lauren</strong> — “First win with style” (FIS Alpine)</p>
       </article>
 
-      <!-- Lauren — quick interview -->
+      <!-- Facebook (Alpe d'Huez podium) -->
       <article class="card video">
         <div class="video-16x9">
           <iframe
-            src="https://www.youtube-nocookie.com/embed/PRYqJTONbY8"
-            title="FIS interviews: Lauren Macuga — Atomic Ski Fans"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fusskiandsnowboard%2Fvideos%2Falli-macuga-first-world-cup-podium-in-alpe-dhuez-dual-moguls%2F1012961679808964%2F&show_text=false&width=560&height=315"
+            style="border:0; overflow:hidden"
+            scrolling="no"
+            frameborder="0"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            allowfullscreen></iframe>
         </div>
-        <p class="cap"><strong>Lauren</strong> — short post-race chat (Atomic Ski Fans)</p>
       </article>
 
-      <!-- Sam — news feature -->
+      <!-- YouTube -->
       <article class="card video">
         <div class="video-16x9">
           <iframe
-            src="https://www.youtube-nocookie.com/embed/UB6V1z0dr_8"
-            title="Utah Teens Representing United States In Ski Jump World Cup — FOX 13"
+            src="https://www.youtube-nocookie.com/embed/U_aInY7K8q0"
+            title="YouTube video"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
         </div>
-        <p class="cap"><strong>Sam Macuga</strong> — World Cup feature (FOX 13 News / USA Nordic)</p>
+      </article>
+
+      <!-- Facebook (Bakuriani PB) -->
+      <article class="card video">
+        <div class="video-16x9">
+          <iframe
+            src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fusskiandsnowboard%2Fvideos%2Falli-macuga-new-moguls-personal-best-in-bakuriani%2F6991350907650746%2F&show_text=false&width=560&height=315"
+            style="border:0; overflow:hidden"
+            scrolling="no"
+            frameborder="0"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+        </div>
+      </article>
+
+      <!-- YouTube -->
+      <article class="card video">
+        <div class="video-16x9">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/B5jVal9C2lc"
+            title="YouTube video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+        </div>
       </article>
     </div>
 
-    <div class="section-gap"></div>
+    <h2 class="section-title" style="margin-top:18px;">On Instagram</h2>
+    <div id="ig-grid" class="ig-grid"></div>
+  </div>
 
-    <!-- Instagram picks -->
-    <h3 class="section-title">From Instagram</h3>
-    <div class="ig-grid">
-      <!-- Lauren -->
-      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Bqlb4OBgFS8/" data-instgrm-version="14"></blockquote>
-
-      <!-- Alli -->
-      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/C8BAON1R_my/" data-instgrm-version="14"></blockquote>
-
-      <!-- Sam -->
-      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CeqqXl2o8om/" data-instgrm-version="14"></blockquote>
-
-      <!-- Daniel -->
-      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Cfb0D2IsJeW/" data-instgrm-version="14"></blockquote>
-    </div>
   </div>
 
 
@@ -348,6 +361,27 @@ body.theme-navy #tab-social .card *{
   color: var(--ink);
 }
 
+/* Social tab layout */
+.video-grid,
+.ig-grid{
+  display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+}
+
+/* 16:9 safe iframe wrapper for videos */
+.video-16x9{ position:relative; padding-top:56.25%; border-radius:12px; overflow:hidden; background:#000; border:1px solid var(--border); }
+.video-16x9 iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+/* Keep embeds readable on dark theme */
+body.theme-navy #tab-social .card, 
+body.theme-navy #tab-social .card *{ color:var(--ink); }
+
+/* Give IG blockquotes a card feel before they load */
+#tab-social .instagram-media{
+  background:#fff; border:1px solid var(--border); border-radius:12px; box-shadow:var(--shadow);
+  margin:0; /* Instagram injects its own margins; we override here */
+}
+
+
 </style>
 
 <script>
@@ -409,5 +443,83 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 </script>
 
-<script async src="//www.instagram.com/embed.js"></script>
+<script async src="https://www.instagram.com/embed.js"></script>
 
+<script>
+(function(){
+  // Your IG URLs (randomized on each load)
+  const IG_URLS = [
+    "https://www.instagram.com/p/DHqvu_nOlND/?img_index=1",
+    "https://www.instagram.com/reel/DFT0Jx4zV2s/",
+    "https://www.instagram.com/reel/DBO_okUxSFs/",
+    "https://www.instagram.com/p/DDknN2ORzyq/",
+    "https://www.instagram.com/p/DFuxUDhtOQK/?img_index=1",
+    "https://www.instagram.com/p/DEuaVS7IBSw/?img_index=1",
+    "https://www.instagram.com/p/DLsekTBujQJ/",
+    "https://www.instagram.com/p/DIrwTR6Tu2L/?img_index=1",
+    "https://www.instagram.com/reel/DGqDxsaxZ77/",
+    "https://www.instagram.com/p/C07RzEFLNOg/?img_index=1",
+    "https://www.instagram.com/p/DMahlgiRmV4/?img_index=1",
+    "https://www.instagram.com/reel/DDxMnYmhfep/",
+    "https://www.instagram.com/reel/DBkWoufxdPR/",
+    "https://www.instagram.com/reel/C9vKf87SzpG/",
+    "https://www.instagram.com/reel/C5XPUbXxCxb/",
+    "https://www.instagram.com/p/DGJ2ZzuxPNA/",
+    "https://www.instagram.com/p/DHKOS7SxTUw/?img_index=1",
+    "https://www.instagram.com/p/C5rNEXty00E/?img_index=1",
+    "https://www.instagram.com/reel/B6ytPi2Hcrj/",
+    "https://www.instagram.com/reel/DJevyh9O82U/",
+    "https://www.instagram.com/reel/DHDayhTObZ4/",
+    "https://www.instagram.com/reel/C2V0ihQy2ln/",
+    "https://www.instagram.com/p/DLqpHWMN3sw/",
+    "https://www.instagram.com/p/DKm-cJtS4Xd/?img_index=1",
+    "https://www.instagram.com/p/DE_L_vWOn4I/?img_index=1",
+    "https://www.instagram.com/p/DELFhfdiDAN/?img_index=1"
+  ];
+
+  function shuffle(arr){
+    for(let i=arr.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [arr[i],arr[j]] = [arr[j],arr[i]];
+    }
+    return arr;
+  }
+
+  function renderIG(){
+    const wrap = document.getElementById('ig-grid');
+    if(!wrap) return;
+
+    // Clear once (safe if reprocessed)
+    wrap.innerHTML = "";
+
+    // Show up to 12, randomized
+    const pick = shuffle(IG_URLS.slice()).slice(0, 12);
+    pick.forEach(url=>{
+      const bq = document.createElement('blockquote');
+      bq.className = 'instagram-media';
+      bq.setAttribute('data-instgrm-permalink', url);
+      bq.setAttribute('data-instgrm-version','14');
+      bq.style.margin = "0";
+      wrap.appendChild(bq);
+    });
+
+    // Ask Instagram to (re)process
+    if (window.instgrm?.Embeds?.process) window.instgrm.Embeds.process();
+    else setTimeout(()=>window.instgrm?.Embeds?.process?.(), 350);
+  }
+
+  // Render now (even if panel is hidden)
+  renderIG();
+
+  // Re-process when the Social tab is shown
+  document.querySelector('.tabs')?.addEventListener('click', (e)=>{
+    const t = e.target.closest('.tab');
+    if (t && t.dataset.tab === 'social') setTimeout(renderIG, 50);
+  });
+
+  // Also handle hash navigation direct to #social
+  window.addEventListener('hashchange', ()=>{
+    if ((location.hash||"").slice(1) === 'social') setTimeout(renderIG, 50);
+  });
+})();
+</script>

@@ -97,57 +97,6 @@
   </style>
 </head>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('img:not([loading])').forEach(img => {
-    img.loading = 'lazy';
-    img.decoding = 'async';
-  });
-});
-</script>
-
-<script>
-(function () {
-  function closeDrawer() {
-    document.querySelector('.mobile-drawer')?.classList.remove('open');
-    document.getElementById('nav-overlay')?.classList.remove('show');
-    document.body.classList.remove('nav-open');
-  }
-
-  function scrollToCenter(hash) {
-    const el = document.querySelector(hash);
-    if (!el) return;
-
-    // Where would the element’s center be on the page?
-    const rect = el.getBoundingClientRect();
-    const targetY = window.scrollY + rect.top + (rect.height / 2) - (window.innerHeight / 2);
-
-    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
-    window.scrollTo({ top: Math.max(0, targetY), behavior });
-  }
-
-  // Clicks on any link to #contact -> center it
-  document.addEventListener('click', (e) => {
-    const a = e.target.closest('a[href="#contact"]');
-    if (!a) return;
-    e.preventDefault();
-    closeDrawer();
-    scrollToCenter('#contact');
-    // keep URL hash for sharing/back button
-    if (location.hash !== '#contact') history.pushState(null, '', '#contact');
-  });
-
-  // If someone lands directly on /#contact or navigates to it
-  function maybeCenterHash() {
-    if (location.hash === '#contact') setTimeout(() => scrollToCenter('#contact'), 50);
-  }
-  maybeCenterHash();
-  window.addEventListener('hashchange', maybeCenterHash);
-})();
-</script>
-
-
-
 <body class="theme-navy">
 
   <!-- Mini Cart Drawer -->

@@ -140,7 +140,7 @@ permalink: /updates/
 
   <!-- Social -->
   <div id="tab-social" class="tabpanel" role="tabpanel" hidden>
-    <h2 class="section-title">Latest from the fam</h2>
+    <h2 class="title">Latest from the fam</h2>
 
     <!-- Video highlights -->
     <div class="video-grid">
@@ -219,7 +219,7 @@ permalink: /updates/
       </article>
     </div>
 
-    <h2 class="section-title" style="margin-top:18px;">On Instagram</h2>
+    <h2 class="title" style="margin-top:18px;">On Instagram</h2>
     <div id="ig-grid" class="ig-grid"></div>
   </div>
 

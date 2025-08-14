@@ -1474,3 +1474,42 @@ body.theme-navy .s-card{ background:#fff; }
 
 /* make sure the logo layer sits *below* the badge */
 .s-grid .s-card .s-logo-wrap{ z-index: 1; }
+
+/* Keep the athlete badge a small pill in the corner */
+.s-grid .s-card{ position:relative; }               /* positioning context */
+
+.s-grid .s-card .s-badge{
+  position:absolute !important;
+  left:12px; top:12px; right:auto; bottom:auto;
+
+  /* never stretch */
+  display:inline-flex !important;
+  align-items:center; justify-content:center;
+  width:max-content !important;
+  max-width:calc(100% - 24px);
+  height:auto !important;
+  flex:0 0 auto !important;
+  white-space:nowrap;
+  pointer-events:none;                               /* keep whole card clickable */
+  box-sizing:border-box;
+
+  /* visual style */
+  padding:.35rem .7rem;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--brand),var(--navy));
+  color:#fff;
+  font-weight:800; font-size:.8rem;
+  border:0 !important;
+  box-shadow:0 8px 20px rgba(0,0,0,.18);
+}
+
+/* make sure nothing inside tries to expand it */
+.s-grid .s-card .s-badge *{
+  width:auto !important;
+  display:inline !important;
+}
+
+/* neutralize any global .pill rules on the sponsor badge */
+.s-grid .s-card .s-badge.pill{
+  border:0; background:linear-gradient(90deg,var(--brand),var(--navy));
+}

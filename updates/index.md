@@ -37,8 +37,19 @@ permalink: /updates/
         {% assign top3 = rows | slice: 0, 3 %}
       {% endif %}
 
-      {% assign slug = a.slug | default: name | slugify %}
-      {% assign headshot = '/assets/img/headshots/' | append: slug | append: '-headshot-1.jpg' | relative_url %}
+      {% assign first = name | split: ' ' | first | downcase %}
+      {% assign slug  = a.slug | default: name | slugify %}
+
+      {% case first %}
+        {% when 'lauren' %}{% assign headshot = '/assets/img/headshots/lauren-fis.jpg'  | relative_url %}
+        {% when 'alli'   %}{% assign headshot = '/assets/img/headshots/alli-fis.jpg'    | relative_url %}
+        {% when 'sam'    %}{% assign headshot = '/assets/img/headshots/sam-fis.jpg'     | relative_url %}
+        {% when 'daniel' %}{% assign headshot = '/assets/img/headshots/daniel-fis.jpg'  | relative_url %}
+        {% else %}
+          {# fallback to your old pattern if needed #}
+          {% assign headshot = '/assets/img/headshots/' | append: slug | append: '-headshot-1.jpg' | relative_url %}
+      {% endcase %}
+
 
       <article class="card res-card">
         <header class="res-head">

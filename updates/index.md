@@ -391,6 +391,21 @@ body.theme-navy #tab-social .card *{ color:var(--ink); }
   margin:0; /* Instagram injects its own margins; we override here */
 }
 
+/* Put name and discipline on the same row */
+.res-meta{
+  display:flex;
+  align-items:baseline;   /* keeps the pill aligned with the text baseline */
+  gap:.5rem;
+  flex-wrap:wrap;         /* allows wrapping on small screens */
+}
+
+.res-meta h3{ margin:0; } /* you already have this, keep it */
+
+.pill.role{
+  margin-top:0;           /* was adding a drop to the next line */
+  white-space:nowrap;     /* keeps the pill from breaking awkwardly */
+}
+
 
 </style>
 

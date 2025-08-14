@@ -1273,7 +1273,7 @@ body.theme-navy .sponsors .section-heading{ color:#fff; }
 .sponsors-grid{
   list-style: none; margin: 0; padding: 0;
   display: grid; gap: 16px;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }
 .sponsor{ /* kill the outer card look */
   background: transparent; border: 0; box-shadow: none; padding: 0;
@@ -1284,7 +1284,7 @@ body.theme-navy .sponsors .section-heading{ color:#fff; }
 .s-logo-box{
   position: relative; display: grid; place-items: center; overflow: hidden;
   width: 100%;
-  aspect-ratio: 16 / 5;                 /* wider rectangle */
+  aspect-ratio: 16 / 9;                 /* wider rectangle */
   background: #fff;
   border: 1px solid var(--border);
   border-radius: 16px;

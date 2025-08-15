@@ -1943,3 +1943,7 @@ body.theme-navy .mini-cart *:not(.btn.primary){
     font-size: .85rem;
   }
 }
+
+@media (max-width: 700px){
+  #timeline .tl-item:first-child{ margin-top: 28px; }
+}

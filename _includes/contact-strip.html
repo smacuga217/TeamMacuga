@@ -1,6 +1,16 @@
 <section id="contact" class="strip contact-strip">
   <div class="container">
     <div class="row tri">
+
+      <!-- Title + optional subheading -->
+    {% assign _title = include.title | default: "Contact Us" %}
+    {% if include.show_title != false %}
+      <h2 class="section-title strip-title">{{ _title }}</h2>
+      {% if include.sub %}
+        <p class="strip-sub muted">{{ include.sub }}</p>
+      {% endif %}
+    {% endif %}
+
       <!-- General -->
       <div class="col">
         <h3>General Questions</h3>

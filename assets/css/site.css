@@ -1531,3 +1531,11 @@ body.theme-navy .news-feed .section-kicker,
 body.theme-navy .news-feed .section-heading {
   color: #fff !important;
 }
+
+/* Contact strip title/subhead spacing */
+.strip-title { margin: 0 0 6px; }
+.strip-sub   { margin: 0 0 14px; color: var(--muted); }
+
+/* Ensure dark text on the white strip even on the navy theme */
+body.theme-navy .strip .strip-title,
+body.theme-navy .strip .strip-sub { color: var(--ink); }

@@ -16,7 +16,11 @@ layout: default
     </div>
 
     <div class="details">
-      {% if page.badge %}<span class="badge">{{ page.badge }}</span>{% endif %}
+      {% if page.badge %}
+        {% assign badge_slug = page.badge | downcase | strip | replace: ' ', '-' | replace: '!', '' %}
+        <span class="badge badge-{{ badge_slug }}">{{ page.badge }}</span>
+      {% endif %}
+
       <h1>{{ page.title }}</h1>
       <p class="price">${{ page.price }}</p>
 
@@ -41,7 +45,7 @@ layout: default
       </div>
 
       {% if page.variant_ids %}
-      <button class="btn buy-btn" id="add-to-cart"
+      <button class="btn primary" id="add-to-cart"
         data-variants='{{ page.variant_ids | jsonify }}'
         data-title="{{ page.title }}"
         data-price="{{ page.price }}"
@@ -129,4 +133,51 @@ layout: default
   .btn.buy-btn{ display:inline-block; padding:.75rem 1rem; border-radius:12px; background:var(--navy); color:#fff; text-decoration:none; }
   .sku{ margin-top:.5rem; color:var(--muted); font-size:.9rem; }
   @media (max-width:960px){ .product-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- Product badge (pill) ---------- */
+  .details .badge{
+    display:inline-block;
+    margin-bottom:.5rem;
+    padding:.28rem .6rem;
+    border-radius:999px;
+    font-weight:700;
+    font-size:.82rem;
+    line-height:1;
+    border:1px solid var(--border, rgba(11,18,32,.12));
+    box-shadow: 0 6px 16px rgba(0,0,0,.08);
+    background:#fff;            /* default/fallback */
+    color: var(--ink, #0b1220); /* default/fallback */
+  }
+
+  /* Map common badges to your site colors (match Shop/Merch) */
+  .details .badge.badge-collab{ 
+    background: linear-gradient(90deg, var(--brand, #9F1D2D), var(--navy, #3B3C78));
+    color:#fff; border-color: transparent;
+  }
+  .details .badge.badge-new{
+    background: var(--brand, #9F1D2D); color:#fff; border-color: transparent;
+  }
+  .details .badge.badge-bestseller{
+    background: var(--navy, #3B3C78); color:#fff; border-color: transparent;
+  }
+  .details .badge.badge-limited,
+  .details .badge.badge-limited-edition{
+    background:#111827; color:#fff; border-color: transparent;
+  }
+  .details .badge.badge-sale{
+    background: #e11d48; color:#fff; border-color: transparent;
+  }
+
+  /* ---------- Gradient button assurance ---------- */
+  .btn.primary{
+    background: linear-gradient(90deg, var(--brand, #9F1D2D), var(--navy, #3B3C78));
+    color:#fff; border:0;
+    font-weight:700;
+    box-shadow: 0 10px 24px rgba(20,37,94,.18);
+  }
+  .btn.primary:hover{ transform: translateY(-1px); }
+
+  /* Optional: make Add to cart full-width on product page */
+  #add-to-cart{ width:100%; justify-content:center; border-radius:12px; }
+
 </style>

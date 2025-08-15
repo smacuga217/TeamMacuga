@@ -1539,3 +1539,14 @@ body.theme-navy .news-feed .section-heading {
 /* Ensure dark text on the white strip even on the navy theme */
 body.theme-navy .strip .strip-title,
 body.theme-navy .strip .strip-sub { color: var(--ink); }
+
+/* If autoplay fails, you can style a fallback state */
+.hero-video-fallback .hero-video > video { opacity: 1; }
+
+/* Example “Play” button you could show if you add one in your HTML */
+.hero-video .fallback-play { display: none; }
+.hero-video-fallback .fallback-play {
+  display: inline-flex; position: absolute; inset: auto 16px 16px auto;
+  padding: .6rem .9rem; border-radius: 12px; border: 0;
+  background: #fff; font-weight: 700; box-shadow: 0 8px 22px rgba(0,0,0,.2);
+}

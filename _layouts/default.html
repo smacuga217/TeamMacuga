@@ -138,6 +138,7 @@
 </script>
 
 
+
 <body class="theme-navy">
 
   <!-- Mini Cart Drawer -->
@@ -381,21 +382,38 @@
   })();
   </script>
 
-  <!-- Hero video autoplay helper -->
   <script>
-  (function(){
-    const v = document.querySelector('.hero-video video');
-    if(!v) return;
+  (function () {
+    const v = document.getElementById('heroVideo');
+    if (!v) return;
+
+    // iOS requirements for autoplay
     v.muted = true;
     v.playsInline = true;
 
-    function tryPlay(){
+    // Move data-src -> src so the browser starts fetching after first paint
+    const s = v.querySelector('source');
+    if (s && s.dataset.src) {
+      s.src = s.dataset.src;
+      v.load();
+    }
+
+    // Try to start the moment it’s ready to render frames
+    function start() {
       v.play().catch(() => {
+        // Autoplay blocked? Keep poster and set a class if you want to style a fallback
         document.documentElement.classList.add('hero-video-fallback');
       });
     }
-    if (document.readyState === 'complete') tryPlay();
-    else window.addEventListener('load', tryPlay);
+
+    if (v.readyState >= 3) {
+      // HAVE_FUTURE_DATA — already safe to play
+      start();
+    } else {
+      v.addEventListener('canplaythrough', start, { once: true });
+      // safety: if network is slow, try on first frame too
+      v.addEventListener('canplay', start, { once: true });
+    }
   })();
   </script>
 

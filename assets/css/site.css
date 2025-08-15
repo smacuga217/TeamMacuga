@@ -1550,3 +1550,49 @@ body.theme-navy .strip .strip-sub { color: var(--ink); }
   padding: .6rem .9rem; border-radius: 12px; border: 0;
   background: #fff; font-weight: 700; box-shadow: 0 8px 22px rgba(0,0,0,.2);
 }
+
+/* Mini-cart: force dark, readable text even on navy theme */
+.mini-cart{
+  color:#0b1220; /* dark ink */
+}
+body.theme-navy .mini-cart{
+  background:#fff;
+  color:#0b1220; /* override the light body color */
+}
+
+/* Titles, prices, totals */
+.mini-cart h2,
+.mini-cart .cart-item-title,
+.mini-cart .cart-item-price,
+.mini-cart .cart-total-label,
+.mini-cart .cart-total-price{
+  color:#0b1220;
+}
+.mini-cart .cart-total-price{ font-weight:700; }
+
+/* “Muted” text inside the cart (notes, small labels) */
+.mini-cart .muted{ color:#475569 !important; }
+
+/* Qty row: darker text + stronger controls */
+.mini-cart .cart-item-qty{ color:#0b1220; }
+.mini-cart .cart-item-qty span{ font-weight:600; color:#111827; }
+
+.mini-cart .cart-item-qty button{
+  background:#f3f4f6;
+  color:#111827;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+}
+.mini-cart .cart-item-qty button:hover{ background:#e5e7eb; }
+
+/* Optional: make the Checkout button pop a bit more */
+.mini-cart [data-checkout].btn{
+  background:#fff;
+  color:#0b1220;
+  border:1px solid #d1d5db;
+}
+.mini-cart [data-checkout].btn.primary{
+  border-color:transparent;
+  background:linear-gradient(90deg,var(--brand),var(--navy));
+  color:#fff;
+}

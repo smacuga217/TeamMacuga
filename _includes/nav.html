@@ -5,12 +5,12 @@
       <img src="{{ '/assets/img/logo-full-color.png' | relative_url }}" alt="Team Macuga">
     </a>
 
-    <!-- Navigation links -->
+    <!-- Navigation links (desktop) -->
     <div class="links">
       <a href="{{ '/' | relative_url }}">Home</a>
       <a href="{{ '/story/' | relative_url }}">Our Story</a>
       <a href="{{ '/updates/' | relative_url }}">Updates</a>
-      <a href="#contact" class="nav-contact">Contact Us</a>
+      <a href="{{ '/#contact' | relative_url }}" class="nav-contact">Contact Us</a>
       <a href="{{ '/shop/' | relative_url }}">Shop</a>
 
       <!-- Cart icon (opens mini-cart preview) -->
@@ -23,20 +23,27 @@
     </div>
 
     <!-- Mobile menu button -->
-    <button class="menu-btn" onclick="document.querySelector('.mobile-drawer').classList.toggle('open')">Menu</button>
+    <button class="menu-btn"
+            aria-controls="mobile-drawer"
+            aria-expanded="false"
+            aria-label="Open menu">
+      Menu
+    </button>
   </div>
 
   <!-- Mobile drawer menu -->
-  <div class="mobile-drawer">
+  <nav class="mobile-drawer" id="mobile-drawer" role="dialog" aria-label="Mobile menu">
     <a href="{{ '/' | relative_url }}">Home</a>
     <a href="{{ '/story/' | relative_url }}">Our Story</a>
     <a href="{{ '/updates/' | relative_url }}">Updates</a>
-    <a href="#contact" class="nav-contact">Contact Us</a>
+    <a href="{{ '/#contact' | relative_url }}" class="nav-contact">Contact Us</a>
     <a href="{{ '/shop/' | relative_url }}">Shop</a>
-
 
     <!-- View Cart opens preview; checkout lives inside the mini-cart -->
     <a href="#" class="btn" data-open-cart>View Cart</a>
     <span data-cart-count>0</span>
-  </div>
+  </nav>
 </nav>
+
+<!-- Overlay for the mobile drawer (place right after the nav) -->
+<div class="nav-overlay" id="nav-overlay"></div>

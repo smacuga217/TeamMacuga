@@ -1947,3 +1947,43 @@ body.theme-navy .mini-cart *:not(.btn.primary){
 @media (max-width: 700px){
   #timeline .tl-item:first-child{ margin-top: 28px; }
 }
+
+/* --- Mobile menu: reliability + stacking --- */
+.nav{
+  position: sticky; top: 0;
+  z-index: 5000; /* above hero/video/watermark/etc */
+}
+
+/* The full-screen overlay behind the drawer */
+#nav-overlay.nav-overlay{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.4);
+  opacity: 0; pointer-events: none;
+  transition: opacity .2s ease;
+  z-index: 4990; /* just under the drawer */
+}
+#nav-overlay.show{ opacity: 1; pointer-events: auto; }
+
+/* Drawer (slides down under the nav bar) */
+#mobile-drawer.mobile-drawer{
+  position: fixed; left: 0; right: 0;
+  top: var(--nav-h,84px); /* adjust if your nav height differs */
+  height: calc(100dvh - var(--nav-h,84px));
+  background: #fff;
+  border-top: 1px solid var(--nav-border, #e5e7eb);
+  transform: translateY(-8px);
+  opacity: 0; pointer-events: none;
+  transition: transform .2s ease, opacity .2s ease;
+  z-index: 5005;
+  display: flex; flex-direction: column;
+  -webkit-overflow-scrolling: touch; overflow-y: auto;
+}
+#mobile-drawer.open{ transform: none; opacity: 1; pointer-events: auto; }
+
+/* Lock body scroll when open */
+html.nav-open, body.nav-open{
+  overflow: hidden; height: 100%; touch-action: none;
+}
+
+/* Ensure the toggle button is tap-safe */
+.menu-btn{ -webkit-tap-highlight-color: transparent; }

@@ -417,5 +417,63 @@
   })();
   </script>
 
+  <script>
+  (function(){
+    const btn     = document.querySelector('.menu-btn');
+    const drawer  = document.getElementById('mobile-drawer') || document.querySelector('.mobile-drawer');
+    const overlay = document.getElementById('nav-overlay')   || document.querySelector('.nav-overlay');
+    const main    = document.getElementById('content') || document.querySelector('main');
+
+    if(!btn || !drawer) return;
+
+    // make sure the button isn't an <a>; if it is, stop the default nav
+    btn.addEventListener('click', e => e.preventDefault());
+
+    function openMenu(){
+      drawer.classList.add('open');
+      overlay?.classList.add('show');
+      document.documentElement.classList.add('nav-open');
+      document.body.classList.add('nav-open');
+      btn.setAttribute('aria-expanded','true');
+    }
+    function closeMenu(){
+      drawer.classList.remove('open');
+      overlay?.classList.remove('show');
+      document.documentElement.classList.remove('nav-open');
+      document.body.classList.remove('nav-open');
+      btn.setAttribute('aria-expanded','false');
+    }
+    function toggleMenu(){
+      (drawer.classList.contains('open') ? closeMenu : openMenu)();
+    }
+
+    // single, reliable toggle
+    btn.addEventListener('click', toggleMenu, { passive: true });
+
+    // close on overlay click
+    overlay?.addEventListener('click', closeMenu);
+
+    // close when a link inside the drawer is tapped
+    drawer.addEventListener('click', (e)=>{
+      const a = e.target.closest('a[href]');
+      if(!a) return;
+      // allow in-page anchors or real links to navigate, but close the drawer immediately
+      closeMenu();
+    });
+
+    // close on ESC
+    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeMenu(); });
+
+    // safety: if we resize to desktop, make sure the drawer is closed
+    let lastW = window.innerWidth;
+    window.addEventListener('resize', ()=>{
+      const w = window.innerWidth;
+      if (w >= 769 && lastW < 769) closeMenu();
+      lastW = w;
+    });
+  })();
+  </script>
+
+
 </body>
 </html>

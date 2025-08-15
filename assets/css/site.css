@@ -1917,3 +1917,29 @@ body.theme-navy .mini-cart *:not(.btn.primary){
 
 /* Icon sizing stays tidy */
 .ath-ico img{ width:22px; height:22px; display:block; }
+
+/* Timeline: mobile centering + extra headroom for year labels */
+@media (max-width: 700px){
+  /* more space before the first year pill */
+  #timeline .tl{ padding-top: 36px; }
+
+  /* center the cards; remove the side offsets used on desktop */
+  #timeline .tl-item.left  .tl-card,
+  #timeline .tl-item.right .tl-card{
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* a little more vertical rhythm between items */
+  #timeline .tl-item{ margin: 42px 0; }
+
+  /* keep the vertical line centered */
+  #timeline .tl-line{ left: 50%; transform: translateX(-50%); }
+
+  /* nudge the year pill and make it a hair roomier */
+  #timeline .tl-time{
+    top: -12px;                     /* a bit more space above the card */
+    padding: 4px 10px;
+    font-size: .85rem;
+  }
+}

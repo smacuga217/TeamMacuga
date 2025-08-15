@@ -1,17 +1,16 @@
 <section id="contact" class="strip contact-strip">
   <div class="container">
-    <div class="row tri">
 
-      <!-- Title + optional subheading -->
-    {% assign _title = include.title | default: "Contact Us" %}
-    {% if include.show_title != false %}
-      <h2 class="section-title strip-title">{{ _title }}</h2>
+    <!-- Title row, separate from the 3-col grid -->
+    <header class="section-head">
+      <h2 class="section-title strip-title">{{ include.title | default: "Contact Us" }}</h2>
       {% if include.sub %}
         <p class="strip-sub muted">{{ include.sub }}</p>
       {% endif %}
-    {% endif %}
-      <br>
-      <br>
+    </header>
+
+    <!-- The three options -->
+    <div class="row tri">
       <!-- General -->
       <div class="col">
         <h3>General Questions</h3>
@@ -25,15 +24,11 @@
       <div class="col">
         <h3>Partnerships &amp; Media</h3>
         <p>Brands, press, collabs—pick your lane.</p>
-
         <div class="btn-row">
-          <!-- Partnerships: to Erica, CC the team -->
           <a class="btn primary"
              href="mailto:erica@truenorthsportsmgt.com?cc=teammacuga@gmail.com&subject=Partnership%20Inquiry%20via%20TeamMacuga.com">
             Partnerships
           </a>
-
-          <!-- Media: to team, prefilled subject/body -->
           <a class="btn primary"
              href="mailto:teammacuga@gmail.com?subject=Media%20Outreach%20via%20TeamMacuga.com&body=Hi%20Team%20Macuga%2C%0A%0AI%27m%20reaching%20out%20from%20[Outlet]%20about%20...">
             Media

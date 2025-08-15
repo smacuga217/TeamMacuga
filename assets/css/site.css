@@ -1714,3 +1714,51 @@ body.theme-navy .mini-cart .cart-header #close-cart{
   margin-top: clamp(14px, 3.5vw, 40px);
 }
 
+/* ----- Mini-cart header: dark text + bigger + gradient underline ----- */
+.mini-cart .cart-header{
+  position: relative;
+  padding: 1rem 1rem 1.1rem;   /* room for underline */
+  background: #fff;            /* ensure white surface */
+}
+
+.mini-cart .cart-header h2{
+  margin: 0;
+  font-size: clamp(1.2rem, 1rem + .6vw, 1.6rem) !important;
+  font-weight: 800;
+  color: var(--ink) !important;   /* force black/ink */
+}
+
+.mini-cart .cart-header::after{
+  content: "";
+  position: absolute;
+  left: 16px; right: 16px; bottom: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--brand), var(--navy));
+  border-radius: 999px;
+}
+
+/* ----- Make all text in the drawer dark (but leave gradient buttons alone) ----- */
+.mini-cart,
+.mini-cart .cart-items,
+.mini-cart .cart-footer{
+  color: var(--ink) !important;
+}
+
+.mini-cart .cart-item-title,
+.mini-cart .cart-item-price,
+.mini-cart .cart-total-label,
+.mini-cart .cart-total-price,
+.mini-cart .qty-val{
+  color: var(--ink) !important;
+}
+
+/* Qty buttons text contrast */
+.mini-cart .cart-item-qty button{
+  color: var(--ink) !important;
+}
+
+/* If your page uses the navy theme, this guarantees the mini-cart stays dark-on-white */
+body.theme-navy .mini-cart,
+body.theme-navy .mini-cart *:not(.btn.primary){
+  color: var(--ink) !important;
+}

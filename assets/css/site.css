@@ -1619,3 +1619,47 @@ body.theme-navy .mini-cart{
 
 /* Defensive: if the page is in the navy theme, stay dark inside the stepper */
 body.theme-navy .qty-control .qty-val{ color:#0b1220 !important; }
+
+/* Mini-cart header: dark title + gradient underline under the text */
+.mini-cart .cart-header{
+  position: relative;
+  padding: 14px 16px 12px;      /* a little room for the underline */
+  border-bottom: 0;             /* remove the old gray rule */
+  background: #fff;
+}
+
+.mini-cart .cart-header h2{
+  margin: 0;
+  color: var(--ink, #0b1220);   /* force black/dark */
+  font-size: 1.15rem;
+  font-weight: 800;
+  position: relative;
+  padding-bottom: 8px;          /* space for the underline */
+}
+
+/* gradient line directly under “Your Cart” */
+.mini-cart .cart-header h2::after{
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 90px;                  /* length of the underline */
+  height: 3px;
+  background: linear-gradient(90deg, var(--brand), var(--navy));
+  border-radius: 999px;
+}
+
+/* Close button stays readable */
+.mini-cart .cart-header #close-cart{
+  background: transparent;
+  border: 0;
+  color: var(--ink, #0b1220);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* On the navy theme, keep header text dark inside the white drawer */
+body.theme-navy .mini-cart .cart-header h2,
+body.theme-navy .mini-cart .cart-header #close-cart{
+  color: var(--ink, #0b1220) !important;
+}

@@ -1596,3 +1596,26 @@ body.theme-navy .mini-cart{
   background:linear-gradient(90deg,var(--brand),var(--navy));
   color:#fff;
 }
+
+/* Qty stepper: make the number dark + bolder */
+.qty-control{
+  background:#fff;                          /* ensure white well */
+  border:1px solid #d1d5db;                 /* a touch stronger */
+}
+
+.qty-val{
+  color: var(--ink, #0b1220) !important;    /* force dark text */
+  font-weight: 700;
+  letter-spacing: .01em;
+}
+
+/* Buttons should read clearly, too */
+.qty-btn{
+  color:#111827;                            /* dark glyph */
+  background:#f3f4f6;
+  border:1px solid #d1d5db;
+}
+.qty-btn:hover{ background:#e5e7eb; }
+
+/* Defensive: if the page is in the navy theme, stay dark inside the stepper */
+body.theme-navy .qty-control .qty-val{ color:#0b1220 !important; }

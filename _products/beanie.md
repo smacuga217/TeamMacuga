@@ -12,5 +12,5 @@ category: hats   # or hats, misc, collab
 
 shopify_handle: beanie
 variant_ids:
-  One Size: 12345678900001
+  One Size: 12345678900069
 ---

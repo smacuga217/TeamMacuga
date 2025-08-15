@@ -15,5 +15,5 @@ category: misc   # or hats, misc, collab
 
 shopify_handle: sticker-pack
 variant_ids:
-  Pack of 3: 12345678900001
+  Pack of 3: 12345678900011
 ---

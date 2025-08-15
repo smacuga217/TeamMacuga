@@ -164,6 +164,41 @@
     {% include nav.html %}
     <div id="nav-overlay" class="nav-overlay"></div>
 
+    <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      const btn = document.querySelector('.menu-btn');
+      const drawer = document.getElementById('mobileNav');
+      const overlay = document.getElementById('nav-overlay');
+
+      if (!btn || !drawer || !overlay) return;
+
+      function openNav(){
+        drawer.hidden = false;
+        drawer.classList.add('open');
+        overlay.classList.add('show');
+        btn.setAttribute('aria-expanded','true');
+        document.body.classList.add('nav-open');
+      }
+      function closeNav(){
+        drawer.classList.remove('open');
+        overlay.classList.remove('show');
+        btn.setAttribute('aria-expanded','false');
+        document.body.classList.remove('nav-open');
+        setTimeout(()=>{ if(!drawer.classList.contains('open')) drawer.hidden = true; }, 280);
+      }
+      function toggleNav(){ (drawer.classList.contains('open') ? closeNav() : openNav()); }
+
+      btn.addEventListener('click', toggleNav);
+      overlay.addEventListener('click', closeNav);
+      drawer.addEventListener('click', e => { if (e.target.closest('a')) closeNav(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
+
+      // Safety: close if you resize to desktop
+      matchMedia('(min-width:901px)').addEventListener('change', m => { if (m.matches) closeNav(); });
+    });
+    </script>
+
+
     <main id="content">
       {{ content }}
     </main>

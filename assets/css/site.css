@@ -1708,3 +1708,8 @@ body.theme-navy .mini-cart .cart-header #close-cart{
   font-weight:700;
   box-shadow: 0 10px 24px rgba(20,37,94,.18);
 }
+
+/* Push product page content down from the sticky nav */
+.product.container{
+  margin-top: clamp(14px, 3.5vw, 40px);
+}

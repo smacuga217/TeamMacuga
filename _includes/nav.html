@@ -1,11 +1,11 @@
-<nav class="nav">
+<nav class="nav" role="navigation" aria-label="Primary">
   <div class="container nav-inner">
     <!-- Logo -->
     <a class="brand-logo" href="{{ '/' | relative_url }}">
       <img src="{{ '/assets/img/logo-full-color.png' | relative_url }}" alt="Team Macuga">
     </a>
 
-    <!-- Navigation links (desktop) -->
+    <!-- Desktop links -->
     <div class="links">
       <a href="{{ '/' | relative_url }}">Home</a>
       <a href="{{ '/story/' | relative_url }}">Our Story</a>
@@ -13,7 +13,6 @@
       <a href="{{ '/#contact' | relative_url }}" class="nav-contact">Contact Us</a>
       <a href="{{ '/shop/' | relative_url }}">Shop</a>
 
-      <!-- Cart icon (opens mini-cart preview) -->
       <a href="#" class="cart-link" data-open-cart aria-label="Open cart">
         <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M7 4h-2l-1 2v2h2l3.6 7.59-1.35 2.41A1 1 0 0 0 9.1 20h9.9v-2H10.42l1-1.8h6.18a1 1 0 0 0 .92-.62l3.38-8.13A1 1 0 0 0 21 6H7.21l-.94-2Z"/>
@@ -22,28 +21,22 @@
       </a>
     </div>
 
-    <!-- Mobile menu button -->
-    <button class="menu-btn"
-            aria-controls="mobile-drawer"
-            aria-expanded="false"
-            aria-label="Open menu">
-      Menu
+    <!-- Mobile button (no inline onclick) -->
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobileNav">
+      <span class="sr-only">Toggle menu</span>
+      <span class="hamb"></span><span class="hamb"></span><span class="hamb"></span>
     </button>
   </div>
 
-  <!-- Mobile drawer menu -->
-  <nav class="mobile-drawer" id="mobile-drawer" role="dialog" aria-label="Mobile menu">
-    <a href="{{ '/' | relative_url }}">Home</a>
-    <a href="{{ '/story/' | relative_url }}">Our Story</a>
-    <a href="{{ '/updates/' | relative_url }}">Updates</a>
-    <a href="{{ '/#contact' | relative_url }}" class="nav-contact">Contact Us</a>
-    <a href="{{ '/shop/' | relative_url }}">Shop</a>
-
-    <!-- View Cart opens preview; checkout lives inside the mini-cart -->
-    <a href="#" class="btn" data-open-cart>View Cart</a>
-    <span data-cart-count>0</span>
-  </nav>
+  <!-- Mobile drawer -->
+  <div id="mobileNav" class="mobile-drawer" hidden>
+    <nav class="mobile-links">
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="{{ '/story/' | relative_url }}">Our Story</a>
+      <a href="{{ '/updates/' | relative_url }}">Updates</a>
+      <a href="{{ '/#contact' | relative_url }}" class="nav-contact">Contact Us</a>
+      <a href="{{ '/shop/' | relative_url }}">Shop</a>
+      <a href="#" class="btn" data-open-cart>View Cart</a>
+    </nav>
+  </div>
 </nav>
-
-<!-- Overlay for the mobile drawer (place right after the nav) -->
-<div class="nav-overlay" id="nav-overlay"></div>

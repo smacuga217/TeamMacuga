@@ -449,6 +449,51 @@
   })();
   </script>
 
+<script>
+(function(){
+  const btn = document.querySelector('.menu-btn');
+  const drawer = document.getElementById('mobileNav');
+  const overlay = document.getElementById('nav-overlay');
+
+  if (!btn || !drawer || !overlay) return;
+
+  function openNav(){
+    drawer.hidden = false;
+    drawer.classList.add('open');
+    overlay.classList.add('show');
+    btn.setAttribute('aria-expanded','true');
+    document.body.classList.add('nav-open');
+  }
+  function closeNav(){
+    drawer.classList.remove('open');
+    overlay.classList.remove('show');
+    btn.setAttribute('aria-expanded','false');
+    document.body.classList.remove('nav-open');
+    // keep hidden after transition so it can animate out
+    setTimeout(()=>{ if(!drawer.classList.contains('open')) drawer.hidden = true; }, 280);
+  }
+  function toggleNav(){
+    (drawer.classList.contains('open')) ? closeNav() : openNav();
+  }
+
+  btn.addEventListener('click', toggleNav);
+  overlay.addEventListener('click', closeNav);
+
+  // Close when navigating (any link inside the drawer)
+  drawer.addEventListener('click', (e)=>{
+    const a = e.target.closest('a');
+    if (a) closeNav();
+  });
+
+  // Close on ESC
+  document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') closeNav(); });
+
+  // Safety: if resizing to desktop, make sure drawer is closed
+  const mq = window.matchMedia('(min-width: 901px)');
+  mq.addEventListener?.('change', (ev)=>{ if (ev.matches) closeNav(); });
+})();
+</script>
+
 
 
 </body>

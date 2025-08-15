@@ -1902,3 +1902,18 @@ body.theme-navy .mini-cart *:not(.btn.primary){
   .ath-foot{ flex-wrap:wrap; gap:8px; }
   .ath-social{ margin-left:auto; }
 }
+
+/* Footer row: keep Story + icons together on the left */
+.ath-foot{
+  margin-top:auto;                 /* stays pinned to bottom of card */
+  display:flex; align-items:center;
+  justify-content:flex-start;      /* was space-between */
+  gap:10px;                        /* space between button & icons */
+  flex-wrap:wrap;                  /* nice wrap on small screens */
+}
+
+/* Icons inline, no push to the edge */
+.ath-social{ display:flex; align-items:center; gap:8px; margin-left:0; }
+
+/* Icon sizing stays tidy */
+.ath-ico img{ width:22px; height:22px; display:block; }

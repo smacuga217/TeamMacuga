@@ -1713,3 +1713,7 @@ body.theme-navy .mini-cart .cart-header #close-cart{
 .product.container{
   margin-top: clamp(14px, 3.5vw, 40px);
 }
+
+:root{ --nav-h: 84px; }          /* match your actual nav height */
+.nav-inner{ height: var(--nav-h); }
+main{ padding-top: clamp(8px, 2vw, 24px); }

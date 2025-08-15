@@ -20,26 +20,22 @@
 
     <!-- Actions pinned at bottom -->
     <div class="ath-actions">
-      <a class="btn" href="{{ '/story/#' | append: a.slug | append: '-bio' | relative_url }}">My story</a>
+      {% assign first = a.name | split: ' ' | first %}
+      {% assign lastch = first | slice: -1, 1 | downcase %}
+      {% if lastch == 's' %}
+        {% assign poss = first | append: '’' %}
+      {% else %}
+        {% assign poss = first | append: '’s' %}
+      {% endif %}
 
-      <div class="ath-social">
-        {% if a.fis %}
-          <a class="ath-ico" href="{{ a.fis }}" target="_blank" rel="noopener">
-            <img src="{{ '/assets/img/icons/fis-logo.png' | relative_url }}" alt="FIS">
-          </a>
-        {% endif %}
-        {% if a.instagram %}
-          <a class="ath-ico" href="{{ a.instagram }}" target="_blank" rel="noopener">
-            <img src="{{ '/assets/img/icons/instagram-logo.png' | relative_url }}" alt="Instagram">
-          </a>
-        {% endif %}
-        {% if a.facebook %}
-          <a class="ath-ico" href="{{ a.facebook }}" target="_blank" rel="noopener">
-            <img src="{{ '/assets/img/icons/facebook-logo.png' | relative_url }}" alt="Facebook">
-          </a>
-        {% endif %}
-      </div>
+      {%- comment -%}
+        Anchor matches Story page IDs: #bio-lauren, #bio-alli, etc.
+      {%- endcomment -%}
+      <a class="btn" href="{{ '/story/#bio-' | append: a.slug | relative_url }}">
+        {{ poss }} Story
+      </a>
     </div>
+
   </article>
   {% endfor %}
 </div>

@@ -17,9 +17,24 @@ layout: default
 
     <div class="details">
       {% if page.badge %}
-        {% assign badge_slug = page.badge | downcase | strip | replace: ' ', '-' | replace: '!', '' %}
-        <span class="badge badge-{{ badge_slug }}">{{ page.badge }}</span>
+        {%- assign br = page.badge | downcase | strip -%}
+        {%- if br contains 'collab' -%}
+          {%- assign badge_key = 'collab' -%}
+        {%- elsif br contains 'best' -%}
+          {%- assign badge_key = 'bestseller' -%}
+        {%- elsif br contains 'new' -%}
+          {%- assign badge_key = 'new' -%}
+        {%- elsif br contains 'limited' -%}
+          {%- assign badge_key = 'limited' -%}
+        {%- elsif br contains 'sale' -%}
+          {%- assign badge_key = 'sale' -%}
+        {%- else -%}
+          {%- assign badge_key = br | replace: ' ', '-' | replace: '!', '' | replace: '.', '' -%}
+        {%- endif -%}
+
+        <span class="badge badge-{{ badge_key }}">{{ page.badge }}</span>
       {% endif %}
+
 
       <h1>{{ page.title }}</h1>
       <p class="price">${{ page.price }}</p>

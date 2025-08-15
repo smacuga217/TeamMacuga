@@ -1663,3 +1663,48 @@ body.theme-navy .mini-cart .cart-header h2,
 body.theme-navy .mini-cart .cart-header #close-cart{
   color: var(--ink, #0b1220) !important;
 }
+
+/* Base pill */
+.details .badge{
+  display:inline-block;
+  margin: 0 0 .5rem;
+  padding:.28rem .6rem;
+  border-radius:999px;
+  font-weight:700;
+  font-size:.82rem;
+  line-height:1;
+  border:1px solid var(--border, rgba(11,18,32,.12));
+  background:#fff;             /* fallback */
+  color: var(--ink, #0b1220);  /* fallback */
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+}
+
+/* Mapped colors (force if anything else overrides) */
+.details .badge.badge-collab{
+  background: linear-gradient(90deg, var(--brand,#9F1D2D), var(--navy,#3B3C78)) !important;
+  color:#fff !important; border-color:transparent !important;
+}
+.details .badge.badge-bestseller{
+  background: var(--navy,#3B3C78) !important;
+  color:#fff !important; border-color:transparent !important;
+}
+.details .badge.badge-new{
+  background: var(--brand,#9F1D2D) !important;
+  color:#fff !important; border-color:transparent !important;
+}
+.details .badge.badge-limited,
+.details .badge.badge-limited-edition{
+  background:#111827 !important; color:#fff !important; border-color:transparent !important;
+}
+.details .badge.badge-sale{
+  background:#e11d48 !important; color:#fff !important; border-color:transparent !important;
+}
+
+/* Make sure the product Add-to-cart stays gradient */
+#add-to-cart.btn.primary{
+  background: linear-gradient(90deg, var(--brand,#9F1D2D), var(--navy,#3B3C78)) !important;
+  color:#fff !important;
+  border:0 !important;
+  font-weight:700;
+  box-shadow: 0 10px 24px rgba(20,37,94,.18);
+}

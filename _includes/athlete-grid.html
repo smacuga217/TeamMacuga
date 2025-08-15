@@ -36,6 +36,25 @@
       </a>
     </div>
 
+
+      <div class="ath-social">
+        {% if a.fis %}
+          <a class="ath-ico" href="{{ a.fis }}" target="_blank" rel="noopener">
+            <img src="{{ '/assets/img/icons/fis-logo.png' | relative_url }}" alt="FIS">
+          </a>
+        {% endif %}
+        {% if a.instagram %}
+          <a class="ath-ico" href="{{ a.instagram }}" target="_blank" rel="noopener">
+            <img src="{{ '/assets/img/icons/instagram-logo.png' | relative_url }}" alt="Instagram">
+          </a>
+        {% endif %}
+        {% if a.facebook %}
+          <a class="ath-ico" href="{{ a.facebook }}" target="_blank" rel="noopener">
+            <img src="{{ '/assets/img/icons/facebook-logo.png' | relative_url }}" alt="Facebook">
+          </a>
+        {% endif %}
+      </div>
+    </div>
   </article>
   {% endfor %}
 </div>

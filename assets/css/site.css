@@ -1822,3 +1822,59 @@ body.theme-navy .mini-cart *:not(.btn.primary){
 /* Just in case some global style applied opacity */
 .mini-cart,
 .mini-cart *:not(.btn){ opacity: 1 !important; }
+
+/* --- Mini-cart hard overrides (color + visibility) --- */
+#mini-cart,
+#mini-cart * {
+  color: #0b1220 !important;          /* true near-black */
+  opacity: 1 !important;               /* undo any theme dimming */
+  filter: none !important;             /* undo grayscale/brightness filters */
+  mix-blend-mode: normal !important;   /* prevent weird blending on dark themes */
+  text-shadow: none !important;        /* avoid ghosty look on white bg */
+}
+
+/* Keep buttons readable on gradient */
+#mini-cart .btn.primary,
+#mini-cart .btn.primary * {
+  color: #ffffff !important;
+}
+
+/* Qty stepper readability */
+#mini-cart .cart-item-qty button {
+  background: #F6F7FB !important;
+  border: 1px solid #E5E7EB !important;
+  color: #0b1220 !important;
+  border-radius: 8px;
+}
+#mini-cart .qty-val { color: #0b1220 !important; }
+
+/* Item titles, prices, totals */
+#mini-cart .cart-item-title,
+#mini-cart .cart-item-price,
+#mini-cart .cart-total-label,
+#mini-cart .cart-total-price {
+  color: #0b1220 !important;
+}
+
+/* Header line you already liked (keep here so it wins) */
+#mini-cart .cart-header {
+  position: relative;
+  padding: 1rem 1rem 1.1rem;
+  background: #fff;
+  border-bottom: 0 !important;
+}
+#mini-cart .cart-header h2 {
+  margin: 0;
+  font-weight: 800;
+  font-size: clamp(1.35rem, 1rem + 1vw, 1.75rem) !important;
+  color: #0b1220 !important;
+}
+#mini-cart .cart-header::before,
+#mini-cart .cart-header::after { content: none !important; }
+#mini-cart .cart-header::after {
+  content: "";
+  position: absolute;
+  left: 16px; right: 16px; bottom: 0;
+  height: 4px; border-radius: 999px;
+  background: linear-gradient(90deg, var(--brand), var(--navy));
+}

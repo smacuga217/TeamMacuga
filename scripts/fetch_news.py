@@ -11,12 +11,12 @@ from bs4 import BeautifulSoup
 # Config
 # ----------------------------------
 QUERIES = [
-    "Macuga ski",
-    "Team Macuga ski",
-    "Lauren Macuga ski",
-    "Sam Macuga ski",
-    "Alli Macuga ski",
-    "Daniel Macuga ski",
+    "Macuga ski news",
+    "Team Macuga ski news",
+    "Lauren Macuga ski news",
+    "Sam Macuga ski news",
+    "Alli Macuga ski news",
+    "Daniel Macuga ski news",
 ]
 MAX_PER_QUERY = 20
 TIMEOUT = 10

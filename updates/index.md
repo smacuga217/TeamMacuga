@@ -135,7 +135,7 @@ permalink: /updates/
   <div id="tab-news" class="tabpanel" role="tabpanel" hidden>
     {% include news-highlights.html title="Featured" kicker="Hand-picked stories" %}
     <hr class="divider">
-    {% include news-feed.html title="Latest Coverage" kicker="Updated daily" %}
+    {% include news-feed.html title="Latest Coverage" kicker="Updated regularly" %}
   </div>
 
   <!-- Social -->

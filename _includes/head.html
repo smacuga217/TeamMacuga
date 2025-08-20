@@ -16,3 +16,21 @@
 <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/favicons/apple-touch-icon.png' | relative_url }}">
 <link rel="manifest" href="{{ '/site.webmanifest' | relative_url }}">
 <meta name="theme-color" content="#0f1a3a">
+
+<!-- Security: baseline CSP -->
+<meta http-equiv="Content-Security-Policy" content="
+default-src 'self';
+img-src 'self' data: https:;
+media-src 'self';
+script-src 'self' 'unsafe-inline' https://www.instagram.com;
+style-src 'self' 'unsafe-inline';
+frame-src https://www.youtube-nocookie.com https://www.facebook.com https://www.instagram.com;
+connect-src 'self';
+object-src 'none';
+base-uri 'self';
+form-action 'self' mailto: https://*.myshopify.com;
+upgrade-insecure-requests;
+">
+
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">

@@ -42,6 +42,18 @@ athletes:
     discipline: "Ski Jumping"
     fis_url: "https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=JP&competitorid=211435"
     results:
+      - date: 2025-08-17
+        competition: "Grand Prix"
+        venue: "Wisla"
+        nation: POL
+        discipline: "Large Hill HS134"
+        place: 31
+      - date: 2025-08-16
+        competition: "Grand Prix"
+        venue: "Wisla"
+        nation: POL
+        discipline: "Large Hill HS134"
+        place: 36
       - date: 2025-08-10
         competition: "Grand Prix"
         venue: "Courchevel"
@@ -54,24 +66,6 @@ athletes:
         nation: FRA
         discipline: "Large Hill HS132"
         place: 27
-      - date: 2025-03-06
-        competition: "Qualification"
-        venue: "Trondheim"
-        nation: NOR
-        discipline: "Large Hill HS138"
-        place: 50
-      - date: 2025-02-23
-        competition: "Qualification"
-        venue: "Hinzenbach"
-        nation: AUT
-        discipline: "Normal Hill HS90"
-        place: 46
-      - date: 2025-02-22
-        competition: "Qualification"
-        venue: "Hinzenbach"
-        nation: AUT
-        discipline: "Normal Hill HS90"
-        place: 46
 
   - name: Daniel Macuga
     discipline: "Alpine (all)"

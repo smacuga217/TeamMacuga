@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import json, re, time
+import json, time
 from datetime import datetime, timezone
 from urllib.parse import urlparse, parse_qs, unquote
 
@@ -18,31 +18,40 @@ QUERIES = [
     "Alli Macuga ski",
     "Daniel Macuga ski",
 ]
-MAX_PER_QUERY = 20          # keep page light
-TIMEOUT = 8
-HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; TeamMacugaBot/1.0)"}
+MAX_PER_QUERY = 20
+TIMEOUT = 10
+HEADERS = {"User-Agent": "TeamMacugaBot/1.0 (+https://teammacuga.com)"}
 OUTFILE = "_data/news_feed.json"
 
 GOOGLE_HOSTS = ("news.google.", "googleusercontent.com", "gstatic.com")
 
 def original_link(google_link: str) -> str:
-    """Google News links often contain ?url=<real-url> — extract it."""
     try:
         u = urlparse(google_link)
         if "news.google." in u.netloc:
             qs = parse_qs(u.query)
-            if "url" in qs and qs["url"]:
+            if qs.get("url"):
                 return unquote(qs["url"][0])
         return google_link
     except Exception:
         return google_link
 
-def fetch_og_meta(url: str) -> tuple[str | None, datetime | None]:
-    """Return (image_url, published_dt) from the article page, if available."""
+def pick_parser() -> str:
+    # Try lxml if installed, otherwise built-in html.parser
     try:
-        r = requests.get(url, headers=HEADERS, timeout=TIMEOUT)
+        import lxml  # noqa
+        return "lxml"
+    except Exception:
+        return "html.parser"
+
+PARSER = pick_parser()
+
+def fetch_og_meta(url: str):
+    """Return (image_url, published_dt | None) from the article page."""
+    try:
+        r = requests.get(url, headers=HEADERS, timeout=TIMEOUT, allow_redirects=True)
         r.raise_for_status()
-        soup = BeautifulSoup(r.text, "lxml")
+        soup = BeautifulSoup(r.text, PARSER)
 
         # og:image or twitter:image
         img = None
@@ -63,61 +72,72 @@ def fetch_og_meta(url: str) -> tuple[str | None, datetime | None]:
             'meta[property="article:published_time"]',
             'meta[name="article:published_time"]',
             'meta[itemprop="datePublished"]',
-            'time[datetime]'
+            'time[datetime]',
         ]:
             t = soup.select_one(sel)
-            dt = t.get("content") if t else None
-            if not dt and t and t.has_attr("datetime"):
-                dt = t["datetime"]
+            dt = (t.get("content") if t else None) or (t.get("datetime") if t and t.has_attr("datetime") else None)
             if dt:
                 try:
-                    # Normalize to aware UTC
-                    published = datetime.fromisoformat(dt.replace("Z","+00:00")).astimezone(timezone.utc)
+                    # normalize common formats
+                    if dt.endswith("Z"):  # ISO Z
+                        published = datetime.fromisoformat(dt.replace("Z", "+00:00"))
+                    else:
+                        published = datetime.fromisoformat(dt)
+                    published = published.astimezone(timezone.utc)
                     break
                 except Exception:
+                    # last resort: forget it
                     pass
 
         return img, published
     except Exception:
         return None, None
 
-def to_iso(d: datetime | None, fallback_struct) -> str:
+def to_iso(d, fallback_struct):
     if isinstance(d, datetime):
         return d.astimezone(timezone.utc).isoformat()
-    # fallback from feedparser’s struct_time
     try:
         return datetime(*fallback_struct[:6], tzinfo=timezone.utc).isoformat()
     except Exception:
         return datetime.now(timezone.utc).isoformat()
 
 def is_google_img(url: str | None) -> bool:
-    if not url: return False
+    if not url:
+        return False
     host = urlparse(url).netloc.lower()
     return any(h in host for h in GOOGLE_HOSTS)
 
 def fetch_query(q: str):
-    url = f"https://news.google.com/rss/search?q={requests.utils.quote(q)}&hl=en-US&gl=US&ceid=US:en"
-    feed = feedparser.parse(url)
+    # Fetch RSS with requests (adds UA + timeout), then parse
+    rss_url = (
+        "https://news.google.com/rss/search?"
+        f"q={requests.utils.quote(q)}&hl=en-US&gl=US&ceid=US:en"
+    )
     items = []
+    try:
+        resp = requests.get(rss_url, headers=HEADERS, timeout=TIMEOUT)
+        resp.raise_for_status()
+        feed = feedparser.parse(resp.content)
+    except Exception:
+        return items
+
     for entry in feed.entries[:MAX_PER_QUERY]:
         link = original_link(entry.link)
-        source = entry.get("source", {}).get("title") or entry.get("source_title") or ""
-        # fetch OG image + better published
+        source = (entry.get("source", {}) or {}).get("title") or entry.get("source_title") or ""
         og_image, og_published = fetch_og_meta(link)
-
         published_iso = to_iso(og_published, entry.get("published_parsed") or entry.get("updated_parsed"))
-        # If OG image is a Google image, drop it (we’ll hide in UI)
+
         if is_google_img(og_image):
             og_image = None
 
         items.append({
             "title": entry.title,
             "link": link,
-            "source": source.strip() or urlparse(link).netloc,
-            "published": published_iso,       # ISO string for sorting in Jekyll
-            "image": og_image or "",          # may be empty
+            "source": (source or urlparse(link).netloc).strip(),
+            "published": published_iso,
+            "image": og_image or "",
         })
-        time.sleep(0.25)  # be polite
+        time.sleep(0.25)  # polite
     return items
 
 def main():
@@ -134,7 +154,6 @@ def main():
             seen.add(key)
             deduped.append(it)
 
-    # newest first before writing (Jekyll will also sort)
     deduped.sort(key=lambda x: x["published"], reverse=True)
 
     with open(OUTFILE, "w", encoding="utf-8") as f:

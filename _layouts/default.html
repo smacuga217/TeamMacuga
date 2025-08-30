@@ -153,7 +153,7 @@
         <span class="cart-total-label">Total:</span>
         <span class="cart-total-price" data-cart-total>$0.00</span>
       </div>
-      <button class="btn primary">Checkout</button>
+      <button class="btn primary">Checkout with Shopify</button>
     </div>
   </div>
 
@@ -265,7 +265,7 @@
   <!-- Mini cart behavior -->
   <script>
   (function(){
-    const SHOP = '{{ site.shopify.domain | default: "yourshop.myshopify.com" }}';
+    const SHOP = '{{ site.shopify.domain | default: "teammacuga.myshopify.com" }}';
     const KEY = 'tm_cart';
 
     const drawer = document.getElementById('mini-cart');

@@ -15,10 +15,10 @@ category: tops   # or hats, misc, collab
 
 shopify_handle: team-macuga-pocket-logo-with-usa-on-back
 variant_ids:
-  XS: 12345678900021
-  S:  2853027_21002
-  M:  2853027_21008
-  L:  12345678900024
-  XL: 12345678900025
-  2XL: 12345678900026
+  XS: 42513184096374
+  S:  42513184129142
+  M:  42513184161910
+  L:  42513184194678
+  XL: 42513184227446
+  2XL: 42513184260214
 ---

@@ -153,7 +153,7 @@
         <span class="cart-total-label">Total:</span>
         <span class="cart-total-price" data-cart-total>$0.00</span>
       </div>
-      <button class="btn primary">Checkout with Shopify</button>
+      <button class="btn primary" id="checkout-btn">Checkout with Shopify</button>
     </div>
   </div>
 
@@ -350,6 +350,12 @@
       window.location.href = `https://${SHOP}/cart/${parts}`;
     }
 
+    document.getElementById('checkout-btn').addEventListener('click', function(e){
+      e.preventDefault();
+      checkout(); // this builds the Shopify cart URL and redirects
+    });
+
+
     window.addEventListener('tm:add', (e)=> {
       const d = e.detail || {};
       add(d.id, d.qty, d.title, d.price, d.img);
@@ -373,6 +379,8 @@
     renderCart();
   })();
   </script>
+
+  
 
   <!-- Robust mobile menu toggle -->
   <script>

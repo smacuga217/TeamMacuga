@@ -33,7 +33,6 @@ variant_ids:
 ---
 
 
-
 Upgrade your wardrobe with this oversized t-shirt made from 100% organic combed ring-spun cotton. It’s designed with dropped shoulders and a wide collar, making it perfect for everyday streetwear outfits.
 <br>
 • 100% organic combed ring-spun cotton

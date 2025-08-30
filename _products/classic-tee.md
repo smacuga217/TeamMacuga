@@ -16,8 +16,8 @@ category: tops   # or hats, misc, collab
 shopify_handle: classic-tee
 variant_ids:
   XS: 12345678900021
-  S:  12345678900022
-  M:  12345678900023
+  S:  2853027_21002
+  M:  2853027_21008
   L:  12345678900024
   XL: 12345678900025
   2XL: 12345678900026

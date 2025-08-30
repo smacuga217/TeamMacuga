@@ -14,44 +14,24 @@ images:
     - https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-organic-oversized-high-neck-t-shirt-white-front-68b1e0a14820f.jpg?v=1756487855
     - https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-organic-oversized-high-neck-t-shirt-white-right-68b1e0a14891f.jpg?v=1756487855
     - https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-organic-oversized-high-neck-t-shirt-white-left-68b1e0a148c58.jpg?v=1756487855
-colors:
-  - Heather Grey
-  - White
-sizes:
-  - S
-  - M
-  - L
-  - XL
-  - 2XL
+colors: ["Heather Grey", "White"]
+sizes: ["S", "M", "L", "XL", "2XL"]
 sku: TM-OSHIRT-001
 category: t-shirts
 shopify_handle: unisex-organic-oversized-high-neck-t-shirt-team-macuga-logo-on-front-usa-on-back-us-flag-on-sleeve
-variants:
-  - color: Heather Grey
-    sizes:
-      - size: S
-        sku: 42513373986934
-      - size: M
-        sku: 42513374019702
-      - size: L
-        sku: 42513374052470
-      - size: XL
-        sku: 42513374085238
-      - size: 2XL
-        sku: 42513374118006
-  - color: White
-    sizes:
-      - size: S
-        sku: 42513374150774
-      - size: M
-        sku: 42513374183542
-      - size: L
-        sku: 42513374216310
-      - size: XL
-        sku: 42513374249078
-      - size: 2XL
-        sku: 42513374281846
+variant_ids:
+  Heather Grey S: 42513373986934
+  Heather Grey M: 42513374019702
+  Heather Grey L: 42513374052470
+  Heather Grey XL: 42513374085238
+  Heather Grey 2XL: 42513374118006
+  White S: 42513374150774
+  White M: 42513374183542
+  White L: 42513374216310
+  White XL: 42513374249078
+  White 2XL: 42513374281846
 ---
+
 
 
 Upgrade your wardrobe with this oversized t-shirt made from 100% organic combed ring-spun cotton. It’s designed with dropped shoulders and a wide collar, making it perfect for everyday streetwear outfits.

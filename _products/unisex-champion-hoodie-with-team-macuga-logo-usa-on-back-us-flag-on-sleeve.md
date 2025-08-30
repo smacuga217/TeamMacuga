@@ -1,28 +1,58 @@
 ---
 layout: product
-title: "Unisex Champion Hoodie"
-price: 52.00
-featured_image: https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-champion-hoodie-light-steel-right-68b1dfc71ae8b.jpg?v=1756487634
+title: "Unisex Organic Oversized High Neck T-shirt"
+price: 36.50
+featured_image: https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-organic-oversized-high-neck-t-shirt-heather-grey-left-68b1e0a1470d9.jpg?v=1756487854
 images:
-  Light Steel:
-    - https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-champion-hoodie-light-steel-right-68b1dfc71ae8b.jpg?v=1756487634
-    - https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-champion-hoodie-light-steel-front-68b1dfc71b5d7.jpg?v=1756487635
-    - https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-champion-hoodie-light-steel-back-68b1dfc71b6da.jpg?v=1756487635
-    - https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-champion-hoodie-light-steel-left-68b1dfc71b7b6.jpg?v=1756487635
-sizes: ["S", "M", "L", "XL", "2XL", "3XL"]
-colors: ["Light Steel"]
-sku: TM-HOOD-001
-category: hoodies
-shopify_handle: unisex-champion-hoodie-with-team-macuga-logo-usa-on-back-us-flag-on-sleeve
+  Heather Grey:
+    - https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-organic-oversized-high-neck-t-shirt-heather-grey-left-68b1e0a1470d9.jpg?v=1756487854
+    - https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-organic-oversized-high-neck-t-shirt-heather-grey-front-68b1e0a147bbc.jpg?v=1756487855
+    - https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-organic-oversized-high-neck-t-shirt-heather-grey-back-68b1e0a147d7d.jpg?v=1756487855
+    - https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-organic-oversized-high-neck-t-shirt-heather-grey-right-68b1e0a147f2e.jpg?v=1756487855
+  White:
+    - https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-organic-oversized-high-neck-t-shirt-white-back-68b1e0a1485d3.jpg?v=1756487855
+    - https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-organic-oversized-high-neck-t-shirt-white-front-68b1e0a14820f.jpg?v=1756487855
+    - https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-organic-oversized-high-neck-t-shirt-white-right-68b1e0a14891f.jpg?v=1756487855
+    - https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-organic-oversized-high-neck-t-shirt-white-left-68b1e0a148c58.jpg?v=1756487855
+colors:
+  - Heather Grey
+  - White
+sizes:
+  - S
+  - M
+  - L
+  - XL
+  - 2XL
+sku: TM-OSHIRT-001
+category: t-shirts
+shopify_handle: unisex-organic-oversized-high-neck-t-shirt-team-macuga-logo-on-front-usa-on-back-us-flag-on-sleeve
 variants:
-  Light Steel:
-    S: 42513365893238
-    M: 42513365926006
-    L: 42513365958774
-    XL: 42513365991542
-    2XL: 42513366024310
-    3XL: 42513366057078
+  - color: Heather Grey
+    sizes:
+      - size: S
+        sku: 42513373986934
+      - size: M
+        sku: 42513374019702
+      - size: L
+        sku: 42513374052470
+      - size: XL
+        sku: 42513374085238
+      - size: 2XL
+        sku: 42513374118006
+  - color: White
+    sizes:
+      - size: S
+        sku: 42513374150774
+      - size: M
+        sku: 42513374183542
+      - size: L
+        sku: 42513374216310
+      - size: XL
+        sku: 42513374249078
+      - size: 2XL
+        sku: 42513374281846
 ---
+
 
 This quality hoodie from Champion will keep you dry and comfortable all day. Made with moisture-wicking Double Dry® technology, it’s a go-to for staying fresh on the move.
 <br>

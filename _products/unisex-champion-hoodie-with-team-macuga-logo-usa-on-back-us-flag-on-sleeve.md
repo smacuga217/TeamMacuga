@@ -4,7 +4,7 @@ title: "Unisex Champion Hoodie"
 price: 52.00
 featured_image: https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-champion-hoodie-light-steel-right-68b1dfc71ae8b.jpg?v=1756487634
 images:
-  Light Steel:
+  "Light Steel":
     - https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-champion-hoodie-light-steel-right-68b1dfc71ae8b.jpg?v=1756487634
     - https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-champion-hoodie-light-steel-front-68b1dfc71b5d7.jpg?v=1756487635
     - https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-champion-hoodie-light-steel-back-68b1dfc71b6da.jpg?v=1756487635

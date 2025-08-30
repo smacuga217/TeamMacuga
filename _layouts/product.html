@@ -4,20 +4,17 @@ layout: default
 
 <article class="product container">
   <div class="product-grid">
+
+    <!-- Gallery -->
     <div class="gallery">
       <img id="hero" src="{{ page.featured_image | relative_url }}" alt="{{ page.title }}">
-      {% if page.images %}
-      <div class="thumbs">
-        {% for color, imgs in page.images %}
-          {% for img in imgs %}
-            <button class="thumb"><img src="{{ img | relative_url }}" alt="{{ color }}"></button>
-          {% endfor %}
-        {% endfor %}
-      </div>
-      {% endif %}
+      <div class="thumbs" id="thumbs"></div>
     </div>
 
+    <!-- Details -->
     <div class="details">
+
+      <!-- Badge -->
       {% if page.badge %}
         {%- assign br = page.badge | downcase | strip -%}
         {%- if br contains 'collab' -%}
@@ -33,54 +30,52 @@ layout: default
         {%- else -%}
           {%- assign badge_key = br | replace: ' ', '-' | replace: '!', '' | replace: '.', '' -%}
         {%- endif -%}
-
         <span class="badge badge-{{ badge_key }}">{{ page.badge }}</span>
       {% endif %}
 
       <h1>{{ page.title }}</h1>
-      <p class="price">${{ page.price | number_with_precision: 2 }}</p>
-
+      <p class="price">${{ page.price | sprintf: "%.2f" }}</p>
       {% if page.description %}<p class="desc">{{ page.description }}</p>{% endif %}
 
-      {% if page.sizes %}
-      <label class="sizes-label">Size</label>
-      <div class="sizes">
-        {% for s in page.sizes %}
-        <label class="size">
-          <input type="radio" name="size" value="{{ s }}" {% if forloop.first %}checked{% endif %}> {{ s }}
-        </label>
-        {% endfor %}
-      </div>
+      <!-- Color picker -->
+      {% if page.colors %}
+        <label>Color</label>
+        <div class="colors">
+          {% for color in page.colors %}
+            <label class="color-option">
+              <input type="radio" name="color" value="{{ color }}" {% if forloop.first %}checked{% endif %}>
+              {{ color }}
+            </label>
+          {% endfor %}
+        </div>
       {% endif %}
 
-      {% if page.colors %}
-      <label class="colors-label">Color</label>
-      <div class="colors">
-        {% for color in page.colors %}
-        <label class="color">
-          <input type="radio" name="color" value="{{ color }}" {% if forloop.first %}checked{% endif %}>
-          {{ color }}
-        </label>
-        {% endfor %}
-      </div>
+      <!-- Size picker -->
+      {% if page.sizes %}
+        <label>Size</label>
+        <div class="sizes">
+          {% for s in page.sizes %}
+            <label class="size">
+              <input type="radio" name="size" value="{{ s }}" {% if forloop.first %}checked{% endif %}> {{ s }}
+            </label>
+          {% endfor %}
+        </div>
       {% endif %}
 
       <!-- Quantity stepper -->
       <div class="qty-control" data-qty>
-        <button type="button" class="qty-btn" data-qty-dec aria-label="Decrease quantity">−</button>
+        <button type="button" class="qty-btn" data-qty-dec>−</button>
         <span class="qty-val" aria-live="polite">1</span>
-        <button type="button" class="qty-btn" data-qty-inc aria-label="Increase quantity">+</button>
+        <button type="button" class="qty-btn" data-qty-inc>+</button>
       </div>
 
-      {% if page.variant_ids %}
       <button class="btn primary" id="add-to-cart"
         data-variants='{{ page.variant_ids | jsonify }}'
         data-title="{{ page.title }}"
-        data-price="{{ page.price | number_with_precision: 2 }}"
+        data-price="{{ page.price | sprintf: "%.2f" }}"
         data-img="{{ page.featured_image | relative_url }}">
         Add to cart
       </button>
-      {% endif %}
 
       {% if page.sku %}<p class="sku">SKU: {{ page.sku }}</p>{% endif %}
     </div>
@@ -88,56 +83,69 @@ layout: default
 </article>
 
 <script>
-/* Product gallery thumbs */
 (function(){
   const hero = document.getElementById('hero');
-  if(!hero) return;
-  document.querySelectorAll('.thumb img').forEach(t=>{
-    t.addEventListener('click', ()=>{ hero.src = t.src; hero.decoding='sync'; });
-  });
-})();
+  const thumbsEl = document.getElementById('thumbs');
+  const colorRadios = document.querySelectorAll('input[name="color"]');
+  const variants = JSON.parse(document.getElementById('add-to-cart').dataset.variants || '{}');
 
-/* Quantity stepper + Add-to-cart */
-(function(){
-  document.addEventListener('click', (e)=>{
+  // Render thumbnails for selected color
+  function renderThumbs(color) {
+    thumbsEl.innerHTML = '';
+    const imgs = {{ page.images | jsonify }}[color] || [];
+    imgs.forEach(url => {
+      const btn = document.createElement('button');
+      btn.className = 'thumb';
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = color;
+      btn.appendChild(img);
+      btn.addEventListener('click', ()=>{ hero.src = url; hero.decoding='sync'; });
+      thumbsEl.appendChild(btn);
+    });
+    if(imgs.length) hero.src = imgs[0];
+  }
+
+  renderThumbs(document.querySelector('input[name="color"]:checked')?.value);
+
+  // Update gallery when color changes
+  colorRadios.forEach(radio=>{
+    radio.addEventListener('change', e=>{ renderThumbs(e.target.value); });
+  });
+
+  // Quantity stepper
+  document.addEventListener('click', e=>{
     const dec = e.target.closest('[data-qty-dec]');
     const inc = e.target.closest('[data-qty-inc]');
     if(!dec && !inc) return;
     const wrap = (dec||inc).closest('[data-qty]');
     const valEl = wrap.querySelector('.qty-val');
-    let n = parseInt(valEl.textContent || '1', 10) || 1;
-    n += inc ? 1 : -1;
-    n = Math.max(1, Math.min(99, n));
+    let n = parseInt(valEl.textContent||'1',10);
+    n += inc?1:-1;
+    n = Math.max(1,Math.min(99,n));
     valEl.textContent = n;
   });
 
-  const btn = document.getElementById('add-to-cart');
-  if(!btn) return;
-  const variants = JSON.parse(btn.dataset.variants || '{}');
-
-  btn.addEventListener('click', ()=>{
-    const selSize = document.querySelector('input[name="size"]:checked');
-    const selColor = document.querySelector('input[name="color"]:checked');
-    const size = selSize ? selSize.value : Object.keys(variants)[0];
-    const color = selColor ? selColor.value : Object.keys(variants)[0];
-    const key = size; // You can modify if you use size+color keys
+  // Add to cart
+  document.getElementById('add-to-cart').addEventListener('click', ()=>{
+    const selectedColor = document.querySelector('input[name="color"]:checked')?.value;
+    const selectedSize = document.querySelector('input[name="size"]:checked')?.value;
+    const key = selectedColor + "|" + selectedSize;
     const variantId = variants[key];
+    const qty = parseInt(document.querySelector('.qty-val').textContent||'1',10);
 
-    const qty = Math.max(1, parseInt(document.querySelector('.qty-val')?.textContent || '1', 10));
-
-    if(!variantId){ alert('Please pick a size.'); return; }
+    if(!variantId){ alert('Please pick a size and color.'); return; }
 
     window.dispatchEvent(new CustomEvent('tm:add', { detail:{
       id:String(variantId), qty,
-      title: btn.dataset.title, price: btn.dataset.price, img: btn.dataset.img,
-      size, color
+      title: document.getElementById('add-to-cart').dataset.title,
+      price: document.getElementById('add-to-cart').dataset.price,
+      img: hero.src
     }}));
-
-    document.getElementById('mini-cart')?.classList.add('open');
-    document.getElementById('cart-overlay')?.classList.add('show');
   });
 })();
 </script>
+
 
 
 <style>

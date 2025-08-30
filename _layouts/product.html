@@ -14,31 +14,20 @@ layout: default
     <!-- Details -->
     <div class="details">
 
-      <!-- Badge -->
       {% if page.badge %}
         {%- assign br = page.badge | downcase | strip -%}
-        {%- if br contains 'collab' -%}
-          {%- assign badge_key = 'collab' -%}
-        {%- elsif br contains 'best' -%}
-          {%- assign badge_key = 'bestseller' -%}
-        {%- elsif br contains 'new' -%}
-          {%- assign badge_key = 'new' -%}
-        {%- elsif br contains 'limited' -%}
-          {%- assign badge_key = 'limited' -%}
-        {%- elsif br contains 'sale' -%}
-          {%- assign badge_key = 'sale' -%}
-        {%- else -%}
-          {%- assign badge_key = br | replace: ' ', '-' | replace: '!', '' | replace: '.', '' -%}
+        {%- if br contains 'collab' -%} {% assign badge_key = 'collab' -%}
+        {%- elsif br contains 'best' -%} {% assign badge_key = 'bestseller' -%}
+        {%- elsif br contains 'new' -%} {% assign badge_key = 'new' -%}
+        {%- elsif br contains 'limited' -%} {% assign badge_key = 'limited' -%}
+        {%- elsif br contains 'sale' -%} {% assign badge_key = 'sale' -%}
+        {%- else -%} {% assign badge_key = br | replace: ' ', '-' | replace: '!', '' | replace: '.', '' -%}
         {%- endif -%}
         <span class="badge badge-{{ badge_key }}">{{ page.badge }}</span>
       {% endif %}
 
       <h1>{{ page.title }}</h1>
-      <p class="price">${{ page.price | sprintf: "%.2f" }}</p>
-
-      {% if content %}
-        <div class="desc">{{ content }}</div>
-      {% endif %}
+      <p class="price">${{ page.price | number: 2 }}</p>
 
       <!-- Color picker -->
       {% if page.colors %}
@@ -75,12 +64,17 @@ layout: default
       <button class="btn primary" id="add-to-cart"
         data-variants='{{ page.variant_ids | jsonify }}'
         data-title="{{ page.title }}"
-        data-price="{{ page.price | sprintf: "%.2f" }}"
+        data-price="{{ page.price | number: 2 }}"
         data-img="{{ page.featured_image | relative_url }}">
         Add to cart
       </button>
 
       {% if page.sku %}<p class="sku">SKU: {{ page.sku }}</p>{% endif %}
+
+      <!-- Description below Add-to-Cart -->
+      {% if content %}
+        <div class="desc">{{ content }}</div>
+      {% endif %}
 
     </div>
   </div>
@@ -93,12 +87,12 @@ layout: default
   const colorRadios = document.querySelectorAll('input[name="color"]');
   const variants = JSON.parse(document.getElementById('add-to-cart').dataset.variants || '{}');
 
-  // Parse images safely
-  const productImages = JSON.parse('{{ page.images | jsonify | escape }}');
+  const productImages = {{ page.images | jsonify }};
 
   function renderThumbs(color) {
     thumbsEl.innerHTML = '';
     const imgs = productImages[color] || [];
+    if(imgs.length === 0 && "{{ page.featured_image }}") imgs.push("{{ page.featured_image | relative_url }}");
     imgs.forEach(url => {
       const btn = document.createElement('button');
       btn.className = 'thumb';
@@ -115,7 +109,7 @@ layout: default
   // Initial render
   renderThumbs(document.querySelector('input[name="color"]:checked')?.value);
 
-  // Update gallery when color changes
+  // Update gallery on color change
   colorRadios.forEach(radio=>{
     radio.addEventListener('change', e=>{ renderThumbs(e.target.value); });
   });

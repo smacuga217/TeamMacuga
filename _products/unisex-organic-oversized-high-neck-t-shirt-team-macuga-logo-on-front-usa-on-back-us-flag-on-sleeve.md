@@ -22,15 +22,15 @@ category: t-shirts
 shopify_handle: unisex-organic-oversized-high-neck-t-shirt-team-macuga-logo-on-front-usa-on-back-us-flag-on-sleeve
 variants:
   Heather Grey:
-    S: 68b1e0a1470d9
-    M: 68b1e0a147bbc
-    L: 68b1e0a147d7d
-    XL: 68b1e0a147f2e
-    2XL: 68b1e0a14820f
+    S: 42513373986934
+    M: 42513374019702
+    L: 42513374052470
+    XL: 42513374085238
+    2XL: 42513374118006
   White:
-    S: 68b1e0a1485d3
-    M: 68b1e0a14891f
-    L: 68b1e0a148c58
-    XL: 68b1e0a147bbc # Note: XL uses the same image as M's front
-    2XL: 68b1e0a14820f # Note: 2XL uses the same image as Heather Grey 2XL
+    S: 42513374150774
+    M: 42513374183542
+    L: 42513374216310
+    XL: 42513374249078
+    2XL: 42513374281846
 ---

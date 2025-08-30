@@ -20,16 +20,16 @@ sku: TM-OSHIRT-001
 category: t-shirts
 shopify_handle: unisex-organic-oversized-high-neck-t-shirt-team-macuga-logo-on-front-usa-on-back-us-flag-on-sleeve
 variant_ids:
-  "Heather Grey S": 42513373986934
-  "Heather Grey M": 42513374019702
-  "Heather Grey L": 42513374052470
-  "Heather Grey XL": 42513374085238
-  "Heather Grey 2XL": 42513374118006
-  "White S": 42513374150774
-  "White M": 42513374183542
-  "White L": 42513374216310
-  "White XL": 42513374249078
-  "White 2XL": 42513374281846
+  "Heather Grey|S": 42513373986934
+  "Heather Grey|M": 42513374019702
+  "Heather Grey|L": 42513374052470
+  "Heather Grey|XL": 42513374085238
+  "Heather Grey|2XL": 42513374118006
+  "White|S": 42513374150774
+  "White|M": 42513374183542
+  "White|L": 42513374216310
+  "White|XL": 42513374249078
+  "White|2XL": 42513374281846
 ---
 
 

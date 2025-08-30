@@ -15,12 +15,12 @@ sku: TM-HOOD-001
 category: hoodies
 shopify_handle: unisex-champion-hoodie-with-team-macuga-logo-usa-on-back-us-flag-on-sleeve
 variant_ids:
-  "Light Steel S": 42513365893238
-  "Light Steel M": 42513365926006
-  "Light Steel L": 42513365958774
-  "Light Steel XL": 42513365991542
-  "Light Steel 2XL": 42513366024310
-  "Light Steel 3XL": 42513366057078
+  "Light Steel|S": 42513365893238
+  "Light Steel|M": 42513365926006
+  "Light Steel|L": 42513365958774
+  "Light Steel|XL": 42513365991542
+  "Light Steel|2XL": 42513366024310
+  "Light Steel|3XL": 42513366057078
 ---
 
 

@@ -35,6 +35,7 @@ layout: default
 
       <h1>{{ page.title }}</h1>
       <p class="price">${{ page.price | sprintf: "%.2f" }}</p>
+
       {% if content %}
         <div class="desc">{{ content }}</div>
       {% endif %}
@@ -80,6 +81,7 @@ layout: default
       </button>
 
       {% if page.sku %}<p class="sku">SKU: {{ page.sku }}</p>{% endif %}
+
     </div>
   </div>
 </article>
@@ -91,10 +93,12 @@ layout: default
   const colorRadios = document.querySelectorAll('input[name="color"]');
   const variants = JSON.parse(document.getElementById('add-to-cart').dataset.variants || '{}');
 
-  // Render thumbnails for selected color
+  // Parse images safely
+  const productImages = JSON.parse('{{ page.images | jsonify | escape }}');
+
   function renderThumbs(color) {
     thumbsEl.innerHTML = '';
-    const imgs = {{ page.images | jsonify }}[color] || [];
+    const imgs = productImages[color] || [];
     imgs.forEach(url => {
       const btn = document.createElement('button');
       btn.className = 'thumb';
@@ -108,6 +112,7 @@ layout: default
     if(imgs.length) hero.src = imgs[0];
   }
 
+  // Initial render
   renderThumbs(document.querySelector('input[name="color"]:checked')?.value);
 
   // Update gallery when color changes
@@ -147,6 +152,41 @@ layout: default
   });
 })();
 </script>
+
+<style>
+  .product-grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:2rem; align-items:start; }
+  .gallery img{ width:100%; border-radius:12px; display:block; }
+  .thumbs{ display:flex; gap:.5rem; margin-top:.5rem; flex-wrap:wrap; }
+  .thumb{ border:0; background:transparent; padding:0; cursor:pointer; }
+  .thumb img{ width:80px; height:80px; object-fit:cover; border-radius:10px; }
+
+  .details .badge{ display:inline-block; margin-bottom:.5rem; padding:.25rem .5rem; border-radius:999px; background:#eef; }
+  .price{ font-size:1.25rem; font-weight:600; margin:.25rem 0 1rem; }
+  .desc{ margin-bottom:1rem; }
+  .sizes, .colors{ display:flex; gap:.5rem; margin:.5rem 0 1rem; flex-wrap:wrap; }
+  .size, .color-option{ border:1px solid var(--border); border-radius:10px; padding:.4rem .6rem; cursor:pointer; }
+  .size input, .color-option input{ margin-right:.35rem; }
+
+  .qty-control{ display:inline-flex; align-items:center; gap:.5rem; margin:.5rem 0 1rem; border:1px solid var(--border); border-radius:10px; padding:.25rem; }
+  .qty-btn{ width:32px; height:32px; border:0; background:#f6f6f6; border-radius:8px; font-size:1.1rem; line-height:1; cursor:pointer; }
+  .qty-val{ min-width:2ch; text-align:center; font-variant-numeric: tabular-nums; }
+
+  .btn.primary{ background: linear-gradient(90deg, var(--brand, #9F1D2D), var(--navy, #3B3C78)); color:#fff; border:0; font-weight:700; box-shadow: 0 10px 24px rgba(20,37,94,.18); width:100%; justify-content:center; border-radius:12px; }
+  .btn.primary:hover{ transform: translateY(-1px); }
+
+  .sku{ margin-top:.5rem; color:var(--muted); font-size:.9rem; }
+
+  @media (max-width:960px){ .product-grid{ grid-template-columns:1fr; } }
+
+  /* Badge colors */
+  .details .badge.badge-collab{ background: linear-gradient(90deg, var(--brand, #9F1D2D), var(--navy, #3B3C78)); color:#fff; border-color: transparent; }
+  .details .badge.badge-new{ background: var(--brand, #9F1D2D); color:#fff; border-color: transparent; }
+  .details .badge.badge-bestseller{ background: var(--navy, #3B3C78); color:#fff; border-color: transparent; }
+  .details .badge.badge-limited,.details .badge.badge-limited-edition{ background:#111827; color:#fff; border-color: transparent; }
+  .details .badge.badge-sale{ background: #e11d48; color:#fff; border-color: transparent; }
+</style>
+
+
 
 
 

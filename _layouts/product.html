@@ -42,7 +42,7 @@ layout: default
       {% endif %}
 
       <h1>{{ page.title }}</h1>
-      <p class="price">${{ page.price }}</p>
+      <p class="price">${{ "%0.2f" | format: page.price }}</p>
 
       {% if page.description %}<p class="desc">{{ page.description }}</p>{% endif %}
 

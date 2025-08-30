@@ -17,7 +17,6 @@ images:
 sizes: ["S", "M", "L", "XL", "2XL"]
 colors: ["Heather Grey", "White"]
 sku: TM-OSHIRT-001
-description: "Upgrade your wardrobe with this oversized t-shirt made from 100% organic combed ring-spun cotton. It’s designed with dropped shoulders and a wide collar, making it perfect for everyday streetwear outfits."
 category: t-shirts
 shopify_handle: unisex-organic-oversized-high-neck-t-shirt-team-macuga-logo-on-front-usa-on-back-us-flag-on-sleeve
 variants:
@@ -34,3 +33,78 @@ variants:
     XL: 42513374249078
     2XL: 42513374281846
 ---
+
+Upgrade your wardrobe with this oversized t-shirt made from 100% organic combed ring-spun cotton. It’s designed with dropped shoulders and a wide collar, making it perfect for everyday streetwear outfits.
+<br>
+• 100% organic combed ring-spun cotton
+<br>
+• Fabric weight: 5.9 oz./yd.² (200 g/m²)
+<br>
+• Oversized fit
+<br>
+• Set-in sleeves
+<br>
+• Dropped shoulders
+<br>
+• 1 × 1 rib at collar
+<br>
+• Self-fabric neck tape on the inside of the back
+<br>
+• The fabric of this product holds certifications for its organic cotton content under GOTS (Global Organic Textile Standard) and OCS (Organic Content Standard)
+<br>
+• Blank product sourced from Bangladesh
+<br>
+<br>
+This product is made especially for you as soon as you place an order, which is why it takes us a bit longer to deliver it to you. Making products on demand instead of in bulk helps reduce overproduction, so thank you for making thoughtful purchasing decisions!
+<br>
+<br>
+Age restrictions: For adults
+<br>
+EU Warranty: 2 years
+<br>
+<br>
+In compliance with the General Product Safety Regulation (GPSR), <b>Oak inc.</b> and <b>SINDEN VENTURES LIMITED</b> ensure that all consumer products offered are safe and meet EU standards. For any product safety related inquiries or concerns, please contact our EU representative at <b>gpsr@sindenventures.com</b>. You can also write to us at <b>123 Main Street, Anytown, Country</b> or <b>Markou Evgenikou 11, Mesa Geitonia, 4002, Limassol, Cyprus.</b>
+
+<p><strong class="size-guide-title">Size guide</strong></p>
+<div class="table-responsive dynamic" data-unit-system="imperial">
+<table cellpadding="5">
+<tbody>
+<tr>
+<td> </td>
+<td><strong>BODY LENGTH (cm)</strong></td>
+<td><strong>SLEEVE LENGTH (cm)</strong></td>
+<td><strong>CHEST (inches)</strong></td>
+</tr>
+<tr>
+<td><strong>S</strong></td>
+<td>73</td>
+<td>24</td>
+<td>39</td>
+</tr>
+<tr>
+<td><strong>M</strong></td>
+<td>75</td>
+<td>24.5</td>
+<td>43</td>
+</tr>
+<tr>
+<td><strong>L</strong></td>
+<td>77</td>
+<td>25</td>
+<td>47</td>
+</tr>
+<tr>
+<td><strong>XL</strong></td>
+<td>80</td>
+<td>25.5</td>
+<td>51</td>
+</tr>
+<tr>
+<td><strong>2XL</strong></td>
+<td>82.5</td>
+<td>26</td>
+<td>55</td>
+</tr>
+</tbody>
+</table>
+</div>

@@ -13,7 +13,7 @@ sku: TM-TEE-001
 description: "Soft cotton tee with Team Macuga mark. True to size."
 category: tops   # or hats, misc, collab
 
-shopify_handle: classic-tee
+shopify_handle: team-macuga-pocket-logo-with-usa-on-back
 variant_ids:
   XS: 12345678900021
   S:  2853027_21002

@@ -1,14 +1,20 @@
-{% comment %} Assumes page.images is a hash: { "Color": [img1, img2, ...], ... } {% endcomment %}
+---
+layout: default
+---
 
 <article class="product container">
   <div class="product-grid">
     <div class="gallery">
       <img id="hero" src="{{ page.featured_image | relative_url }}" alt="{{ page.title }}">
+      
       {% if page.images and page.images.size > 0 %}
       <div class="thumbs">
-        {% for color, imgs in page.images %}
+        {% for color in page.colors %}
+          {% assign imgs = page.images[color] %}
           {% for img in imgs %}
-            <button class="thumb" data-color="{{ color }}"><img src="{{ img | relative_url }}" alt="{{ page.title }} - {{ color }}"></button>
+            <button class="thumb" data-color="{{ color }}">
+              <img src="{{ img | relative_url }}" alt="{{ page.title }} - {{ color }}">
+            </button>
           {% endfor %}
         {% endfor %}
       </div>
@@ -17,20 +23,20 @@
 
     <div class="details">
       {% if page.badge %}
-        {% assign br = page.badge | downcase | strip %}
-        {% if br contains 'collab' %}
-          {% assign badge_key = 'collab' %}
-        {% elsif br contains 'best' %}
-          {% assign badge_key = 'bestseller' %}
-        {% elsif br contains 'new' %}
-          {% assign badge_key = 'new' %}
-        {% elsif br contains 'limited' %}
-          {% assign badge_key = 'limited' %}
-        {% elsif br contains 'sale' %}
-          {% assign badge_key = 'sale' %}
-        {% else %}
-          {% assign badge_key = br | replace: ' ', '-' | replace: '!', '' | replace: '.', '' %}
-        {% endif %}
+        {%- assign br = page.badge | downcase | strip -%}
+        {%- if br contains 'collab' -%}
+          {%- assign badge_key = 'collab' -%}
+        {%- elsif br contains 'best' -%}
+          {%- assign badge_key = 'bestseller' -%}
+        {%- elsif br contains 'new' -%}
+          {%- assign badge_key = 'new' -%}
+        {%- elsif br contains 'limited' -%}
+          {%- assign badge_key = 'limited' -%}
+        {%- elsif br contains 'sale' -%}
+          {%- assign badge_key = 'sale' -%}
+        {%- else -%}
+          {%- assign badge_key = br | replace: ' ', '-' | replace: '!', '' | replace: '.', '' -%}
+        {%- endif -%}
 
         <span class="badge badge-{{ badge_key }}">{{ page.badge }}</span>
       {% endif %}
@@ -39,17 +45,6 @@
       <p class="price">${{ page.price }}</p>
 
       {% if page.description %}<p class="desc">{{ page.description }}</p>{% endif %}
-
-      {% if page.colors %}
-      <label class="colors-label">Color</label>
-      <div class="colors">
-        {% for c in page.colors %}
-        <label class="color">
-          <input type="radio" name="color" value="{{ c }}" {% if forloop.first %}checked{% endif %}> {{ c }}
-        </label>
-        {% endfor %}
-      </div>
-      {% endif %}
 
       {% if page.sizes %}
       <label class="sizes-label">Size</label>
@@ -85,23 +80,17 @@
 </article>
 
 <script>
+/* Product gallery thumbs */
 (function(){
   const hero = document.getElementById('hero');
   if(!hero) return;
-
-  // Gallery thumbnails change hero image and selected color
-  let selectedColor = document.querySelector('input[name="color"]:checked')?.value || '';
-  document.querySelectorAll('.thumb').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      hero.src = btn.querySelector('img').src;
-      hero.decoding='sync';
-      const colorInput = document.querySelector(`input[name="color"][value="${btn.dataset.color}"]`);
-      if(colorInput) colorInput.checked = true;
-      selectedColor = btn.dataset.color;
-    });
+  document.querySelectorAll('.thumb img').forEach(t=>{
+    t.addEventListener('click', ()=>{ hero.src = t.src; hero.decoding='sync'; });
   });
+})();
 
-  // Quantity stepper
+/* Quantity stepper + Add-to-cart */
+(function(){
   document.addEventListener('click', (e)=>{
     const dec = e.target.closest('[data-qty-dec]');
     const inc = e.target.closest('[data-qty-inc]');
@@ -114,24 +103,21 @@
     valEl.textContent = n;
   });
 
-  // Add to cart
   const btn = document.getElementById('add-to-cart');
   if(!btn) return;
   const variants = JSON.parse(btn.dataset.variants || '{}');
 
   btn.addEventListener('click', ()=>{
-    const selColor = document.querySelector('input[name="color"]:checked')?.value;
-    const selSize  = document.querySelector('input[name="size"]:checked')?.value;
-    if(!selColor || !selSize){ alert('Please select color and size.'); return; }
+    const sel = document.querySelector('input[name="size"]:checked');
+    const size = sel ? sel.value : Object.keys(variants)[0];
+    const variantId = size && variants[size];
 
-    const key = selColor + ' ' + selSize; // matches variant_ids keys
-    const variantId = variants[key];
     const qty = Math.max(1, parseInt(document.querySelector('.qty-val')?.textContent || '1', 10));
 
-    if(!variantId){ alert('Variant not found for this color and size.'); return; }
+    if(!variantId){ alert('Please pick a size.'); return; }
 
     window.dispatchEvent(new CustomEvent('tm:add', { detail:{
-      id: String(variantId), qty,
+      id:String(variantId), qty,
       title: btn.dataset.title, price: btn.dataset.price, img: btn.dataset.img
     }}));
 
@@ -140,3 +126,74 @@
   });
 })();
 </script>
+
+<style>
+  .product-grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:2rem; align-items:start; }
+  .gallery img{ width:100%; border-radius:12px; display:block; }
+  .thumbs{ display:flex; gap:.5rem; margin-top:.5rem; flex-wrap:wrap; }
+  .thumb{ border:0; background:transparent; padding:0; cursor:pointer; }
+  .thumb img{ width:80px; height:80px; object-fit:cover; border-radius:10px; }
+
+  .details .badge{ display:inline-block; margin-bottom:.5rem; padding:.25rem .5rem; border-radius:999px; background:#eef; }
+  .price{ font-size:1.25rem; font-weight:600; margin:.25rem 0 1rem; }
+  .desc{ margin-bottom:1rem; }
+  .sizes{ display:flex; gap:.5rem; margin:.5rem 0 1rem; flex-wrap:wrap; }
+  .size{ border:1px solid var(--border); border-radius:10px; padding:.4rem .6rem; cursor:pointer; }
+  .size input{ margin-right:.35rem; }
+
+  /* Qty stepper */
+  .qty-control{ display:inline-flex; align-items:center; gap:.5rem; margin:.5rem 0 1rem; border:1px solid var(--border); border-radius:10px; padding:.25rem; }
+  .qty-btn{ width:32px; height:32px; border:0; background:#f6f6f6; border-radius:8px; font-size:1.1rem; line-height:1; cursor:pointer; }
+  .qty-val{ min-width:2ch; text-align:center; font-variant-numeric: tabular-nums; }
+
+  .btn.buy-btn{ display:inline-block; padding:.75rem 1rem; border-radius:12px; background:var(--navy); color:#fff; text-decoration:none; }
+  .sku{ margin-top:.5rem; color:var(--muted); font-size:.9rem; }
+  @media (max-width:960px){ .product-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- Product badge (pill) ---------- */
+  .details .badge{
+    display:inline-block;
+    margin-bottom:.5rem;
+    padding:.28rem .6rem;
+    border-radius:999px;
+    font-weight:700;
+    font-size:.82rem;
+    line-height:1;
+    border:1px solid var(--border, rgba(11,18,32,.12));
+    box-shadow: 0 6px 16px rgba(0,0,0,.08);
+    background:#fff;            /* default/fallback */
+    color: var(--ink, #0b1220); /* default/fallback */
+  }
+
+  /* Map common badges to your site colors (match Shop/Merch) */
+  .details .badge.badge-collab{ 
+    background: linear-gradient(90deg, var(--brand, #9F1D2D), var(--navy, #3B3C78));
+    color:#fff; border-color: transparent;
+  }
+  .details .badge.badge-new{
+    background: var(--brand, #9F1D2D); color:#fff; border-color: transparent;
+  }
+  .details .badge.badge-bestseller{
+    background: var(--navy, #3B3C78); color:#fff; border-color: transparent;
+  }
+  .details .badge.badge-limited,
+  .details .badge.badge-limited-edition{
+    background:#111827; color:#fff; border-color: transparent;
+  }
+  .details .badge.badge-sale{
+    background: #e11d48; color:#fff; border-color: transparent;
+  }
+
+  /* ---------- Gradient button assurance ---------- */
+  .btn.primary{
+    background: linear-gradient(90deg, var(--brand, #9F1D2D), var(--navy, #3B3C78));
+    color:#fff; border:0;
+    font-weight:700;
+    box-shadow: 0 10px 24px rgba(20,37,94,.18);
+  }
+  .btn.primary:hover{ transform: translateY(-1px); }
+
+  /* Optional: make Add to cart full-width on product page */
+  #add-to-cart{ width:100%; justify-content:center; border-radius:12px; }
+
+</style>

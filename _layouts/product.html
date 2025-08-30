@@ -8,8 +8,10 @@ layout: default
       <img id="hero" src="{{ page.featured_image | relative_url }}" alt="{{ page.title }}">
       {% if page.images and page.images.size > 1 %}
       <div class="thumbs">
-        {% for img in page.images %}
-          <button class="thumb"><img src="{{ img | relative_url }}" alt=""></button>
+        {% for color, imgs in page.images %}
+          {% for img in imgs %}
+            <button class="thumb"><img src="{{ img | relative_url }}" alt=""></button>
+          {% endfor %}
         {% endfor %}
       </div>
       {% endif %}

@@ -343,12 +343,19 @@
       set(get().filter(i=>i.id!==id)); renderCart();
     }
 
-    function checkout(){
+    function checkout() {
       const cart = get();
-      if(!cart.length){ openCart(); return; }
-      const parts = cart.map(i=>`${i.id}:${i.qty}`).join(',');
-      window.location.href = `https://${SHOP}/cart/${parts}`;
+      if (!cart.length) { 
+        openCart(); 
+        return; 
+      }
+      const parts = cart.map(i => `${i.id}:${i.qty}`).join(',');
+      const checkoutUrl = `https://${SHOP}/cart/${parts}`;
+
+      // open Shopify checkout in a new tab
+      window.open(checkoutUrl, "_blank");
     }
+
 
     document.getElementById('checkout-btn').addEventListener('click', function(e){
       e.preventDefault();

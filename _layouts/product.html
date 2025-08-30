@@ -6,15 +6,11 @@ layout: default
   <div class="product-grid">
     <div class="gallery">
       <img id="hero" src="{{ page.featured_image | relative_url }}" alt="{{ page.title }}">
-      
-      {% if page.images and page.images.size > 0 %}
+      {% if page.images %}
       <div class="thumbs">
-        {% for color in page.colors %}
-          {% assign imgs = page.images[color] %}
+        {% for color, imgs in page.images %}
           {% for img in imgs %}
-            <button class="thumb" data-color="{{ color }}">
-              <img src="{{ img | relative_url }}" alt="{{ page.title }} - {{ color }}">
-            </button>
+            <button class="thumb"><img src="{{ img | relative_url }}" alt="{{ color }}"></button>
           {% endfor %}
         {% endfor %}
       </div>
@@ -37,15 +33,27 @@ layout: default
         {%- else -%}
           {%- assign badge_key = br | replace: ' ', '-' | replace: '!', '' | replace: '.', '' -%}
         {%- endif -%}
-
         <span class="badge badge-{{ badge_key }}">{{ page.badge }}</span>
       {% endif %}
 
       <h1>{{ page.title }}</h1>
-      <p class="price">${{ "%0.2f" | format: page.price }}</p>
+      <p class="price">${{ page.price | sprintf: "%.2f" }}</p>
 
       {% if page.description %}<p class="desc">{{ page.description }}</p>{% endif %}
 
+      <!-- Color selector -->
+      {% if page.colors %}
+      <label class="colors-label">Color</label>
+      <div class="colors">
+        {% for c in page.colors %}
+        <label class="color">
+          <input type="radio" name="color" value="{{ c }}" {% if forloop.first %}checked{% endif %}> {{ c }}
+        </label>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Size selector -->
       {% if page.sizes %}
       <label class="sizes-label">Size</label>
       <div class="sizes">
@@ -68,7 +76,7 @@ layout: default
       <button class="btn primary" id="add-to-cart"
         data-variants='{{ page.variant_ids | jsonify }}'
         data-title="{{ page.title }}"
-        data-price="{{ page.price }}"
+        data-price="{{ page.price | sprintf: "%.2f" }}"
         data-img="{{ page.featured_image | relative_url }}">
         Add to cart
       </button>
@@ -108,19 +116,31 @@ layout: default
   const variants = JSON.parse(btn.dataset.variants || '{}');
 
   btn.addEventListener('click', ()=>{
-    const sel = document.querySelector('input[name="size"]:checked');
-    const size = sel ? sel.value : Object.keys(variants)[0];
-    const variantId = size && variants[size];
+    const selSize = document.querySelector('input[name="size"]:checked');
+    const selColor = document.querySelector('input[name="color"]:checked');
+    const size = selSize ? selSize.value : null;
+    const color = selColor ? selColor.value : null;
+
+    if(!size || !color){ alert('Please pick size and color.'); return; }
+
+    const variantKey = `${color} ${size}`;
+    const variantId = variants[variantKey];
+
+    if(!variantId){ alert('Variant not found.'); return; }
 
     const qty = Math.max(1, parseInt(document.querySelector('.qty-val')?.textContent || '1', 10));
 
-    if(!variantId){ alert('Please pick a size.'); return; }
-
     window.dispatchEvent(new CustomEvent('tm:add', { detail:{
-      id:String(variantId), qty,
-      title: btn.dataset.title, price: btn.dataset.price, img: btn.dataset.img
+      id:String(variantId),
+      qty,
+      title: btn.dataset.title,
+      price: btn.dataset.price,
+      img: btn.dataset.img,
+      color: color,
+      size: size
     }}));
 
+    // open mini-cart if exists
     document.getElementById('mini-cart')?.classList.add('open');
     document.getElementById('cart-overlay')?.classList.add('show');
   });

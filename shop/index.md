@@ -1,162 +1,152 @@
+---
+layout: default
+title: Shop
+---
+
+<!-- Notice Bar -->
 <div class="notice-bar">
-  <p>Welcome to the Team Macuga Shop! Support our journey by grabbing some gear 🏔️</p>
-  <a class="btn primary" href="https://teammacuga.myshopify.com" target="_blank" rel="noopener">
-    Visit Shopify Store
-  </a>
+  <p>Free shipping on all orders over $50!</p>
 </div>
 
-<div class="shop-controls">
-  <label>Filter by Category:
-    <select id="category-filter">
-      <option value="all">All</option>
-      <option value="shirts">Shirts</option>
-      <option value="hoodies">Hoodies</option>
-      <option value="hats">Hats</option>
-    </select>
-  </label>
+<!-- Page Title -->
+<h1 class="shop-title">Shop Our Collection</h1>
 
-  <label>Sort by Price:
-    <select id="price-sort">
-      <option value="default">Default</option>
-      <option value="low">Low to High</option>
-      <option value="high">High to Low</option>
-    </select>
-  </label>
+<!-- Filter + Sort Controls -->
+<div class="controls">
+  <label for="category-filter">Filter by:</label>
+  <select id="category-filter">
+    <option value="all">All</option>
+    <option value="hoodies">Hoodies</option>
+    <option value="hats">Hats</option>
+    <option value="tees">Tees</option>
+  </select>
+
+  <label for="sort-filter">Sort by:</label>
+  <select id="sort-filter">
+    <option value="default">Default</option>
+    <option value="low-high">Price: Low to High</option>
+    <option value="high-low">Price: High to Low</option>
+  </select>
 </div>
 
+<!-- Product Grid -->
 <div class="product-grid" id="product-grid">
-  {% for product in site.data.products %}
+  {% for product in site.products %}
   <div class="tm-card"
-       data-category="{{ product.category }}"
+       data-category="{{ product.category | downcase }}"
        data-price="{{ product.price }}"
        data-product-id="{{ product.id }}"
        data-variant-ids='{{ product.variants | jsonify }}'>
 
-    <img src="{{ product.image }}" alt="{{ product.name }}">
-    <div class="tm-name">{{ product.name }}</div>
+    <img src="{{ product.image }}" alt="{{ product.title }}">
+    <div class="tm-name">{{ product.title }}</div>
 
+    <!-- Color Dropdown -->
+    {% if product.colors %}
     <label>Color:
       <select class="color-select">
         {% for color in product.colors %}
-          <option value="{{ color }}">{{ color }}</option>
+        <option value="{{ color }}">{{ color }}</option>
         {% endfor %}
       </select>
     </label>
+    {% endif %}
 
+    <!-- Size Dropdown -->
+    {% if product.sizes %}
     <label>Size:
       <select class="size-select">
         {% for size in product.sizes %}
-          <option value="{{ size }}">{{ size }}</option>
+        <option value="{{ size }}">{{ size }}</option>
         {% endfor %}
       </select>
     </label>
+    {% endif %}
 
+    <!-- Quantity Selector -->
     <div class="qty-selector">
       <button class="qty-minus">-</button>
       <span class="qty-val">1</span>
       <button class="qty-plus">+</button>
     </div>
 
+    <!-- Add to Cart -->
     <button class="btn primary add-to-cart-btn">
-      Add to cart – ${{ product.price }}
+      Add to Cart – ${{ product.price }}
     </button>
   </div>
   {% endfor %}
 </div>
 
 <style>
-/* Notice bar */
+/* Notice Bar */
 .notice-bar {
-  background: #f8f8f8;
-  padding: 1rem;
-  margin-bottom: 1rem;
+  background: #111;
+  color: #fff;
+  padding: 0.5rem;
   text-align: center;
-  border-bottom: 1px solid #ddd;
-}
-.notice-bar p {
-  margin: 0 0 .5rem 0;
-  font-size: 1.1rem;
+  margin-bottom: 1rem;
 }
 
-/* Shop controls (sticky) */
-.shop-controls {
-  position: sticky;
-  top: 60px; /* adjust based on navbar height */
-  z-index: 20;
-  background: #fff;
-  padding: .75rem 1rem;
-  border-bottom: 1px solid #ddd;
+/* Title */
+.shop-title {
+  font-size: 2rem;
+  text-align: center;
+  margin: 1rem 0 2rem;
+}
+
+/* Controls */
+.controls {
   display: flex;
-  gap: 1rem;
   justify-content: center;
-  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
-.shop-controls label {
-  font-weight: 600;
-  font-size: .9rem;
-}
-.shop-controls select {
-  margin-left: .5rem;
-  padding: .3rem .5rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+.controls label {
+  font-weight: bold;
+  margin-right: 0.5rem;
 }
 
-/* Product grid */
+/* Product Grid */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1.5rem;
-  padding: 1rem;
 }
-
-/* Product card */
 .tm-card {
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 1rem;
-  text-align: center;
   display: flex;
   flex-direction: column;
-  gap: .75rem;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
   background: #fff;
-  transition: box-shadow .2s ease;
-}
-.tm-card:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  min-height: 360px;
 }
 .tm-card img {
   max-width: 100%;
-  border-radius: 8px;
-  object-fit: cover;
+  max-height: 200px;
+  object-fit: contain;
+  margin-bottom: 0.75rem;
 }
 .tm-name {
-  font-weight: bold;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-align: center;
 }
-
-/* Dropdowns */
 .tm-card label {
-  font-size: .85rem;
-  font-weight: 500;
-  display: block;
-}
-.tm-card select {
-  width: 100%;
-  margin-top: .25rem;
-  padding: .4rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  font-size: 0.85rem;
+  margin: 0.25rem 0;
 }
 
-/* Quantity selector */
+/* Quantity Selector */
 .qty-selector {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: .5rem;
+  margin: 0.5rem 0;
 }
-.qty-selector button {
+.qty-minus, .qty-plus {
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -172,60 +162,58 @@
 
 /* Buttons */
 .btn.primary { 
-  background: linear-gradient(90deg,#ff5f6d,#002147);
+  background: linear-gradient(90deg, #b30000, #001f5c); /* red → navy */
   color: #fff;
   border-radius: 8px;
-  padding: 0.6rem 1rem;
+  padding: 0.5rem 1rem;
   font-weight: bold;
   text-align: center;
   border: none;
   cursor: pointer;
-  transition: opacity .2s ease;
+  margin-top: auto;
 }
 .btn.primary:hover { opacity: 0.9; }
-.btn.primary.add-to-cart-btn { margin-top: auto; }
 </style>
 
 <script>
-// Filter + Sort
-const grid = document.getElementById("product-grid");
+// Filtering and Sorting
 const categoryFilter = document.getElementById("category-filter");
-const priceSort = document.getElementById("price-sort");
+const sortFilter = document.getElementById("sort-filter");
+const grid = document.getElementById("product-grid");
 
-categoryFilter.addEventListener("change", filterAndSort);
-priceSort.addEventListener("change", filterAndSort);
-
-function filterAndSort() {
-  let cards = [...grid.children];
+function applyFilters() {
   const category = categoryFilter.value;
-  const sort = priceSort.value;
+  const products = [...grid.children];
 
-  cards.forEach(card => {
-    if (category === "all" || card.dataset.category === category) {
-      card.style.display = "";
-    } else {
-      card.style.display = "none";
-    }
+  products.forEach(p => {
+    p.style.display = (category === "all" || p.dataset.category === category) ? "flex" : "none";
   });
 
-  if (sort !== "default") {
-    cards.sort((a, b) => {
-      let pa = parseFloat(a.dataset.price), pb = parseFloat(b.dataset.price);
-      return sort === "low" ? pa - pb : pb - pa;
-    });
-    cards.forEach(card => grid.appendChild(card));
+  if (sortFilter.value === "low-high") {
+    products.sort((a,b) => a.dataset.price - b.dataset.price);
+  } else if (sortFilter.value === "high-low") {
+    products.sort((a,b) => b.dataset.price - a.dataset.price);
   }
+
+  products.forEach(p => grid.appendChild(p));
 }
 
-// Quantity selector
-document.querySelectorAll(".qty-selector").forEach(qtyBox => {
-  let val = qtyBox.querySelector(".qty-val");
-  qtyBox.querySelector(".qty-plus").addEventListener("click", () => {
-    val.textContent = parseInt(val.textContent) + 1;
+categoryFilter.addEventListener("change", applyFilters);
+sortFilter.addEventListener("change", applyFilters);
+
+// Quantity buttons
+document.querySelectorAll(".qty-minus").forEach(btn => {
+  btn.addEventListener("click", e => {
+    const val = e.target.nextElementSibling;
+    let num = parseInt(val.textContent);
+    if (num > 1) val.textContent = num - 1;
   });
-  qtyBox.querySelector(".qty-minus").addEventListener("click", () => {
-    let n = parseInt(val.textContent);
-    if (n > 1) val.textContent = n - 1;
+});
+document.querySelectorAll(".qty-plus").forEach(btn => {
+  btn.addEventListener("click", e => {
+    const val = e.target.previousElementSibling;
+    let num = parseInt(val.textContent);
+    val.textContent = num + 1;
   });
 });
 </script>

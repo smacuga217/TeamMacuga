@@ -1,162 +1,263 @@
-<div class="shop-notice">
-  <p>Shipping and taxes are calculated by Shopify at checkout. If there are any issues or you want to shop in a different currency, please visit our Shopify store:</p>
-  <a class="btn primary" href="https://teammacuga.myshopify.com" target="_blank" rel="noopener">Visit Shopify Store</a>
-</div>
-
-<div id="merch-carousel" class="tm-carousel" data-carousel>
-  <button class="tm-arrow prev" aria-label="Previous" data-prev>‹</button>
-
-  <div class="tm-track" data-track tabindex="0">
-    {% for product in site.products limit:12 %}
-      <article class="tm-card" 
-               data-product-id="{{ product.id }}" 
-               data-price="{{ product.price }}"
-               data-variant-ids='{{ product.variant_ids | jsonify }}'>
-        <a class="tm-link" href="{{ product.external_url | default: product.url | relative_url }}" {% if product.external_url %}target="_blank" rel="noopener"{% endif %}>
-          <div class="tm-imgwrap">
-            {% if product.badge %}
-              {% assign b = product.badge | downcase %}
-              <span class="img-badge
-                {% if b contains 'collab' %}collab
-                {% elsif b contains 'new' %}badge-new
-                {% elsif b contains 'best' %}badge-bestseller{% endif %}">
-                {{ product.badge }}
-              </span>
-            {% endif %}
-            {% if product.featured_image %}
-              <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
-            {% endif %}
-          </div>
-          <div class="tm-meta">
-            <span class="tm-name">{{ product.title }}</span>
-            {% if product.price %}<span class="tm-price">${{ product.price }}</span>{% endif %}
-          </div>
-        </a>
-
-        {% if product.colors %}
-          <div class="colors">
-            {% for color in product.colors %}
-              <label class="color-option">
-                <input type="radio" name="color-{{ product.id }}" value="{{ color }}" {% if forloop.first %}checked{% endif %}>
-                {{ color }}
-              </label>
-            {% endfor %}
-          </div>
-        {% endif %}
-
-        {% if product.sizes %}
-          <div class="sizes">
-            {% for size in product.sizes %}
-              <label class="size-option">
-                <input type="radio" name="size-{{ product.id }}" value="{{ size }}" {% if forloop.first %}checked{% endif %}>
-                {{ size }}
-              </label>
-            {% endfor %}
-          </div>
-        {% endif %}
-
-        <div class="qty-control" data-qty>
-          <button type="button" class="qty-btn" data-qty-dec>−</button>
-          <span class="qty-val" aria-live="polite">1</span>
-          <button type="button" class="qty-btn" data-qty-inc>+</button>
-        </div>
-
-        <button class="btn primary add-to-cart-btn">
-          Add to cart
-        </button>
-
-      </article>
-    {% endfor %}
+<section class="shop-section">
+  <div class="shop-header">
+    <h2>Team Macuga Merchandise</h2>
+    <div class="shop-notice">
+      <p>Shipping and taxes are calculated by Shopify at checkout. If you want to shop in a different currency or see full details, please visit our Shopify store:</p>
+      <a class="btn primary" href="https://teammacuga.myshopify.com" target="_blank" rel="noopener">Visit Shopify Store</a>
+    </div>
   </div>
 
-  <button class="tm-arrow next" aria-label="Next" data-next>›</button>
-  <div class="tm-dots" data-dots aria-label="Carousel pagination"></div>
-</div>
+  <div id="merch-carousel" class="tm-carousel" data-carousel>
+    <button class="tm-arrow prev" aria-label="Previous" data-prev>‹</button>
 
-<script>
-(function(){
-  const root  = document.getElementById('merch-carousel');
-  if(!root) return;
-  const track = root.querySelector('[data-track]');
-  const prev  = root.querySelector('[data-prev]');
-  const next  = root.querySelector('[data-next]');
-  const dotsWrap = root.querySelector('[data-dots]');
+    <div class="tm-track" data-track tabindex="0">
+      {% for product in site.products limit:12 %}
+        <article class="tm-card" 
+                 data-product-id="{{ product.id }}" 
+                 data-price="{{ product.price }}"
+                 data-variant-ids='{{ product.variant_ids | jsonify }}'>
+          <a class="tm-link" href="{{ product.external_url | default: product.url | relative_url }}" {% if product.external_url %}target="_blank" rel="noopener"{% endif %}>
+            <div class="tm-imgwrap">
+              {% if product.badge %}
+                {% assign b = product.badge | downcase %}
+                <span class="img-badge
+                  {% if b contains 'collab' %}collab
+                  {% elsif b contains 'new' %}badge-new
+                  {% elsif b contains 'best' %}badge-bestseller{% endif %}">
+                  {{ product.badge }}
+                </span>
+              {% endif %}
+              {% if product.featured_image %}
+                <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
+              {% endif %}
+            </div>
+            <div class="tm-meta">
+              <span class="tm-name">{{ product.title }}</span>
+              {% if product.price %}<span class="tm-price">${{ product.price }}</span>{% endif %}
+            </div>
+          </a>
 
-  function pageWidth(){ return track.clientWidth; }
-  function maxScroll(){ return track.scrollWidth - track.clientWidth; }
-  function pages(){ return Math.max(1, Math.ceil(track.scrollWidth / pageWidth())); }
-  function currentPage(){ return Math.round(track.scrollLeft / pageWidth()); }
-  function goTo(page){
-    const clamped = Math.max(0, Math.min(page, pages()-1));
-    track.scrollTo({ left: clamped * pageWidth(), behavior:'smooth' });
-  }
-  function update(){
-    const p = currentPage(), total = pages();
-    prev.disabled = (track.scrollLeft <= 0);
-    next.disabled = (track.scrollLeft >= maxScroll() - 1);
-    dotsWrap.innerHTML = '';
-    for(let i=0;i<total;i++){
-      const b = document.createElement('button');
-      if(i===p) b.setAttribute('aria-current','true');
-      b.addEventListener('click', ()=>goTo(i));
-      dotsWrap.appendChild(b);
-    }
-  }
-  prev.addEventListener('click', ()=>goTo(currentPage()-1));
-  next.addEventListener('click', ()=>goTo(currentPage()+1));
-  track.addEventListener('scroll', ()=>{ window.requestAnimationFrame(update); }, { passive:true });
-  window.addEventListener('resize', update);
-  update();
+          {% if product.colors %}
+            <div class="colors">
+              {% for color in product.colors %}
+                <label class="color-option">
+                  <input type="radio" name="color-{{ product.id }}" value="{{ color }}" {% if forloop.first %}checked{% endif %}>
+                  {{ color }}
+                </label>
+              {% endfor %}
+            </div>
+          {% endif %}
 
-  // Quantity stepper
-  root.querySelectorAll('.qty-control').forEach(qtyWrap=>{
-    qtyWrap.addEventListener('click', e=>{
-      const dec = e.target.closest('[data-qty-dec]');
-      const inc = e.target.closest('[data-qty-inc]');
-      if(!dec && !inc) return;
-      const valEl = qtyWrap.querySelector('.qty-val');
-      let n = parseInt(valEl.textContent||'1',10);
-      n += inc?1:-1;
-      n = Math.max(1,Math.min(99,n));
-      valEl.textContent = n;
-    });
-  });
+          {% if product.sizes %}
+            <div class="sizes">
+              {% for size in product.sizes %}
+                <label class="size-option">
+                  <input type="radio" name="size-{{ product.id }}" value="{{ size }}" {% if forloop.first %}checked{% endif %}>
+                  {{ size }}
+                </label>
+              {% endfor %}
+            </div>
+          {% endif %}
 
-  // Add-to-cart per product with variant support
-  root.querySelectorAll('.add-to-cart-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const card = btn.closest('.tm-card');
-      const productId = card.dataset.productId;
-      const qty = parseInt(card.querySelector('.qty-val').textContent||'1',10);
-      const selectedColor = card.querySelector('input[name="color-'+productId+'"]:checked')?.value;
-      const selectedSize = card.querySelector('input[name="size-'+productId+'"]:checked')?.value;
-      const price = card.dataset.price;
-      const title = card.querySelector('.tm-name').textContent;
-      const img = card.querySelector('img')?.src;
+          <div class="qty-control" data-qty>
+            <button type="button" class="qty-btn" data-qty-dec>−</button>
+            <span class="qty-val" aria-live="polite">1</span>
+            <button type="button" class="qty-btn" data-qty-inc>+</button>
+          </div>
 
-      // Get correct variant ID
-      const variantIds = JSON.parse(card.dataset.variantIds || '{}');
-      const variantKey = `${selectedColor}|${selectedSize}`;
-      const variantId = variantIds[variantKey] || productId;
+          <button class="btn primary add-to-cart-btn">
+            Add to cart
+          </button>
 
-      window.dispatchEvent(new CustomEvent('tm:add', { detail:{
-        id: variantId,
-        qty,
-        price,
-        title,
-        color: selectedColor,
-        size: selectedSize,
-        img
-      }}));
-    });
-  });
-})();
-</script>
+        </article>
+      {% endfor %}
+    </div>
+
+    <button class="tm-arrow next" aria-label="Next" data-next>›</button>
+    <div class="tm-dots" data-dots aria-label="Carousel pagination"></div>
+  </div>
+</section>
 
 <style>
-.shop-notice{
-  background:#fdf4f4; border:1px solid #f5c2c7; padding:12px 16px; border-radius:12px; margin-bottom:1rem;
+/* Section & header */
+.shop-section {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
-.shop-notice p{ margin:0 0 .5rem; font-size:.95rem; }
-.shop-notice .btn{ display:inline-block; }
+.shop-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.shop-header h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+/* Notice styling */
+.shop-notice {
+  background: #ffe6e6; /* soft pink */
+  border: 1px solid #f5c2c7;
+  padding: 16px;
+  border-radius: 12px;
+  margin: 0 auto 2rem;
+  max-width: 800px;
+  color: #5a1a1a; /* darker for readability */
+  font-size: 1rem;
+}
+.shop-notice p {
+  margin: 0 0 .5rem;
+}
+.shop-notice .btn {
+  display: inline-block;
+  margin-top: 0.5rem;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  background: #c91f1f;
+  color: #fff;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+.shop-notice .btn:hover {
+  background: #a71b1b;
+}
+
+/* Carousel adjustments */
+.tm-carousel {
+  position: relative;
+}
+.tm-track {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 1rem;
+}
+.tm-card {
+  flex: 0 0 220px; /* uniform width */
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  padding: 1rem;
+  box-sizing: border-box;
+  min-height: 380px; /* uniform height */
+  transition: transform 0.2s;
+}
+.tm-card:hover {
+  transform: translateY(-4px);
+}
+.tm-imgwrap {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* square image */
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+.tm-imgwrap img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.tm-meta {
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+.tm-name {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+.tm-price {
+  color: #c91f1f;
+  font-weight: bold;
+}
+
+/* Color & size options */
+.colors, .sizes {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+.color-option, .size-option {
+  font-size: 0.85rem;
+}
+
+/* Quantity & button */
+.qty-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+.qty-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  text-align: center;
+}
+.qty-val {
+  min-width: 24px;
+  text-align: center;
+}
+.btn.primary.add-to-cart-btn {
+  background: #c91f1f;
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+}
+.btn.primary.add-to-cart-btn:hover {
+  background: #a71b1b;
+}
+
+/* Arrows */
+.tm-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.8);
+  border: none;
+  font-size: 2rem;
+  padding: 0 0.5rem;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 10;
+}
+.tm-arrow.prev { left: -1rem; }
+.tm-arrow.next { right: -1rem; }
+.tm-arrow:disabled { opacity: 0.3; cursor: default; }
+
+/* Dots */
+.tm-dots {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+.tm-dots button {
+  background: #ddd;
+  border: none;
+  width: 10px;
+  height: 10px;
+  margin: 0 3px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.tm-dots button[aria-current="true"] {
+  background: #c91f1f;
+}
 </style>

@@ -8,7 +8,10 @@
 
   <div class="tm-track" data-track tabindex="0">
     {% for product in site.products limit:12 %}
-      <article class="tm-card" data-product-id="{{ product.id }}" data-price="{{ product.price }}">
+      <article class="tm-card" 
+               data-product-id="{{ product.id }}" 
+               data-price="{{ product.price }}"
+               data-variant-ids='{{ product.variant_ids | jsonify }}'>
         <a class="tm-link" href="{{ product.external_url | default: product.url | relative_url }}" {% if product.external_url %}target="_blank" rel="noopener"{% endif %}>
           <div class="tm-imgwrap">
             {% if product.badge %}
@@ -72,13 +75,13 @@
 
 <script>
 (function(){
-  // Carousel functionality (unchanged)
   const root  = document.getElementById('merch-carousel');
   if(!root) return;
   const track = root.querySelector('[data-track]');
   const prev  = root.querySelector('[data-prev]');
   const next  = root.querySelector('[data-next]');
   const dotsWrap = root.querySelector('[data-dots]');
+
   function pageWidth(){ return track.clientWidth; }
   function maxScroll(){ return track.scrollWidth - track.clientWidth; }
   function pages(){ return Math.max(1, Math.ceil(track.scrollWidth / pageWidth())); }
@@ -119,7 +122,7 @@
     });
   });
 
-  // Add-to-cart per product
+  // Add-to-cart per product with variant support
   root.querySelectorAll('.add-to-cart-btn').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       const card = btn.closest('.tm-card');
@@ -128,15 +131,22 @@
       const selectedColor = card.querySelector('input[name="color-'+productId+'"]:checked')?.value;
       const selectedSize = card.querySelector('input[name="size-'+productId+'"]:checked')?.value;
       const price = card.dataset.price;
+      const title = card.querySelector('.tm-name').textContent;
+      const img = card.querySelector('img')?.src;
+
+      // Get correct variant ID
+      const variantIds = JSON.parse(card.dataset.variantIds || '{}');
+      const variantKey = `${selectedColor}|${selectedSize}`;
+      const variantId = variantIds[variantKey] || productId;
 
       window.dispatchEvent(new CustomEvent('tm:add', { detail:{
-        id: productId,
+        id: variantId,
         qty,
         price,
-        title: card.querySelector('.tm-name').textContent,
+        title,
         color: selectedColor,
         size: selectedSize,
-        img: card.querySelector('img')?.src
+        img
       }}));
     });
   });

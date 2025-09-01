@@ -262,33 +262,25 @@
 
   <script defer src="{{ '/assets/js/carousel.js' | relative_url }}"></script>
 
-  <!-- Mini cart behavior -->
   <script>
   (function(){
     const SHOP = '{{ site.shopify.domain | default: "teammacuga.myshopify.com" }}';
     const KEY = 'tm_cart';
-
     const drawer = document.getElementById('mini-cart');
     const overlay = document.getElementById('cart-overlay');
 
-    const get = () => JSON.parse(localStorage.getItem(KEY) || '[]');
-    const set = (c) => localStorage.setItem(KEY, JSON.stringify(c));
-    const count = () => get().reduce((n,i)=>n + (i.qty||0), 0);
+    const getCart = () => JSON.parse(localStorage.getItem(KEY) || '[]');
+    const saveCart = (c) => localStorage.setItem(KEY, JSON.stringify(c));
 
     function openCart(){ drawer?.classList.add('open'); overlay?.classList.add('show'); }
     function closeCart(){ drawer?.classList.remove('open'); overlay?.classList.remove('show'); }
 
-    function updateBadge(){
-      document.querySelectorAll('[data-cart-count]').forEach(el=> el.textContent = count());
-    }
-
     function renderCart(){
+      const cart = getCart();
       const list = drawer?.querySelector('.cart-items');
       const totalEl = drawer?.querySelector('[data-cart-total]');
-      updateBadge();
       if(!list || !totalEl) return;
 
-      const cart = get();
       list.innerHTML = '';
       if(!cart.length){
         list.innerHTML = '<p>Your cart is empty.</p>';
@@ -297,22 +289,27 @@
       }
 
       let total = 0;
-      cart.forEach(item=>{
+      cart.forEach((item, idx)=>{
         const price = parseFloat(item.price) || 0;
         total += price * (item.qty || 1);
+
         const row = document.createElement('div');
         row.className = 'cart-item';
         row.innerHTML = `
           <img src="${item.img || ''}" alt="">
-          <div class="cart-item-details" style="flex:1">
+          <div style="flex:1">
             <div class="cart-item-title">${item.title || 'Item'}</div>
-            <div class="cart-item-qty">
-              <button data-dec="${item.id}">-</button>
-              <span>${item.qty || 1}</span>
-              <button data-inc="${item.id}">+</button>
-              <button data-remove="${item.id}">Remove</button>
+            <div class="cart-item-options">
+              ${item.color ? `<span>Color: ${item.color}</span>` : ''}
+              ${item.size  ? `<span>Size: ${item.size}</span>` : ''}
             </div>
-            <div class="cart-item-price">$${price.toFixed(2)}</div>
+            <div class="cart-item-qty">
+              <button data-dec="${idx}">-</button>
+              <span>${item.qty}</span>
+              <button data-inc="${idx}">+</button>
+              <button data-remove="${idx}">Remove</button>
+            </div>
+            <div class="cart-item-price">$${(price*item.qty).toFixed(2)}</div>
           </div>
         `;
         list.appendChild(row);
@@ -321,71 +318,67 @@
       totalEl.textContent = `$${total.toFixed(2)}`;
     }
 
-    function add(id, qty, title, price, img){
-      id = String(id);
-      qty = Math.max(1, parseInt(qty || 1, 10));
-      const cart = get();
-      const item = cart.find(i=>i.id===id);
-      if(item){ item.qty += qty; }
-      else { cart.push({ id, qty, title, price, img }); }
-      set(cart); renderCart(); openCart();
+    function addToCart(newItem){
+      const cart = getCart();
+      // Merge only if same id + color + size
+      const existing = cart.find(i => i.id === newItem.id && i.color === newItem.color && i.size === newItem.size);
+      if(existing){ existing.qty += newItem.qty; }
+      else { cart.push(newItem); }
+      saveCart(cart);
+      renderCart();
+      openCart();
     }
 
-    function changeQty(id, delta){
-      const cart = get();
-      const it = cart.find(i=>i.id===id);
-      if(!it) return;
-      it.qty = Math.max(1, (it.qty||1) + delta);
-      set(cart); renderCart();
+    function changeQty(idx, delta){
+      const cart = getCart();
+      if(!cart[idx]) return;
+      cart[idx].qty = Math.max(1, cart[idx].qty + delta);
+      saveCart(cart);
+      renderCart();
     }
 
-    function remove(id){
-      set(get().filter(i=>i.id!==id)); renderCart();
+    function removeItem(idx){
+      const cart = getCart();
+      cart.splice(idx, 1);
+      saveCart(cart);
+      renderCart();
     }
 
-    function checkout() {
-      const cart = get();
-      if (!cart.length) { 
-        openCart(); 
-        return; 
-      }
+    function checkout(){
+      const cart = getCart();
+      if(!cart.length){ openCart(); return; }
       const parts = cart.map(i => `${i.id}:${i.qty}`).join(',');
-      const checkoutUrl = `https://${SHOP}/cart/${parts}`;
-
-      // open Shopify checkout in a new tab
-      window.open(checkoutUrl, "_blank");
+      window.open(`https://${SHOP}/cart/${parts}`, "_blank");
     }
 
+    drawer.querySelector('#checkout-btn').addEventListener('click', e=>{ e.preventDefault(); checkout(); });
 
-    document.getElementById('checkout-btn').addEventListener('click', function(e){
-      e.preventDefault();
-      checkout(); // this builds the Shopify cart URL and redirects
-    });
-
-
-    window.addEventListener('tm:add', (e)=> {
-      const d = e.detail || {};
-      add(d.id, d.qty, d.title, d.price, d.img);
-    });
-    window.addEventListener('tm:remove', (e)=> remove(String(e.detail?.id || '')));
-
-    document.addEventListener('click', (e)=>{
+    document.addEventListener('click', e=>{
       const t = e.target;
-      if(t.closest('[data-open-cart]') || t.closest('#open-cart')){ e.preventDefault(); openCart(); return; }
-      if(t.closest('#close-cart') || t.closest('#cart-overlay')){ e.preventDefault(); closeCart(); return; }
-      if(t.closest('[data-checkout]')){ e.preventDefault(); checkout(); return; }
+      if(t.closest('#close-cart') || t.closest('#cart-overlay')){ closeCart(); return; }
+      if(t.closest('[data-inc]')){ changeQty(t.dataset.inc*1, +1); return; }
+      if(t.closest('[data-dec]')){ changeQty(t.dataset.dec*1, -1); return; }
+      if(t.closest('[data-remove]')){ removeItem(t.dataset.remove*1); return; }
+    });
 
-      const inc = t.closest('[data-inc]');
-      const dec = t.closest('[data-dec]');
-      const rem = t.closest('[data-remove]');
-      if(inc){ changeQty(inc.dataset.inc, +1); return; }
-      if(dec){ changeQty(dec.dataset.dec, -1); return; }
-      if(rem){ remove(rem.dataset.remove); return; }
+    // Listen for events from product grid
+    window.addEventListener('tm:add', e=>{
+      const d = e.detail || {};
+      addToCart({
+        id: d.id,
+        qty: d.qty || 1,
+        title: d.title,
+        price: d.price || 0,
+        img: d.img,
+        color: d.color,
+        size: d.size
+      });
     });
 
     renderCart();
   })();
   </script>
+
 
   
 

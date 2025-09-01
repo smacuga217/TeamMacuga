@@ -14,7 +14,11 @@
             </div>
             <div class="tm-meta">
               <span class="tm-name">{{ product.title }}</span>
-              {% if product.price %}<span class="tm-price">${{ product.price }}</span>{% endif %}
+              {% if product.price %}
+                <span class="tm-price">
+                  ${{ product.price | plus: 0.0 | round: 2 }}
+                </span>
+              {% endif %}
             </div>
           </a>
         {% else %}

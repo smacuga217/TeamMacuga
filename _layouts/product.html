@@ -27,7 +27,7 @@ layout: default
       {% endif %}
 
       <h1>{{ page.title }}</h1>
-      <p class="price">${{ '%0.2f' | format: page.price }}</p>
+      <p class="price">${{ page.price }}</p>
 
 
       <!-- Color picker -->
@@ -66,7 +66,7 @@ layout: default
       <button class="btn primary" id="add-to-cart"
         data-variants='{{ page.variant_ids | jsonify }}'
         data-title="{{ page.title }}"
-        data-price="{{ '%0.2f' | format: page.price }}"
+        data-price="{{ page.price }}"
         data-img="{{ page.featured_image | relative_url }}">
         Add to cart
       </button>
@@ -89,7 +89,8 @@ layout: default
   const colorRadios = document.querySelectorAll('input[name="color"]');
   const variants = JSON.parse(document.getElementById('add-to-cart').dataset.variants || '{}');
 
-  const productImages = {{ page.images | jsonify }};
+  const productImages = {{ page.images | default: "[]" | jsonify }};
+
 
   function renderThumbs(color) {
     thumbsEl.innerHTML = '';

@@ -1,7 +1,7 @@
 ---
 layout: product
 title: "Unisex Champion Hoodie"
-price: 52.00
+price: "52.00"
 featured_image: https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-champion-hoodie-light-steel-right-68b1dfc71ae8b.jpg?v=1756487634
 images:
   "Light Steel":

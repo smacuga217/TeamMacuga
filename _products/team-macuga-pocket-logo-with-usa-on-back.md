@@ -1,7 +1,7 @@
 ---
 layout: product
 title: "Team Macuga Pocket Logo Tee"
-price: 23.50
+price: "23.50"
 featured_image: https://cdn.shopify.com/s/files/1/0654/7836/1206/files/unisex-staple-t-shirt-white-front-68b1bf8916b99.jpg?v=1756479388
 images:
   White:

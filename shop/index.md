@@ -3,7 +3,7 @@
     <h2>Team Macuga Merchandise</h2>
     <div class="shop-notice">
       <p>Shipping and taxes are calculated by Shopify at checkout. If you want to shop in a different currency or see full details, please visit our Shopify store:</p>
-      <a class="btn primary" href="https://teammacuga.myshopify.com" target="_blank" rel="noopener">
+      <a class="btn primary hero-btn" href="https://teammacuga.myshopify.com" target="_blank" rel="noopener">
         Visit Shopify Store
       </a>
     </div>
@@ -88,7 +88,7 @@
           <button type="button" class="qty-btn" data-qty-inc>+</button>
         </div>
 
-        <button class="btn primary add-to-cart-btn">
+        <button class="btn primary hero-btn add-to-cart-btn">
           Add to cart - ${{ product.price }}
         </button>
 

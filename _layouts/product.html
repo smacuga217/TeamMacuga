@@ -141,10 +141,13 @@ layout: default
     if(!variantId){ alert('Please pick a size and color.'); return; }
 
     window.dispatchEvent(new CustomEvent('tm:add', { detail:{
-      id:String(variantId), qty,
+      id: String(variantId),
+      qty,
       title: document.getElementById('add-to-cart').dataset.title,
       price: document.getElementById('add-to-cart').dataset.price,
-      img: hero.src
+      img: hero.src,
+      color: document.querySelector('input[name="color"]:checked')?.value,
+      size: document.querySelector('input[name="size"]:checked')?.value
     }}));
   });
 })();

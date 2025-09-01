@@ -27,7 +27,7 @@ layout: default
       {% endif %}
 
       <h1>{{ page.title }}</h1>
-      <p class="price">${{ page.price | number: 2 }}</p>
+      <p class="price">${{ page.price | sprintf: "%.2f" }}</p>
 
       <!-- Color picker -->
       {% if page.colors %}
@@ -64,7 +64,7 @@ layout: default
       <button class="btn primary" id="add-to-cart"
         data-variants='{{ page.variant_ids | jsonify }}'
         data-title="{{ page.title }}"
-        data-price="{{ page.price | number: 2 }}"
+        data-price="{{ page.price | sprintf: "%.2f" }}"
         data-img="{{ page.featured_image | relative_url }}">
         Add to cart
       </button>

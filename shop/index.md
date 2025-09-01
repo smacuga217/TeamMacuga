@@ -5,81 +5,178 @@
       <p>Shipping and taxes are calculated by Shopify at checkout. If you want to shop in a different currency or see full details, please visit our Shopify store:</p>
       <a class="btn primary" href="https://teammacuga.myshopify.com" target="_blank" rel="noopener">Visit Shopify Store</a>
     </div>
+
+    <!-- Filters & Sort -->
+    <div class="shop-controls">
+      <label>
+        Filter by category: 
+        <select id="filter-category">
+          <option value="all">All</option>
+          {% assign categories = site.products | map: "category" | uniq %}
+          {% for cat in categories %}
+            <option value="{{ cat }}">{{ cat | capitalize }}</option>
+          {% endfor %}
+        </select>
+      </label>
+
+      <label>
+        Sort by price: 
+        <select id="sort-price">
+          <option value="none">Default</option>
+          <option value="asc">Low to High</option>
+          <option value="desc">High to Low</option>
+        </select>
+      </label>
+    </div>
   </div>
 
-  <div id="merch-carousel" class="tm-carousel" data-carousel>
-    <button class="tm-arrow prev" aria-label="Previous" data-prev>‹</button>
-
-    <div class="tm-track" data-track tabindex="0">
-      {% for product in site.products limit:12 %}
-        <article class="tm-card" 
-                 data-product-id="{{ product.id }}" 
-                 data-price="{{ product.price }}"
-                 data-variant-ids='{{ product.variant_ids | jsonify }}'>
-          <a class="tm-link" href="{{ product.external_url | default: product.url | relative_url }}" {% if product.external_url %}target="_blank" rel="noopener"{% endif %}>
-            <div class="tm-imgwrap">
-              {% if product.badge %}
-                {% assign b = product.badge | downcase %}
-                <span class="img-badge
-                  {% if b contains 'collab' %}collab
-                  {% elsif b contains 'new' %}badge-new
-                  {% elsif b contains 'best' %}badge-bestseller{% endif %}">
-                  {{ product.badge }}
-                </span>
-              {% endif %}
-              {% if product.featured_image %}
-                <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
-              {% endif %}
-            </div>
-            <div class="tm-meta">
-              <span class="tm-name">{{ product.title }}</span>
-              {% if product.price %}<span class="tm-price">${{ product.price }}</span>{% endif %}
-            </div>
-          </a>
-
-          {% if product.colors %}
-            <div class="colors">
-              {% for color in product.colors %}
-                <label class="color-option">
-                  <input type="radio" name="color-{{ product.id }}" value="{{ color }}" {% if forloop.first %}checked{% endif %}>
-                  {{ color }}
-                </label>
-              {% endfor %}
-            </div>
-          {% endif %}
-
-          {% if product.sizes %}
-            <div class="sizes">
-              {% for size in product.sizes %}
-                <label class="size-option">
-                  <input type="radio" name="size-{{ product.id }}" value="{{ size }}" {% if forloop.first %}checked{% endif %}>
-                  {{ size }}
-                </label>
-              {% endfor %}
-            </div>
-          {% endif %}
-
-          <div class="qty-control" data-qty>
-            <button type="button" class="qty-btn" data-qty-dec>−</button>
-            <span class="qty-val" aria-live="polite">1</span>
-            <button type="button" class="qty-btn" data-qty-inc>+</button>
+  <!-- Grid -->
+  <div class="merch-grid" id="merch-grid">
+    {% for product in site.products %}
+      <article class="tm-card" 
+               data-product-id="{{ product.id }}" 
+               data-price="{{ product.price | float }}" 
+               data-category="{{ product.category }}"
+               data-variant-ids='{{ product.variant_ids | jsonify }}'>
+        <a class="tm-link" href="{{ product.external_url | default: product.url | relative_url }}" {% if product.external_url %}target="_blank" rel="noopener"{% endif %}>
+          <div class="tm-imgwrap">
+            {% if product.badge %}
+              {% assign b = product.badge | downcase %}
+              <span class="img-badge
+                {% if b contains 'collab' %}collab
+                {% elsif b contains 'new' %}badge-new
+                {% elsif b contains 'best' %}badge-bestseller{% endif %}">
+                {{ product.badge }}
+              </span>
+            {% endif %}
+            {% if product.featured_image %}
+              <img src="{{ product.featured_image | relative_url }}" alt="{{ product.title }}">
+            {% endif %}
           </div>
+          <div class="tm-meta">
+            <span class="tm-name">{{ product.title }}</span>
+            {% if product.price %}<span class="tm-price">${{ product.price }}</span>{% endif %}
+          </div>
+        </a>
 
-          <button class="btn primary add-to-cart-btn">
-            Add to cart
-          </button>
+        {% if product.colors %}
+          <div class="colors">
+            {% for color in product.colors %}
+              <label class="color-option">
+                <input type="radio" name="color-{{ product.id }}" value="{{ color }}" {% if forloop.first %}checked{% endif %}>
+                {{ color }}
+              </label>
+            {% endfor %}
+          </div>
+        {% endif %}
 
-        </article>
-      {% endfor %}
-    </div>
+        {% if product.sizes %}
+          <div class="sizes">
+            {% for size in product.sizes %}
+              <label class="size-option">
+                <input type="radio" name="size-{{ product.id }}" value="{{ size }}" {% if forloop.first %}checked{% endif %}>
+                {{ size }}
+              </label>
+            {% endfor %}
+          </div>
+        {% endif %}
 
-    <button class="tm-arrow next" aria-label="Next" data-next>›</button>
-    <div class="tm-dots" data-dots aria-label="Carousel pagination"></div>
+        <div class="qty-control" data-qty>
+          <button type="button" class="qty-btn" data-qty-dec>−</button>
+          <span class="qty-val" aria-live="polite">1</span>
+          <button type="button" class="qty-btn" data-qty-inc>+</button>
+        </div>
+
+        <button class="btn primary add-to-cart-btn">
+          Add to cart
+        </button>
+
+      </article>
+    {% endfor %}
   </div>
 </section>
 
+<script>
+(function(){
+  const grid = document.getElementById('merch-grid');
+  const filterCategory = document.getElementById('filter-category');
+  const sortPrice = document.getElementById('sort-price');
+
+  function filterAndSort() {
+    const category = filterCategory.value;
+    const sort = sortPrice.value;
+
+    let cards = Array.from(grid.querySelectorAll('.tm-card'));
+
+    // Filter
+    cards.forEach(card => {
+      const cat = card.dataset.category;
+      if(category === "all" || cat === category){
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    // Sort
+    if(sort === 'asc' || sort === 'desc'){
+      cards = cards.sort((a,b)=>{
+        const pa = parseFloat(a.dataset.price);
+        const pb = parseFloat(b.dataset.price);
+        return sort === 'asc' ? pa - pb : pb - pa;
+      });
+      // Reorder in DOM
+      cards.forEach(card => grid.appendChild(card));
+    }
+  }
+
+  filterCategory.addEventListener('change', filterAndSort);
+  sortPrice.addEventListener('change', filterAndSort);
+
+  // Quantity and add-to-cart logic remains the same
+  grid.querySelectorAll('.qty-control').forEach(qtyWrap=>{
+    qtyWrap.addEventListener('click', e=>{
+      const dec = e.target.closest('[data-qty-dec]');
+      const inc = e.target.closest('[data-qty-inc]');
+      if(!dec && !inc) return;
+      const valEl = qtyWrap.querySelector('.qty-val');
+      let n = parseInt(valEl.textContent||'1',10);
+      n += inc?1:-1;
+      n = Math.max(1,Math.min(99,n));
+      valEl.textContent = n;
+    });
+  });
+
+  grid.querySelectorAll('.add-to-cart-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const card = btn.closest('.tm-card');
+      const productId = card.dataset.productId;
+      const qty = parseInt(card.querySelector('.qty-val').textContent||'1',10);
+      const selectedColor = card.querySelector('input[name="color-'+productId+'"]:checked')?.value;
+      const selectedSize = card.querySelector('input[name="size-'+productId+'"]:checked')?.value;
+      const price = card.dataset.price;
+      const title = card.querySelector('.tm-name').textContent;
+      const img = card.querySelector('img')?.src;
+
+      const variantIds = JSON.parse(card.dataset.variantIds || '{}');
+      const variantKey = `${selectedColor}|${selectedSize}`;
+      const variantId = variantIds[variantKey] || productId;
+
+      window.dispatchEvent(new CustomEvent('tm:add', { detail:{
+        id: variantId,
+        qty,
+        price,
+        title,
+        color: selectedColor,
+        size: selectedSize,
+        img
+      }}));
+    });
+  });
+})();
+</script>
+
 <style>
-/* Section & header */
 .shop-section {
   max-width: 1200px;
   margin: 2rem auto;
@@ -94,20 +191,15 @@
   margin-bottom: 1rem;
   color: #333;
 }
-
-/* Notice styling */
 .shop-notice {
-  background: #ffe6e6; /* soft pink */
+  background: #ffe6e6;
   border: 1px solid #f5c2c7;
   padding: 16px;
   border-radius: 12px;
-  margin: 0 auto 2rem;
+  margin: 0 auto 1.5rem;
   max-width: 800px;
-  color: #5a1a1a; /* darker for readability */
+  color: #5a1a1a;
   font-size: 1rem;
-}
-.shop-notice p {
-  margin: 0 0 .5rem;
 }
 .shop-notice .btn {
   display: inline-block;
@@ -117,42 +209,41 @@
   background: #c91f1f;
   color: #fff;
   border-radius: 8px;
-  transition: 0.2s;
 }
-.shop-notice .btn:hover {
-  background: #a71b1b;
+.shop-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.shop-controls select {
+  padding: 0.3rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
-/* Carousel adjustments */
-.tm-carousel {
-  position: relative;
+/* Grid */
+.merch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 1.5rem;
 }
-.tm-track {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding-bottom: 1rem;
-}
+
+/* Card styling same as before */
 .tm-card {
-  flex: 0 0 220px; /* uniform width */
   display: flex;
   flex-direction: column;
   background: #fff;
   border-radius: 12px;
   border: 1px solid #ddd;
   padding: 1rem;
-  box-sizing: border-box;
-  min-height: 380px; /* uniform height */
-  transition: transform 0.2s;
-}
-.tm-card:hover {
-  transform: translateY(-4px);
+  min-height: 380px;
 }
 .tm-imgwrap {
   position: relative;
   width: 100%;
-  padding-top: 100%; /* square image */
+  padding-top: 100%;
   overflow: hidden;
   margin-bottom: 0.75rem;
 }
@@ -168,96 +259,12 @@
   text-align: center;
   margin-bottom: 0.75rem;
 }
-.tm-name {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 0.25rem;
-}
-.tm-price {
-  color: #c91f1f;
-  font-weight: bold;
-}
-
-/* Color & size options */
-.colors, .sizes {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.5rem;
-}
-.color-option, .size-option {
-  font-size: 0.85rem;
-}
-
-/* Quantity & button */
-.qty-control {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
-}
-.qty-btn {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 1px solid #ccc;
-  background: #f9f9f9;
-  cursor: pointer;
-  font-size: 1.25rem;
-  line-height: 1;
-  text-align: center;
-}
-.qty-val {
-  min-width: 24px;
-  text-align: center;
-}
-.btn.primary.add-to-cart-btn {
-  background: #c91f1f;
-  color: #fff;
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  text-align: center;
-  cursor: pointer;
-  font-weight: bold;
-}
-.btn.primary.add-to-cart-btn:hover {
-  background: #a71b1b;
-}
-
-/* Arrows */
-.tm-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255,255,255,0.8);
-  border: none;
-  font-size: 2rem;
-  padding: 0 0.5rem;
-  cursor: pointer;
-  border-radius: 50%;
-  z-index: 10;
-}
-.tm-arrow.prev { left: -1rem; }
-.tm-arrow.next { right: -1rem; }
-.tm-arrow:disabled { opacity: 0.3; cursor: default; }
-
-/* Dots */
-.tm-dots {
-  text-align: center;
-  margin-top: 0.5rem;
-}
-.tm-dots button {
-  background: #ddd;
-  border: none;
-  width: 10px;
-  height: 10px;
-  margin: 0 3px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-.tm-dots button[aria-current="true"] {
-  background: #c91f1f;
-}
+.tm-name { display: block; font-weight: bold; margin-bottom: 0.25rem; }
+.tm-price { color: #c91f1f; font-weight: bold; }
+.colors, .sizes { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+.qty-control { display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+.qty-btn { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #ccc; background: #f9f9f9; cursor: pointer; text-align: center; }
+.qty-val { min-width: 24px; text-align: center; }
+.btn.primary.add-to-cart-btn { background: #c91f1f; color: #fff; border-radius: 8px; padding: 0.5rem 1rem; text-align: center; font-weight: bold; }
+.btn.primary.add-to-cart-btn:hover { background: #a71b1b; }
 </style>

@@ -3,13 +3,15 @@
     <h2>Team Macuga Merchandise</h2>
     <div class="shop-notice">
       <p>Shipping and taxes are calculated by Shopify at checkout. If you want to shop in a different currency or see full details, please visit our Shopify store:</p>
-      <a class="btn primary" href="https://teammacuga.myshopify.com" target="_blank" rel="noopener">Visit Shopify Store</a>
+      <a class="btn primary" href="https://teammacuga.myshopify.com" target="_blank" rel="noopener">
+        Visit Shopify Store
+      </a>
     </div>
 
     <!-- Filters & Sort -->
     <div class="shop-controls">
       <label>
-        Filter by category: 
+        Filter by category:
         <select id="filter-category">
           <option value="all">All</option>
           {% assign categories = site.products | map: "category" | uniq %}
@@ -20,7 +22,7 @@
       </label>
 
       <label>
-        Sort by price: 
+        Sort by price:
         <select id="sort-price">
           <option value="none">Default</option>
           <option value="asc">Low to High</option>
@@ -33,9 +35,9 @@
   <!-- Grid -->
   <div class="merch-grid" id="merch-grid">
     {% for product in site.products %}
-      <article class="tm-card" 
-               data-product-id="{{ product.id }}" 
-               data-price="{{ product.price | float }}" 
+      <article class="tm-card"
+               data-product-id="{{ product.id }}"
+               data-price="{{ product.price | float }}"
                data-category="{{ product.category }}"
                data-variant-ids='{{ product.variant_ids | jsonify }}'>
         <a class="tm-link" href="{{ product.external_url | default: product.url | relative_url }}" {% if product.external_url %}target="_blank" rel="noopener"{% endif %}>
@@ -55,7 +57,6 @@
           </div>
           <div class="tm-meta">
             <span class="tm-name">{{ product.title }}</span>
-            {% if product.price %}<span class="tm-price">${{ product.price }}</span>{% endif %}
           </div>
         </a>
 
@@ -88,7 +89,7 @@
         </div>
 
         <button class="btn primary add-to-cart-btn">
-          Add to cart
+          Add to cart - ${{ product.price }}
         </button>
 
       </article>
@@ -108,24 +109,19 @@
 
     let cards = Array.from(grid.querySelectorAll('.tm-card'));
 
-    // Filter
+    // Filter by category
     cards.forEach(card => {
       const cat = card.dataset.category;
-      if(category === "all" || cat === category){
-        card.style.display = '';
-      } else {
-        card.style.display = 'none';
-      }
+      card.style.display = (category === "all" || cat === category) ? '' : 'none';
     });
 
-    // Sort
+    // Sort by price
     if(sort === 'asc' || sort === 'desc'){
       cards = cards.sort((a,b)=>{
         const pa = parseFloat(a.dataset.price);
         const pb = parseFloat(b.dataset.price);
         return sort === 'asc' ? pa - pb : pb - pa;
       });
-      // Reorder in DOM
       cards.forEach(card => grid.appendChild(card));
     }
   }
@@ -133,7 +129,7 @@
   filterCategory.addEventListener('change', filterAndSort);
   sortPrice.addEventListener('change', filterAndSort);
 
-  // Quantity and add-to-cart logic remains the same
+  // Quantity stepper
   grid.querySelectorAll('.qty-control').forEach(qtyWrap=>{
     qtyWrap.addEventListener('click', e=>{
       const dec = e.target.closest('[data-qty-dec]');
@@ -147,16 +143,17 @@
     });
   });
 
+  // Add-to-cart with variant and dynamic price
   grid.querySelectorAll('.add-to-cart-btn').forEach(btn=>{
+    const card = btn.closest('.tm-card');
+    const price = card.dataset.price;
+    btn.textContent = `Add to cart - $${price}`;
+
     btn.addEventListener('click', ()=>{
-      const card = btn.closest('.tm-card');
       const productId = card.dataset.productId;
       const qty = parseInt(card.querySelector('.qty-val').textContent||'1',10);
       const selectedColor = card.querySelector('input[name="color-'+productId+'"]:checked')?.value;
       const selectedSize = card.querySelector('input[name="size-'+productId+'"]:checked')?.value;
-      const price = card.dataset.price;
-      const title = card.querySelector('.tm-name').textContent;
-      const img = card.querySelector('img')?.src;
 
       const variantIds = JSON.parse(card.dataset.variantIds || '{}');
       const variantKey = `${selectedColor}|${selectedSize}`;
@@ -166,10 +163,10 @@
         id: variantId,
         qty,
         price,
-        title,
+        title: card.querySelector('.tm-name').textContent,
         color: selectedColor,
         size: selectedSize,
-        img
+        img: card.querySelector('img')?.src
       }}));
     });
   });
@@ -177,20 +174,12 @@
 </script>
 
 <style>
-.shop-section {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
-.shop-header {
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-.shop-header h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #333;
-}
+/* Section & header */
+.shop-section { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+.shop-header { text-align: center; margin-bottom: 1.5rem; }
+.shop-header h2 { font-size: 2rem; margin-bottom: 1rem; color: #333; }
+
+/* Notice */
 .shop-notice {
   background: #ffe6e6;
   border: 1px solid #f5c2c7;
@@ -201,70 +190,39 @@
   color: #5a1a1a;
   font-size: 1rem;
 }
-.shop-notice .btn {
-  display: inline-block;
-  margin-top: 0.5rem;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  background: #c91f1f;
-  color: #fff;
-  border-radius: 8px;
-}
+.shop-notice .btn { display: inline-block; margin-top: 0.5rem; }
+
+/* Filters */
 .shop-controls {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
+  display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap;
 }
-.shop-controls select {
-  padding: 0.3rem 0.5rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
+.shop-controls select { padding: 0.3rem 0.5rem; border-radius: 6px; border: 1px solid #ccc; }
 
 /* Grid */
-.merch-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-  gap: 1.5rem;
-}
+.merch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 1.5rem; }
 
-/* Card styling same as before */
-.tm-card {
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  padding: 1rem;
-  min-height: 380px;
-}
-.tm-imgwrap {
-  position: relative;
-  width: 100%;
-  padding-top: 100%;
-  overflow: hidden;
-  margin-bottom: 0.75rem;
-}
-.tm-imgwrap img {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 8px;
-}
-.tm-meta {
-  text-align: center;
-  margin-bottom: 0.75rem;
-}
+/* Card */
+.tm-card { display: flex; flex-direction: column; background: #fff; border-radius: 12px; border: 1px solid #ddd; padding: 1rem; min-height: 400px; }
+.tm-imgwrap { position: relative; width: 100%; padding-top: 100%; overflow: hidden; margin-bottom: 0.75rem; }
+.tm-imgwrap img { position: absolute; top:0; left:0; width:100%; height:100%; object-fit: cover; border-radius: 8px; }
+.tm-meta { text-align: center; margin-bottom: 0.75rem; }
 .tm-name { display: block; font-weight: bold; margin-bottom: 0.25rem; }
-.tm-price { color: #c91f1f; font-weight: bold; }
 .colors, .sizes { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
 .qty-control { display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
 .qty-btn { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #ccc; background: #f9f9f9; cursor: pointer; text-align: center; }
 .qty-val { min-width: 24px; text-align: center; }
-.btn.primary.add-to-cart-btn { background: #c91f1f; color: #fff; border-radius: 8px; padding: 0.5rem 1rem; text-align: center; font-weight: bold; }
-.btn.primary.add-to-cart-btn:hover { background: #a71b1b; }
+
+/* Buttons */
+.btn.primary { 
+  background: linear-gradient(90deg,#ff5f6d,#ffc371);
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+}
+.btn.primary:hover { opacity: 0.9; }
+.btn.primary.add-to-cart-btn { margin-top: auto; }
 </style>

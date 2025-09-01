@@ -62,23 +62,27 @@
 
         {% if product.colors %}
           <div class="colors">
-            {% for color in product.colors %}
-              <label class="color-option">
-                <input type="radio" name="color-{{ product.id }}" value="{{ color }}" {% if forloop.first %}checked{% endif %}>
-                {{ color }}
-              </label>
-            {% endfor %}
+            <label>
+              Color:
+              <select name="color-{{ product.id }}">
+                {% for color in product.colors %}
+                  <option value="{{ color }}">{{ color }}</option>
+                {% endfor %}
+              </select>
+            </label>
           </div>
         {% endif %}
 
         {% if product.sizes %}
           <div class="sizes">
-            {% for size in product.sizes %}
-              <label class="size-option">
-                <input type="radio" name="size-{{ product.id }}" value="{{ size }}" {% if forloop.first %}checked{% endif %}>
-                {{ size }}
-              </label>
-            {% endfor %}
+            <label>
+              Size:
+              <select name="size-{{ product.id }}">
+                {% for size in product.sizes %}
+                  <option value="{{ size }}">{{ size }}</option>
+                {% endfor %}
+              </select>
+            </label>
           </div>
         {% endif %}
 
@@ -152,8 +156,9 @@
     btn.addEventListener('click', ()=>{
       const productId = card.dataset.productId;
       const qty = parseInt(card.querySelector('.qty-val').textContent||'1',10);
-      const selectedColor = card.querySelector('input[name="color-'+productId+'"]:checked')?.value;
-      const selectedSize = card.querySelector('input[name="size-'+productId+'"]:checked')?.value;
+      const selectedColor = card.querySelector('select[name="color-'+productId+'"]')?.value;
+      const selectedSize = card.querySelector('select[name="size-'+productId+'"]')?.value;
+
 
       const variantIds = JSON.parse(card.dataset.variantIds || '{}');
       const variantKey = `${selectedColor}|${selectedSize}`;

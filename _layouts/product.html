@@ -27,7 +27,7 @@ layout: default
       {% endif %}
 
       <h1>{{ page.title }}</h1>
-      <p class="price">${{ page.price | plus: 0.0 | round: 2 }}</p>
+      <p class="price">${{ '%0.2f' | format: page.price }}</p>
 
 
       <!-- Color picker -->
@@ -62,10 +62,11 @@ layout: default
         <button type="button" class="qty-btn" data-qty-inc>+</button>
       </div>
 
+      <!-- Add-to-cart button -->
       <button class="btn primary" id="add-to-cart"
         data-variants='{{ page.variant_ids | jsonify }}'
         data-title="{{ page.title }}"
-        data-price="{{ page.price | plus: 0.0 | round: 2 }}"
+        data-price="{{ '%0.2f' | format: page.price }}"
         data-img="{{ page.featured_image | relative_url }}">
         Add to cart
       </button>

@@ -1,80 +1,207 @@
-- date: 1995-06-01
+- date: 1990-01-01
   side: left
-  title: It started with a ski club (and a honeymoon)
+  title: It all started with a snow ski club (UCSD)
   body: >
-    Amy & Dan met through the Radically Inclined Ski Club at UCSD.
-    First chapter: a honeymoon in Vail — and a decision that snow
-    would always be part of the story.
-  media: /assets/img/story/1995-vail.jpg
+    Amy & Dan met through the Radically Inclined Ski Club at the University of
+    California, San Diego, sparking the family’s lifelong love of snow sports.
+  media: /assets/img/story/1990-ski-club.jpg
 
-- date: 1999-08-01
+- date: 1995-12-01
   side: right
-  title: West to a ski town
+  title: Honeymoon in Vail, Colorado
   body: >
-    Dan’s job offer opened the door to Park City. Goal: share a love
-    of skiing with the kids — and give them mountains for a backyard.
-  media: /assets/img/story/1999-park-city.jpg
+    The couple married in 1995 and celebrated with a honeymoon on the slopes of
+    Vail, cementing skiing as a core family tradition.
+  media: /assets/img/story/1995-vail-honeymoon.jpg
 
-# Suggested additions (you can paste these and tweak copy/media):
+- date: 2007-06-01
+  side: left
+  title: West to a ski town – Park City, Utah
+  body: >
+    Dan accepted a job in Salt Lake City, moving the family to Park City so the
+    kids could grow up with the mountains as their backyard.
+  media: /assets/img/story/2007-park-city.jpg
+
+- date: 2008-01-01
+  side: right
+  title: All four kids start skiing
+  body: >
+    Sam (6), Lauren (4), Alli (3) and Daniel (1) each took their first turns on
+    the snow.
+  media: /assets/img/story/2008-first-ski.jpg
+
+- date: 2008-02-01
+  side: left
+  title: Lauren’s first ski race
+  body: >
+    Lauren entered her first competitive ski race, beginning her racing career.
+  media: /assets/img/story/2008-lauren-race.jpg
+
+- date: 2009-01-01
+  side: right
+  title: Sam starts ski jumping
+  body: >
+    Through the “Get Out of Play” program, Sam began Nordic ski jumping, launching
+    her future in the sport.
+  media: /assets/img/story/2009-sam-jump.jpg
+
+- date: 2010-03-01
+  side: left
+  title: Lauren invited to NASTAR Nationals
+  body: >
+    Her early promise earned Lauren an invitation to the national NASTAR competition.
+  media: /assets/img/story/2010-nastar.jpg
+
+- date: 2011-12-01
+  side: right
+  title: Lauren joins Park City Devo team
+  body: >
+    Lauren made the Park City Ski Team Development squad, stepping onto the junior circuit.
+  media: /assets/img/story/2011-devo-team.jpg
+
+- date: 2014-01-01
+  side: left
+  title: Sam becomes a Fly Girl
+  body: >
+    Sam was selected for the inaugural Fly Girls ski‑jumping team, highlighting her rapid progress.
+  media: /assets/img/story/2014-fly-girl.jpg
+
+- date: 2016-02-01
+  side: right
+  title: Sam named to Women’s Ski Jumping Development Team
+  body: >
+    She earned a spot on the U.S. Women’s Ski Jumping National Development Team.
+  media: /assets/img/story/2016-development-team.jpg
+
+- date: 2017-02-01
+  side: left
+  title: Sam competes at Junior Worlds (Park City, Utah)
+  body: >
+    Sam represented the United States at the Junior World Championships held in Park City.
+  media: /assets/img/story/2017-junior-worlds-park-city.jpg
+
+- date: 2017-12-01
+  side: right
+  title: Sam in Olympic Trials at Utah Olympic Park
+  body: >
+    She competed in the U.S. Olympic Trials for ski jumping at Utah Olympic Park.
+  media: /assets/img/story/2017-olympic-trials.jpg
+
+- date: 2018-01-01
+  side: left
+  title: Sam’s first World Cup – Ljubno, Slovenia
+  body: >
+    Sam made her World Cup debut in Ljubno, marking her entry onto the senior circuit.
+  media: /assets/img/story/2018-world-cup-ljubno.jpg
+
+- date: 2018-02-01
+  side: right
+  title: Junior Worlds – Kandersteg, Switzerland
+  body: >
+    Sam raced at the Junior World Championships in Kandersteg.
+  media: /assets/img/story/2018-junior-worlds-kandersteg.jpg
+
+- date: 2019-01-01
+  side: left
+  title: Junior Worlds – Lahti, Finland
+  body: >
+    Continuing her junior career, Sam competed at the World Championships in Lahti.
+  media: /assets/img/story/2019-junior-worlds-lahti.jpg
+
+- date: 2019-06-01
+  side: right
+  title: Lauren named to U.S. Ski Team Development squad
+  body: >
+    Lauren earned a place on the U.S. Ski Team Development team, advancing toward elite competition.
+  media: /assets/img/story/2019-us-ski-team-dev.jpg
+
+- date: 2021-01-01
+  side: left
+  title: Lauren’s first World Cup – Lake Louise, Canada
+  body: >
+    Lauren made her World Cup debut in Lake Louise, beginning her elite alpine racing career.
+  media: /assets/img/story/2021-lake-louise.jpg
+
+- date: 2022-03-01
+  side: right
+  title: Lauren 3rd in Downhill – Junior Worlds, Panorama, Canada
+  body: >
+    She secured a bronze medal in the downhill at the Junior World Championships.
+  media: /assets/img/story/2022-panorama-downhill.jpg
+
+- date: 2022-03-01
+  side: left
+  title: Lauren earns World Cup Downhill start – NorAm Cup 2021‑22
+  body: >
+    Her performance earned her a start in the World Cup downhill discipline on the NorAm circuit.
+  media: /assets/img/story/2022-noram-downhill.jpg
+
+- date: 2023-01-01
+  side: right
+  title: Lauren at World Juniors – St. Anton, Austria
+  body: >
+    Competing in St. Anton, Lauren represented the United States at the World Junior Championships.
+  media: /assets/img/story/2023-st-anton-juniors.jpg
+
 - date: 2023-03-01
   side: left
-  title: Sam named to World Championships team
+  title: Sam’s first World Championships – Planica, Slovenia
   body: >
-    Sam makes the U.S. ski jumping roster for the 2023 FIS Nordic
-    World Ski Championships in Planica.
-  media: /assets/img/story/2023-sam-planica.jpg
-  source: https://usanordic.org/2023-fis-nordic-world-ski-championships-teams/   # kept in data, not rendered
+    Sam joined the U.S. team for the 2023 FIS Nordic World Ski Championships in Planica.
+  media: /assets/img/story/2023-planica-worlds.jpg
 
-- date: 2024-01-04
+- date: 2023-12-01
   side: right
-  title: Alli’s breakout season
+  title: Lauren scores first World Cup points – St. Moritz, Switzerland
   body: >
-    Alli is recognized as “Rookie of the Year” for remarkable progress
-    across the 2023/24 moguls season.
-  media: /assets/img/story/2024-alli-breakout.jpg
-  source: https://www.fis-ski.com/en/freestyle-freeski/moguls-aerials/news/2023-24/a-moguls-and-dual-moguls-season-to-remember
+    She earned her inaugural World Cup points with a top‑30 finish in St. Moritz.
+  media: /assets/img/story/2023-st-moritz-points.jpg
 
-- date: 2024-12-12
+- date: 2024-02-01
   side: left
-  title: Get Out & Play roots
+  title: Sam scores first World Cup points
   body: >
-    The kids’ first turns came through Park City’s “Get Out & Play”
-    program — the spark that lit a family fire.
-  media: /assets/img/story/get-out-and-play.jpg
-  source: https://www.vaildaily.com/news/us-ski-team-lauren-macuga-birds-of-prey-world-cup/
+    Sam achieved her first World Cup points in ski jumping, marking a breakthrough season.
+  media: /assets/img/story/2024-sam-points.jpg
 
-- date: 2025-01-12
+- date: 2024-03-01
   side: right
-  title: Lauren wins her first World Cup (SG)
+  title: Lauren’s first World Cup Finals – Super G, Saalbach, Austria
   body: >
-    A milestone in St. Anton: Lauren’s first World Cup victory in super-G.
-    Later that winter, she adds a Worlds medal.
-  media: /assets/img/story/2025-lauren-st-anton.jpg
-  source: https://www.reuters.com/world/europe/mckennis-duran-lands-alpine-worlds-super-g-gold-2025-02-06/
+    She qualified for the World Cup Finals in the Super G discipline at Saalbach.
+  media: /assets/img/story/2024-saalbach-finals.jpg
 
-- date: 2025-02-06
+- date: 2024-12-01
   side: left
-  title: World Championships hardware
+  title: Lauren’s first U.S. World Cup – Beaver Creek, Colorado
   body: >
-    In Saalbach, the U.S. women earn super-G hardware; Lauren plays her part
-    in a landmark Worlds for the team.
-  media: /assets/img/story/2025-worlds-saalbach.jpg
-  source: https://www.reuters.com/world/europe/mckennis-duran-lands-alpine-worlds-super-g-gold-2025-02-06/
+    Competing on home snow, Lauren made her first World Cup appearance in the United States.
+  media: /assets/img/story/2024-beaver-creek.jpg
 
-- date: 2025-02-06
+- date: 2025-01-01
   side: right
-  title: Alli top-10 at Deer Valley
+  title: Lauren wins first World Cup (Super G) – St. Anton, Austria
   body: >
-    Under the lights at home, Alli posts a top-10 in moguls at the iconic
-    Deer Valley World Cup.
-  media: /assets/img/story/2025-alli-dv.jpg
-  source: https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=FS&competitorid=220306&raceid=…  # (her DV 2025 result)
+    Her breakthrough victory in St. Anton earned her first World Cup win in Super G.
+  media: /assets/img/story/2025-st-anton-win.jpg
 
-- date: 2025-08-10
+- date: 2025-02-01
   side: left
-  title: Sam in Grand Prix, Courchevel
+  title: Lauren places 3rd – World Championships Super G, Saalbach, Austria
   body: >
-    Sam competes on the HS132 — part of a summer Grand Prix step toward
-    the World Cup season.
-  media: /assets/img/story/2025-sam-courchevel.jpg
-  source: https://www.fis-ski.com/DB/ski-jumping/calendar-results.html?sectorcode=JP
+    At the 2025 World Championships, Lauren captured a bronze medal in the Super G.
+  media: /assets/img/story/2025-worlds-saalbach-sg.jpg
+
+- date: 2025-03-01
+  side: right
+  title: Lauren 2nd place – Downhill, World Cup, Kvitfjell, Norway
+  body: >
+    She earned a silver medal in the downhill race at Kvitfjell.
+  media: /assets/img/story/2025-kvitfjell-downhill.jpg
+
+- date: 2025-03-01
+  side: left
+  title: Sam competes at World Championships – Trondheim, Norway
+  body: >
+    Sam represented the United States at the 2025 World Championships in Trondheim.
+  media: /assets/img/story/2025-trondheim-worlds.jpg

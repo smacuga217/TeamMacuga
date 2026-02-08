@@ -2091,3 +2091,15 @@ body.nav-open { overflow: hidden; touch-action: none; }
 .btn.primary.add-to-cart-btn:hover {
   opacity: 0.9;
 }
+
+.s-card .s-badge {
+  display: inline-block;      /* Make badges sit next to each other */
+  margin: 2px 4px 2px 0;      /* Small spacing between badges */
+  padding: 2px 6px;           /* Some padding inside the pill */
+  background: var(--brand);   /* Or any color you want */
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 999px;
+  white-space: nowrap;        /* Prevent text from wrapping inside the pill */
+}

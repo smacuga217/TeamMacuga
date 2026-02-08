@@ -42,7 +42,7 @@
   body: >
     Lauren begins ski racing while Sam discovers ski jumping through Youth Sports Alliance.
   media:
-    - /assets/img/story/2009-lauren-race.jpg
+    - /assets/img/story/2009-lauren-race.mp4
     - /assets/img/story/2009-sam-jump.jpg
 
 
@@ -100,8 +100,8 @@
     Lauren earns selection to Team USA for the Youth Olympic Games — a huge milestone.
     During the event she breaks her leg, beginning a determined comeback.
   media:
-    - /assets/img/story/2020-youth-olympics.jpg
-    - /assets/img/story/2020-injury.jpg   # optional second photo if you have one
+    - /assets/img/story/2020-youth-olympics.png
+    - /assets/img/story/2020-injury.jpg  
 
 
 - date: 2021-01-01
@@ -137,7 +137,7 @@
   body: >
     Lauren scores her first World Cup points in St. Moritz.
   media:
-    - /assets/img/story/2023-st-moritz.jpg
+    - /assets/img/story/2023-st-moritz.mp4
 
 
 - date: 2024-01-01

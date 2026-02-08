@@ -2092,3 +2092,26 @@ body.nav-open { overflow: hidden; touch-action: none; }
   opacity: 0.9;
 }
 
+/* Badge container */
+.s-badge {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+/* Individual dots */
+.s-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: #4f46e5; /* default purple, can vary per sponsor */
+  border: 1px solid #fff;
+  cursor: help; /* shows tooltip on hover */
+}
+
+/* Optional: different colors for each dot */
+.s-card .s-badge .s-dot:nth-child(1) { background-color: #4f46e5; } /* purple */
+.s-card .s-badge .s-dot:nth-child(2) { background-color: #f59e0b; } /* amber */
+.s-card .s-badge .s-dot:nth-child(3) { background-color: #10b981; } /* green */
+/* Add more as needed */

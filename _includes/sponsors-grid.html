@@ -8,10 +8,16 @@
     <ul class="s-grid">
       {% for s in site.data.sponsors %}
         <li class="s-item">
-          <a class="s-card" href="{{ s.url }}" target="_blank" rel="noopener" aria-label="{{ s.name }}">
-            {% if s.athlete %}
-              <span class="s-badge">{{ s.athlete }}</span>
+          <a class="s-card" href="{{ s.url }}" target="_blank" rel="noopener" aria-label="{{ s.name }} — athletes: {{ s.athlete | join: ', ' }}">
+            
+            {% if s.athlete and s.athlete.size > 0 %}
+              <span class="s-badge">
+                {% for a in s.athlete %}
+                  <span class="s-dot" title="{{ a }}"></span>
+                {% endfor %}
+              </span>
             {% endif %}
+            
             <div class="s-logo-wrap">
               <img class="s-logo" src="{{ s.logo | relative_url }}" alt="{{ s.name }}">
             </div>

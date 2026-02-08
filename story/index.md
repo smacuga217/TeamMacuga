@@ -110,25 +110,30 @@ permalink: /story/
 </section>
 
 
-<div class="section-gap xl"></div>
-
 <!-- ================ Bios ================= -->
 <section id="bios" class="container">
   <h2 class="section-title">Team Macuga Bios</h2>
   <p class="muted">Click the button above to jump here anytime.</p>
 
   <div class="bios">
+
     <!-- Lauren -->
     <article id="bio-lauren" class="bio">
       <img class="bio-img" src="{{ '/assets/img/headshots/lauren-headshot-1.jpg' | relative_url }}" alt="Lauren Macuga" />
       <div class="bio-body">
-        <h3>Lauren Macuga <span class="role">Alpine — Speed</span></h3>
-        <p>Explosive in downhill and super-G, Lauren surged from U.S. development ranks to full-gas World Cup speed — highlighted by a <strong>first World Cup win (St. Anton, 2025)</strong>. Off-snow, she’s a go-to gear nerd and mountain-bike chaser.</p>
+        <h3>Lauren Macuga <span class="role">Alpine Skiing — Speed</span></h3>
+        <p>
+          Lauren Macuga is an American alpine ski racer specializing in downhill and super‑G. 
+          She started racing at age seven and steadily climbed through the U.S. Ski Team ranks, 
+          earning her first World Cup win in super‑G at St. Anton in 2025 — becoming the youngest 
+          American woman to win a World Cup speed race in nearly two decades. She also captured 
+          bronze in super‑G at the 2025 World Championships and was ranked among the top World Cup 
+          speed skiers that season. Her positivity, bucket‑hat style, and competitive spirit have 
+          made her a standout on the circuit. :contentReference[oaicite:0]{index=0}
+        </p>
         <ul class="facts">
-          <li>Strengths: DH / SG</li>
-          <li>Career note: World Cup victory, Jan 12, 2025 (St. Anton)</li>
-          <li>Hometown: Park City, UT</li>
-          <li><a class="ext" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=228398" target="_blank" rel="noopener">FIS profile</a></li>
+          <li>Discipline: Downhill / Super‑G</li>
+          <li><a class="ext" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=228398" target="_blank" rel="noopener">FIS Profile</a></li>
         </ul>
       </div>
     </article>
@@ -138,12 +143,15 @@ permalink: /story/
       <img class="bio-img" src="{{ '/assets/img/headshots/alli-headshot-1.jpg' | relative_url }}" alt="Alli Macuga" />
       <div class="bio-body">
         <h3>Alli Macuga <span class="role">Freeski — Moguls</span></h3>
-        <p>Powerful turns, fearless airs. Alli’s NorAm titles and <strong>FIS Rookie of the Year (2023)</strong> led into World Cup podiums and a steady march toward the games.</p>
+        <p>
+          Alli Macuga is a U.S. moguls skier known for her strong technique and competitive drive. 
+          A former junior world champion and dual moguls team gold medalist, she made her first 
+          World Cup start in 2022–23 and was named FIS Rookie of the Year. Alli has also earned 
+          World Cup podium finishes and has been ranked among the world’s best moguls skiers. :contentReference[oaicite:1]{index=1}
+        </p>
         <ul class="facts">
-          <li>Strengths: Moguls / Duals</li>
-          <li>Career note: FIS Rookie of the Year (2023); World Cup podiums (’24–’25)</li>
-          <li>Hometown: Park City, UT</li>
-          <li><a class="ext" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=FS&competitorid=220306" target="_blank" rel="noopener">FIS profile</a></li>
+          <li>Disciplines: Moguls / Dual Moguls</li>
+          <li><a class="ext" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=FS&competitorid=220306" target="_blank" rel="noopener">FIS Profile</a></li>
         </ul>
       </div>
     </article>
@@ -153,12 +161,16 @@ permalink: /story/
       <img class="bio-img" src="{{ '/assets/img/headshots/sam-headshot-1.jpg' | relative_url }}" alt="Sam Macuga" />
       <div class="bio-body">
         <h3>Sam Macuga <span class="role">Ski Jumping</span></h3>
-        <p>Part of USA Nordic’s push in women’s jumping, Sam stacks World Cup and Summer GP experience across Europe while mentoring the next wave at home.</p>
+        <p>
+          Sam Macuga has been a member of the U.S. ski jumping team since 2019 and represents 
+          the U.S. at World Cup and World Championship levels. The oldest of the Macuga siblings, 
+          Sam balances training with academic pursuits while aiming toward her Olympic goal. She’s 
+          competed in multiple World Championships and has been a consistent presence on the 
+          international circuit. :contentReference[oaicite:2]{index=2}
+        </p>
         <ul class="facts">
-          <li>Strengths: HS90–HS138</li>
-          <li>Recent: WC/GP starts (Hinzenbach, Trondheim, Courchevel) in 2025</li>
-          <li>Hometown: Park City, UT</li>
-          <li><a class="ext" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=JP&competitorid=211435" target="_blank" rel="noopener">FIS profile</a></li>
+          <li>Discipline: Ski Jumping</li>
+          <li><a class="ext" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=JP&competitorid=211435" target="_blank" rel="noopener">FIS Profile</a></li>
         </ul>
       </div>
     </article>
@@ -167,34 +179,49 @@ permalink: /story/
     <article id="bio-daniel" class="bio">
       <img class="bio-img" src="{{ '/assets/img/headshots/daniel-headshot-1.jpg' | relative_url }}" alt="Daniel Macuga" />
       <div class="bio-body">
-        <h3>Daniel Macuga <span class="role">Alpine — Tech</span></h3>
-        <p>Tech specialist with a taste for long road trips and longer GS sets, Daniel mixes FIS racing with the world’s most patient ski-tuner energy.</p>
+        <h3>Daniel Macuga <span class="role">Alpine Skiing — Tech</span></h3>
+        <p>
+          Daniel is an up‑and‑coming alpine ski racer competing in FIS events throughout the West. 
+          With a focus on slalom and giant slalom, he continues to develop his skills and gain 
+          experience in competitive racing. Daniel’s steady progress reflects his commitment and 
+          passion for the sport. 
+        </p>
         <ul class="facts">
-          <li>Strengths: GS / SL</li>
-          <li>Recent: FIS starts across the West in 2025</li>
-          <li><a class="ext" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=260517" target="_blank" rel="noopener">FIS profile</a></li>
+          <li>Disciplines: Slalom / Giant Slalom / Super G / Downhill</li>
+          <li><a class="ext" href="https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=260517" target="_blank" rel="noopener">FIS Profile</a></li>
         </ul>
       </div>
     </article>
 
-    <!-- Parents -->
+    <!-- Amy -->
     <article id="bio-amy" class="bio">
       <img class="bio-img" src="{{ '/assets/img/headshots/amy-headshot-1.jpg' | relative_url }}" alt="Amy Macuga" />
       <div class="bio-body">
-        <h3>Amy Macuga <span class="role">Mom — Team Ops</span></h3>
-        <p>Logistics captain, snack strategist, and the quiet glue that keeps wheels (and edges) turning.</p>
+        <h3>Amy Macuga <span class="role">Mom — Team Support</span></h3>
+        <p>
+          Amy makes sure the logistics, schedules, and daily details are taken care of so the 
+          family can focus on training and racing. Her thoughtful organization and encouragement 
+          are an essential part of Team Macuga’s foundation.
+        </p>
       </div>
     </article>
 
+    <!-- Dan -->
     <article id="bio-dan" class="bio">
       <img class="bio-img" src="{{ '/assets/img/headshots/dan-headshot-1.jpg' | relative_url }}" alt="Dan Macuga" />
       <div class="bio-body">
-        <h3>Dan Macuga <span class="role">Dad — Driver of Dreams</span></h3>
-        <p>Van miles, wax tables, and life lessons — Dan turned a UCSD ski-club spark into a family tradition.</p>
+        <h3>Dan Macuga <span class="role">Dad — Family Support</span></h3>
+        <p>
+          Dan is the steady presence that keeps the family grounded and motivated. 
+          He’s always there to support the kids at training and competitions, and his 
+          encouragement helps keep the focus on growth, balance, and enjoying the ride.
+        </p>
       </div>
     </article>
+
   </div>
 </section>
+
 
 <!-- Floating back-to-top -->
 <button id="storyBackTop" class="back-top-fab" aria-label="Back to top">↑</button>

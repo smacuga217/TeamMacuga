@@ -25,107 +25,79 @@ athletes:
         place: 15
         points: 53.37
         cup_points: 16
-      - date: 2025-03-23
-        competition: "World Cup"
-        venue: "Sun Valley"
-        nation: USA
-        discipline: "Super G"
-        place: "DNF"
-      - date: 2025-03-21
-        competition: "Training"
-        venue: "Sun Valley"
-        nation: USA
-        discipline: "Downhill"
-        place: 6
 
   - name: Sam Macuga
     discipline: "Ski Jumping"
     fis_url: "https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=JP&competitorid=211435"
     results:
-      - date: 2025-08-17
-        competition: "Grand Prix"
-        venue: "Wisla"
-        nation: POL
-        discipline: "Large Hill HS134"
-        place: 31
-      - date: 2025-08-16
-        competition: "Grand Prix"
-        venue: "Wisla"
-        nation: POL
-        discipline: "Large Hill HS134"
+      - date: 2026-02-08
+        competition: "Intercontinental Cup"
+        venue: "Kranj, SLO"
+        nation: SLO
+        discipline: "Normal Hill HS109"
         place: 36
-      - date: 2025-08-10
-        competition: "Grand Prix"
-        venue: "Courchevel"
-        nation: FRA
-        discipline: "Large Hill HS132"
-        place: 28
-      - date: 2025-08-09
-        competition: "Grand Prix"
-        venue: "Courchevel"
-        nation: FRA
-        discipline: "Large Hill HS132"
-        place: 27
+      - date: 2026-02-07
+        competition: "Intercontinental Cup"
+        venue: "Kranj, SLO"
+        nation: SLO
+        discipline: "Normal Hill HS109"
+        place: 35
+      - date: 2026-02-01
+        competition: "Intercontinental Cup"
+        venue: "Lillehammer, NOR"
+        nation: NOR
+        discipline: "Normal Hill HS98"
+        place: 33
 
   - name: Daniel Macuga
     discipline: "Alpine (all)"
     fis_url: "https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=260517"
     results:
-      - date: 2025-04-13
-        competition: FIS
-        venue: "Alpine Meadows"
+      - date: 2026-02-06
+        competition: "Nor-Am Cup"
+        venue: "Whiteface Mountain, USA"
         nation: USA
-        discipline: "Slalom"
+        discipline: "Super G"
         place: "DNF1"
-      - date: 2025-04-12
-        competition: FIS
-        venue: "Alpine Meadows"
-        nation: USA
-        discipline: "Slalom"
-        place: "DNF1"
-      - date: 2025-04-11
-        competition: FIS
-        venue: "Palisades Tahoe - Alpine Meadows"
-        nation: USA
-        discipline: "Giant Slalom"
-        place: "DNF1"
-      - date: 2025-04-10
-        competition: FIS
-        venue: "Palisades Tahoe - Alpine Meadows"
-        nation: USA
-        discipline: "Giant Slalom"
-        place: 17
-        points: 46.51
-      - date: 2025-04-08
-        competition: "Entry League FIS"
-        venue: "Mammoth Mountain, CA"
+      - date: 2026-02-05
+        competition: "Nor-Am Cup"
+        venue: "Whiteface Mountain, USA"
         nation: USA
         discipline: "Downhill"
-        place: 5
-        points: 106.78
+        place: 22
+        points: 78.22
+      - date: 2026-02-04
+        competition: "Nor-Am Cup"
+        venue: "Whiteface Mountain, USA"
+        nation: USA
+        discipline: "Downhill"
+        place: "DNF1"
 
   - name: Alli Macuga
     discipline: "Moguls"
     fis_url: "https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=FS&competitorid=220306"
     results:
-      - date: 2025-03-30
-        competition: "National Championships"
-        venue: "Palisades Tahoe"
-        nation: USA
-        discipline: "Dual Moguls"
-        place: 1
-        points: 360.00
-      - date: 2025-03-28
-        competition: "National Championships"
-        venue: "Palisades Tahoe"
+      - date: 2026-01-16
+        competition: "World Cup"
+        venue: "Waterville Valley Resort, USA"
         nation: USA
         discipline: "Moguls"
-        place: 2
-        points: 288.00
-      - date: 2025-03-08
-        competition: "Nor-Am Cup"
-        venue: "Val St Come"
+        place: 12
+        points: 220.00
+        cup_points: 22.00
+      - date: 2026-01-10
+        competition: "World Cup"
+        venue: "Val St. Come, CAN"
         nation: CAN
         discipline: "Dual Moguls"
-        place: 1
-        points: 320.00
+        place: 11
+        points: 240.00
+        cup_points: 24.00
+      - date: 2026-01-09
+        competition: "World Cup"
+        venue: "Val St. Come, CAN"
+        nation: CAN
+        discipline: "Moguls"
+        place: 14
+        points: 180.00
+        cup_points: 18.00

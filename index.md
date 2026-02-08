@@ -19,7 +19,7 @@ layout: default
     <div class="hero-content">
       <div class="hero-box hero-centered">
         <p class="tagline">
-          <span class="t-1">Four siblings, three sports, two parents — one dream: Milano–Cortina 2026 and beyond.</span>
+          <span class="t-1">Four siblings, three sports, two parents — one dream: the 2030 Winter Olympics and beyond.</span>
           <span class="t-2">Follow the journey and rep the team. <strong>#TeamMacuga</strong></span>
         </p>
         <div class="hero-actions hero-actions--center">
@@ -36,7 +36,7 @@ layout: default
 <div class="container hero-overlay--mobile">
   <div class="hero-box hero-centered">
     <p class="tagline">
-      <span class="t-1">Four siblings, three sports, two parents — one dream: Milano–Cortina 2026 and beyond.</span>
+      <span class="t-1">Four siblings, three sports, two parents — one dream: the 2030 Winter Olympics and beyond.</span>
       <span class="t-2">Follow the journey and rep the team. <strong>#TeamMacuga</strong></span>
     </p>
     <div class="hero-actions hero-actions--center">

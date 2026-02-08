@@ -2,9 +2,12 @@
   url: https://www.stifel.com/
   logo: /assets/img/sponsors/stifel.png
   athlete:
-    - "Lauren"
-    - "Alli"
-    - "Sam"
+    - "Lauren Alli Sam"
+- name: TaraShakti
+  url: https://tarashakti.com/
+  logo: /assets/img/sponsors/tarashakti.png
+  athlete:
+    - "Lauren Alli Sam"
 - name: Deer Valley
   url: https://www.deervalley.com/
   logo: /assets/img/sponsors/deer-valley.png
@@ -14,48 +17,29 @@
   url: https://www.pitviper.com/
   logo: /assets/img/sponsors/pit-viper.png
   athlete:
-    - "Lauren"
-    - "Alli"
-    - "Sam"
+    - "Lauren Alli Sam"
 - name: Rossignol
   url: https://www.rossignol.com/
   logo: /assets/img/sponsors/rossignol.png
   athlete:
     - "Lauren"
-    - "Alli"
-    - "Sam"
 - name: Giro
   url: https://www.giro.com/
   logo: /assets/img/sponsors/giro.png
   athlete:
-    - "Lauren"
-    - "Alli"
-    - "Sam"
+    - "Lauren Alli Sam"
 - name: Swix
   url: https://www.swixsport.com/
   logo: /assets/img/sponsors/swix.png
   athlete:
     - "Lauren"
-    - "Alli"
-    - "Sam"
-- name: TaraShakti
-  url: https://tarashakti.com/
-  logo: /assets/img/sponsors/tarashakti.png
-  athlete:
-    - "Lauren"
-    - "Alli"
-    - "Sam"
 - name: Level
   url: https://www.levelgloves.com/
   logo: /assets/img/sponsors/level.png
   athlete:
     - "Lauren"
-    - "Alli"
-    - "Sam"
 - name: ID One
   url: https://www.idoneusa.com/
   logo: /assets/img/sponsors/idone.png
   athlete:
-    - "Lauren"
     - "Alli"
-    - "Sam"

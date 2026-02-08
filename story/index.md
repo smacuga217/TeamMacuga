@@ -62,6 +62,11 @@ permalink: /story/
           {% endif %}
 
           <div class="tl-card">
+
+            {% if it.title %}
+              <h3 class="tl-title">{{ it.title }}</h3>
+            {% endif %}
+
             {% if it.media %}
               {% assign m = it.media | downcase %}
               <figure class="tl-media">
@@ -75,14 +80,17 @@ permalink: /story/
               </figure>
             {% endif %}
 
-            {% if it.title %}<h3>{{ it.title }}</h3>{% endif %}
-            {% if it.body  %}<p>{{ it.body }}</p>{% endif %}
+            {% if it.body %}
+              <p>{{ it.body }}</p>
+            {% endif %}
+
             {% if it.list and it.list.size > 0 %}
               <ul>
                 {% for li in it.list %}<li>{{ li }}</li>{% endfor %}
               </ul>
             {% endif %}
           </div>
+
         </article>
       {% endfor %}
     {% else %}

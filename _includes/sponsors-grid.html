@@ -8,14 +8,16 @@
     <ul class="s-grid">
       {% for s in site.data.sponsors %}
         <li class="s-item">
-          <a class="s-card" href="{{ s.url }}" target="_blank" rel="noopener" aria-label="{{ s.name }} — athletes: {{ s.athlete | join: ', ' }}">
+          <a class="s-card" href="{{ s.url }}" target="_blank" rel="noopener" aria-label="{{ s.name }}">
             
             {% if s.athlete and s.athlete.size > 0 %}
-              {% for a in s.athlete %}
-                <span class="s-pill">{{ a }}</span>
-              {% endfor %}
+              <div class="s-badges">
+                {% for a in s.athlete %}
+                  <span class="s-pill">{{ a }}</span>
+                {% endfor %}
+              </div>
             {% endif %}
-            
+
             <div class="s-logo-wrap">
               <img class="s-logo" src="{{ s.logo | relative_url }}" alt="{{ s.name }}">
             </div>
@@ -27,15 +29,20 @@
 </section>
 
 <style>
-/* Each athlete name is its own pill */
+/* Pills for athletes */
+.s-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 6px;
+}
 .s-pill {
-  display: inline-block;
   background: var(--brand);
   color: #fff;
-  border-radius: 999px;
-  padding: 2px 8px;
   font-size: 0.75rem;
-  margin: 2px 4px 4px 0;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
   white-space: nowrap;
 }
 </style>

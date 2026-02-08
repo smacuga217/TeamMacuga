@@ -67,17 +67,27 @@ permalink: /story/
               <h3 class="tl-title">{{ it.title }}</h3>
             {% endif %}
 
+            {% comment %}
+            Handle multiple images: 'media' can be a string or a list
+            {% endcomment %}
             {% if it.media %}
-              {% assign m = it.media | downcase %}
-              <figure class="tl-media">
-                {% if m contains '.mp4' or m contains '.webm' or m contains '.mov' %}
-                  <video controls preload="metadata" {% if it.poster %}poster="{{ it.poster | relative_url }}"{% endif %}>
-                    <source src="{{ it.media | relative_url }}" type="video/{% if m contains '.webm' %}webm{% else %}mp4{% endif %}">
-                  </video>
-                {% else %}
-                  <img src="{{ it.media | relative_url }}" alt="{{ it.alt | default: it.title }}">
-                {% endif %}
-              </figure>
+              {% assign medias = it.media %}
+              {% if medias | kind_of == 'String' %}
+                {% assign medias = medias | split: ',' %}
+              {% endif %}
+
+              {% for m in medias %}
+                {% assign m = m | strip | downcase %}
+                <figure class="tl-media">
+                  {% if m contains '.mp4' or m contains '.webm' or m contains '.mov' %}
+                    <video controls preload="metadata" {% if it.poster %}poster="{{ it.poster | relative_url }}"{% endif %}>
+                      <source src="{{ m | relative_url }}" type="video/{% if m contains '.webm' %}webm{% else %}mp4{% endif %}">
+                    </video>
+                  {% else %}
+                    <img src="{{ m | relative_url }}" alt="{{ it.alt | default: it.title }}">
+                  {% endif %}
+                </figure>
+              {% endfor %}
             {% endif %}
 
             {% if it.body %}
@@ -89,8 +99,8 @@ permalink: /story/
                 {% for li in it.list %}<li>{{ li }}</li>{% endfor %}
               </ul>
             {% endif %}
-          </div>
 
+          </div>
         </article>
       {% endfor %}
     {% else %}
@@ -98,6 +108,7 @@ permalink: /story/
     {% endif %}
   </div>
 </section>
+
 
 <div class="section-gap xl"></div>
 

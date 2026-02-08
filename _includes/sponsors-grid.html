@@ -13,7 +13,7 @@
             {% if s.athlete and s.athlete.size > 0 %}
               <span class="s-badge">
                 {% for a in s.athlete %}
-                  <span class="s-dot" title="{{ a }}"></span>
+                  <span class="s-pill">{{ a }}</span>
                 {% endfor %}
               </span>
             {% endif %}
@@ -27,3 +27,17 @@
     </ul>
   </div>
 </section>
+
+<style>
+/* Pill styling for athlete names */
+.s-pill {
+  display: inline-block;
+  background: var(--brand);
+  color: #fff;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  margin: 2px 4px 2px 0;
+  white-space: nowrap;
+}
+</style>

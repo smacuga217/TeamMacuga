@@ -129,7 +129,7 @@ permalink: /story/
           American woman to win a World Cup speed race in nearly two decades. She also captured 
           bronze in super‑G at the 2025 World Championships and was ranked among the top World Cup 
           speed skiers that season. Her positivity, bucket‑hat style, and competitive spirit have 
-          made her a standout on the circuit. :contentReference[oaicite:0]{index=0}
+          made her a standout on the circuit.
         </p>
         <ul class="facts">
           <li>Discipline: Downhill / Super‑G</li>
@@ -147,7 +147,7 @@ permalink: /story/
           Alli Macuga is a U.S. moguls skier known for her strong technique and competitive drive. 
           A former junior world champion and dual moguls team gold medalist, she made her first 
           World Cup start in 2022–23 and was named FIS Rookie of the Year. Alli has also earned 
-          World Cup podium finishes and has been ranked among the world’s best moguls skiers. :contentReference[oaicite:1]{index=1}
+          World Cup podium finishes and has been ranked among the world’s best moguls skiers.
         </p>
         <ul class="facts">
           <li>Disciplines: Moguls / Dual Moguls</li>
@@ -166,7 +166,7 @@ permalink: /story/
           the U.S. at World Cup and World Championship levels. The oldest of the Macuga siblings, 
           Sam balances training with academic pursuits while aiming toward her Olympic goal. She’s 
           competed in multiple World Championships and has been a consistent presence on the 
-          international circuit. :contentReference[oaicite:2]{index=2}
+          international circuit. 
         </p>
         <ul class="facts">
           <li>Discipline: Ski Jumping</li>

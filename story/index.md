@@ -68,16 +68,17 @@ permalink: /story/
             {% endif %}
 
             {% comment %}
-            Handle multiple images: 'media' can be a string or a list
+            Handle multiple media items: string or list
             {% endcomment %}
             {% if it.media %}
               {% assign medias = it.media %}
+              
               {% if medias | kind_of == 'String' %}
                 {% assign medias = medias | split: ',' %}
               {% endif %}
 
               {% for m in medias %}
-                {% assign m = m | strip | downcase %}
+                {% assign m = m | strip %}
                 <figure class="tl-media">
                   {% if m contains '.mp4' or m contains '.webm' or m contains '.mov' %}
                     <video controls preload="metadata" {% if it.poster %}poster="{{ it.poster | relative_url }}"{% endif %}>
@@ -106,6 +107,7 @@ permalink: /story/
     {% else %}
       <p class="muted">Add timeline items in <code>/_data/timeline.yml</code> to see them here.</p>
     {% endif %}
+
   </div>
 </section>
 

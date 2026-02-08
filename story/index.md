@@ -38,20 +38,12 @@ permalink: /story/
       {% for it in items %}
         {% assign side = it.side %}
         {% if side == nil or side == '' %}
-          {% if forloop.index0 | modulo: 2 == 0 %}
-            {% assign side = 'left' %}
-          {% else %}
-            {% assign side = 'right' %}
-          {% endif %}
+          {% assign side = forloop.index0 | modulo: 2 == 0 | ternary: 'left', 'right' %}
         {% endif %}
 
         {% assign label = it.label %}
         {% if label == nil or label == '' %}
-          {% if it.date %}
-            {% assign label = it.date | date: "%Y" %}
-          {% else %}
-            {% assign label = "" %}
-          {% endif %}
+          {% assign label = it.date | date: "%Y" %}
         {% endif %}
 
         <article class="tl-item {{ side }}">
@@ -67,13 +59,9 @@ permalink: /story/
               <h3 class="tl-title">{{ it.title }}</h3>
             {% endif %}
 
-            {% comment %}
-            Handle multiple media items: string or list
-            {% endcomment %}
             {% if it.media %}
               {% assign medias = it.media %}
-              
-              {% if medias | kind_of == 'String' %}
+              {% if medias.size == nil %}
                 {% assign medias = medias | split: ',' %}
               {% endif %}
 
@@ -85,7 +73,7 @@ permalink: /story/
                       <source src="{{ m | relative_url }}" type="video/{% if m contains '.webm' %}webm{% else %}mp4{% endif %}">
                     </video>
                   {% else %}
-                    <img src="{{ m | relative_url }}" alt="{{ it.alt | default: it.title }}">
+                    <img src="{{ m | relative_url }}" alt="{{ m | split: '/' | last }}">
                   {% endif %}
                 </figure>
               {% endfor %}
@@ -107,9 +95,9 @@ permalink: /story/
     {% else %}
       <p class="muted">Add timeline items in <code>/_data/timeline.yml</code> to see them here.</p>
     {% endif %}
-
   </div>
 </section>
+
 
 
 <!-- ================ Bios ================= -->

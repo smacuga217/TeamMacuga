@@ -1,4 +1,3 @@
-```html
 <section class="shop-section">
   <div style="max-width: 600px; margin: 3rem auto; padding: 0 1rem; text-align: center;">
     <h2 style="font-size: 2rem; margin-bottom: 1rem; color: #333;">Team Macuga Merchandise</h2>
@@ -33,6 +32,3 @@
 }
 .btn.primary:hover { opacity: 0.9; }
 </style>
-```
-
-That's everything — paste this in place of the entire existing file contents. If `.btn.primary` is already defined elsewhere in your site's CSS, you can safely delete the `<style>` block here to avoid duplication.

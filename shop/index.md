@@ -1,7 +1,7 @@
 <section class="shop-section">
-  <div style="max-width: 600px; margin: 3rem auto; padding: 0 1rem; text-align: center;">
-    <h2 style="font-size: 2rem; margin-bottom: 1rem; color: #333;">Team Macuga Merchandise</h2>
-    <p style="font-size: 1rem; color: #555; line-height: 1.7; margin-bottom: 2rem;">
+  <div class="cardish" style="max-width: 600px; margin: 3rem auto; padding: clamp(24px, 4vw, 48px); text-align: center;">
+    <h2 style="font-size: 2rem; margin-bottom: 1rem;">Team Macuga Merchandise</h2>
+    <p style="font-size: 1rem; line-height: 1.7; margin-bottom: 2rem;">
       Browse and purchase our full range of merch — apparel, accessories, and more — directly on our Shopify store.
     </p>
 
@@ -9,7 +9,7 @@
       Shop now →
     </a>
 
-    <p style="font-size: 0.85rem; color: #888; margin-top: 1.5rem;">
+    <p style="font-size: 0.85rem; margin-top: 1.5rem; opacity: 0.7;">
       Shipping and taxes calculated at checkout &nbsp;·&nbsp; Multiple currencies supported
     </p>
   </div>

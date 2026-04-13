@@ -10,7 +10,6 @@ layout: default
          loop
          preload="metadata"
          poster="{{ '/assets/img/hero/poster.jpg' | relative_url }}">
-    <!-- Don’t set src yet; it’s in data-src so the poster shows first -->
     <source data-src="{{ '/assets/video/hero.mp4' | relative_url }}" type="video/mp4">
   </video>
 
@@ -32,7 +31,7 @@ layout: default
   </div>
 </div>
 
-<!-- Overlay (mobile-only, placed AFTER the video so it doesn’t cover it) -->
+<!-- Overlay (mobile-only, placed AFTER the video so it doesn't cover it) -->
 <div class="container hero-overlay--mobile">
   <div class="hero-box hero-centered">
     <p class="tagline">
@@ -109,7 +108,6 @@ layout: default
 </script>
 
 <script>
-  // Add icons-N class based on how many icon buttons are present
   document.querySelectorAll('.athlete-card .actions .social, .family-card .actions .social')
     .forEach(row => {
       const n = row.querySelectorAll('.icon-btn').length;
@@ -117,16 +115,15 @@ layout: default
     });
 </script>
 
-
 <div class="section-gap lg"></div>
 
-<!-- ================= About Summary (after the grid) ================= -->
+<!-- ================= About Summary ================= -->
 <section class="container about-summary">
   <div class="about-wrap cardish">
     <p>
       From the first turns to World Cup starts, our story has always been bigger than a podium.
-      It’s about family miles in a van, small-town backing, early-morning training, and a belief
-      that doing things the right way matters. We’re proud to wear our colors, to partner with brands
+      It's about family miles in a van, small-town backing, early-morning training, and a belief
+      that doing things the right way matters. We're proud to wear our colors, to partner with brands
       who share our values, and to bring fans along for the ride — on snow and beyond.
     </p>
   </div>
@@ -134,42 +131,33 @@ layout: default
 
 <div class="section-gap xl"></div>
 
+<!-- ================= Merch Callout ================= -->
 <section class="container">
-  <h2 class="section-title">Featured Merch</h2>
-  {% include merch-carousel.html %}
-</section>
-
-<div class="section-gap xl"></div>
-
-<section class="container">
-  <h2 class="section-title">Featured Collab</h2>
-  <div class="card cardish" style="display:flex;gap:16px;align-items:center">
-    <img src="{{ '/assets/img/logo-mark-color.png' | relative_url }}" alt="" style="width:64px;height:64px">
-    <div style="flex:1">
-      <strong>Lauren Macuga × Pit Viper</strong>
-      <p style="margin:4px 0 0">Bold speed-inspired shades designed by Lauren.</p>
-    </div>
-    <a class="btn primary" href="#">Shop the collab</a>
+  <div class="merch-callout cardish" style="text-align:center; padding: clamp(24px, 4vw, 48px);">
+    <h2 class="section-title">Rep the Team</h2>
+    <p style="font-size:1rem; color:#555; max-width:480px; margin:0 auto 1.5rem; line-height:1.7;">
+      Gear up and show your support. All Team Macuga merch is available now in our Shopify store.
+    </p>
+    <a class="btn primary" href="{{ '/shop/' | relative_url }}">Shop Now →</a>
   </div>
 </section>
 
 <div class="section-gap xl"></div>
 
 <style>
-  /* Ensure overlay layers correctly and is clickable */
   .full-bleed.hero-video{ position:relative; z-index:0; }
   .full-bleed.hero-video > video{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;
     display:block;
   }
   .hero-overlay--desktop{
-    position:absolute; inset:0; z-index:1; /* above video */
+    position:absolute; inset:0; z-index:1;
     display:flex; align-items:flex-end; justify-content:center; padding:min(6vw,28px);
   }
   .hero-centered{ text-align:center; }
   .hero-box{
-    pointer-events:auto;                    /* buttons are clickable */
-    background:#fff !important;             /* solid white for legibility */
+    pointer-events:auto;
+    background:#fff !important;
     color:var(--ink) !important;
     border:1px solid rgba(11,18,32,.10);
     border-radius:14px;
@@ -182,14 +170,12 @@ layout: default
   .hero-btn{ padding:12px 18px; border-radius:14px; font-weight:700; min-width:220px; justify-content:center; }
   @media (max-width:560px){ .hero-btn{ width:100%; } }
 
-  /* Mobile: overlay goes BELOW video (never covers it) */
   .hero-overlay--mobile{ display:none; }
   @media (max-width:700px){
     .hero-overlay--desktop{ display:none; }
     .hero-overlay--mobile{ display:block; margin-top:10px; }
   }
 
-  /* Bright, roomy info boxes everywhere */
   .cardish,
   .mission-card,
   .about-summary .about-wrap{
@@ -200,25 +186,19 @@ layout: default
     box-shadow: 0 12px 28px rgba(0,0,0,.12) !important;
   }
 
-  /* Section spacing helpers */
   .section-gap{ height:20px; }
   .section-gap.lg{ height:28px; }
   .section-gap.xl{ height:36px; }
   section.container + section.container{ margin-top:24px; }
 
-  /* Keep “My Story” from wrapping */
   .ath-actions .btn,
   .family-card .actions .btn{ white-space:nowrap; min-width:110px; }
 
-  /* Our Mission: keep heading dark on the white card (navy theme) */
   body.theme-navy #mission .section-title,
   body.theme-navy #mission h2.section-title{
     color: var(--ink) !important;
   }
-
-  /* (optional) make sure the underline still shows at normal strength */
   body.theme-navy #mission .section-title::after{
     opacity: 1;
   }
-
 </style>

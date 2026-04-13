@@ -134,7 +134,7 @@ layout: default
 <!-- ================= Merch Callout ================= -->
 <section class="container">
   <div class="merch-callout cardish" style="text-align:center; padding: clamp(24px, 4vw, 48px);">
-    <h2 class="section-title">Rep the Team</h2>
+    <h2 class="section-title" style="color:#333;">Rep the Team</h2>
     <p style="font-size:1rem; color:#555; max-width:480px; margin:0 auto 1.5rem; line-height:1.7;">
       Gear up and show your support. All Team Macuga merch is available now in our Shopify store.
     </p>

@@ -30,74 +30,77 @@ athletes:
     discipline: "Ski Jumping"
     fis_url: "https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=JP&competitorid=211435"
     results:
+      - date: 2026-02-15
+        competition: "Intercontinental Cup"
+        venue: "Oberhof"
+        nation: GER
+        discipline: "Normal Hill HS100"
+        place: 31
+      - date: 2026-02-15
+        competition: "Intercontinental Cup"
+        venue: "Oberhof"
+        nation: GER
+        discipline: "Normal Hill HS100"
+        place: 39
       - date: 2026-02-08
         competition: "Intercontinental Cup"
-        venue: "Kranj, SLO"
+        venue: "Kranj"
         nation: SLO
         discipline: "Normal Hill HS109"
         place: 36
-      - date: 2026-02-07
-        competition: "Intercontinental Cup"
-        venue: "Kranj, SLO"
-        nation: SLO
-        discipline: "Normal Hill HS109"
-        place: 35
-      - date: 2026-02-01
-        competition: "Intercontinental Cup"
-        venue: "Lillehammer, NOR"
-        nation: NOR
-        discipline: "Normal Hill HS98"
-        place: 33
 
   - name: Daniel Macuga
-    discipline: "Alpine (all)"
+    discipline: "Alpine/Ski Cross"
     fis_url: "https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=AL&competitorid=260517"
     results:
-      - date: 2026-02-06
-        competition: "Nor-Am Cup"
-        venue: "Whiteface Mountain, USA"
+      - date: 2026-04-06
+        competition: "National Championships"
+        venue: "Copper Mountain Resort"
         nation: USA
-        discipline: "Super G"
-        place: "DNF1"
-      - date: 2026-02-05
+        discipline: "Ski Cross"
+        place: 5
+        points: 58.50
+      - date: 2026-02-27
         competition: "Nor-Am Cup"
-        venue: "Whiteface Mountain, USA"
+        venue: "Keystone Resort"
         nation: USA
-        discipline: "Downhill"
-        place: 22
-        points: 78.22
-      - date: 2026-02-04
+        discipline: "Ski Cross"
+        place: 12
+        points: 33.00
+        cup_points: 22.00
+      - date: 2026-02-25
         competition: "Nor-Am Cup"
-        venue: "Whiteface Mountain, USA"
+        venue: "Keystone Resort"
         nation: USA
-        discipline: "Downhill"
-        place: "DNF1"
+        discipline: "Ski Cross"
+        place: 13
+        points: 30.00
+        cup_points: 20.00
 
   - name: Alli Macuga
     discipline: "Moguls"
     fis_url: "https://www.fis-ski.com/DB/general/athlete-biography.html?sectorcode=FS&competitorid=220306"
     results:
-      - date: 2026-01-16
-        competition: "World Cup"
-        venue: "Waterville Valley Resort, USA"
+      - date: 2026-03-28
+        competition: "National Championships"
+        venue: "Palisades Tahoe"
         nation: USA
         discipline: "Moguls"
-        place: 12
-        points: 220.00
-        cup_points: 22.00
-      - date: 2026-01-10
+        place: 5
+        points: 162.00
+      - date: 2026-03-01
         competition: "World Cup"
-        venue: "Val St. Come, CAN"
-        nation: CAN
+        venue: "Nanto-Toyama"
+        nation: JPN
         discipline: "Dual Moguls"
-        place: 11
-        points: 240.00
-        cup_points: 24.00
-      - date: 2026-01-09
+        place: 16
+        points: 150.00
+        cup_points: 15.00
+      - date: 2026-02-28
         competition: "World Cup"
-        venue: "Val St. Come, CAN"
-        nation: CAN
+        venue: "Nanto-Toyama"
+        nation: JPN
         discipline: "Moguls"
-        place: 14
-        points: 180.00
-        cup_points: 18.00
+        place: 24
+        points: 70.00
+        cup_points: 7.00

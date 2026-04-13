@@ -5,14 +5,10 @@
 
   <style>
     :root{
-      /* Set your actual nav height if different */
       --nav-h: 84px;
-
-      /* Watermark logo (color version by default) */
       --bg-logo-url: url('{{ "/assets/img/logo-mark-color.png" | relative_url }}');
     }
 
-    /* ---- Site-wide watermark behind everything ---- */
     body::before{
       content:"";
       position: fixed;
@@ -25,15 +21,10 @@
       pointer-events: none;
     }
 
-    /* Ensure page content sits above the fixed bg logo */
     .site-wrapper, main, header, footer { position: relative; z-index: 1; }
 
-    /* ===================== NAV / MOBILE DRAWER ===================== */
-
-    /* Your top nav should always be above page content */
     .nav{ position: sticky; top: 0; z-index: 5000; }
 
-    /* Full-screen overlay behind the drawer (but under the nav) */
     .nav-overlay{
       position: fixed; inset: 0;
       background: rgba(0,0,0,.45);
@@ -43,7 +34,6 @@
     }
     .nav-overlay.show{ opacity: 1; pointer-events: auto; }
 
-    /* Mobile drawer panel (slides in under the nav bar) */
     .mobile-drawer{
       position: fixed; left: 0; right: 0; top: var(--nav-h,84px);
       height: calc(100dvh - var(--nav-h,84px));
@@ -68,32 +58,9 @@
       background: #fff;
     }
 
-    /* Keep the hamburger button on top so it’s always tappable */
     .menu-btn{ position: relative; z-index: 5001; }
 
-    /* Lock the page scroll when the drawer is open */
     body.nav-open{ overflow: hidden; touch-action: none; }
-
-    /* ===================== MINI CART (as you had it) ===================== */
-    .mini-cart{
-      position:fixed; top:0; right:-380px; width:340px; height:100%; background:#fff;
-      box-shadow:-4px 0 16px rgba(0,0,0,.12); display:flex; flex-direction:column; z-index:9999;
-      transition:right .3s ease;
-    }
-    .mini-cart.open{ right:0; }
-    .cart-header{ display:flex; justify-content:space-between; align-items:center; padding:1rem; border-bottom:1px solid var(--border); }
-    .cart-items{ flex:1; overflow:auto; padding:1rem; }
-    .cart-item{ display:flex; gap:.75rem; align-items:center; margin-bottom:1rem; }
-    .cart-item img{ width:60px; height:60px; object-fit:cover; border-radius:6px; }
-    .cart-item-title{ font-size:.95rem; margin-bottom:.25rem; }
-    .cart-item-qty{ display:flex; gap:.25rem; align-items:center; }
-    .cart-item-qty button{ border:1px solid var(--border); background:#f7f7f7; padding:.25rem .5rem; cursor:pointer; }
-    .cart-footer{ display:flex; justify-content:space-between; align-items:center; gap:.75rem; padding:1rem; border-top:1px solid var(--border); }
-    .cart-overlay{ position:fixed; inset:0; background:rgba(0,0,0,.4); display:none; z-index:9998; }
-    .cart-overlay.show{ display:block; }
-
-    /* (Optional) If you previously had a minimal drawer style, remove it.
-       This file fully replaces the drawer CSS. */
   </style>
 </head>
 
@@ -108,27 +75,21 @@
   function scrollToCenter(hash) {
     const el = document.querySelector(hash);
     if (!el) return;
-
-    // Where would the element’s center be on the page?
     const rect = el.getBoundingClientRect();
     const targetY = window.scrollY + rect.top + (rect.height / 2) - (window.innerHeight / 2);
-
     const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
     window.scrollTo({ top: Math.max(0, targetY), behavior });
   }
 
-  // Clicks on any link to #contact -> center it
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a[href="#contact"]');
     if (!a) return;
     e.preventDefault();
     closeDrawer();
     scrollToCenter('#contact');
-    // keep URL hash for sharing/back button
     if (location.hash !== '#contact') history.pushState(null, '', '#contact');
   });
 
-  // If someone lands directly on /#contact or navigates to it
   function maybeCenterHash() {
     if (location.hash === '#contact') setTimeout(() => scrollToCenter('#contact'), 50);
   }
@@ -137,28 +98,7 @@
 })();
 </script>
 
-
-
 <body class="theme-navy">
-
-  <!-- Mini Cart Drawer -->
-  <div id="mini-cart" class="mini-cart">
-    <div class="cart-header">
-      <h2>Your Cart</h2>
-      <button id="close-cart" aria-label="Close cart">&times;</button>
-    </div>
-    <div class="cart-items"><!-- rendered by JS --></div>
-    <div class="cart-footer">
-      <div>
-        <span class="cart-total-label">Total:</span>
-        <span class="cart-total-price" data-cart-total>$0.00</span>
-      </div>
-      <button class="btn primary" id="checkout-btn">Checkout with Shopify</button>
-    </div>
-  </div>
-
-  <!-- Overlays -->
-  <div id="cart-overlay" class="cart-overlay"></div>
 
   <div class="site-wrapper">
     {% include nav.html %}
@@ -192,12 +132,9 @@
       overlay.addEventListener('click', closeNav);
       drawer.addEventListener('click', e => { if (e.target.closest('a')) closeNav(); });
       document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
-
-      // Safety: close if you resize to desktop
       matchMedia('(min-width:901px)').addEventListener('change', m => { if (m.matches) closeNav(); });
     });
     </script>
-
 
     <main id="content">
       {{ content }}
@@ -206,7 +143,6 @@
     <div class="sep"></div>
     {% include contact-strip.html %}
 
-    <!-- Sponsors-as-footer -->
     <footer class="site-footer" role="contentinfo">
       <div class="container">
         {% include sponsors-grid.html %}
@@ -215,12 +151,9 @@
     </footer>
   </div>
 
-  <!-- ===================== SCRIPTS ===================== -->
-
-  <!-- Carousels + shop helpers -->
+  <!-- Carousels -->
   <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Tiny rotator for .carousel (bios)
     document.querySelectorAll('.carousel').forEach(car=>{
       const slides=[...car.querySelectorAll('.slide')];
       const dots=[...car.querySelectorAll('.dots button')];
@@ -232,312 +165,36 @@
       dots.forEach((d,idx)=>d.addEventListener('click',()=>show(idx)));
       if(slides.length>1) setInterval(()=>show((i+1)%slides.length), 4500);
     });
-
-    // Shop filters/sort (if present)
-    const grid = document.getElementById('products');
-    if(grid){
-      const chips = document.querySelectorAll('.shop-controls .chip');
-      const sortSel = document.getElementById('sortPrice');
-
-      const filter = cat => document.querySelectorAll('.product-card')
-        .forEach(c => c.classList.toggle('hide', !(cat==='all'||(c.dataset.cat||'').includes(cat))));
-
-      chips.forEach(ch => ch.addEventListener('click', () => {
-        chips.forEach(c=>c.classList.remove('active'));
-        ch.classList.add('active');
-        filter(ch.dataset.filter);
-      }));
-
-      sortSel?.addEventListener('change', ()=>{
-        const cards=[...document.querySelectorAll('.product-card')];
-        if(sortSel.value!=='default'){
-          const dir = sortSel.value==='asc'?1:-1;
-          cards.sort((a,b)=>(parseFloat(a.dataset.price)-parseFloat(b.dataset.price))*dir);
-        }
-        cards.forEach(c=>grid.appendChild(c));
-      });
-    }
   });
   </script>
 
   <script defer src="{{ '/assets/js/carousel.js' | relative_url }}"></script>
 
-  <script>
-  (function(){
-    const SHOP = '{{ site.shopify.domain | default: "teammacuga.myshopify.com" }}';
-    const KEY = 'tm_cart';
-    const drawer = document.getElementById('mini-cart');
-    const overlay = document.getElementById('cart-overlay');
-
-    const getCart = () => JSON.parse(localStorage.getItem(KEY) || '[]');
-    const saveCart = (c) => localStorage.setItem(KEY, JSON.stringify(c));
-
-    function openCart(){ drawer?.classList.add('open'); overlay?.classList.add('show'); }
-    function closeCart(){ drawer?.classList.remove('open'); overlay?.classList.remove('show'); }
-
-    function renderCart(){
-      const cart = getCart();
-      const list = drawer?.querySelector('.cart-items');
-      const totalEl = drawer?.querySelector('[data-cart-total]');
-      if(!list || !totalEl) return;
-
-      list.innerHTML = '';
-      if(!cart.length){
-        list.innerHTML = '<p>Your cart is empty.</p>';
-        totalEl.textContent = '$0.00';
-        return;
-      }
-
-      let total = 0;
-      cart.forEach((item, idx)=>{
-        const price = parseFloat(item.price) || 0;
-        total += price * (item.qty || 1);
-
-        const row = document.createElement('div');
-        row.className = 'cart-item';
-        row.innerHTML = `
-          <img src="${item.img || ''}" alt="">
-          <div style="flex:1">
-            <div class="cart-item-title">${item.title || 'Item'}</div>
-            <div class="cart-item-options">
-              ${item.color ? `<span>Color: ${item.color}</span>` : ''}
-              ${item.size  ? `<span>Size: ${item.size}</span>` : ''}
-            </div>
-            <div class="cart-item-qty">
-              <button data-dec="${idx}">-</button>
-              <span>${item.qty}</span>
-              <button data-inc="${idx}">+</button>
-              <button data-remove="${idx}">Remove</button>
-            </div>
-            <div class="cart-item-price">$${(price*item.qty).toFixed(2)}</div>
-          </div>
-        `;
-        list.appendChild(row);
-      });
-
-      totalEl.textContent = `$${total.toFixed(2)}`;
-    }
-
-    function addToCart(newItem){
-      const cart = getCart();
-      // Merge only if same id + color + size
-      const existing = cart.find(i => i.id === newItem.id && i.color === newItem.color && i.size === newItem.size);
-      if(existing){ existing.qty += newItem.qty; }
-      else { cart.push(newItem); }
-      saveCart(cart);
-      renderCart();
-      openCart();
-    }
-
-    function changeQty(idx, delta){
-      const cart = getCart();
-      if(!cart[idx]) return;
-      cart[idx].qty = Math.max(1, cart[idx].qty + delta);
-      saveCart(cart);
-      renderCart();
-    }
-
-    function removeItem(idx){
-      const cart = getCart();
-      cart.splice(idx, 1);
-      saveCart(cart);
-      renderCart();
-    }
-
-    function checkout(){
-      const cart = getCart();
-      if(!cart.length){ openCart(); return; }
-      const parts = cart.map(i => `${i.id}:${i.qty}`).join(',');
-      window.open(`https://${SHOP}/cart/${parts}`, "_blank");
-    }
-
-    drawer.querySelector('#checkout-btn').addEventListener('click', e=>{ e.preventDefault(); checkout(); });
-
-    document.addEventListener('click', e=>{
-      const t = e.target;
-      if(t.closest('#close-cart') || t.closest('#cart-overlay')){ closeCart(); return; }
-      if(t.closest('[data-inc]')){ changeQty(t.dataset.inc*1, +1); return; }
-      if(t.closest('[data-dec]')){ changeQty(t.dataset.dec*1, -1); return; }
-      if(t.closest('[data-remove]')){ removeItem(t.dataset.remove*1); return; }
-    });
-
-    // Listen for events from product grid
-    window.addEventListener('tm:add', e=>{
-      const d = e.detail || {};
-      addToCart({
-        id: d.id,
-        qty: d.qty || 1,
-        title: d.title,
-        price: d.price || 0,
-        img: d.img,
-        color: d.color,
-        size: d.size
-      });
-    });
-
-    renderCart();
-  })();
-  </script>
-
-
-  
-
-  <!-- Robust mobile menu toggle -->
-  <script>
-  (function(){
-    const btn     = document.querySelector('.menu-btn');
-    const drawer  = document.querySelector('.mobile-drawer');
-    const overlay = document.getElementById('nav-overlay');
-
-    if(!btn || !drawer || !overlay) return;
-
-    const open = () => {
-      drawer.classList.add('open');
-      overlay.classList.add('show');
-      document.body.classList.add('nav-open');
-      btn.setAttribute('aria-expanded', 'true');
-    };
-    const close = () => {
-      drawer.classList.remove('open');
-      overlay.classList.remove('show');
-      document.body.classList.remove('nav-open');
-      btn.setAttribute('aria-expanded', 'false');
-    };
-    const toggle = () => (drawer.classList.contains('open') ? close() : open());
-
-    // open/close on button tap
-    btn.addEventListener('click', (e)=>{ e.preventDefault(); toggle(); }, { passive:false });
-
-    // close on overlay
-    overlay.addEventListener('click', close);
-
-    // close on ESC
-    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') close(); });
-
-    // close when tapping any link inside the drawer (including #anchors)
-    drawer.addEventListener('click', (e)=>{
-      const a = e.target.closest('a');
-      if(a) close();
-    });
-
-    // close on hash changes (in-page jumps)
-    window.addEventListener('hashchange', close);
-  })();
-  </script>
-
+  <!-- Hero video -->
   <script>
   (function () {
     const v = document.getElementById('heroVideo');
     if (!v) return;
-
-    // iOS requirements for autoplay
     v.muted = true;
     v.playsInline = true;
-
-    // Move data-src -> src so the browser starts fetching after first paint
     const s = v.querySelector('source');
     if (s && s.dataset.src) {
       s.src = s.dataset.src;
       v.load();
     }
-
-    // Try to start the moment it’s ready to render frames
     function start() {
       v.play().catch(() => {
-        // Autoplay blocked? Keep poster and set a class if you want to style a fallback
         document.documentElement.classList.add('hero-video-fallback');
       });
     }
-
     if (v.readyState >= 3) {
-      // HAVE_FUTURE_DATA — already safe to play
       start();
     } else {
       v.addEventListener('canplaythrough', start, { once: true });
-      // safety: if network is slow, try on first frame too
       v.addEventListener('canplay', start, { once: true });
     }
   })();
   </script>
-
-  <script>
-  (function(){
-    const btn = document.querySelector('.menu-btn');
-    const drawer = document.getElementById('mobile-drawer');
-    const overlay = document.getElementById('nav-overlay');
-    if(!btn || !drawer) return;
-
-    const open = () => {
-      drawer.classList.add('open');
-      overlay?.classList.add('show');
-      document.body.classList.add('nav-open');
-      btn.setAttribute('aria-expanded','true');
-    };
-    const close = () => {
-      drawer.classList.remove('open');
-      overlay?.classList.remove('show');
-      document.body.classList.remove('nav-open');
-      btn.setAttribute('aria-expanded','false');
-    };
-    const toggle = () => (drawer.classList.contains('open') ? close() : open());
-
-    btn.addEventListener('click', (e)=>{ e.preventDefault(); toggle(); });
-    overlay?.addEventListener('click', close);
-    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') close(); });
-
-    // Close when tapping any link in the drawer
-    drawer.addEventListener('click', (e)=>{
-      if (e.target.closest('a')) close();
-    });
-  })();
-  </script>
-
-<script>
-(function(){
-  const btn = document.querySelector('.menu-btn');
-  const drawer = document.getElementById('mobileNav');
-  const overlay = document.getElementById('nav-overlay');
-
-  if (!btn || !drawer || !overlay) return;
-
-  function openNav(){
-    drawer.hidden = false;
-    drawer.classList.add('open');
-    overlay.classList.add('show');
-    btn.setAttribute('aria-expanded','true');
-    document.body.classList.add('nav-open');
-  }
-  function closeNav(){
-    drawer.classList.remove('open');
-    overlay.classList.remove('show');
-    btn.setAttribute('aria-expanded','false');
-    document.body.classList.remove('nav-open');
-    // keep hidden after transition so it can animate out
-    setTimeout(()=>{ if(!drawer.classList.contains('open')) drawer.hidden = true; }, 280);
-  }
-  function toggleNav(){
-    (drawer.classList.contains('open')) ? closeNav() : openNav();
-  }
-
-  btn.addEventListener('click', toggleNav);
-  overlay.addEventListener('click', closeNav);
-
-  // Close when navigating (any link inside the drawer)
-  drawer.addEventListener('click', (e)=>{
-    const a = e.target.closest('a');
-    if (a) closeNav();
-  });
-
-  // Close on ESC
-  document.addEventListener('keydown', (e)=>{ if (e.key === 'Escape') closeNav(); });
-
-  // Safety: if resizing to desktop, make sure drawer is closed
-  const mq = window.matchMedia('(min-width: 901px)');
-  mq.addEventListener?.('change', (ev)=>{ if (ev.matches) closeNav(); });
-})();
-</script>
-
-
 
 </body>
 </html>

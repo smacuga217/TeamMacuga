@@ -132,14 +132,14 @@ layout: default
 <div class="section-gap xl"></div>
 
 <!-- ================= Merch Callout ================= -->
-<section class="container">
-  <div class="merch-callout cardish" style="padding: clamp(16px, 2.2vw, 24px);">
-    <h2 class="section-title" style="color: var(--ink);">Rep the Team</h2>
-    <p class="lead">
+<section id="mission" class="container">
+  <div class="mission-card cardish">
+    <h2 class="section-title">Rep the Team</h2>
+    <p class="lead mission-copy">
       Gear up and show your support. All Team Macuga merch is available now in our Shopify store.
     </p>
     <div class="mission-actions">
-      <a class="btn primary" href="{{ '/shop/' | relative_url }}" style="color:#fff;">Shop Now →</a>
+      <a class="btn primary" href="{{ '/shop/' | relative_url }}">Read More</a>
     </div>
   </div>
 </section>
